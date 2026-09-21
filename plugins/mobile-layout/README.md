@@ -23,7 +23,7 @@ Provide full-width phone conversations, overlay workspace navigation, and large 
 
 Install the bundled cordis.patch.yml layer and switch the feature independently in the Plugins list. Migration carries the package and configuration; the target Harness must expose the official APIs and UI extension slots used here.
 
-No configuration. The browser plugin adds removable styles and a top-left sidebar toggle below 700px. Both sidebars fill the phone viewport and cover underlying text with opaque wallpaper surfaces. Their header buttons close them. The conversation title reserves space for the left toggle.
+No configuration. The browser plugin adds removable styles and a top-left sidebar toggle below 700px. Both sidebars fill the phone viewport and cover underlying text with opaque wallpaper surfaces. Their header buttons close them. The conversation title reserves space for the left toggle. The toggle paints its own opaque wallpaper layer over scrolling content.
 
 <a id="implementation"></a>
 ## Implementation

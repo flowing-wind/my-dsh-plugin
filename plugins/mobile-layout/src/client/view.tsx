@@ -25,7 +25,9 @@ html[data-mobile-layout] [data-rightbar-col]{grid-column:3;}
 html[data-mobile-layout] [data-app-frame]>[data-side]{display:none;}
 
 html[data-mobile-layout] [data-sidebar-col] [data-slot="sidebar"]>div{width:100%!important;}
-html[data-mobile-layout] [data-mobile-nav]{display:block;position:absolute;top:8px;left:8px;}
+html[data-mobile-layout] [data-mobile-nav]{display:block;position:absolute;top:8px;left:8px;isolation:isolate;border-radius:9px;overflow:hidden;}
+html[data-mobile-layout] [data-mobile-nav]::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--dsw-alias-bg-base,#202020);}
+html[data-mobile-layout][data-glass-skin] [data-mobile-nav]::before{background-color:#202020;background-image:linear-gradient(rgb(0 0 0 / var(--glass-opacity)),rgb(0 0 0 / var(--glass-opacity))),var(--glass-image);background-position:center;background-size:cover;background-attachment:fixed;}
 html[data-mobile-layout] [data-mobile-nav] button{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:9px!important;background:transparent!important;color:inherit;cursor:pointer;box-shadow:none!important;}
 html[data-mobile-layout] [data-mobile-nav] button:hover{background:#ffffff14!important;}
 html[data-mobile-layout]:has([data-app-frame]:not([data-sidebar-collapsed])) [data-mobile-nav]{display:none;}
