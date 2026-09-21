@@ -1,0 +1,3 @@
+- insert:
+    - id: glass-skin
+      name: '@deepseek-ai/dsh-experimental-glass-skin'

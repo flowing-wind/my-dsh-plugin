@@ -1,0 +1,71 @@
+{
+  "baseCommit": "ddefc45fbc7f8e46dd73185e68295696d1297887",
+  "compatibility": "Requires this modified Harness build or equivalent Host APIs and client slots; see harness-extension.patch.",
+  "packages": [
+    {
+      "name": "deepseek-ai-dsh-experimental-glass-skin-0.1.6-alpha.2.tgz",
+      "bytes": 328037,
+      "sha256": "a75c4ee9e3a9bd046d94e49ce9f5ea65618f72749663ea58abba6f4798890263"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-interactive-results-0.1.6-alpha.2.tgz",
+      "bytes": 34506,
+      "sha256": "52b81ea45532bc736981d023512f2db7cd2756931492b8881014fe113d75b689"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-mobile-layout-0.1.6-alpha.2.tgz",
+      "bytes": 5580,
+      "sha256": "e4e0ecd9e44d2b25aee91975a616f600feb140b547dfa6821d8a20e21d82432d"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-network-usage-0.1.6-alpha.2.tgz",
+      "bytes": 51001,
+      "sha256": "77011b7688957d8f218c9eb7077ea7e7ba892f69acca671c61705eead790df3e"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-page-login-0.1.6-alpha.2.tgz",
+      "bytes": 10866,
+      "sha256": "7f62688db8bd7642ad96964130056bd166e07f29958b5c84566adebed18d317e"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-personal-instructions-0.1.6-alpha.2.tgz",
+      "bytes": 6484,
+      "sha256": "fd4dfa7fdd78a5576a1452c97ea9a8ff072bad3ae7d21b89343f729e24c0abc8"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-task-board-0.1.6-alpha.2.tgz",
+      "bytes": 35080,
+      "sha256": "1f345203dacf2b04f1073e3f5b036ebb4afe87a5ae56f60e6862cb94cafd826b"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-usage-billing-0.1.6-alpha.2.tgz",
+      "bytes": 43876,
+      "sha256": "fd670c8241c42a230c0239e2086139aee7625be5acd9b8893a757443ae5af489"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-usage-dashboard-0.1.6-alpha.2.tgz",
+      "bytes": 6111,
+      "sha256": "6ad2a7999810ed327a746509072bb944242d8e715e39a97bd926acce1c85fc2f"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-workspace-download-0.1.6-alpha.2.tgz",
+      "bytes": 13741,
+      "sha256": "b1ef67931a34948ae393cc30ec661957dc98699e284d7bc536fc77a60ba26c50"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-workspace-editor-0.1.6-alpha.2.tgz",
+      "bytes": 31331,
+      "sha256": "468f97638e0d3c5426f5e97a19a0770cca7e5c756b80cff08af9be74ee24e75b"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-workspace-management-0.1.6-alpha.2.tgz",
+      "bytes": 32949,
+      "sha256": "86f14a91ad39fa340368a86945d81809d6b508b4a211186681889ccb20a1f7a1"
+    },
+    {
+      "name": "deepseek-ai-dsh-experimental-workspace-pages-0.1.6-alpha.2.tgz",
+      "bytes": 9422,
+      "sha256": "40d5050f6dbc4df3743d9f58ff2a1053e39bad431fa3e5da6298c1a87f000880"
+    }
+  ]
+}

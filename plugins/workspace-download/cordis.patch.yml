@@ -1,0 +1,7 @@
+- insert:
+    - id: workspace-download
+      name: '@deepseek-ai/dsh-experimental-workspace-download'
+      config:
+        archiveDirectory: !!js process.env.DSH_HOME + '/download-cache'
+        confirmationBytes: 20000000
+        archiveLifetimeMs: 300000

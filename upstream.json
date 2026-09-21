@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/deepseek-ai/deepseek-harness",
+  "commit": "ddefc45fbc7f8e46dd73185e68295696d1297887",
+  "plugins": [
+    "usage-dashboard",
+    "usage-billing",
+    "network-usage",
+    "workspace-download",
+    "workspace-management",
+    "workspace-editor",
+    "workspace-pages",
+    "task-board",
+    "interactive-results",
+    "mobile-layout",
+    "glass-skin",
+    "page-login",
+    "personal-instructions"
+  ]
+}

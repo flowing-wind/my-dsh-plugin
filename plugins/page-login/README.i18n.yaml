@@ -1,0 +1,5 @@
+# Bilingual-pair consistency record (docs/i18n/README.md).
+# Both languages carry equal authority.
+# Re-record with: pnpm run verify-translation-pairing --write packages/experimental/page-login/README.md
+README.md: c31cc39706e71455a5bf57f7bfb5b270af008a93
+README.zh.md: 43c689770dced81af882d9796c3a9d5083e89ee9

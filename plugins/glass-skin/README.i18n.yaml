@@ -1,0 +1,5 @@
+# Bilingual-pair consistency record (docs/i18n/README.md).
+# Both languages carry equal authority.
+# Re-record with: pnpm run verify-translation-pairing --write packages/experimental/glass-skin/README.md
+README.md: 6fa44ed52438df1582934346c5daa8ef79222007
+README.zh.md: 77f013b1393286f94845e474835bf6d726022ec4

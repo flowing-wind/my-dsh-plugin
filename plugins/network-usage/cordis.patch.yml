@@ -1,0 +1,25 @@
+- id: sandbox
+  disabled: true
+- insert:
+    - id: network-usage
+      name: '@deepseek-ai/dsh-experimental-network-usage'
+      config:
+        cnyPerGB: 0.8
+        windowMs: 600000
+        windowCny: 0.5
+        throttledMbps: 2
+        dailyStepCny: 10
+        checkpointMs: 1000
+        refreshMs: 3000
+    - id: network-proxy
+      name: '@deepseek-ai/dsh-experimental-network-usage/proxy'
+      config:
+        socketDirectory: !!js process.env.DSH_NETWORK_SOCKET_DIRECTORY
+        allowPrivateAddresses: false
+        connectTimeoutMs: 15000
+    - id: network-sandbox
+      name: '@deepseek-ai/dsh-experimental-network-usage/sandbox'
+      config:
+        runnerCommand: ['/usr/bin/bwrap']
+        runnerFailureSignatures: ['bwrap:']
+        probeTimeoutMs: 5000

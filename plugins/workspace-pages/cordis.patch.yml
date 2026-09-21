@@ -1,0 +1,7 @@
+- insert:
+    - id: workspace-pages
+      name: '@deepseek-ai/dsh-experimental-workspace-pages'
+      config:
+        maxAssetBytes: 33554432
+        maxTotalBytes: 67108864
+        maxAssets: 128

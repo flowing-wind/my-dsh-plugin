@@ -1,0 +1,36 @@
+/** Traffic monitoring and spending-confirmation copy. */
+export const zh = {
+  ungrouped: '未分组', unnamed: '未命名对话', archived: '已归档', subtotal: '工作区内对话合计',
+  todayUsage: '今日出网流量', todayCost: '今日预估 ¥{cost}', lifetimeUsage: '累计出网流量', lifetimeCost: '累计预估 ¥{cost}',
+  remaining: '距当日下一确认额度', nextThreshold: '下一确认节点 ¥{cost}', reset: '北京时间 00:00 重置', needsConfirm: '已到确认节点，等待确认',
+  title: '网络用量',
+  today: '今日出网费用', total: '历史流量费用', incoming: '进网（接收）', outgoing: '出网（发送）',
+  session: '对话', host: '后台服务', cost: '预估费用', refresh: '刷新',
+  normal: '正常传输', throttled: '已限速至 {rate} Mbps', window: '最近 10 分钟 ¥{cost}',
+  disableThrottle: '关闭本次限速', disabled: '本次超额不限速',
+  details: '对话流量明细（{count}）',
+  resumePolicy: '滚动费用回落至 ¥{cost} 以内后恢复自动监测；再次超额会重新限速。每日费用确认仍生效，重启服务会恢复自动限速。',
+  warning: '今日出网预估 ¥{cost}，已达到 ¥{threshold} 确认节点。',
+  paused: '联网与新的执行步骤已暂停，确认后继续。', confirm: '确认费用，继续执行',
+  pending: '正在确认…', stale: '费用状态已变化，请刷新后再次确认。',
+  note: '按公网出网 {price} 元/GB 估算。计量代理与浏览器传输字节，不含 TCP/IP 重传等云账单开销；接收流量单独展示。',
+  error: '无法读取流量统计', loading: '正在读取流量…', storageError: '流量记录保存失败，联网已暂停。', empty: '暂无联网记录',
+}
+/** English labels for the same traffic actions. */
+export const en: Record<keyof typeof zh, string> = {
+  ungrouped: 'Ungrouped', unnamed: 'Untitled conversation', archived: 'Archived', subtotal: 'Workspace conversation subtotal',
+  todayUsage: 'Today’s egress', todayCost: 'Today ≈ ¥{cost}', lifetimeUsage: 'Lifetime egress', lifetimeCost: 'Lifetime ≈ ¥{cost}',
+  remaining: 'Remaining before daily confirmation', nextThreshold: 'Next confirmation at ¥{cost}', reset: 'Resets at midnight Beijing time', needsConfirm: 'Spending confirmation required',
+  title: 'Network usage',
+  today: 'Today’s egress cost', total: 'Lifetime traffic cost', incoming: 'Ingress (received)', outgoing: 'Egress (sent)',
+  session: 'Conversation', host: 'Host services', cost: 'Estimated cost', refresh: 'Refresh',
+  normal: 'Normal transfer', throttled: 'Limited to {rate} Mbps', window: 'Last 10 minutes ¥{cost}',
+  disableThrottle: 'Disable this throttle', disabled: 'Throttle disabled for this episode',
+  details: 'Conversation traffic details ({count})',
+  resumePolicy: 'Automatic monitoring resumes when rolling cost falls to ¥{cost} or below. A new excess triggers throttling again. Daily spending consent remains active; restarting the service restores automatic throttling.',
+  warning: 'Today’s estimated egress is ¥{cost}, reaching the ¥{threshold} confirmation threshold.',
+  paused: 'Networking and new execution steps are paused until you confirm.', confirm: 'Accept cost and continue',
+  pending: 'Confirming…', stale: 'Spending status changed. Refresh and confirm again.',
+  note: 'Estimated public egress at ¥{price}/GB. Counts proxy and browser transfer bytes, excluding cloud-billed TCP/IP retransmissions and overhead. Incoming traffic is shown separately.',
+  error: 'Could not read traffic usage', loading: 'Loading traffic…', storageError: 'Traffic checkpoint failed; networking is paused.', empty: 'No network traffic yet',
+}

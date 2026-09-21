@@ -1,0 +1,3 @@
+- insert:
+    - id: mobile-layout
+      name: '@deepseek-ai/dsh-experimental-mobile-layout'

@@ -1,0 +1,5 @@
+- insert:
+    - id: workspace-management
+      name: '@deepseek-ai/dsh-experimental-workspace-management'
+      config:
+        managedWorkspaceRoot: !!js process.env.DSH_WORKSPACE_ROOT

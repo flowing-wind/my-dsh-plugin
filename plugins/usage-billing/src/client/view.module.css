@@ -1,0 +1,37 @@
+.page { min-width: 0; color: inherit; }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+.heading h2 { font-size: 20px; letter-spacing: -.4px; margin: 0 0 8px; }
+.heading p, .notice { opacity: .6; font-size: 13px; line-height: 1.7; }
+.heading button { border: 1px solid #8883; border-radius: 10px; padding: 8px 18px; background: transparent; color: inherit; cursor: pointer; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.cards article { border: 1px solid #8883; padding: 26px; border-radius: 20px; display: flex; flex-direction: column; gap: 14px; }
+.cards strong { font-size: clamp(22px, 3vw, 36px); font-variant-numeric: tabular-nums; letter-spacing: -1px; }
+.cards span, .cards small { font-size: 12px; opacity: .75; }
+.cards .balance { background: linear-gradient(135deg, #183f38, #286e58); color: #f1fff8; border-color: transparent; }
+.notice { margin: 24px 0; }
+.table { overflow-x: auto; border: 1px solid #8883; border-radius: 16px; }
+.table table { width: 100%; border-collapse: collapse; text-align: left; }
+.table th { font-size: 12px; opacity: .6; font-weight: 500; padding: 16px 20px; }
+.table td { border-top: 1px solid #8882; padding: 16px 20px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.table small { display: block; opacity: .45; font-size: 10px; margin-top: 6px; }
+.table p { padding: 20px; opacity: .6; text-align: center; }
+.badge { white-space: nowrap; flex-shrink: 0; display: flex; gap: 8px; align-items: center; border: 1px solid #8883; border-radius: 20px; padding: 5px 10px; background: transparent; color: inherit; font-size: 11px; cursor: pointer; }
+.badge span { opacity: .35; }
+.details summary { cursor: pointer; padding: 12px 0; font-size: 13px; opacity: .75; }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } .heading { align-items: flex-start; } }
+
+.workspace { background: #8881; font-weight: 600; }
+.table small { display: block; opacity: .6; margin-top: 6px; }
+@media (max-width: 700px) {
+  .table table, .table tbody { display: block; }
+  .table thead { display: none; }
+  .table tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .table tr + tr { border-top: 1px solid #8883; }
+  .table td { border: 0; padding: 12px; min-width: 0; }
+  .table td:first-child { grid-column: 1 / -1; padding-bottom: 0; }
+  .table td[data-label]::before { content: attr(data-label); display: block; font-size: 11px; opacity: .6; margin-bottom: 6px; }
+  .table small { overflow-wrap: anywhere; }
+}
+
+.workspace { background:rgb(0 0 0 / .25);cursor:pointer; }
+.workspace button { color:inherit;background:transparent;border:0;padding:4px 0;font:inherit;font-weight:600;cursor:pointer;text-align:left; }

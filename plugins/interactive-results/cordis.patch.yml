@@ -1,0 +1,5 @@
+- insert:
+    - id: interactive-results
+      name: '@deepseek-ai/dsh-experimental-interactive-results'
+      config:
+        maxBytes: 1048576

@@ -1,0 +1,5 @@
+- insert:
+    - id: workspace-editor
+      name: '@deepseek-ai/dsh-experimental-workspace-editor'
+      config:
+        maxBytes: 1048576

@@ -1,0 +1,45 @@
+{
+  "extends": "../../../tsconfig.base.client.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types"
+  },
+  "include": [
+    "src/client"
+  ],
+  "references": [
+    {
+      "path": "../../../vendor/cordis"
+    },
+    {
+      "path": "../../client/ui-slots"
+    },
+    {
+      "path": "../../client/locale"
+    },
+    {
+      "path": "../../client/ui-renderer"
+    },
+    {
+      "path": "../../client/ui-sidebar-right"
+    },
+    {
+      "path": "../../client/ui-deliverables/tsconfig.client.json"
+    },
+    {
+      "path": "../../client/ui-conversation"
+    },
+    {
+      "path": "../../client/ui-session"
+    },
+    {
+      "path": "../../client/ui-chat"
+    },
+    {
+      "path": "../../client/ui-sidebar-files"
+    },
+    {
+      "path": "../../util/workspace-path"
+    }
+  ]
+}

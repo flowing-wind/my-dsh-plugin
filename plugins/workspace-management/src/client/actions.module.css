@@ -1,0 +1,6 @@
+.action { display: block; border: 0; border-radius: 8px; background: transparent; color: #d55959; padding: 10px 14px; text-align: left; font: inherit; cursor: pointer; }
+.action[role="menuitem"] { width: 100%; }
+.action:hover { background: #b9383818; }
+.options { display: flex; flex-direction: column; gap: 16px; }
+.options label { display: flex; align-items: center; gap: 10px; }
+.options small { opacity: .65; line-height: 1.6; }

@@ -1,0 +1,3 @@
+- insert:
+    - id: page-login
+      name: '@deepseek-ai/dsh-experimental-page-login'

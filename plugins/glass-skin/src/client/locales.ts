@@ -1,0 +1,4 @@
+/** Local skin settings labels. */
+export const zh = { presets: '预设背景', oregairu: '春物', whiteout: 'Whiteout', title: '透明背景', opacity: '面板不透明度', hint: '数值越大，背景越暗、文字越清晰。只改变底色，不降低文字透明度。', choose: '选择本地背景图片', reset: '恢复默认背景', local: '自定义图片仅保存在此浏览器，不上传服务器。', default: '默认背景 · 春物', custom: '本地自定义背景', error: '背景设置失败：{message}', busy: '正在处理图片…' }
+/** English skin labels. */
+export const en = { presets: 'Wallpaper presets', oregairu: 'Oregairu', whiteout: 'Whiteout', title: 'Transparent background', opacity: 'Panel opacity', hint: 'Higher values darken the wallpaper for clearer text. Text stays fully opaque.', choose: 'Choose local wallpaper', reset: 'Restore default wallpaper', local: 'Custom images stay in this browser and are never uploaded.', default: 'Default wallpaper · Oregairu', custom: 'Local custom wallpaper', error: 'Background setting failed: {message}', busy: 'Processing image…' }
