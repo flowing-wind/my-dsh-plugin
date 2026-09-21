@@ -60,7 +60,7 @@ html[data-glass-skin] [class*='cards']>article:nth-child(2) { background:linear-
 html[data-glass-skin] [class*='status']>span:first-child { color:#eee!important; background:#ffffff12!important; }
 html[data-glass-skin] textarea:not([data-plain]),html[data-glass-skin] input:not([type='range']):not([type='checkbox']) { color:#f5f5f5; }
 html[data-glass-skin] [role='dialog'] textarea { background:rgb(0 0 0 / .28)!important; }
-html[data-glass-skin] [data-mobile-nav] { background:rgb(15 15 15 / .66)!important; backdrop-filter:none; }
+html[data-glass-skin] [data-mobile-nav] { background:transparent!important; backdrop-filter:none; }
 html[data-glass-skin] [data-glass-settings] { display:flex; flex-direction:column; gap:22px; max-width:680px; padding:8px; }
 html[data-glass-skin] [data-glass-settings] h2 { font-size:22px; margin:0; }
 html[data-glass-skin] [data-glass-settings] p { font-size:13px; line-height:1.7; color:#ddd; margin:0; }
@@ -159,3 +159,5 @@ html[data-glass-skin] [data-file-icon-kind="zip"]{background:center/contain no-r
 @media(max-width:700px){html[data-glass-skin] [data-composer-seat] [class*="dock"]{flex-wrap:wrap;row-gap:4px;}}
 
 html[data-glass-skin] [data-composer-card] button[class*='add']{background:#ffffff14!important;border-radius:50%!important;}html[data-glass-skin] [data-composer-card] button[class*='add']:is(:hover,[aria-expanded='true']){background:#ffffff24!important;}
+
+html[data-glass-skin] [data-sidebar-col] [class*='buildVersion']{display:none;}
