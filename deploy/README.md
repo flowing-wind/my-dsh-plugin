@@ -22,3 +22,11 @@
 当前实例采用相同源码在 WSL Linux 构建，再复制各工作区的 `lib/` 与 `apps/web/dist/`；服务器保留原生安装的 Linux 依赖和 Node addon。WSL 完整构建已通过，不能用 Windows 原生依赖替代 Linux 依赖。另一种方案是临时 Swap 加 cgroup 物理内存限制，但未验证本项目在特定较小内存上限下完成构建，不提供未经验证的最低值。
 
 服务自启动、Apache HTTPS、页面登录、远程模型目录、个性化和壁纸预设已验证。实际模型调用需要部署者填写有效 API 密钥后验证。服务内存限制不保证任何大型 Agent 编译任务都能完成；任务超出上限可能导致服务重启。
+
+## 沙盒与共享 Python
+
+`dsh` 不需要 sudo 即可维护自己的 `/home/dsh/.local/python` 虚拟环境。部署环境文件由 `.profile`、`.bashrc` 和 systemd 的 PATH 配置使用；`python` 优先解析到该虚拟环境，uv 通过 `--python /home/dsh/.local/python/bin/python` 安装共享库。
+
+不要给服务加入 `ProtectKernelTunables=yes` 或 `ProtectKernelModules=yes`：当前 Ubuntu 主机上，它们产生的 `/proc` 挂载限制会使 bubblewrap 的 `--proc /proc` 失败。保留 `NoNewPrivileges`、home 写入限制和无 sudo 账号时，bubblewrap 工作区与网络命名空间启动已验证成功。
+
+工作区写入模式只授权当前工作区；共享 Python 环境属于工作区外目录，安装共享库仍可能触发审批。默认审批策略是 ask。更宽的应用权限不会给 Linux 用户增加 root 权限，也不会解除 systemd 的 home 写入限制。

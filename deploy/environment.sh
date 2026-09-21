@@ -1,0 +1,11 @@
+export PATH="$HOME/.local/python/bin:$HOME/.local/node/bin:$HOME/.local/pnpm/node_modules/.bin:$HOME/.local/bin:$PATH"
+export VIRTUAL_ENV="$HOME/.local/python"
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_CACHE_DIR="$HOME/.cache/pip"
+export UV_CACHE_DIR="$HOME/.cache/uv"
+export npm_config_prefix="$HOME/.local/npm"
+export npm_config_cache="$HOME/.cache/npm"
+export CARGO_HOME="$HOME/.local/cargo"
+export RUSTUP_HOME="$HOME/.local/rustup"
+export GOPATH="$HOME/.local/go"
+export GOCACHE="$HOME/.cache/go-build"
