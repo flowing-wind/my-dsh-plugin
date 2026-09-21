@@ -1,0 +1,33 @@
+- id: session-controller
+  config:
+    nativeOpen: false
+    defaultCwd: /home/dsh/Projects
+- id: permission
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+- id: agent-default-model
+  config:
+    provider: deepseek-official
+    model: deepseek-flash
+- id: ui-open-in-app
+  disabled: true
+
+- id: page-login
+  config:
+    passwordHash: !!js process.env.DSH_PAGE_PASSWORD_HASH
+    idleMs: 3600000
+    attemptsPerMinute: 10
+- id: personal-instructions
+  config:
+    path: .dsh/agent.md
+    maxBytes: 131072
+
+- id: connection
+  config:
+    trustedHosts: ['dsh.flowing-wind.space']

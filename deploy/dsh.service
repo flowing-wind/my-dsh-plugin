@@ -1,0 +1,47 @@
+[Unit]
+Description=DeepSeek Harness Web
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=dsh
+Group=dsh
+WorkingDirectory=/home/dsh/deepseek-harness
+Environment=HOME=/home/dsh
+Environment=DSH_HOME=/home/dsh/.dsh
+Environment=DSH_WORKSPACE_ROOT=/home/dsh/Projects
+Environment=DSH_NETWORK_SOCKET_DIRECTORY=/home/dsh/.dsh/proxy
+Environment=TMPDIR=/home/dsh/.dsh/tmp
+Environment=PATH=/home/dsh/.local/python/bin:/home/dsh/.local/node/bin:/home/dsh/.local/pnpm/node_modules/.bin:/home/dsh/.local/bin:/usr/bin:/bin
+Environment=VIRTUAL_ENV=/home/dsh/.local/python
+Environment=PIP_REQUIRE_VIRTUALENV=true
+Environment=PIP_CACHE_DIR=/home/dsh/.cache/pip
+Environment=UV_CACHE_DIR=/home/dsh/.cache/uv
+Environment=npm_config_prefix=/home/dsh/.local/npm
+Environment=npm_config_cache=/home/dsh/.cache/npm
+Environment=CARGO_HOME=/home/dsh/.local/cargo
+Environment=RUSTUP_HOME=/home/dsh/.local/rustup
+Environment=GOPATH=/home/dsh/.local/go
+Environment=GOCACHE=/home/dsh/.cache/go-build
+Environment=XDG_CACHE_HOME=/home/dsh/.cache
+Environment=XDG_DATA_HOME=/home/dsh/.local/share
+ExecStart=/home/dsh/.local/node/bin/node apps/cli/lib/bin.js web --patch /home/dsh/.dsh/web.patch.yml --host 127.0.0.1 --port 3080 --no-open
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/dsh
+ReadOnlyPaths=/tmp /var/tmp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+MemoryHigh=1200M
+MemoryMax=1800M
+TasksMax=512
+
+[Install]
+WantedBy=multi-user.target

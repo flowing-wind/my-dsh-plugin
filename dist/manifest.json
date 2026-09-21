@@ -1,71 +1,71 @@
 {
   "baseCommit": "ddefc45fbc7f8e46dd73185e68295696d1297887",
-  "compatibility": "Requires this modified Harness build or equivalent Host APIs and client slots; see harness-extension.patch.",
+  "compatibility": "Requires patches/harness.patch and matching Harness build.",
   "packages": [
     {
       "name": "deepseek-ai-dsh-experimental-glass-skin-0.1.6-alpha.2.tgz",
-      "bytes": 328037,
-      "sha256": "a75c4ee9e3a9bd046d94e49ce9f5ea65618f72749663ea58abba6f4798890263"
+      "bytes": 328018,
+      "sha256": "bf79a54bd92f17e360ec7e58dad0947f6c53a665b148b073aa79c636792d5e87"
     },
     {
       "name": "deepseek-ai-dsh-experimental-interactive-results-0.1.6-alpha.2.tgz",
-      "bytes": 34506,
-      "sha256": "52b81ea45532bc736981d023512f2db7cd2756931492b8881014fe113d75b689"
+      "bytes": 34483,
+      "sha256": "069904fe5607e7948149cc95247c2d1602bc87f4e7f5cd4b61b7a6186db17f2b"
     },
     {
       "name": "deepseek-ai-dsh-experimental-mobile-layout-0.1.6-alpha.2.tgz",
-      "bytes": 5580,
-      "sha256": "e4e0ecd9e44d2b25aee91975a616f600feb140b547dfa6821d8a20e21d82432d"
+      "bytes": 5552,
+      "sha256": "f3d5ea0272e9f66563ff062cdca880f9227812a6cd0bd82b759af7edd15bd510"
     },
     {
       "name": "deepseek-ai-dsh-experimental-network-usage-0.1.6-alpha.2.tgz",
-      "bytes": 51001,
-      "sha256": "77011b7688957d8f218c9eb7077ea7e7ba892f69acca671c61705eead790df3e"
+      "bytes": 50950,
+      "sha256": "35f5683a0df7b9aa3f5dc399c1ff962e12944857f70518ec1f2f667eecf50355"
     },
     {
       "name": "deepseek-ai-dsh-experimental-page-login-0.1.6-alpha.2.tgz",
-      "bytes": 10866,
-      "sha256": "7f62688db8bd7642ad96964130056bd166e07f29958b5c84566adebed18d317e"
+      "bytes": 10939,
+      "sha256": "4360e6c1e1619cbe5b20eec63b79d5ffb9725ad529dae9106eaa49df10fe30f9"
     },
     {
       "name": "deepseek-ai-dsh-experimental-personal-instructions-0.1.6-alpha.2.tgz",
-      "bytes": 6484,
-      "sha256": "fd4dfa7fdd78a5576a1452c97ea9a8ff072bad3ae7d21b89343f729e24c0abc8"
+      "bytes": 6802,
+      "sha256": "3293d7ccacd337bef17a0f6405aa250041d71ba8a0a47e5a3f904b628e42165e"
     },
     {
       "name": "deepseek-ai-dsh-experimental-task-board-0.1.6-alpha.2.tgz",
-      "bytes": 35080,
-      "sha256": "1f345203dacf2b04f1073e3f5b036ebb4afe87a5ae56f60e6862cb94cafd826b"
+      "bytes": 35052,
+      "sha256": "3a66072f0f70c64016b5c5d7c40071b4e55b08dce725d3a0f3ac1fb943976ef0"
     },
     {
       "name": "deepseek-ai-dsh-experimental-usage-billing-0.1.6-alpha.2.tgz",
-      "bytes": 43876,
-      "sha256": "fd670c8241c42a230c0239e2086139aee7625be5acd9b8893a757443ae5af489"
+      "bytes": 43828,
+      "sha256": "436dadb1b29b013f30a7d685300d96a14c7e59ee599fdcbddb55284bcaae5643"
     },
     {
       "name": "deepseek-ai-dsh-experimental-usage-dashboard-0.1.6-alpha.2.tgz",
-      "bytes": 6111,
-      "sha256": "6ad2a7999810ed327a746509072bb944242d8e715e39a97bd926acce1c85fc2f"
+      "bytes": 6371,
+      "sha256": "04b74654555209cc99b61028b863ab9f1b1ffa65d3a67eb70e66721ff89be802"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-download-0.1.6-alpha.2.tgz",
-      "bytes": 13741,
-      "sha256": "b1ef67931a34948ae393cc30ec661957dc98699e284d7bc536fc77a60ba26c50"
+      "bytes": 13824,
+      "sha256": "ce7a882941154e92a12691aa0478644e053be36489689561091af83c56ebe376"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-editor-0.1.6-alpha.2.tgz",
-      "bytes": 31331,
-      "sha256": "468f97638e0d3c5426f5e97a19a0770cca7e5c756b80cff08af9be74ee24e75b"
+      "bytes": 31307,
+      "sha256": "e1fc405a65e3f04524afccf9b42302d258071d098209db9015b1c6e47a78b08d"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-management-0.1.6-alpha.2.tgz",
-      "bytes": 32949,
-      "sha256": "86f14a91ad39fa340368a86945d81809d6b508b4a211186681889ccb20a1f7a1"
+      "bytes": 33284,
+      "sha256": "190966d15662f2f98ad89ecac7ce7db6012b0bf0aa12ef2c5a543a65c615465e"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-pages-0.1.6-alpha.2.tgz",
-      "bytes": 9422,
-      "sha256": "40d5050f6dbc4df3743d9f58ff2a1053e39bad431fa3e5da6298c1a87f000880"
+      "bytes": 9469,
+      "sha256": "3c866d9fe3d4ea686891a3988dc7cf3ff8f7f0e1fd5139b800d6e7440455bec2"
     }
   ]
 }

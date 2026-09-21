@@ -100,6 +100,7 @@
         password.value='';
         if (!response.ok) { cover.querySelector('[role=alert]').textContent=response.status===429?copy.busy:copy.wrong; password.focus(); return; }
         token=(await response.json()).token;
+        globalThis.__DSH_SETTINGS_AUTHENTICATED__ = true;
         cover.remove();scene.remove();if(wallpaper.local)URL.revokeObjectURL(wallpaper.url);
         ready.resolve();
       } catch(error) { cover.querySelector('[role=alert]').textContent=copy.error; }

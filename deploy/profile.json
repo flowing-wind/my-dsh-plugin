@@ -1,0 +1,40 @@
+{
+  "name": "dsh-profile-web",
+  "private": true,
+  "dependencies": {
+    "@deepseek-ai/dsh-experimental-glass-skin": "link:/home/dsh/deepseek-harness/packages/experimental/glass-skin",
+    "@deepseek-ai/dsh-experimental-interactive-results": "link:/home/dsh/deepseek-harness/packages/experimental/interactive-results",
+    "@deepseek-ai/dsh-experimental-mobile-layout": "link:/home/dsh/deepseek-harness/packages/experimental/mobile-layout",
+    "@deepseek-ai/dsh-experimental-network-usage": "link:/home/dsh/deepseek-harness/packages/experimental/network-usage",
+    "@deepseek-ai/dsh-experimental-page-login": "link:/home/dsh/deepseek-harness/packages/experimental/page-login",
+    "@deepseek-ai/dsh-experimental-personal-instructions": "link:/home/dsh/deepseek-harness/packages/experimental/personal-instructions",
+    "@deepseek-ai/dsh-experimental-task-board": "link:/home/dsh/deepseek-harness/packages/experimental/task-board",
+    "@deepseek-ai/dsh-experimental-usage-billing": "link:/home/dsh/deepseek-harness/packages/experimental/usage-billing",
+    "@deepseek-ai/dsh-experimental-usage-dashboard": "link:/home/dsh/deepseek-harness/packages/experimental/usage-dashboard",
+    "@deepseek-ai/dsh-experimental-workspace-download": "link:/home/dsh/deepseek-harness/packages/experimental/workspace-download",
+    "@deepseek-ai/dsh-experimental-workspace-editor": "link:/home/dsh/deepseek-harness/packages/experimental/workspace-editor",
+    "@deepseek-ai/dsh-experimental-workspace-management": "link:/home/dsh/deepseek-harness/packages/experimental/workspace-management",
+    "@deepseek-ai/dsh-experimental-workspace-pages": "link:/home/dsh/deepseek-harness/packages/experimental/workspace-pages"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@deepseek-ai/dsh-experimental-usage-dashboard",
+        "@deepseek-ai/dsh-experimental-workspace-management",
+        "@deepseek-ai/dsh-experimental-network-usage",
+        "@deepseek-ai/dsh-experimental-workspace-editor",
+        "@deepseek-ai/dsh-experimental-task-board",
+        "@deepseek-ai/dsh-experimental-interactive-results",
+        "@deepseek-ai/dsh-experimental-mobile-layout",
+        "@deepseek-ai/dsh-experimental-workspace-pages",
+        "@deepseek-ai/dsh-experimental-workspace-download",
+        "@deepseek-ai/dsh-experimental-usage-billing",
+        "@deepseek-ai/dsh-experimental-glass-skin",
+        "@deepseek-ai/dsh-experimental-page-login",
+        "@deepseek-ai/dsh-experimental-personal-instructions"
+      ]
+    }
+  }
+}

@@ -1,5 +1,5 @@
-* text=auto
-*.patch text eol=lf
+* text=auto eol=lf
+*.patch text eol=lf whitespace=-blank-at-eol
 *.sh text eol=lf
 *.mjs text eol=lf
 *.webp binary

@@ -5,6 +5,7 @@ import { homedir } from 'node:os'
 import { dirname, isAbsolute, relative, resolve } from 'node:path'
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import type {} from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@deepseek-ai/dsh-client-connection'
 import type {} from '@deepseek-ai/dsh-system-prompt'
 
 /** Personal instruction file configuration. */
@@ -15,7 +16,7 @@ export const Config: schema<Config> = schema.object({
   maxBytes: schema.natural().min(1024).default(131072),
 })
 /** Required prompt and HTTP services. */
-export const inject = ['systemPrompt', 'webServer']
+export const inject = ['systemPrompt', 'webServer', 'connection']
 
 /** @param ctx - Prompt and web-server lifecycle. @param config - Home-relative storage settings. */
 export async function apply(ctx: Context, config: Config): Promise<void> {
@@ -37,6 +38,8 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   }))
   ctx.effect(() => ctx.webServer.register({ kind: 'exact', path: '/api/personal-instructions', handler: async (req, res) => {
     res.setHeader('cache-control', 'no-store')
+    const rejection = ctx.connection.requestRejection(req)
+    if (rejection !== undefined) { res.writeHead(rejection); res.end(); return }
     if (req.method === 'GET') {
       res.writeHead(200, { 'content-type': 'application/json; charset=utf-8' })
       res.end(JSON.stringify({ content }))

@@ -1293,7 +1293,7 @@ index d74734e132..987e37bd75 100644
  
    /**
 diff --git a/packages/client/connection/src/rpc.ts b/packages/client/connection/src/rpc.ts
-index 9474d72c36..f786aaff6b 100644
+index 9474d72c36..9a58d6a6a2 100644
 --- a/packages/client/connection/src/rpc.ts
 +++ b/packages/client/connection/src/rpc.ts
 @@ -77,6 +77,9 @@ export type RpcMessage = ClientRequest | ServerResponse
@@ -1306,7 +1306,7 @@ index 9474d72c36..f786aaff6b 100644
    /** Request headers supplied by either the Fetch or node:http representation. */
    readonly headers: Headers | Readonly<Record<string, string | readonly string[] | undefined>>
  }
-@@ -161,8 +164,21 @@ export interface HostConnectionRpc {
+@@ -161,8 +164,25 @@ export interface HostConnectionRpc {
    ): () => Promise<void>
  }
  
@@ -1323,7 +1323,11 @@ index 9474d72c36..f786aaff6b 100644
 +
 +/** Host transport registrations and browser authentication. */
  export interface HostConnectionHandle {
-+  /** @param provider - Deployment authentication owner. @returns registration disposer. */
++  /**
++   * Register the deployment's browser authentication provider.
++   * @param provider - Deployment authentication owner.
++   * @returns disposer restoring the default browser authentication.
++   */
 +  registerBrowserAuthentication(provider: BrowserAuthentication): () => void
 +
    /** Generic RPC channel registry. */
@@ -1583,18 +1587,27 @@ index 7eacc52c34..a567d86213 100644
    'presented.previewButton': 'Open {name} in sidebar',
    'presented.previewCard': 'Preview {name} in sidebar',
 diff --git a/packages/client/ui-deliverables/tests/deliverables.client.spec.tsx b/packages/client/ui-deliverables/tests/deliverables.client.spec.tsx
-index 8cff6f2850..c5b7ed58ed 100644
+index 8cff6f2850..d61e5930d0 100644
 --- a/packages/client/ui-deliverables/tests/deliverables.client.spec.tsx
 +++ b/packages/client/ui-deliverables/tests/deliverables.client.spec.tsx
-@@ -40,6 +40,7 @@ function openProps(controller = new PresentedOpenController(), summaries = new C
+@@ -7,6 +7,7 @@
+  * SlotRegistry.
+  */
+ import { Context } from '@deepseek-ai/cordis'
++import type { ReactNode } from 'react'
+ import { cleanup, fireEvent, render, within } from '@testing-library/react'
+ import { afterEach, describe, expect, it, vi } from 'vitest'
+ import type { SessionLiveEventEntry, SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
+@@ -40,6 +41,8 @@ function openProps(controller = new PresentedOpenController(), summaries = new C
    controller.host.set({ name: 'desktop', available: true, fileManager: 'finder' })
    const sessions: SessionListState = { ids: [], byId: {}, phase: 'ready', subagentsByParent: {}, jobsBySession: {} }
    return {
 +    renderSlot: () => null,
++    SessionProvider: ({ children }: { children?: ReactNode }) => <>{children}</>,
      useSessions: <T,>(select: (state: SessionListState) => T): T => select(sessions),
      reloadPresentedHost: vi.fn(() => controller.loadHost()),
      useChangesSummary: <T,>(select: (state: ReturnType<typeof summaries.state.getSnapshot>) => T): T =>
-@@ -836,8 +837,8 @@ describe('presented files', () => {
+@@ -836,8 +839,8 @@ describe('presented files', () => {
      expect(preview).toHaveBeenCalledTimes(2)
      expect(preview).toHaveBeenLastCalledWith('report-0.docx')
      fireEvent.click(view.getByRole('button', { name: 'More file actions for report-0.docx' }))
@@ -1605,7 +1618,7 @@ index 8cff6f2850..c5b7ed58ed 100644
      fireEvent.click(view.getByRole('button', { name: 'Collapse delivered files' }))
      expect(view.container.querySelectorAll('[data-presented-file]')).toHaveLength(4)
      expect(view.container.querySelector('[data-changed-files]')).toBeNull()
-@@ -915,7 +916,7 @@ it.each(['opening', 'opened', 'error'] as const)('shows the %s state and permits
+@@ -915,7 +918,7 @@ it.each(['opening', 'opened', 'error'] as const)('shows the %s state and permits
  })
  
  
@@ -1614,7 +1627,7 @@ index 8cff6f2850..c5b7ed58ed 100644
    const controller = new PresentedOpenController()
    const props = openProps(controller)
    const matched = { changes: null, presented: [{ path: 'file.txt', seq: 2, index: 0 }] }
-@@ -926,7 +927,7 @@ it('explains a missing desktop and retries failed Host metadata', () => {
+@@ -926,7 +929,7 @@ it('explains a missing desktop and retries failed Host metadata', () => {
    expect(props.reloadPresentedHost).toHaveBeenCalledOnce()
    controller.host.set({ name: 'server', available: false, fileManager: null })
    view.rerender(<Deliverables {...props} matched={matched} openFile={() => {}} sessionId={SessionId('session')} t={makeTranslate(en)} />)
@@ -2317,6 +2330,100 @@ index 353e6c072b..8585a9ebfc 100644
      order: 25,
      label: () => t('nav'),
      locale: NS,
+diff --git a/packages/client/ui-settings/README.i18n.yaml b/packages/client/ui-settings/README.i18n.yaml
+index f325c7e238..e80f34bc8c 100644
+--- a/packages/client/ui-settings/README.i18n.yaml
++++ b/packages/client/ui-settings/README.i18n.yaml
+@@ -2,5 +2,5 @@
+ # side as of the last confirmed-consistent state. Both languages carry equal authority;
+ # after editing either side, bring the other along and re-record with:
+ #   pnpm run verify-translation-pairing --write packages/client/ui-settings/README.md
+-README.md: 760b4a4567481b561ce319926149815119018177
+-README.zh.md: f8e2128d734b650b7cd7a10c180f90ea01b77ab5
++README.md: 678d743649a928adcc1e8cdfa604a69c99be3d10
++README.zh.md: c999806b5115293f04486a787e20d516c3c6ca17
+diff --git a/packages/client/ui-settings/README.md b/packages/client/ui-settings/README.md
+index 760b4a4567..678d743649 100644
+--- a/packages/client/ui-settings/README.md
++++ b/packages/client/ui-settings/README.md
+@@ -94,7 +94,7 @@ None; this package neither assembles nor sends a provider request.
+ 
+ These limits define where the settings transport cannot reach; they are current package constraints.
+ 
+-- **Non-loopback pages get no durable settings** — this Client keeps Host persistence disabled there, so a scope starts `unavailable` and never crosses the wire; every row it backs is inert even though Connection authentication covers the API.
++- **Remote settings require page login** — non-loopback pages keep Host persistence disabled unless the page-login bootstrap grants settings access after successful authentication. This browser flag enables the UI only; the Host still authenticates every API request.
+ 
+ <a id="dev-note"></a>
+ ### Dev Note
+diff --git a/packages/client/ui-settings/README.zh.md b/packages/client/ui-settings/README.zh.md
+index f8e2128d73..c999806b51 100644
+--- a/packages/client/ui-settings/README.zh.md
++++ b/packages/client/ui-settings/README.zh.md
+@@ -94,7 +94,7 @@ kind: "package-reference"
+ 
+ 这些限制说明设置传输层够不到的地方；它们是当前包约束。
+ 
+-- **非 loopback 页面没有持久化设置**：本 Client 在那里禁用 Host 持久化，因此 scope 以 `unavailable` 起步且从不跨线路；尽管 Connection 认证覆盖 API，它支撑的每一行仍在那里无效。
++- **远程设置需要页面登录**：非 loopback 页面默认禁用 Host 持久化，page-login 引导脚本在身份验证成功后才允许访问设置。浏览器标记仅启用界面，Host 仍对每次 API 请求进行认证。
+ 
+ <a id="dev-note"></a>
+ ### 开发备注
+diff --git a/packages/client/ui-settings/src/client/index.ts b/packages/client/ui-settings/src/client/index.ts
+index d595952c3c..4e3289bebd 100644
+--- a/packages/client/ui-settings/src/client/index.ts
++++ b/packages/client/ui-settings/src/client/index.ts
+@@ -55,7 +55,8 @@ export function apply(ctx: Context): void {
+   const schema = new SettingsSchemaService(ctx)
+   // Resolved once here, where `remote` is declared in this plugin's own
+   // `inject`; the binder hands the same answer to every scope it binds.
+-  const persistence = ctx.remote.$host.isLoopback ? 'host' : 'memory'
++  const page = globalThis as typeof globalThis & { __DSH_SETTINGS_AUTHENTICATED__?: boolean }
++  const persistence = ctx.remote.$host.isLoopback || page.__DSH_SETTINGS_AUTHENTICATED__ === true ? 'host' : 'memory'
+   const mirror = new SettingsDescribeMirror(ctx, persistence)
+   ctx.effect(() => {
+     const disposers = [
+diff --git a/packages/client/ui-settings/tests/plugin.client.spec.ts b/packages/client/ui-settings/tests/plugin.client.spec.ts
+index 9d5d063dbd..3bf441bb3b 100644
+--- a/packages/client/ui-settings/tests/plugin.client.spec.ts
++++ b/packages/client/ui-settings/tests/plugin.client.spec.ts
+@@ -6,16 +6,36 @@ import { SettingsSchemaService } from '../src/client/schema.ts'
+ import { SettingsScopeBinder } from '../src/client/settings-scope.ts'
+ import { apply as hostApply } from '../src/index.ts'
+ 
+-function bench() {
++function bench(isLoopback = true) {
+   const describeCall = vi.fn().mockResolvedValue({
+     ok: true, value: { writable: true, hasDocument: true, namespaces: [] },
+   })
+   const ctx = new Context()
+   const remote = new TestRemote(ctx, { settings: { describe: describeCall } })
++  remote.$host.isLoopback = isLoopback
+   return { ctx, describeCall, remote, fiber: ctx.plugin({ inject: [...inject], apply }) }
+ }
+ 
+ describe('settings domain base plugin', () => {
++  it('withholds remote settings until the page login grants access', async () => {
++    const { ctx, describeCall, fiber } = bench(false)
++    await fiber.await()
++    expect(ctx.settingsScope.describe().getSnapshot().status).toBe('unavailable')
++    expect(describeCall).not.toHaveBeenCalled()
++    await fiber.dispose()
++  })
++
++  it('loads remote settings after page authentication', async () => {
++    vi.stubGlobal('__DSH_SETTINGS_AUTHENTICATED__', true)
++    try {
++      const { describeCall, fiber } = bench(false)
++      await fiber.await()
++      await vi.waitFor(() => { expect(describeCall).toHaveBeenCalledTimes(1) })
++      await fiber.dispose()
++    } finally {
++      vi.unstubAllGlobals()
++    }
++  })
+   it('keeps the host Loader entry inert', () => {
+     expect(hostApply).not.toThrow()
+   })
 diff --git a/packages/client/ui-sidebar-files/README.i18n.yaml b/packages/client/ui-sidebar-files/README.i18n.yaml
 index fefd4561f0..02fcb1d6cc 100644
 --- a/packages/client/ui-sidebar-files/README.i18n.yaml
@@ -3378,7 +3485,7 @@ index b3aacad2da..6d5d47aa45 100644
  
  /**
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 13ab4ef874..eaa916aa19 100644
+index 13ab4ef874..5fb3a06c67 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -86,7 +86,7 @@ importers:
@@ -3565,7 +3672,7 @@ index 13ab4ef874..eaa916aa19 100644
    packages/experimental/inspector:
      dependencies:
        '@deepseek-ai/dsh-app-boot':
-@@ -6747,198 +6820,847 @@ importers:
+@@ -6747,198 +6820,850 @@ importers:
          specifier: ^4.19.2
          version: 4.22.4
  
@@ -3773,6 +3880,9 @@ index 13ab4ef874..eaa916aa19 100644
 +
 +  packages/experimental/personal-instructions:
      dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
 +      '@deepseek-ai/dsh-host-webserver':
 +        specifier: workspace:^
 +        version: link:../../host/webserver
@@ -4557,7 +4667,7 @@ index 13ab4ef874..eaa916aa19 100644
  
    packages/extensions/cordis-client-runner:
      devDependencies:
-@@ -7856,7 +8578,7 @@ importers:
+@@ -7856,7 +8581,7 @@ importers:
          version: link:../../../vendor/schemastery
        compression:
          specifier: ^1.8.1
@@ -4566,7 +4676,7 @@ index 13ab4ef874..eaa916aa19 100644
        negotiator:
          specifier: ^1.0.0
          version: 1.0.0
-@@ -8680,7 +9402,7 @@ importers:
+@@ -8680,7 +9405,7 @@ importers:
          version: link:../../../vendor/schemastery
        js-yaml:
          specifier: ^4.1.0
@@ -4575,7 +4685,7 @@ index 13ab4ef874..eaa916aa19 100644
        zod:
          specifier: ^4.4.3
          version: 4.4.3
-@@ -11472,7 +12194,7 @@ importers:
+@@ -11472,7 +12197,7 @@ importers:
          version: 4.3.1
        vitest:
          specifier: ^4.1.8
@@ -4584,7 +4694,7 @@ index 13ab4ef874..eaa916aa19 100644
      devDependencies:
        '@deepseek-ai/cordis':
          specifier: workspace:^
-@@ -11674,10 +12396,10 @@ importers:
+@@ -11674,10 +12399,10 @@ importers:
          version: link:../../session/session-format
        js-yaml:
          specifier: ^4.2.0
@@ -4597,7 +4707,7 @@ index 13ab4ef874..eaa916aa19 100644
      devDependencies:
        '@deepseek-ai/cordis':
          specifier: workspace:^
-@@ -12878,7 +13600,7 @@ importers:
+@@ -12878,7 +13603,7 @@ importers:
          version: link:../cosmokit
        js-yaml:
          specifier: ^4.1.0
@@ -4606,7 +4716,7 @@ index 13ab4ef874..eaa916aa19 100644
  
    vendor/loader:
      dependencies:
-@@ -12944,19 +13666,19 @@ importers:
+@@ -12944,19 +13669,19 @@ importers:
          version: 1.11.21
        debug:
          specifier: 4.4.3
@@ -4630,7 +4740,7 @@ index 13ab4ef874..eaa916aa19 100644
        vue:
          specifier: 3.5.39
          version: 3.5.39(typescript@6.0.3)
-@@ -15781,9 +16503,6 @@ packages:
+@@ -15781,9 +16506,6 @@ packages:
    '@types/node@24.13.3':
      resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
  
@@ -4640,7 +4750,7 @@ index 13ab4ef874..eaa916aa19 100644
    '@types/node@26.1.2':
      resolution: {integrity: sha512-Vu4a5UFA9rIIFJ7rB/Vaafh9lrCQszopTCx6KjFboXTGQbPNasehVR5TEiithSDGyd1DEiUByggTZsg8jukeIg==}
  
-@@ -17786,10 +18505,6 @@ packages:
+@@ -17786,10 +18508,6 @@ packages:
    js-tokens@4.0.0:
      resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
  
@@ -4651,7 +4761,7 @@ index 13ab4ef874..eaa916aa19 100644
    js-yaml@4.3.1:
      resolution: {integrity: sha512-CY6crGq313MX8GkwvB7tzgp99vjQxY1++5y10/BKN/GUfHqWaOGQMNZkBvqSzsZKWk/ijwHlWzzkLulsGHhjWQ==}
      hasBin: true
-@@ -20462,20 +21177,20 @@ snapshots:
+@@ -20462,20 +21180,20 @@ snapshots:
  
    '@babel/compat-data@7.29.7': {}
  
@@ -4676,7 +4786,7 @@ index 13ab4ef874..eaa916aa19 100644
        gensync: 1.0.0-beta.2
        json5: 2.2.3
        semver: 6.3.1
-@@ -20511,17 +21226,17 @@ snapshots:
+@@ -20511,17 +21229,17 @@ snapshots:
  
    '@babel/helper-module-imports@7.29.7':
      dependencies:
@@ -4698,7 +4808,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -20550,14 +21265,14 @@ snapshots:
+@@ -20550,14 +21268,14 @@ snapshots:
      dependencies:
        '@babel/types': 8.0.0-rc.6
  
@@ -4717,7 +4827,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@babel/helper-plugin-utils': 7.29.7
  
    '@babel/runtime@7.29.7': {}
-@@ -20568,7 +21283,7 @@ snapshots:
+@@ -20568,7 +21286,7 @@ snapshots:
        '@babel/parser': 7.29.7
        '@babel/types': 7.29.7
  
@@ -4726,7 +4836,7 @@ index 13ab4ef874..eaa916aa19 100644
      dependencies:
        '@babel/code-frame': 7.29.7
        '@babel/generator': 7.29.7
-@@ -20576,7 +21291,7 @@ snapshots:
+@@ -20576,7 +21294,7 @@ snapshots:
        '@babel/parser': 7.29.7
        '@babel/template': 7.29.7
        '@babel/types': 7.29.7
@@ -4735,7 +4845,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -20741,7 +21456,7 @@ snapshots:
+@@ -20741,7 +21459,7 @@ snapshots:
  
    '@electron/get@3.1.0':
      dependencies:
@@ -4744,7 +4854,7 @@ index 13ab4ef874..eaa916aa19 100644
        env-paths: 2.2.1
        fs-extra: 8.1.0
        got: 11.8.6
-@@ -20753,9 +21468,9 @@ snapshots:
+@@ -20753,9 +21471,9 @@ snapshots:
      transitivePeerDependencies:
        - supports-color
  
@@ -4756,7 +4866,7 @@ index 13ab4ef874..eaa916aa19 100644
        env-paths: 3.0.0
        graceful-fs: 4.2.11
        progress: 2.0.3
-@@ -20768,7 +21483,7 @@ snapshots:
+@@ -20768,7 +21486,7 @@ snapshots:
  
    '@electron/notarize@2.5.0':
      dependencies:
@@ -4765,7 +4875,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 9.1.0
        promise-retry: 2.0.1
      transitivePeerDependencies:
-@@ -20777,7 +21492,7 @@ snapshots:
+@@ -20777,7 +21495,7 @@ snapshots:
    '@electron/osx-sign@1.3.3(patch_hash=280e7b2816caf01423097d24e79107a66afeb563a348630ce9928ae8499a5861)':
      dependencies:
        compare-version: 0.1.2
@@ -4774,7 +4884,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 10.1.0
        isbinaryfile: 4.0.10
        minimist: 1.2.8
-@@ -20788,7 +21503,7 @@ snapshots:
+@@ -20788,7 +21506,7 @@ snapshots:
    '@electron/rebuild@4.2.0':
      dependencies:
        '@malept/cross-spawn-promise': 2.0.0
@@ -4783,7 +4893,7 @@ index 13ab4ef874..eaa916aa19 100644
        node-abi: 4.34.0
        node-api-version: 0.2.1
        node-gyp: 12.4.0
-@@ -20800,7 +21515,7 @@ snapshots:
+@@ -20800,7 +21518,7 @@ snapshots:
      dependencies:
        '@electron/asar': 3.4.1
        '@malept/cross-spawn-promise': 2.0.0
@@ -4792,7 +4902,7 @@ index 13ab4ef874..eaa916aa19 100644
        dir-compare: 4.2.0
        fs-extra: 11.4.0
        minimatch: 9.0.9
-@@ -20811,7 +21526,7 @@ snapshots:
+@@ -20811,7 +21529,7 @@ snapshots:
    '@electron/windows-sign@1.2.2':
      dependencies:
        cross-dirname: 0.1.0
@@ -4801,7 +4911,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 11.4.0
        minimist: 1.2.8
        postject: 1.0.0-alpha.6
-@@ -21091,7 +21806,7 @@ snapshots:
+@@ -21091,7 +21809,7 @@ snapshots:
    '@eslint/config-array@0.23.5':
      dependencies:
        '@eslint/object-schema': 3.0.5
@@ -4810,7 +4920,7 @@ index 13ab4ef874..eaa916aa19 100644
        minimatch: 10.2.5
      transitivePeerDependencies:
        - supports-color
-@@ -21456,7 +22171,7 @@ snapshots:
+@@ -21456,7 +22174,7 @@ snapshots:
  
    '@malept/flatpak-bundler@0.4.0':
      dependencies:
@@ -4819,7 +4929,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 9.1.0
        lodash: 4.18.1
        tmp-promise: 3.0.3
-@@ -22560,7 +23275,7 @@ snapshots:
+@@ -22560,7 +23278,7 @@ snapshots:
  
    '@types/jsdom@28.0.3':
      dependencies:
@@ -4828,7 +4938,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@types/tough-cookie': 4.0.5
        parse5: 8.0.1
        undici-types: 7.24.6
-@@ -22611,10 +23326,6 @@ snapshots:
+@@ -22611,10 +23329,6 @@ snapshots:
      dependencies:
        undici-types: 7.18.2
  
@@ -4839,7 +4949,7 @@ index 13ab4ef874..eaa916aa19 100644
    '@types/node@26.1.2':
      dependencies:
        undici-types: 8.3.0
-@@ -22730,11 +23441,11 @@ snapshots:
+@@ -22730,11 +23444,11 @@ snapshots:
        d3-selection: 3.0.0
        d3-transition: 3.0.1(d3-selection@3.0.0)
  
@@ -4855,7 +4965,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@rolldown/pluginutils': 1.0.0-beta.27
        '@types/babel__core': 7.20.5
        react-refresh: 0.17.0
-@@ -22742,9 +23453,9 @@ snapshots:
+@@ -22742,9 +23456,9 @@ snapshots:
      transitivePeerDependencies:
        - supports-color
  
@@ -4867,7 +4977,7 @@ index 13ab4ef874..eaa916aa19 100644
        vue: 3.5.39(typescript@6.0.3)
  
    '@vitest/coverage-v8@4.1.8(vitest@4.1.8)':
-@@ -22991,11 +23702,11 @@ snapshots:
+@@ -22991,11 +23705,11 @@ snapshots:
        - bare-buffer
        - react-native-b4a
  
@@ -4881,7 +4991,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@babel/types': 7.29.7
        '@roberts_lando/vfs': 0.3.3
        '@yao-pkg/pkg-fetch': 3.6.4
-@@ -23121,7 +23832,7 @@ snapshots:
+@@ -23121,7 +23835,7 @@ snapshots:
        builder-util-runtime: 9.7.0
        chromium-pickle-js: 0.2.0
        ci-info: 4.3.1
@@ -4890,7 +5000,7 @@ index 13ab4ef874..eaa916aa19 100644
        dmg-builder: 26.15.3(electron-builder-squirrel-windows@26.15.3)
        dotenv: 16.6.1
        dotenv-expand: 11.0.7
-@@ -23262,7 +23973,7 @@ snapshots:
+@@ -23262,7 +23976,7 @@ snapshots:
      dependencies:
        bytes: 3.1.2
        content-type: 2.0.0
@@ -4899,7 +5009,7 @@ index 13ab4ef874..eaa916aa19 100644
        http-errors: 2.0.1
        iconv-lite: 0.7.3
        on-finished: 2.4.1
-@@ -23322,7 +24033,7 @@ snapshots:
+@@ -23322,7 +24036,7 @@ snapshots:
  
    builder-util-runtime@9.7.0:
      dependencies:
@@ -4908,7 +5018,7 @@ index 13ab4ef874..eaa916aa19 100644
        sax: 1.6.1
      transitivePeerDependencies:
        - supports-color
-@@ -23333,7 +24044,7 @@ snapshots:
+@@ -23333,7 +24047,7 @@ snapshots:
        builder-util-runtime: 9.7.0
        chalk: 4.1.2
        cross-spawn: 7.0.6
@@ -4917,7 +5027,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 10.1.0
        http-proxy-agent: 7.0.2
        https-proxy-agent: 7.0.6
-@@ -23473,11 +24184,11 @@ snapshots:
+@@ -23473,11 +24187,11 @@ snapshots:
      dependencies:
        mime-db: 1.54.0
  
@@ -4931,7 +5041,7 @@ index 13ab4ef874..eaa916aa19 100644
        negotiator: 0.6.4
        on-headers: 1.1.0
        safe-buffer: 5.2.1
-@@ -23768,17 +24479,13 @@ snapshots:
+@@ -23768,17 +24482,13 @@ snapshots:
  
    dayjs@1.11.21: {}
  
@@ -4951,7 +5061,7 @@ index 13ab4ef874..eaa916aa19 100644
  
    decimal.js@10.6.0: {}
  
-@@ -23961,7 +24668,7 @@ snapshots:
+@@ -23961,7 +24671,7 @@ snapshots:
    electron-winstaller@5.4.0:
      dependencies:
        '@electron/asar': 3.4.1
@@ -4960,7 +5070,7 @@ index 13ab4ef874..eaa916aa19 100644
        fs-extra: 7.0.1
        lodash: 4.18.1
        temp: 0.9.4
-@@ -23973,7 +24680,7 @@ snapshots:
+@@ -23973,7 +24683,7 @@ snapshots:
    electron@44.0.0:
      dependencies:
        '@electron-internal/extract-zip': 1.0.5
@@ -4969,7 +5079,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@types/node': 24.13.3
      transitivePeerDependencies:
        - supports-color
-@@ -24162,7 +24869,7 @@ snapshots:
+@@ -24162,7 +24872,7 @@ snapshots:
        '@types/estree': 1.0.9
        ajv: 6.15.0
        cross-spawn: 7.0.6
@@ -4978,7 +5088,7 @@ index 13ab4ef874..eaa916aa19 100644
        escape-string-regexp: 4.0.0
        eslint-scope: 9.1.2
        eslint-visitor-keys: 5.0.1
-@@ -24270,7 +24977,7 @@ snapshots:
+@@ -24270,7 +24980,7 @@ snapshots:
        content-type: 1.0.5
        cookie: 0.7.2
        cookie-signature: 1.2.2
@@ -4987,7 +5097,7 @@ index 13ab4ef874..eaa916aa19 100644
        depd: 2.0.0
        encodeurl: 2.0.0
        escape-html: 1.0.3
-@@ -24297,9 +25004,9 @@ snapshots:
+@@ -24297,9 +25007,9 @@ snapshots:
  
    extend@3.0.2: {}
  
@@ -4999,7 +5109,7 @@ index 13ab4ef874..eaa916aa19 100644
        get-stream: 5.2.0
        yauzl: 3.4.0
      optionalDependencies:
-@@ -24364,7 +25071,7 @@ snapshots:
+@@ -24364,7 +25074,7 @@ snapshots:
  
    finalhandler@2.1.1:
      dependencies:
@@ -5008,7 +5118,7 @@ index 13ab4ef874..eaa916aa19 100644
        encodeurl: 2.0.0
        escape-html: 1.0.3
        on-finished: 2.4.1
-@@ -24714,7 +25421,7 @@ snapshots:
+@@ -24714,7 +25424,7 @@ snapshots:
    http-proxy-agent@7.0.2:
      dependencies:
        agent-base: 7.1.4
@@ -5017,7 +5127,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -24726,7 +25433,7 @@ snapshots:
+@@ -24726,7 +25436,7 @@ snapshots:
      transitivePeerDependencies:
        - debug
  
@@ -5026,7 +5136,7 @@ index 13ab4ef874..eaa916aa19 100644
      dependencies:
        basic-auth: 2.0.1
        chalk: 4.1.2
-@@ -24737,7 +25444,7 @@ snapshots:
+@@ -24737,7 +25447,7 @@ snapshots:
        mime: 1.6.0
        minimist: 1.2.8
        opener: 1.5.2
@@ -5035,7 +5145,7 @@ index 13ab4ef874..eaa916aa19 100644
        secure-compare: 3.0.1
        union: 0.5.0
        url-join: 4.0.1
-@@ -24759,7 +25466,7 @@ snapshots:
+@@ -24759,7 +25469,7 @@ snapshots:
    https-proxy-agent@7.0.6:
      dependencies:
        agent-base: 7.1.4
@@ -5044,7 +5154,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -24897,10 +25604,6 @@ snapshots:
+@@ -24897,10 +25607,6 @@ snapshots:
  
    js-tokens@4.0.0: {}
  
@@ -5055,7 +5165,7 @@ index 13ab4ef874..eaa916aa19 100644
    js-yaml@4.3.1:
      dependencies:
        argparse: 2.0.1
-@@ -25237,14 +25940,14 @@ snapshots:
+@@ -25237,14 +25943,14 @@ snapshots:
        unist-util-is: 6.0.1
        unist-util-visit-parents: 6.0.2
  
@@ -5072,7 +5182,7 @@ index 13ab4ef874..eaa916aa19 100644
        micromark-util-decode-numeric-character-reference: 2.0.2
        micromark-util-decode-string: 2.0.1
        micromark-util-normalize-identifier: 2.0.1
-@@ -25266,7 +25969,7 @@ snapshots:
+@@ -25266,7 +25972,7 @@ snapshots:
      dependencies:
        '@types/mdast': 4.0.4
        devlop: 1.1.0
@@ -5081,7 +5191,7 @@ index 13ab4ef874..eaa916aa19 100644
        mdast-util-to-markdown: 2.1.2
        micromark-util-normalize-identifier: 2.0.1
      transitivePeerDependencies:
-@@ -25275,7 +25978,7 @@ snapshots:
+@@ -25275,7 +25981,7 @@ snapshots:
    mdast-util-gfm-strikethrough@2.0.0:
      dependencies:
        '@types/mdast': 4.0.4
@@ -5090,7 +5200,7 @@ index 13ab4ef874..eaa916aa19 100644
        mdast-util-to-markdown: 2.1.2
      transitivePeerDependencies:
        - supports-color
-@@ -25285,7 +25988,7 @@ snapshots:
+@@ -25285,7 +25991,7 @@ snapshots:
        '@types/mdast': 4.0.4
        devlop: 1.1.0
        markdown-table: 3.0.4
@@ -5099,7 +5209,7 @@ index 13ab4ef874..eaa916aa19 100644
        mdast-util-to-markdown: 2.1.2
      transitivePeerDependencies:
        - supports-color
-@@ -25294,14 +25997,14 @@ snapshots:
+@@ -25294,14 +26000,14 @@ snapshots:
      dependencies:
        '@types/mdast': 4.0.4
        devlop: 1.1.0
@@ -5116,7 +5226,7 @@ index 13ab4ef874..eaa916aa19 100644
        mdast-util-gfm-autolink-literal: 2.0.1
        mdast-util-gfm-footnote: 2.1.0
        mdast-util-gfm-strikethrough: 2.0.0
-@@ -25317,7 +26020,7 @@ snapshots:
+@@ -25317,7 +26023,7 @@ snapshots:
        '@types/mdast': 4.0.4
        devlop: 1.1.0
        longest-streak: 3.1.0
@@ -5125,7 +5235,7 @@ index 13ab4ef874..eaa916aa19 100644
        mdast-util-to-markdown: 2.1.2
        unist-util-remove-position: 5.0.0
      transitivePeerDependencies:
-@@ -25565,10 +26268,10 @@ snapshots:
+@@ -25565,10 +26271,10 @@ snapshots:
  
    micromark-util-types@2.0.2: {}
  
@@ -5138,7 +5248,7 @@ index 13ab4ef874..eaa916aa19 100644
        decode-named-character-reference: 1.3.0
        devlop: 1.1.0
        micromark-core-commonmark: 2.0.3
-@@ -26001,10 +26704,10 @@ snapshots:
+@@ -26001,10 +26707,10 @@ snapshots:
        path-data-parser: 0.1.0
        points-on-curve: 0.2.0
  
@@ -5151,7 +5261,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -26158,7 +26861,7 @@ snapshots:
+@@ -26158,7 +26864,7 @@ snapshots:
  
    read-binary-file-arch@1.0.6:
      dependencies:
@@ -5160,7 +5270,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -26358,7 +27061,7 @@ snapshots:
+@@ -26358,7 +27064,7 @@ snapshots:
  
    router@2.2.0:
      dependencies:
@@ -5169,7 +5279,7 @@ index 13ab4ef874..eaa916aa19 100644
        depd: 2.0.0
        is-promise: 4.0.0
        parseurl: 1.3.3
-@@ -26419,7 +27122,7 @@ snapshots:
+@@ -26419,7 +27125,7 @@ snapshots:
  
    send@1.2.1:
      dependencies:
@@ -5178,7 +5288,7 @@ index 13ab4ef874..eaa916aa19 100644
        encodeurl: 2.0.0
        escape-html: 1.0.3
        etag: 1.8.1
-@@ -26683,7 +27386,7 @@ snapshots:
+@@ -26683,7 +27389,7 @@ snapshots:
  
    sumchecker@3.0.1:
      dependencies:
@@ -5187,7 +5297,7 @@ index 13ab4ef874..eaa916aa19 100644
      transitivePeerDependencies:
        - supports-color
  
-@@ -27035,9 +27738,9 @@ snapshots:
+@@ -27035,9 +27741,9 @@ snapshots:
        '@types/unist': 3.0.3
        vfile-message: 4.0.3
  
@@ -5199,7 +5309,7 @@ index 13ab4ef874..eaa916aa19 100644
        globrex: 0.1.2
        tsconfck: 3.1.6(typescript@6.0.3)
        vite: 8.0.16(@types/node@22.20.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0)
-@@ -27045,13 +27748,13 @@ snapshots:
+@@ -27045,13 +27751,13 @@ snapshots:
        - supports-color
        - typescript
  
@@ -5215,7 +5325,7 @@ index 13ab4ef874..eaa916aa19 100644
        fsevents: 2.3.3
        lightningcss: 1.32.0
  
-@@ -27101,14 +27804,14 @@ snapshots:
+@@ -27101,14 +27807,14 @@ snapshots:
        tsx: 4.22.4
        yaml: 2.9.0
  
@@ -5233,7 +5343,7 @@ index 13ab4ef874..eaa916aa19 100644
      dependencies:
        '@docsearch/css': 3.8.2
        '@docsearch/js': 3.8.2(@algolia/client-search@5.55.2)(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.17.3)
-@@ -27117,7 +27820,7 @@ snapshots:
+@@ -27117,7 +27823,7 @@ snapshots:
        '@shikijs/transformers': 2.5.0
        '@shikijs/types': 2.5.0
        '@types/markdown-it': 14.1.2
@@ -5242,7 +5352,7 @@ index 13ab4ef874..eaa916aa19 100644
        '@vue/devtools-api': 7.7.10
        '@vue/shared': 3.5.39
        '@vueuse/core': 12.8.2(typescript@6.0.3)
-@@ -27126,7 +27829,7 @@ snapshots:
+@@ -27126,7 +27832,7 @@ snapshots:
        mark.js: 8.11.1
        minisearch: 7.2.0
        shiki: 2.5.0
@@ -5251,7 +5361,7 @@ index 13ab4ef874..eaa916aa19 100644
        vue: 3.5.39(typescript@6.0.3)
      optionalDependencies:
        postcss: 8.5.15
-@@ -27220,7 +27923,7 @@ snapshots:
+@@ -27220,7 +27926,7 @@ snapshots:
      transitivePeerDependencies:
        - msw
  
@@ -5260,7 +5370,7 @@ index 13ab4ef874..eaa916aa19 100644
      dependencies:
        '@vitest/expect': 4.1.8
        '@vitest/mocker': 4.1.8(vite@8.0.16(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
-@@ -27244,7 +27947,7 @@ snapshots:
+@@ -27244,7 +27950,7 @@ snapshots:
        why-is-node-running: 2.3.0
      optionalDependencies:
        '@opentelemetry/api': 1.9.1
