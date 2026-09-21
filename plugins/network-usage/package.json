@@ -28,7 +28,11 @@
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
     },
-    "./cordis.patch.yml": "./cordis.patch.yml"
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./bash": {
+      "types": "./lib/types/bash-plugin.d.ts",
+      "default": "./lib/bash-plugin.js"
+    }
   },
   "files": [
     "lib/*.js",
@@ -50,7 +54,9 @@
     "zod": "^4.4.3",
     "@deepseek-ai/dsh-storage-domain": "workspace:^",
     "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence": "workspace:^"
+    "@deepseek-ai/dsh-session-persistence": "workspace:^",
+    "@deepseek-ai/dsh-bash-sandbox": "workspace:^",
+    "@deepseek-ai/dsh-shell": "workspace:^"
   },
   "devDependencies": {
     "@deepseek-ai/dsh-storage": "workspace:^",
@@ -66,7 +72,10 @@
     "react": "^18.2.0",
     "@types/react": "~18.3.1",
     "@deepseek-ai/dsh-experimental-usage-dashboard": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-workspace": "workspace:^"
+    "@deepseek-ai/dsh-client-ui-workspace": "workspace:^",
+    "@deepseek-ai/dsh-session-projection": "workspace:^",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:^",
+    "@deepseek-ai/dsh-subprocess-local": "workspace:^"
   },
   "dsh": {
     "client": {

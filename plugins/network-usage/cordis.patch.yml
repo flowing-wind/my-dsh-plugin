@@ -23,3 +23,11 @@
         runnerCommand: ['/usr/bin/bwrap']
         runnerFailureSignatures: ['bwrap:']
         probeTimeoutMs: 5000
+
+- id: bash-sandbox
+  disabled: true
+- insert:
+    - id: network-bash
+      name: '@deepseek-ai/dsh-experimental-network-usage/bash'
+      config:
+        timeoutMs: 60000

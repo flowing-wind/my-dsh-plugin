@@ -81,7 +81,7 @@ Transport pauses do not change request tokens or invalidate an already-reusable 
 <a id="known-limitations-and-deferred-work"></a>
 
 - Counts exclude IP/TCP overhead and retransmissions. Browser payload accounting can differ from compressed wire sizes.
-- Shell enforcement requires Linux bubblewrap and excludes unconfined permission modes. Host programs that bypass the installed HTTP dispatcher are outside proxy accounting.
+- Shell enforcement requires Linux bubblewrap and excludes unconfined permission modes. The `/bash` executor preserves approval decisions and supplies Session-authenticated proxy variables to approved full-access commands; clients honoring these variables remain metered. Host programs that bypass the installed HTTP dispatcher are outside proxy accounting.
 - Checkpoint intervals bound durability; an abrupt process loss can discard the latest uncheckpointed traffic.
 
 ### Dev Note

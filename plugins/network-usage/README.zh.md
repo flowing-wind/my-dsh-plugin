@@ -44,7 +44,7 @@ kind: "package-bundle"
 
 所有字段均必填。费用单位为人民币，带宽为十进制 Mbps，时长为毫秒。出网费用严格超过 `windowCny` 时启用共享限速。每达到一个 `dailyStepCny` 档位，计量传输和 Agent 步骤会暂停，直到浏览器确认当天当前档位。北京时间午夜重置自然日。没有历史总量、单对话或单文件大小上限。
 
-要限制 shell 联网，还需挂载 `/proxy`，设置私有绝对路径 `socketDirectory`、`allowPrivateAddresses: false` 和 `connectTimeoutMs: 15000`。用 `/sandbox` 替换现有本地沙盒提供方，配置 `runnerCommand: [/usr/bin/bwrap]` 和 `runnerFailureSignatures: ['bwrap:']`。只有受沙盒限制的权限预设才执行此联网策略。套接字目录必须支持 Unix 套接字。
+要限制 shell 联网，还需挂载 `/proxy`，设置私有绝对路径 `socketDirectory`、`allowPrivateAddresses: false` 和 `connectTimeoutMs: 15000`。用 `/sandbox` 替换现有本地沙盒提供方，配置 `runnerCommand: [/usr/bin/bwrap]` 和 `runnerFailureSignatures: ['bwrap:']`。只有受沙盒限制的权限预设才执行此联网策略。`/bash` 执行器为获准完全访问的命令注入会话专属代理凭据，保持原有审批；遵循代理变量的下载仍计入对应会话。套接字目录必须支持 Unix 套接字。
 
 启动打包配置层前，将 `DSH_NETWORK_SOCKET_DIRECTORY` 设为支持 Unix socket 的私有绝对目录。看板依次展示今日出网量与费用、距离下一次当日确认的剩余额度、累计出网量与费用。明细只包含现有及归档对话；后台传输及已删除对话仍计入汇总。
 

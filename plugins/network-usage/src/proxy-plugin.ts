@@ -33,6 +33,7 @@ export class NetworkProxy extends Service {
   private readonly pools = new Map<TrafficOwner, ProxyAgent>()
   private readonly listeners = new Map<SessionId, Promise<{ path: string; close(): Promise<void> }>>()
   private url = ''
+  private readonly shellUrls = new Map<TrafficOwner, string>()
 
   /** @param ctx - Traffic meter and initiator attribution. @param config - Socket and proxy policy. */
   constructor(ctx: Context, readonly config: Config) {
@@ -99,6 +100,24 @@ export class NetworkProxy extends Service {
     return listener.then(value => value.path)
   }
 
+  /**
+   * Issue proxy credentials attributed to one full-access shell owner.
+   * @param owner - Calling Session, or Host for calls outside a Session.
+   * @returns Authenticated proxy URL for child-process environment variables; never log it.
+   */
+  shellUrl(owner: TrafficOwner): string {
+    const existing = this.shellUrls.get(owner)
+    if (existing !== undefined) return existing
+    const username = randomUUID()
+    const password = randomUUID()
+    this.tokens.set(`Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`, owner)
+    const url = new URL(this.url)
+    url.username = username
+    url.password = password
+    const value = url.href
+    this.shellUrls.set(owner, value)
+    return value
+  }
   private async createSocket(sessionId: SessionId): Promise<{ path: string; close(): Promise<void> }> {
     const path = join(this.config.socketDirectory, `${randomUUID()}.sock`)
     const proxy = createTrafficProxy(this.ctx.networkUsage, { ...this.config, owner: () => sessionId })
