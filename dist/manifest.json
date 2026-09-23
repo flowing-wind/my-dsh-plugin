@@ -4,8 +4,8 @@
   "packages": [
     {
       "name": "deepseek-ai-dsh-experimental-glass-skin-0.1.6-alpha.2.tgz",
-      "bytes": 328225,
-      "sha256": "66836b2627e9d5971c5db4a5a96505b791144b893baf7c09532ae33559c680bc"
+      "bytes": 328298,
+      "sha256": "816299eca80489b957901510c252310a00f5d912e454302e5a5f7b6ba011eb90"
     },
     {
       "name": "deepseek-ai-dsh-experimental-interactive-results-0.1.6-alpha.2.tgz",
