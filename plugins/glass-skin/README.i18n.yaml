@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/glass-skin/README.md
-README.md: c3b7cbf41fd4a093e2e8a1d7f5f6c2f091463016
-README.zh.md: 713abbddaebf4facfc70d47825488fcbe721f222
+README.md: 8ac1ad7386edd5a067937461e5077f162830f0fb
+README.zh.md: 5457c2760dd4cdfb1d4b397ccb38e2ec3974ee14

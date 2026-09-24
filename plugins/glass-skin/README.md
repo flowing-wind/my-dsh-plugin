@@ -28,7 +28,7 @@ Custom PNG, JPEG, WebP, AVIF and GIF images are decoded and converted to WebP in
 <a id="implementation"></a>
 ## Implementation
 
-The authenticated Host route serves the packaged default wallpaper with private browser caching. The Client registers a settings section and removable theme overrides. Sidebar borders and neutral shading separate surfaces without blur. The welcome composer surround is transparent. Active-session composers, menus, tooltips, dialogs, trajectory details, code-block banners and fullscreen panels paint an opaque copy of the current wallpaper to cover text underneath. Native single-select controls open a wallpaper-backed in-page list with pointer and keyboard selection. The skin does not change the underlying theme preference. Browser storage is the sole preference owner, so there is no independent runtime invariant companion.
+The authenticated Host route serves the packaged default wallpaper with private browser caching. The Client registers a settings section and removable theme overrides. Sidebar borders and neutral shading separate surfaces without blur. The welcome composer surround is transparent. Active-session composers, menus, subagent dropdowns, tooltips, dialogs, trajectory details, code-block banners and fullscreen panels paint an opaque copy of the current wallpaper to cover text underneath. Native single-select controls open a wallpaper-backed in-page list with pointer and keyboard selection. The skin does not change the underlying theme preference. Browser storage is the sole preference owner, so there is no independent runtime invariant companion.
 
 <a id="model-experience"></a>
 ## Model Experience
