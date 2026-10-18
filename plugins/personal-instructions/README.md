@@ -16,7 +16,7 @@ Users can edit instructions that apply to every conversation without changing an
 - [Use](#use)
 - [Implementation](#implementation)
 - [Model Experience](#model-experience)
-- [Limitations](#limitations)
+- [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
 
 <a id="use"></a>
 ## Use
@@ -39,15 +39,20 @@ The Host loads the file at startup, writes updates atomically with user-only per
 
 Non-empty content appears in a `Personal instructions` system-prompt section for every Agent scope.
 
-#### Token impact
+#### Token effect
 
 Each request includes the saved text, so input usage grows with its length.
 
-#### KV Cache impact
+#### KV Cache effect
 
 Unchanged text remains stable across requests. Saving new text changes the system-prompt prefix and can reduce cache reuse.
 
-<a id="limitations"></a>
-## Limitations
+## Known Limitations and Deferred Work
 
-The plugin provides one shared file for the deployment user. It does not provide per-account or per-workspace overrides. The configured maximum file size defaults to 128 KiB. Disabling the plugin removes its settings section and prompt contribution while retaining the file.
+<a id="known-limitations-and-deferred-work"></a>
+
+- The plugin provides one shared file for the deployment user. It does not provide per-account or per-workspace overrides. The configured maximum file size defaults to 128 KiB. Disabling the plugin removes its settings section and prompt contribution while retaining the file.
+
+### Dev Note
+
+None.

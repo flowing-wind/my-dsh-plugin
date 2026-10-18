@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-mobile-layout",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "移动端布局：手机导航与触控优化",
   "type": "module",
   "license": "MIT",
@@ -53,5 +53,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

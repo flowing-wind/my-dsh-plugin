@@ -9,7 +9,10 @@ import type {} from '@deepseek-ai/dsh-client-connection'
 import type {} from '@deepseek-ai/dsh-system-prompt'
 import { resultSchema } from './wire.ts'
 /** Maximum JSON result size. */
-export interface Config { maxBytes: number }
+export interface Config {
+  /** Maximum size of an interactive result document in bytes. */
+  maxBytes: number
+}
 /** Deployment result size limit. */
 export const Config: schema<Config> = schema.object({ maxBytes: schema.natural().min(1).required() })
 /** Existing prompt, file ownership, and authenticated carrier. */

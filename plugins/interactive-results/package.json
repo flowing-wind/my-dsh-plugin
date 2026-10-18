@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-interactive-results",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "交互说明：表格、图表与表单交付",
   "type": "module",
   "license": "MIT",
@@ -49,7 +49,8 @@
     "@deepseek-ai/dsh-client-ui-conversation": "workspace:^",
     "@deepseek-ai/dsh-client-ui-chat": "workspace:^",
     "@deepseek-ai/dsh-client-ui-deliverables": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-session": "workspace:^"
+    "@deepseek-ai/dsh-client-ui-session": "workspace:^",
+    "@deepseek-ai/dsh-api-session-controller": "workspace:^"
   },
   "dsh": {
     "client": {
@@ -62,5 +63,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

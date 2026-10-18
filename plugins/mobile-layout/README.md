@@ -35,13 +35,26 @@ There is no separate ./invariant entry: the plugin projects owned services and f
 <a id="model-experience"></a>
 ## Model Experience
 
-No model tools or additional system sections; user actions call existing APIs.
+### Browser layout
 
-<a id="known-limitations-and-deferred-work"></a>
+#### What the model sees
+
+None. `mobile-layout` changes only browser layout and navigation.
+
+#### Token effect
+
+No model input is added.
+
+#### KV Cache effect
+
+Layout preferences do not change model request content.
+
 ## Known Limitations and Deferred Work
 
-This is a browser layout, not an installed mobile app or push-notification service.
+<a id="known-limitations-and-deferred-work"></a>
 
-## Dev Note
+- This is a browser layout, not an installed mobile app or push-notification service.
+
+### Dev Note
 
 None.

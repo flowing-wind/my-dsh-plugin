@@ -3,7 +3,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import JsonlSessionPersistence from '../src/index.ts'
+import * as JsonlSessionPersistence from '../src/index.ts'
 import { meta } from '../../session-persistence/tests/contract.ts'
 
 describe('permanent Session deletion', () => {
@@ -11,9 +11,10 @@ describe('permanent Session deletion', () => {
     const root = await mkdtemp(join(tmpdir(), 'dsh-delete-'))
     const ctx = new Context()
     const other = new Context()
-    const first = await ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
-    const second = await other.plugin(JsonlSessionPersistence, { root, compression: 'none' })
+    const first = ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
+    const second = other.plugin(JsonlSessionPersistence, { root, compression: 'none' })
     try {
+      await Promise.all([first.await(), second.await()])
       const selected = meta('selected', root)
       const neighbor = meta('neighbor', root)
       const writer = await ctx.sessionPersistence.create(selected)

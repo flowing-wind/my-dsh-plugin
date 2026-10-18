@@ -13,7 +13,7 @@
       "path": "../../../vendor/cordis"
     },
     {
-      "path": "../../client/locale"
+      "path": "../../client/locale/tsconfig.client.json"
     },
     {
       "path": "../../client/store"
@@ -31,7 +31,7 @@
       "path": "../../client/ui-sidebar"
     },
     {
-      "path": "../../client/ui-conversation"
+      "path": "../../client/ui-conversation/tsconfig.client.json"
     },
     {
       "path": "../../client/ui-session"
@@ -41,9 +41,6 @@
     },
     {
       "path": "../../client/ui-workspace"
-    },
-    {
-      "path": "../../client/ui-settings-unarchive-sessions"
     }
   ]
 }

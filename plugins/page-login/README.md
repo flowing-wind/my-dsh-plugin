@@ -9,14 +9,14 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-The public page shows a blurred wallpaper and password dialog. It uses the browser's selected preset or local wallpaper, and falls back to the default wallpaper when no preference exists. Private application initialization waits for authentication. A logout action appears above Settings in the left sidebar after login.
+The public page shows a password dialog on the native dark background or the browser's selected wallpaper. Private application initialization waits for authentication. A logout action appears above the account menu in the left sidebar after login.
 
 ## Table of Contents
 
 - [Configuration](#configuration)
 - [Authentication](#authentication)
 - [Model Experience](#model-experience)
-- [Limitations](#limitations)
+- [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
 
 <a id="configuration"></a>
 ## Configuration
@@ -33,9 +33,26 @@ Closing the page sends a best-effort revocation beacon; logout explicitly revoke
 <a id="model-experience"></a>
 ## Model Experience
 
-This plugin adds no tools, prompts, or Session events. Login and logout do not stop agent work on the server.
+### Browser authentication
 
-<a id="limitations"></a>
-## Limitations
+#### What the model sees
 
-Use HTTPS when serving the login over a public domain. There is one shared password and no account or role management. Disabling the plugin restores the configured default authentication provider. No separate invariant entry is exported: authentication reads its own credential registry rather than maintaining independent replicas.
+The `page-login` browser gate adds no model tools, prompts, or Session events. Login and logout do not stop Agent work.
+
+#### Token effect
+
+Authentication adds no model input.
+
+#### KV Cache effect
+
+Login state does not change the model request prefix.
+
+## Known Limitations and Deferred Work
+
+<a id="known-limitations-and-deferred-work"></a>
+
+- Use HTTPS when serving the login over a public domain. There is one shared password and no account or role management. Disabling the plugin restores the configured default authentication provider. No separate invariant entry is exported: authentication reads its own credential registry rather than maintaining independent replicas.
+
+### Dev Note
+
+None.

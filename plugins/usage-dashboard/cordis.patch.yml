@@ -1,3 +1,0 @@
-- insert:
-    - id: usage-dashboard
-      name: '@deepseek-ai/dsh-experimental-usage-dashboard'

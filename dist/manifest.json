@@ -1,71 +1,77 @@
 {
-  "baseCommit": "ddefc45fbc7f8e46dd73185e68295696d1297887",
+  "baseCommit": "687f282e8625c6b8d11ff58211a90524be2e4317",
+  "version": "0.2.1-rc.2",
   "compatibility": "Requires patches/harness.patch and matching Harness build.",
   "packages": [
     {
-      "name": "deepseek-ai-dsh-experimental-glass-skin-0.1.6-alpha.2.tgz",
-      "bytes": 328335,
-      "sha256": "e98360da9f85086f3561151d0c4b402664a9663a0668a86c64f80b23ca030ecc"
+      "name": "deepseek-ai-dsh-experimental-account-balance-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-account-balance",
+      "version": "0.2.1-rc.2",
+      "bytes": 9133,
+      "sha256": "1ee31fd2d98c6bbcf23e541a718369852585fc9e755bfdc4aecde06c3975704b"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-interactive-results-0.1.6-alpha.2.tgz",
-      "bytes": 34483,
-      "sha256": "069904fe5607e7948149cc95247c2d1602bc87f4e7f5cd4b61b7a6186db17f2b"
+      "name": "deepseek-ai-dsh-experimental-workspace-download-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-workspace-download",
+      "version": "0.2.1-rc.2",
+      "bytes": 14532,
+      "sha256": "e5ce2eafbbd8d308c8d10b823b290123f9b77a9de42b82123c145a7ab84bda99"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-mobile-layout-0.1.6-alpha.2.tgz",
-      "bytes": 6297,
-      "sha256": "391c0b5c3e68f9dd4a61313c150d75c9c45cae117159daa788275ea3b363d61c"
+      "name": "deepseek-ai-dsh-experimental-workspace-management-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-workspace-management",
+      "version": "0.2.1-rc.2",
+      "bytes": 10896,
+      "sha256": "a10524f44637d5c4342f1a301d85961b0e35a4a29bfa78ca3a124300611e080b"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-network-usage-0.1.6-alpha.2.tgz",
-      "bytes": 52376,
-      "sha256": "7c71e3938e715a33b61c53cfd7f9737dd21650627d500d2332a5c4d417187582"
+      "name": "deepseek-ai-dsh-experimental-workspace-editor-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-workspace-editor",
+      "version": "0.2.1-rc.2",
+      "bytes": 9455,
+      "sha256": "1133a2dbb52809fd262e2b76beb67897c85b7ff5cf7e52a63f8e786b19042281"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-page-login-0.1.6-alpha.2.tgz",
-      "bytes": 10939,
-      "sha256": "4360e6c1e1619cbe5b20eec63b79d5ffb9725ad529dae9106eaa49df10fe30f9"
+      "name": "deepseek-ai-dsh-experimental-workspace-pages-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-workspace-pages",
+      "version": "0.2.1-rc.2",
+      "bytes": 10368,
+      "sha256": "72669dd7ba9fd2d78f8a7daf82761fb1604bfd334214d2dd29f0dd52f1bed890"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-personal-instructions-0.1.6-alpha.2.tgz",
-      "bytes": 6802,
-      "sha256": "3293d7ccacd337bef17a0f6405aa250041d71ba8a0a47e5a3f904b628e42165e"
+      "name": "deepseek-ai-dsh-experimental-interactive-results-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-interactive-results",
+      "version": "0.2.1-rc.2",
+      "bytes": 9765,
+      "sha256": "ec8129710c8e06a0031aea52b966ec526e90c88ab63123d7735fd3e27f9990c8"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-task-board-0.1.6-alpha.2.tgz",
-      "bytes": 35052,
-      "sha256": "3a66072f0f70c64016b5c5d7c40071b4e55b08dce725d3a0f3ac1fb943976ef0"
+      "name": "deepseek-ai-dsh-experimental-mobile-layout-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-mobile-layout",
+      "version": "0.2.1-rc.2",
+      "bytes": 7045,
+      "sha256": "bc5ea62d10695c20c18d7339344863f873c52a9570201fc7f71707471d3b9f3d"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-usage-billing-0.1.6-alpha.2.tgz",
-      "bytes": 43828,
-      "sha256": "436dadb1b29b013f30a7d685300d96a14c7e59ee599fdcbddb55284bcaae5643"
+      "name": "deepseek-ai-dsh-experimental-glass-skin-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-glass-skin",
+      "version": "0.2.1-rc.2",
+      "bytes": 324289,
+      "sha256": "4ef2733c148b4f3cc2b2837bbe26670bc7b3c5d2df6cbb043b73f56a0fa82950"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-usage-dashboard-0.1.6-alpha.2.tgz",
-      "bytes": 6371,
-      "sha256": "04b74654555209cc99b61028b863ab9f1b1ffa65d3a67eb70e66721ff89be802"
+      "name": "deepseek-ai-dsh-experimental-page-login-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-page-login",
+      "version": "0.2.1-rc.2",
+      "bytes": 11678,
+      "sha256": "c01eec679db898107b7755214aa334f9bbf2feb86bea4bc65c4f6456a1d7693e"
     },
     {
-      "name": "deepseek-ai-dsh-experimental-workspace-download-0.1.6-alpha.2.tgz",
-      "bytes": 13824,
-      "sha256": "ce7a882941154e92a12691aa0478644e053be36489689561091af83c56ebe376"
-    },
-    {
-      "name": "deepseek-ai-dsh-experimental-workspace-editor-0.1.6-alpha.2.tgz",
-      "bytes": 31307,
-      "sha256": "e1fc405a65e3f04524afccf9b42302d258071d098209db9015b1c6e47a78b08d"
-    },
-    {
-      "name": "deepseek-ai-dsh-experimental-workspace-management-0.1.6-alpha.2.tgz",
-      "bytes": 33284,
-      "sha256": "190966d15662f2f98ad89ecac7ce7db6012b0bf0aa12ef2c5a543a65c615465e"
-    },
-    {
-      "name": "deepseek-ai-dsh-experimental-workspace-pages-0.1.6-alpha.2.tgz",
-      "bytes": 9469,
-      "sha256": "3c866d9fe3d4ea686891a3988dc7cf3ff8f7f0e1fd5139b800d6e7440455bec2"
+      "name": "deepseek-ai-dsh-experimental-personal-instructions-0.2.1-rc.2.tgz",
+      "package": "@deepseek-ai/dsh-experimental-personal-instructions",
+      "version": "0.2.1-rc.2",
+      "bytes": 7447,
+      "sha256": "e6c007bf56b59b0dd99ac9973cf6ffc301be9cbdcfd33c29aa7420aa9f66e040"
     }
   ]
 }

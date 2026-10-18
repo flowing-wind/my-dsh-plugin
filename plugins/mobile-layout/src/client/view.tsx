@@ -9,7 +9,7 @@ import { zh, en } from './locales.ts'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap { mobileLayout: keyof typeof zh } }
 const styles = `
-[data-mobile-nav]{display:none}
+[data-mobile-nav],[data-mobile-backdrop]{display:none}
 @media(max-width:700px){
 html[data-mobile-layout] [data-app-frame]{grid-template-columns:0 minmax(0,1fr) 0!important;height:100dvh;width:100%;}
 html[data-mobile-layout] [data-sidebar-col]{position:absolute;inset:0 auto 0 0;width:100%;box-sizing:border-box;z-index:30;box-shadow:20px 0 60px #0006;}
@@ -28,7 +28,7 @@ html[data-mobile-layout] [data-sidebar-col] [data-slot="sidebar"]>div{width:100%
 html[data-mobile-layout] [data-mobile-nav]{display:block;position:absolute;top:8px;left:8px;isolation:isolate;border-radius:9px;overflow:hidden;}
 html[data-mobile-layout] [data-mobile-nav]::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--dsw-alias-bg-base,#202020);}
 html[data-mobile-layout][data-glass-skin] [data-mobile-nav]::before{background-color:#202020;background-image:linear-gradient(rgb(0 0 0 / var(--glass-opacity)),rgb(0 0 0 / var(--glass-opacity))),var(--glass-image);background-position:center;background-size:cover;background-attachment:fixed;}
-html[data-mobile-layout] [data-mobile-nav] button{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:9px!important;background:transparent!important;color:inherit;cursor:pointer;box-shadow:none!important;}
+html[data-mobile-layout] [data-mobile-nav] button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:9px!important;background:transparent!important;color:inherit;cursor:pointer;box-shadow:none!important;}
 html[data-mobile-layout] [data-mobile-nav] button:hover{background:#ffffff14!important;}
 html[data-mobile-layout]:has([data-app-frame]:not([data-sidebar-collapsed])) [data-mobile-nav]{display:none;}
 html[data-mobile-layout] [data-mobile-backdrop]{display:none;position:absolute;inset:0;border:0;background:#0005;}
@@ -38,6 +38,11 @@ html[data-mobile-layout][data-glass-skin] [data-sidebar-col]{background-color:#2
 html[data-mobile-layout]:has([data-rightbar-fullscreen]) [data-mobile-nav]{display:none;}
 html[data-mobile-layout] textarea,html[data-mobile-layout] input,html[data-mobile-layout] select{font-size:16px;}
 html[data-mobile-layout] [role='dialog']{max-width:calc(100vw - 16px);max-height:calc(100dvh - 16px);}
+html[data-mobile-layout] [data-shortcut-modal='settings']{flex-direction:column;width:calc(100vw - 16px);height:calc(100dvh - 16px);}
+html[data-mobile-layout] [data-shortcut-modal='settings']>nav{width:100%;padding:16px 12px 0;gap:10px;}
+html[data-mobile-layout] [data-shortcut-modal='settings']>nav>div:last-child{flex-direction:row;overflow-x:auto;overflow-y:hidden;}
+html[data-mobile-layout] [data-shortcut-modal='settings']>nav button{flex-shrink:0;white-space:nowrap;min-height:44px;}
+html[data-mobile-layout] [data-shortcut-modal='settings']>div{min-height:0;}
 html[data-mobile-layout] [data-sidebar-col] button{min-height:40px;}
 html[data-mobile-layout] [data-center-col] table{font-size:12px;}
 html[data-mobile-layout] [data-files-entry='file']>a,html[data-mobile-layout] [data-files-entry='file']>button{min-height:44px;align-items:center;}

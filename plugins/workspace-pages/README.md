@@ -35,14 +35,27 @@ There is no separate ./invariant entry: the plugin projects owned services and f
 <a id="model-experience"></a>
 ## Model Experience
 
-When enabled, a system-prompt section explains delivery formats and browser interaction. It enters normally recorded model requests.
+### Static deliveries
 
-<a id="known-limitations-and-deferred-work"></a>
+#### What the model sees
+
+The `workspace-pages` system section describes self-contained HTML deliveries through `present`. Browser preview interaction itself sends no message.
+
+#### Token effect
+
+The fixed guidance adds a stable system-prompt section.
+
+#### KV Cache effect
+
+The guidance is stable between requests; adding or removing it changes the request prefix.
+
 ## Known Limitations and Deferred Work
 
-No Python/Node server, remote requests, ES modules, CSS @import, form navigation, or Harness API access. Direct PDFs obey the asset-size limit.
+<a id="known-limitations-and-deferred-work"></a>
 
-## Dev Note
+- No Python/Node server, remote requests, ES modules, CSS @import, form navigation, or Harness API access. Direct PDFs obey the asset-size limit.
+
+### Dev Note
 
 None.
 

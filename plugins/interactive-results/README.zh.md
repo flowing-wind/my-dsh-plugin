@@ -7,7 +7,7 @@ kind: "package-bundle"
 
 [English](README.md) | 中文
 
-## 摘要
+## 概述
 
 把 Agent 交付的 .interactive.json 文件渲染为对话下方可筛选的表格、柱状图与表单。
 
@@ -16,7 +16,7 @@ kind: "package-bundle"
 - [使用](#use-this-package)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [限制](#known-limitations-and-deferred-work)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
 
 <a id="use-this-package"></a>
 ## 使用
@@ -35,13 +35,26 @@ Host 入口拥有认证接口；浏览器入口通过生命周期注册 UI。卸
 <a id="model-experience"></a>
 ## 模型体验
 
-启用时注册系统提示词，说明交付格式和浏览器交互方式。提示词进入正常记录的模型请求。
+### 结构化交付
+
+#### 模型看到的内容
+
+`interactive-results` 系统章节说明 `.interactive.json` 交付格式。显式提交表单时，标题及提交值作为普通用户消息发送。
+
+#### Token 影响
+
+固定交付指导增加提示词内容，提交的表单值增加可变用户消息 Token。
+
+#### KV Cache 影响
+
+稳定指导可复用其前缀，提交表单会扩展对话。
+
+## 已知限制与延期工作
 
 <a id="known-limitations-and-deferred-work"></a>
-## 限制
 
-不执行任意代码，也不加载远程资源。交付文件必须保留在对话工作区中；修改文件会改变下次展示的内容。
+- 不执行任意代码，也不加载远程资源。交付文件必须保留在对话工作区中；修改文件会改变下次展示的内容。
 
-## Dev Note
+### 开发备注
 
 无。

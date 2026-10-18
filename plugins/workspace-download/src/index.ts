@@ -48,9 +48,9 @@ export function apply(ctx: Context, config: Config): void {
       const body = new ReadableStream<Uint8Array>({
         async pull(controller) {
           try {
-            const chunk = await ctx.workspaceFiles.readBytes(scope, path, { offset }, signal)
+            const chunk = await ctx.workspaceFiles.readBytes(scope, path, { range: { offset } }, signal)
             if (chunk.version !== initial.version) throw new Error('File changed during download; retry after writing finishes')
-            const bytes = Buffer.from(chunk.data, 'base64')
+            const bytes = chunk.data
             offset += bytes.length
             if (bytes.length > 0) controller.enqueue(bytes)
             if (chunk.eof) controller.close()

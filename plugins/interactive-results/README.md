@@ -35,13 +35,26 @@ There is no separate ./invariant entry: the plugin projects owned services and f
 <a id="model-experience"></a>
 ## Model Experience
 
-When enabled, a system-prompt section explains delivery formats and browser interaction. It enters normally recorded model requests.
+### Structured deliveries
 
-<a id="known-limitations-and-deferred-work"></a>
+#### What the model sees
+
+The `interactive-results` system section explains `.interactive.json` deliveries. Explicit form submission sends its title and submitted values as a normal user message.
+
+#### Token effect
+
+The fixed delivery guidance adds prompt text; submitted form values add variable user-message tokens.
+
+#### KV Cache effect
+
+The stable guidance can reuse its prefix; a submitted form extends the conversation.
+
 ## Known Limitations and Deferred Work
 
-No arbitrary code or remote resources. Delivered files must remain in the conversation workspace; editing the file changes the next displayed result.
+<a id="known-limitations-and-deferred-work"></a>
 
-## Dev Note
+- No arbitrary code or remote resources. Delivered files must remain in the conversation workspace; editing the file changes the next displayed result.
+
+### Dev Note
 
 None.

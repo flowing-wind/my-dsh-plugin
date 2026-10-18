@@ -2,6 +2,9 @@
   config:
     nativeOpen: false
     defaultCwd: /home/dsh/Projects
+- id: workspace-controller
+  config:
+    documentsDirectory: /home/dsh/Projects
 - id: permission
   config:
     presets:

@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Delete conversations from their sidebar menus or the archived-session settings list. The existing Workspace deletion dialog offers independent, initially unchecked options to remove its managed directory and all its conversations, including archived ones.
+Delete conversations from native sidebar menus, including archived rows. The Workspace deletion dialog offers independent, initially unchecked options to remove its managed directory and all its conversations, including archived ones.
 
 ## Table of Contents
 
@@ -58,11 +58,19 @@ The [Host](src/index.ts) uses the Session controller to close active writers and
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as authenticated browser deletion adds no model-facing input.
+### Browser deletion
+
+#### What the model sees
+
+None. `workspace-management` adds authenticated browser deletion without model tools or prompts.
+
+#### Token effect
+
+No model input is added.
 
 #### KV Cache effect
 
-Deletion does not rewrite surviving conversations' request tokens or invalidate their already-reusable prefixes.
+Deletion does not rewrite surviving conversations or their reusable request prefixes.
 
 ## Known Limitations and Deferred Work
 

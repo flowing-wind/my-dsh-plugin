@@ -1,5 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md).
-# Both languages carry equal authority.
-# Re-record with: pnpm run verify-translation-pairing --write packages/experimental/workspace-pages/README.md
-README.md: 41c97501c0281af8907450f1cf2682a3cffa7fa8
-README.zh.md: f17ed5a24fba392bb387aa24231b78a5c78345d8
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/workspace-pages/README.md
+/:
+  en: 35e8d6e02af00543
+  zh: e6afefcd1c49f04d
+/deepseek-ai-dsh-experimental-workspace-pages:
+  en: 52f8c86449181339
+  zh: 7df98070a28594df
+/deepseek-ai-dsh-experimental-workspace-pages/summary:
+  en: 96ff5d8838132d08
+  zh: 972c0b08383feb1a
+/deepseek-ai-dsh-experimental-workspace-pages/table-of-contents:
+  en: ed122a1f086d7743
+  zh: 8a9737e5cb824642
+/deepseek-ai-dsh-experimental-workspace-pages/use-this-package:
+  en: 5af645be8503db80
+  zh: 74ceca1ca680cec7
+/deepseek-ai-dsh-experimental-workspace-pages/implementation:
+  en: 134e6e84057f4daa
+  zh: 25beef3c49627d46
+/deepseek-ai-dsh-experimental-workspace-pages/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-workspace-pages/model-experience/static-deliveries:
+  en: 8b98a5b9656d40b5
+  zh: efb827f2d26d4c65
+/deepseek-ai-dsh-experimental-workspace-pages/model-experience/static-deliveries/what-the-model-sees:
+  en: a66beec3a9745743
+  zh: d723433427cd2f27
+/deepseek-ai-dsh-experimental-workspace-pages/model-experience/static-deliveries/token-effect:
+  en: 19faf1593ef04129
+  zh: 8372970e8e8f1528
+/deepseek-ai-dsh-experimental-workspace-pages/model-experience/static-deliveries/kv-cache-effect:
+  en: 3871d5d01b6a25e8
+  zh: ad51a50c27e61fe9
+/deepseek-ai-dsh-experimental-workspace-pages/known-limitations-and-deferred-work:
+  en: ed7e8420505915f6
+  zh: 67228a0788aef7fb
+/deepseek-ai-dsh-experimental-workspace-pages/known-limitations-and-deferred-work/dev-note:
+  en: 87d8f20aaba208b4
+  zh: ebc1bbf039ffbc39

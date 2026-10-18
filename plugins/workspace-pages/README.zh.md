@@ -7,7 +7,7 @@ kind: "package-bundle"
 
 [English](README.md) | 中文
 
-## 摘要
+## 概述
 
 通过需要认证的 Harness 域名，在浏览器新标签页查看 PDF、图片、文本与静态 HTML 说明。
 
@@ -16,7 +16,7 @@ kind: "package-bundle"
 - [使用](#use-this-package)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [限制](#known-limitations-and-deferred-work)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
 
 <a id="use-this-package"></a>
 ## 使用
@@ -35,14 +35,27 @@ Host 入口拥有认证接口；浏览器入口通过生命周期注册 UI。卸
 <a id="model-experience"></a>
 ## 模型体验
 
-启用时注册系统提示词，说明交付格式和浏览器交互方式。提示词进入正常记录的模型请求。
+### 静态交付
+
+#### 模型看到的内容
+
+`workspace-pages` 系统章节说明通过 `present` 交付自包含 HTML。浏览器预览交互本身不发送消息。
+
+#### Token 影响
+
+固定指导增加稳定的系统提示词章节。
+
+#### KV Cache 影响
+
+指导在请求间保持稳定，添加或移除它会改变请求前缀。
+
+## 已知限制与延期工作
 
 <a id="known-limitations-and-deferred-work"></a>
-## 限制
 
-不启动 Python/Node 服务，不支持远程请求、ES 模块、CSS @import、表单跳转或 Harness API 访问。直接查看 PDF 也受单资源大小限制。
+- 不启动 Python/Node 服务，不支持远程请求、ES 模块、CSS @import、表单跳转或 Harness API 访问。直接查看 PDF 也受单资源大小限制。
 
-## Dev Note
+### 开发备注
 
 无。
 

@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-management",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "对话与工作区删除：菜单删除、归档删除及可选磁盘文件清理",
   "type": "module",
   "license": "MIT",
@@ -53,8 +53,7 @@
     "react": "^18.2.0",
     "@types/react": "~18.3.1",
     "@deepseek-ai/dsh-client-ui-primitives": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-workspace": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-settings-unarchive-sessions": "workspace:^"
+    "@deepseek-ai/dsh-client-ui-workspace": "workspace:^"
   },
   "dsh": {
     "client": {
@@ -68,5 +67,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

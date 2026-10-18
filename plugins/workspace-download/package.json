@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-download",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "工作区文件下载：文件树下载、预览和对话交付",
   "type": "module",
   "license": "MIT",
@@ -71,5 +71,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

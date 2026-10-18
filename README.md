@@ -1,96 +1,62 @@
 # my-dsh-plugin
 
-为 DeepSeek Harness 云端网页部署整理的 13 个自定义插件。提供用量统计、文件操作、静态网页交付、定时任务、移动端界面、透明壁纸、页面登录与个性化设置。
+DeepSeek Harness 云端网页扩展，适配官方 **0.2.1-rc.2**，固定提交 [`687f282e8625c6b8d11ff58211a90524be2e4317`](https://github.com/deepseek-ai/deepseek-harness/commit/687f282e8625c6b8d11ff58211a90524be2e4317)。提供背景外观、手机布局、网页文件操作、页面登录和个性化设置。
 
-## 先了解兼容性
+## 功能
 
-**不是安装到任意官方版本就能直接使用的纯插件集合。** 当前版本基于官方提交 `ddefc45fbc7f8e46dd73185e68295696d1297887`（0.1.6-alpha.2），同时依赖 `patches/harness.patch` 中的官方源码扩展和界面调整。补丁包含认证扩展、文件交付操作插槽、工作区管理接口、侧栏底部插槽、共享菜单与提示框样式、默认布局及品牌文案等。升级官方版本时需要重新检查这些改动。
+| 插件 | 功能 |
+|---|---|
+| `glass-skin` | 默认原生深色、春物、Whiteout 和浏览器本地图片；壁纸面板不透明度可调；侧栏使用官方完整 Logo |
+| `mobile-layout` | 手机导航、全宽面板和横向滚动的设置分类 |
+| `account-balance` | 查询当前 API Key 的余额，链接到官方用量及充值页面 |
+| `workspace-download` | 文件下载、文件夹 ZIP 打包，较大压缩包下载前确认 |
+| `workspace-editor` | 网页内 UTF-8 文本编辑，保存前检查文件版本 |
+| `workspace-pages` | 在新标签页预览 PDF、文件和隔离的静态 HTML 页面 |
+| `workspace-management` | 永久删除会话；工作区注销、文件删除与会话删除分别确认 |
+| `interactive-results` | 表格、柱状图、向当前会话提交的表单 |
+| `page-login` | 单密码入口，每次刷新或打开新页面重新验证，保护 HTTP API 和实时连接 |
+| `personal-instructions` | 设置中维护共享个性化说明，默认保存到服务账号 `~/.dsh/agent.md` |
 
-插件以 Cordis 配置层加载，可在插件管理页面分别启用或停用。共享 UI 改动属于补丁，不会随着某个插件关闭而自动撤销。这个仓库不包含服务器密码、SSH 私钥、模型 API 密钥、私人 agent.md 或测试会话。
+自动化任务、模型配置、插件管理、会话归档和菜单使用官方实现。用量总览、Token 估算账本及网络统计不在加载清单中；升级保留数据目录中的既有记录。
 
-## 文件结构
+背景偏好保存在当前浏览器。首次访问使用原生界面，已有壁纸和本地图片偏好继续生效；选择“默认 · 原生深色”恢复官方深色界面。自定义图片仅在浏览器压缩并存入 IndexedDB，动画图片取单帧，不上传服务器。自带壁纸为部署者提供的资源，再分发时需确认使用权。
 
-- `plugins/`：每个插件的 TypeScript 源码、配置层、构建配置及中英文说明。
-- `dist/`：已构建的独立 `.tgz` 安装包及摘要清单；这些包仍依赖匹配的 Harness 构建。
-- `patches/harness.patch`：针对上述官方提交的兼容补丁。
-- `upstream.json`：官方来源、固定提交与插件列表。
-- `install.mjs`：核对提交、检查补丁、复制源码并应用补丁。
-- `extras/`：兼容补丁所需的新增官方目录文档和测试。
-- `deploy/`：systemd、Apache、Web profile 和不含密码摘要的部署配置示例，详见 [部署说明](deploy/README.md)。
+## 官方能力与云端适配
 
-## 插件说明
+[官方 0.2.1-rc.2](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.1-rc.2) 支持 Flash-1017，模型 ID 仍为 `deepseek-flash`。在“插件 → 网页搜索”打开“启用新版 Web 搜索 API”可使用内置 DeepSeek Search/Fetch API；搜索服务的权限和计费由 DeepSeek 决定。
 
-### 1. usage-dashboard：用量总览入口
+官方账号登录使用 HTTP loopback 回调，公网 HTTPS 反向代理地址不满足该登录方式的要求。云端使用模型 API Key，`account-balance` 只查询余额；充值与账单在官方平台完成。账号登录流程及其可用性以官方实现为准。
 
-提供统一的用量页面和布局插槽，将 Token 费用与公网网络统计集中显示。它本身不记录费用；停用此插件只隐藏总览入口，不会停止另两个统计插件的记录。
+Harness 原生加载全局 `~/.dsh/skills/<名称>/SKILL.md` 和项目 `.agents/skills/<名称>/SKILL.md`，并读取全局及项目 `AGENTS.md`。Ponytail、UI UX Pro Max 等文件型 skill 可以按这个目录安装；带 Codex 专用工具的指令需要对应工具。Remotion skill 还需要工作区中的 Remotion、Node 和浏览器依赖。技能文件本身不需要另写 Cordis 插件，新增宿主工具或页面才需要插件。`personal-instructions` 与原生 `AGENTS.md` 分别加载。
 
-### 2. usage-billing：Token 与费用
+## 安装
 
-记录输入、缓存命中、输出 Token，并按配置的价格版本估算人民币费用。提供今日和累计统计、工作区合计、可折叠的会话明细与归档标记。余额由配置的 DeepSeek 凭据查询。价格为部署配置，估算不替代服务商账单。换 API 密钥不删除本地历史；换账户会改变余额来源。删除会话明细不回退累计账本。
+本仓库包含 **10 个插件及匹配官方源码的兼容补丁**。独立 `.tgz` 包也依赖该补丁，不能直接用于其他官方版本。补丁仅提供页面认证、永久删除、文件操作插槽和手机布局标记，并保留官方主体界面。
 
-### 3. network-usage：网络统计与费用控制
-
-包含统计服务、出站代理及网络沙盒。记录服务器出网传输，按工作区和会话归集，显示今日、累计、短时窗口费用及确认额度。支持限速和每日分段确认。默认配置按 0.8 元/GB 估算，10 分钟窗口 0.5 元、限速 2 Mbps、每日每 10 元确认；请按真实云厂商计费调整。浏览器上传主要是服务器入网，下载或预览文件是服务器出网。应用统计不是云厂商整机账单，不能覆盖绕过本应用的其他服务流量。Linux 网络沙盒需要 bubblewrap，代理目录必须位于部署用户可写路径。
-
-### 4. workspace-download：文件与文件夹下载
-
-文件可从文件列表或交付卡片下载；文件夹在服务器打包 ZIP，保留中文文件名和空目录，跳过符号链接。压缩后超过 20,000,000 字节需要再次确认。打包产生临时数据，部署时应为服务用户设置可写的项目临时目录。
-
-### 5. workspace-management：工作区与会话管理
-
-提供会话删除、归档会话删除及工作区清理入口。工作区文件清理与会话记录操作分开确认。此功能会删除数据，不是快照或文件回滚服务；默认没有文件系统自动备份。
-
-### 6. workspace-editor：轻量文本编辑
-
-从文件列表或交付菜单打开编辑器，支持读取、重新读取和保存。窗口随桌面、手机视口适配；保存使用读取版本检查，避免覆盖 Agent 同时修改的文件。适合临时修改文本和代码，不是完整 VS Code 或 Jupyter。
-
-### 7. workspace-pages：新标签页与静态网页
-
-提供 PDF、文件及 HTML/CSS/JavaScript 静态资源的新标签页查看。Agent 可以交付静态说明、图表和小工具。HTML 在隔离的浏览器环境中运行；本插件不启动 Python/Node 后端服务，也不提供任意端口公网转发。
-
-### 8. task-board：任务看板与定时执行
-
-列出任务及相关会话，支持一次性、每天、每周定时执行。执行发生在服务器，不要求浏览器保持打开；前提是 Harness 服务运行且模型凭据可用。关闭网页或登出不会中止服务器已运行的 Agent。日程数据应与服务数据目录一起备份。
-
-### 9. interactive-results：交互结果
-
-渲染交付的表格、柱状图及表单，支持筛选和向会话提交表单结果。用于结构化说明与轻量交互。任意复杂网页可交由 workspace-pages 处理。
-
-### 10. mobile-layout：手机布局
-
-为窄屏浏览器提供导航入口、触控尺寸及全宽面板适配，保留桌面双侧栏体验。布局根据视口变化，不需要安装手机应用。
-
-### 11. glass-skin：透明背景皮肤
-
-默认春物壁纸，另有 Whiteout 预设，均已压缩为 WebP。设置通过缩略图切换，可调整底色不透明度（默认 0.7），也可选择浏览器本地图片。背景始终 center/cover。自定义图片在浏览器压缩并保存到 IndexedDB，不上传服务器。菜单、对话框、轨迹详情和代码块吸顶标题栏通过重绘相同壁纸遮住下层文字；普通界面不使用模糊，登录页保留模糊效果。文件图标使用 Material Icon Theme 的 MIT SVG 子集，许可位于插件 assets 目录。壁纸为部署者提供的资源，使用者应确认自己的展示及再分发权限。
-
-### 12. page-login：页面身份验证
-
-未登录显示模糊的所选壁纸和“请验证身份”弹窗，没有偏好时使用春物。验证成功才初始化私有界面。登录凭据仅在当前页面内存；刷新、新标签页或重新打开都需要验证。侧栏设置上方提供“登出”，收起时显示图标。服务器保存随机盐与 scrypt 摘要，不保存明文密码。关闭页面尽力撤销令牌，异常断开由空闲过期清理。公网必须使用 HTTPS，代理日志不得记录携带 pageToken 的查询串。此插件是单密码入口，不提供多用户、角色或修改密码界面。部署者自行设置 `passwordHash`、空闲期限与尝试频率。
-
-### 13. personal-instructions：个性化要求
-
-设置 → 个性化提供文本编辑器，默认保存到服务账号 `~/.dsh/agent.md`，文件权限 600。文本通过独立系统提示词 section 加入后续请求，不修改 Agent 预设。原有工作区 `AGENTS.md` 加载机制继续生效。整个部署共享一份说明；内容随提示词计入输入 Token。私人说明不随插件发布，需在自己的服务器上填写。
-
-## 安装与构建
-
-需要 Linux、Node 24.13.1、pnpm 11.7.0，以及官方项目要求的构建工具。请使用普通部署账号，依赖、缓存、Python 环境和项目都存放在它的 home 中。
+需要 Linux、Node 24 和上游固定的 pnpm 11.28.5，以及官方原生扩展的构建工具。
 
 ```bash
 git clone https://github.com/deepseek-ai/deepseek-harness.git ~/deepseek-harness
-cd ~/deepseek-harness
-git checkout ddefc45fbc7f8e46dd73185e68295696d1297887
+git -C ~/deepseek-harness checkout 687f282e8625c6b8d11ff58211a90524be2e4317
 node ~/my-dsh-plugin/install.mjs ~/deepseek-harness
+cd ~/deepseek-harness
 pnpm install
-pnpm run build
+pnpm run build:artifacts
 ```
 
-源码安装后，需要在 Web profile 中注册这 13 个 bundle；每个插件的 `cordis.patch.yml` 描述它的配置层。`page-login` 必须先配置密码摘要；网络代理必须配置 socketDirectory。通过 `dsh web --patch <部署配置>` 启动，不能跳过官方 profile 直接运行某个内部包。公共 UI 位于 Web 入口构建中，只替换插件 client.js 不会更新全部界面。
+安装脚本先核对提交并检查补丁，再复制源码及测试并应用补丁。构建后将 [Web profile](deploy/profile.json) 的路径改为实际源码目录，安装为 `$DSH_HOME/profiles/web/package.json`，在该目录执行 `pnpm install`。通过 `dsh web --patch <私有部署配置>` 启动。各插件可在官方插件页面启停；源码兼容接口随构建保留。
 
-详细配置参见各插件的 `README.zh.md`、Config 类型和 `cordis.patch.yml`。服务器部署使用独立 systemd 服务和 Apache VirtualHost；备份数据目录、个性化文件及部署配置，保留已有站点。
+## 目录与部署
 
-## 已验证与限制
+- `plugins/`：插件源码、配置层及中英文说明。
+- `patches/harness.patch`：固定上游版本的兼容补丁，包含对应调用方和测试调整。
+- `extras/`：补丁新增的认证和会话删除测试。
+- `dist/`：构建后的插件包与 SHA-256 清单。
+- `upstream.json`：官方版本、提交和加载插件清单。
+- `deploy/`：systemd、Apache、Web profile 和部署配置示例，参见[部署说明](deploy/README.md)。
 
-桌面和手机浏览器已检查登录、背景切换、文件编辑、文件下载、静态页面、菜单、全屏预览、统计分组和定时任务。菜单键盘测试 25 项通过；设置和文件交付相关测试 61 项通过。WSL 原生目录完整构建通过，云端 HTTPS 下验证了模型目录、个性化、两张壁纸和登出；未认证的个性化接口拒绝访问。没有宣称任意上游版本兼容，也没有全量 CI 或云厂商计费一致性认证。系统层的 home 写入限制由部署服务配置负责，不能仅靠个性化文字约束 Agent。
+升级前备份 `$DSH_HOME`、私有配置和个性化文件，并停止运行中的任务。数据备份包含凭据，应按私密文件保管。本仓库只包含公开源码和配置示例。
 
-`.gitignore` 用于避免误提交依赖、缓存、日志和凭据；发行包有意保留在 dist 中。
+## 验证
+
+WSL Linux 下构建通过，225 项认证、余额、会话和文件界面测试通过，文档同步检查 43 项通过。已在干净官方源码快照验证安装器、提交版本保护和 10 个发行包的 SHA-256；桌面与手机浏览器验证背景、余额卡片、文本保存、下载、ZIP 及隔离 HTML 交互。云端实际调用 `deepseek-flash` 和 Search API 成功。验证范围不包含完整 CI 或其他操作系统矩阵。

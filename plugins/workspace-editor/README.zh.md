@@ -7,7 +7,7 @@ kind: "package-bundle"
 
 [English](README.md) | 中文
 
-## 摘要
+## 概述
 
 从文件树编辑已有 UTF-8 工作区文件。保存时核对打开文件时的 SHA-256 版本，拒绝覆盖已变化的文件。
 
@@ -16,7 +16,7 @@ kind: "package-bundle"
 - [使用](#use-this-package)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [限制](#known-limitations-and-deferred-work)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
 
 <a id="use-this-package"></a>
 ## 使用
@@ -37,14 +37,27 @@ Host 入口拥有认证接口；浏览器入口通过生命周期注册 UI。卸
 <a id="model-experience"></a>
 ## 模型体验
 
-不添加模型工具或额外系统提示词；用户操作调用已有接口。
+### 浏览器编辑
+
+#### 模型看到的内容
+
+无。`workspace-editor` 增加浏览器操作，修改后的文件内容仅通过后续普通文件读取进入模型。
+
+#### Token 影响
+
+编辑操作不自动增加提示词输入。
+
+#### KV Cache 影响
+
+编辑文件保留先前消息，后续文件读取可增加新内容。
+
+## 已知限制与延期工作
 
 <a id="known-limitations-and-deferred-work"></a>
-## 限制
 
-这是纯文本编辑器，不包含语言服务器、调试器、Notebook 内核或协同锁。版本检查之后的并发写入不受锁保护。
+- 这是纯文本编辑器，不包含语言服务器、调试器、Notebook 内核或协同锁。版本检查之后的并发写入不受锁保护。
 
-## Dev Note
+### 开发备注
 
 无。
 

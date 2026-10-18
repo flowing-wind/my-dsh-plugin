@@ -77,7 +77,8 @@
         tx.oncomplete = () => resolve(request.result instanceof Blob ? request.result : null);
         tx.onerror = () => reject(tx.error);
       });
-      return blob ? { url: URL.createObjectURL(blob), local: true } : { url: `/api/glass-skin/${preset === 'whiteout' ? 'whiteout' : 'oregairu'}.webp` };
+      return blob ? { url: URL.createObjectURL(blob), local: true }
+        : { url: preset === 'whiteout' || preset === 'oregairu' ? `/api/glass-skin/${preset}.webp` : '' };
     } finally { db.close(); }
   };
   const show = async () => {
@@ -86,8 +87,8 @@
     const style = document.createElement('style');
     style.textContent = `#page-login-cover{position:fixed;inset:0;z-index:2147483646;display:grid;place-items:center;background:#17181a33;backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);font-family:system-ui;color:#fff}#page-login-scene{position:fixed;inset:-18px;z-index:2147483645;background-position:center;background-size:cover;filter:blur(10px)}#page-login-scene:before{content:'';position:absolute;inset:18px 76% 18px 18px;border:1px solid #ffffff24;border-radius:16px;background:#ffffff0c}#page-login-scene:after{content:'';position:absolute;inset:77% 8% 5% 29%;border:1px solid #ffffff28;border-radius:20px;background:#ffffff12}#page-login-cover form{box-sizing:border-box;width:min(380px,calc(100vw - 40px));padding:32px;border:1px solid #ffffff38;border-radius:22px;background:#25262bc4;box-shadow:0 18px 60px #0003}#page-login-cover h1{font-size:23px;margin:0 0 10px;font-weight:600}#page-login-cover p{font-size:13px;color:#ffffffa8;margin:0 0 25px}#page-login-cover label{font-size:14px;display:block;margin-bottom:9px}#page-login-cover input{box-sizing:border-box;width:100%;padding:12px 14px;background:#0002;border:1px solid #ffffff40;border-radius:10px;color:white;font-size:16px;outline:none}#page-login-cover input:focus{border-color:#ffffff80}#page-login-cover button{width:100%;margin-top:18px;padding:12px;border:1px solid #ffffff30;border-radius:10px;background:#ffffff16;color:white;font-size:15px;cursor:pointer}#page-login-cover button:hover{background:#ffffff22}#page-login-error{color:#ffd6ce;font-size:13px;min-height:18px;margin-top:12px}`;
     document.head.append(style);
-    const wallpaper = await savedWallpaper().catch(() => ({ url: '/api/glass-skin/oregairu.webp' }));
-    const scene = document.createElement('div'); scene.id = 'page-login-scene'; scene.setAttribute('aria-hidden','true'); scene.style.backgroundImage=`linear-gradient(#10111570,#10111570),url(${JSON.stringify(wallpaper.url)})`; document.body.append(scene);
+    const wallpaper = await savedWallpaper().catch(() => ({ url: '' }));
+    const scene = document.createElement('div'); scene.id = 'page-login-scene'; scene.setAttribute('aria-hidden','true'); scene.style.backgroundColor='#131314'; if(wallpaper.url)scene.style.backgroundImage=`linear-gradient(#10111570,#10111570),url(${JSON.stringify(wallpaper.url)})`; document.body.append(scene);
     const cover = document.createElement('div'); cover.id = 'page-login-cover';
     cover.innerHTML = `<form role="dialog" aria-modal="true" aria-labelledby="page-login-title"><h1 id="page-login-title"></h1><p></p><label for="page-password"></label><input id="page-password" type="password" autocomplete="current-password" required maxlength="256"><div id="page-login-error" role="alert"></div><button type="submit"></button></form>`;
     cover.querySelector('h1').textContent=copy.title; cover.querySelector('p').textContent=copy.hint; cover.querySelector('label').textContent=copy.password; cover.querySelector('button').textContent=copy.enter;

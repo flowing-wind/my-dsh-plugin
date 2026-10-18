@@ -11,7 +11,10 @@ import type {} from '@deepseek-ai/dsh-session-persistence'
 import type {} from '@deepseek-ai/dsh-client-connection'
 
 /** Maximum editable file size; binary and oversized files remain downloadable. */
-export interface Config { maxBytes: number }
+export interface Config {
+  /** Maximum editable UTF-8 file size in bytes. */
+  maxBytes: number
+}
 /** Deployment editing limit. */
 export const Config: schema<Config> = schema.object({ maxBytes: schema.natural().min(1).required() })
 /** Authenticated transport and persisted workspace ownership. */

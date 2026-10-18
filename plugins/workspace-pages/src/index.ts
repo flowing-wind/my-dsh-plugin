@@ -10,7 +10,14 @@ import type {} from '@deepseek-ai/dsh-system-prompt'
 import { pageShell } from './shell.ts'
 
 /** Bounds for browser-packaged static documents. */
-export interface Config { maxAssetBytes: number; maxTotalBytes: number; maxAssets: number }
+export interface Config {
+  /** Maximum size of one preview asset in bytes. */
+  maxAssetBytes: number
+  /** Maximum combined size of preview assets in bytes. */
+  maxTotalBytes: number
+  /** Maximum number of assets included in one preview. */
+  maxAssets: number
+}
 /** Static-page resource limits. */
 export const Config: schema<Config> = schema.object({ maxAssetBytes: schema.natural().min(1).required(), maxTotalBytes: schema.natural().min(1).required(), maxAssets: schema.natural().min(1).required() })
 /** Existing authenticated transport and conversation ownership. */

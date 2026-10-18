@@ -1,5 +1,0 @@
-- insert:
-    - id: task-board
-      name: '@deepseek-ai/dsh-experimental-task-board'
-      config:
-        pollMs: 1000

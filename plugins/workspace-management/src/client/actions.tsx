@@ -2,12 +2,12 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import type { Context } from '@deepseek-ai/cordis'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type { UseMenuOpenState } from '@deepseek-ai/dsh-client-ui-workspace/client'
 import { Button, Modal } from '@deepseek-ai/dsh-client-ui-primitives'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings-unarchive-sessions/client'
 import { z } from 'zod'
 import { en, zh } from './locales.ts'
 import css from './actions.module.css'
@@ -66,9 +66,11 @@ function Confirmation({ selected, close, t }: Labels & { selected: Selection; cl
   </Modal>
 }
 
-function SessionAction({ targetSessionId, title, dismiss, controller, t }: Labels & { targetSessionId: string; title: string; dismiss?: () => void; controller: Controller }) {
-  return <button className={css.action} role={dismiss === undefined ? undefined : 'menuitem'} onClick={() => {
-    controller.select({ kind: 'session', id: targetSessionId, title }); dismiss?.()
+function SessionAction({ sessionId, displayTitle, useMenuOpenState, controller, t }:
+  Labels & PropsRuntime<'sidebar.workspaces.session.menu.item'> & { useMenuOpenState: UseMenuOpenState; controller: Controller }) {
+  const [, setMenuOpen] = useMenuOpenState()
+  return <button className={css.action} role="menuitem" onClick={() => {
+    controller.select({ kind: 'session', id: sessionId, title: displayTitle }); setMenuOpen(false)
   }}>{t('deleteSession')}</button>
 }
 function SessionDialog({ controller, t }: Labels & { controller: Controller }) {
@@ -92,11 +94,8 @@ export function apply(ctx: Context): void {
     subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener) } },
     select: value => { selection = value; for (const listener of listeners) listener() },
   }
-  ctx.slots.inject('sidebar.workspaces.session.menu', () => ctx.slots.register({
-    name: 'sidebar.workspaces.session.menu', id: 'delete-session', locale: 'workspaceManagement', inject: () => ({ controller }),
-  }, SessionAction))
-  ctx.slots.inject('settings.archivedSessions.action', () => ctx.slots.register({
-    name: 'settings.archivedSessions.action', id: 'delete-session', locale: 'workspaceManagement', inject: () => ({ controller }),
+  ctx.slots.inject('sidebar.workspaces.session.menu.item', () => ctx.slots.register({
+    name: 'sidebar.workspaces.session.menu.item', id: 'delete-session', locale: 'workspaceManagement', inject: () => ({ controller }),
   }, SessionAction))
   ctx.slots.inject('sidebar.workspaces.delete', () => ctx.slots.register({ name: 'sidebar.workspaces.delete', locale: 'workspaceManagement' }, WorkspaceDialog))
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'delete-session', locale: 'workspaceManagement', inject: () => ({ controller }) }, SessionDialog))

@@ -1,0 +1,7 @@
+- insert:
+    - id: account-balance
+      name: '@deepseek-ai/dsh-experimental-account-balance'
+      config:
+        apiKeyEnv: DEEPSEEK_API_KEY
+        balanceUrl: https://api.deepseek.com/user/balance
+        requestTimeoutMs: 15000

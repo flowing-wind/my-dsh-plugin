@@ -7,7 +7,7 @@ kind: "package-bundle"
 
 [English](README.md) | 中文
 
-## 摘要
+## 概述
 
 提供手机全宽对话、覆盖式工作区导航与大触控按钮，同时保留桌面布局。
 
@@ -16,7 +16,7 @@ kind: "package-bundle"
 - [使用](#use-this-package)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [限制](#known-limitations-and-deferred-work)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
 
 <a id="use-this-package"></a>
 ## 使用
@@ -35,13 +35,26 @@ Host 入口仅激活浏览器包。浏览器入口通过生命周期注册样式
 <a id="model-experience"></a>
 ## 模型体验
 
-不添加模型工具或额外系统提示词；用户操作调用已有接口。
+### 浏览器布局
+
+#### 模型看到的内容
+
+无。`mobile-layout` 仅改变浏览器布局和导航。
+
+#### Token 影响
+
+无。
+
+#### KV Cache 影响
+
+布局偏好不改变模型请求内容。
+
+## 已知限制与延期工作
 
 <a id="known-limitations-and-deferred-work"></a>
-## 限制
 
-这是浏览器布局，不是独立手机应用或推送通知服务。
+- 这是浏览器布局，不是独立手机应用或推送通知服务。
 
-## Dev Note
+### 开发备注
 
 无。

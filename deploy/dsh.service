@@ -7,11 +7,10 @@ After=network-online.target
 Type=simple
 User=dsh
 Group=dsh
-WorkingDirectory=/home/dsh/deepseek-harness
+WorkingDirectory=/home/dsh/deepseek-harness/releases/0.2.1-rc.2
 Environment=HOME=/home/dsh
 Environment=DSH_HOME=/home/dsh/.dsh
 Environment=DSH_WORKSPACE_ROOT=/home/dsh/Projects
-Environment=DSH_NETWORK_SOCKET_DIRECTORY=/home/dsh/.dsh/proxy
 Environment=TMPDIR=/home/dsh/.dsh/tmp
 Environment=PATH=/home/dsh/.local/python/bin:/home/dsh/.local/node/bin:/home/dsh/.local/pnpm/node_modules/.bin:/home/dsh/.local/bin:/usr/bin:/bin
 Environment=VIRTUAL_ENV=/home/dsh/.local/python

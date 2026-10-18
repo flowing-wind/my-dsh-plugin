@@ -1,6 +1,10 @@
 /** Trusted wrapper packs local dependencies before executing HTML in an opaque iframe. */
 interface Input { sessionId: string; path: string; maxAssetBytes: number; maxTotalBytes: number; maxAssets: number }
-/** @param input - Server-validated root file and configured resource limits. @returns Standalone authenticated preview shell. */
+/**
+ * Render the isolated static preview wrapper.
+ * @param input - Server-validated root file and configured resource limits.
+ * @returns Standalone authenticated preview shell.
+ */
 export function pageShell(input: Input): string {
   const payload = Buffer.from(JSON.stringify(input)).toString('base64')
   return `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Workspace preview</title><style>html,body{margin:0;height:100%;background:#151719;color:#eef2f5;font:16px system-ui}iframe{border:0;width:100%;height:100%;display:block}p{padding:20px;white-space:pre-wrap}</style><p id="status">Loading / 正在加载…</p><script>

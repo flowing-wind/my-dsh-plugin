@@ -1,19 +1,32 @@
 {
   "name": "@deepseek-ai/dsh-experimental-personal-instructions",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "Home-scoped personal instructions with a settings editor",
   "type": "module",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "exports": {
-    ".": { "types": "./lib/types/index.d.ts", "default": "./lib/index.js" },
-    "./client": { "types": "./lib/types/client/index.d.ts", "default": "./lib/client.js" },
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
     "./package.json": "./package.json",
     "./cordis.patch.yml": "./cordis.patch.yml"
   },
-  "files": ["lib/index.js", "lib/types/**/*.d.ts", "lib/client.js", "cordis.patch.yml"],
-  "peerDependencies": { "@deepseek-ai/cordis": "workspace:^" },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.d.ts",
+    "lib/client.js",
+    "cordis.patch.yml"
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "workspace:^"
+  },
   "dependencies": {
     "@deepseek-ai/dsh-client-connection": "workspace:^",
     "@deepseek-ai/dsh-host-webserver": "workspace:^",
@@ -31,7 +44,17 @@
     "react": "^18.2.0"
   },
   "dsh": {
-    "client": { "inject": ["@deepseek-ai/dsh-client-ui-settings"], "platform": "web" },
-    "bundle": { "patch": "./cordis.patch.yml" }
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

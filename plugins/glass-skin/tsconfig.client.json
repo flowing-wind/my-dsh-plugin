@@ -15,7 +15,7 @@
       "path": "../../client/ui-slots"
     },
     {
-      "path": "../../client/locale"
+      "path": "../../client/locale/tsconfig.client.json"
     },
     {
       "path": "../../client/ui-renderer"
@@ -27,7 +27,16 @@
       "path": "../../client/ui-sidebar-right"
     },
     {
-      "path": "../../client/ui-settings"
+      "path": "../../client/ui-settings/tsconfig.client.json"
+    },
+    {
+      "path": "../../client/ui-theme/tsconfig.client.json"
+    },
+    {
+      "path": "../../client/ui-primitives"
+    },
+    {
+      "path": "../../client/ui-sidebar"
     }
   ]
 }

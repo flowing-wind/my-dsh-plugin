@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-editor",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "轻量文件编辑：直接修改工作区文本与代码",
   "type": "module",
   "license": "MIT",
@@ -63,5 +63,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

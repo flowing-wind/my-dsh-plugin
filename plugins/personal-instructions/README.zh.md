@@ -16,7 +16,7 @@ kind: "package-bundle"
 - [使用](#use)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [限制](#limitations)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
 
 <a id="use"></a>
 ## 使用
@@ -47,7 +47,12 @@ Host 在启动时读取文件，以仅限当前用户访问的权限原子写入
 
 文本未变化时可在请求间保持稳定。保存新文本会改变系统提示前缀，并可能降低缓存复用率。
 
-<a id="limitations"></a>
-## 限制
+## 已知限制与延期工作
 
-插件为部署用户提供一个共享文件，不提供按账户或工作区覆盖。配置的文件大小上限默认为 128 KiB。关闭插件会移除设置入口和提示贡献，但保留文件。
+<a id="known-limitations-and-deferred-work"></a>
+
+- 插件为部署用户提供一个共享文件，不提供按账户或工作区覆盖。配置的文件大小上限默认为 128 KiB。关闭插件会移除设置入口和提示贡献，但保留文件。
+
+### 开发备注
+
+无。

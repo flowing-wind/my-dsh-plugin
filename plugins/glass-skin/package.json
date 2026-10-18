@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-glass-skin",
-  "version": "0.1.6-alpha.2",
+  "version": "0.2.1-rc.2",
   "description": "透明背景皮肤：本地壁纸、透明度与玻璃面板",
   "type": "module",
   "license": "MIT",
@@ -45,7 +45,10 @@
     "@deepseek-ai/dsh-client-ui-layout": "workspace:^",
     "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:^",
     "react": "^18.2.0",
-    "@deepseek-ai/dsh-client-ui-settings": "workspace:^"
+    "@deepseek-ai/dsh-client-ui-settings": "workspace:^",
+    "@deepseek-ai/dsh-client-ui-theme": "workspace:^",
+    "@deepseek-ai/dsh-client-ui-primitives": "workspace:^",
+    "@deepseek-ai/dsh-client-ui-sidebar": "workspace:^"
   },
   "dsh": {
     "client": {
@@ -57,5 +60,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
   }
 }

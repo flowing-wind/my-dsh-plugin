@@ -18,7 +18,7 @@
       "path": "../../client/ui-primitives"
     },
     {
-      "path": "../../client/locale"
+      "path": "../../client/locale/tsconfig.client.json"
     },
     {
       "path": "../../client/ui-renderer"
@@ -37,4 +37,3 @@
     }
   ]
 }
-

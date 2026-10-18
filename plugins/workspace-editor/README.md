@@ -37,14 +37,27 @@ There is no separate ./invariant entry: the plugin projects owned services and f
 <a id="model-experience"></a>
 ## Model Experience
 
-No model tools or additional system sections; user actions call existing APIs.
+### Browser editing
 
-<a id="known-limitations-and-deferred-work"></a>
+#### What the model sees
+
+None. `workspace-editor` adds browser actions; changed file contents become visible only through subsequent ordinary file reads.
+
+#### Token effect
+
+No automatic prompt input is added by an edit.
+
+#### KV Cache effect
+
+Editing a file leaves earlier messages intact; a later file read can add new content.
+
 ## Known Limitations and Deferred Work
 
-This is a plain text editor, without language servers, debugging, notebook kernels, or collaborative locking. Concurrent writes after the version check are not locked.
+<a id="known-limitations-and-deferred-work"></a>
 
-## Dev Note
+- This is a plain text editor, without language servers, debugging, notebook kernels, or collaborative locking. Concurrent writes after the version check are not locked.
+
+### Dev Note
 
 None.
 

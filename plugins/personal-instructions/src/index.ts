@@ -9,7 +9,12 @@ import type {} from '@deepseek-ai/dsh-client-connection'
 import type {} from '@deepseek-ai/dsh-system-prompt'
 
 /** Personal instruction file configuration. */
-export interface Config { path: string; maxBytes: number }
+export interface Config {
+  /** Home-relative path of the shared personal instruction file. */
+  path: string
+  /** Maximum UTF-8 instruction size in bytes. */
+  maxBytes: number
+}
 /** Personal instruction files remain below the service account home directory. */
 export const Config: schema<Config> = schema.object({
   path: schema.string().default('.dsh/agent.md'),

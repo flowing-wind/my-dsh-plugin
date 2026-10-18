@@ -1,5 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md).
-# Both languages carry equal authority.
-# Re-record with: pnpm run verify-translation-pairing --write packages/experimental/page-login/README.md
-README.md: c31cc39706e71455a5bf57f7bfb5b270af008a93
-README.zh.md: 43c689770dced81af882d9796c3a9d5083e89ee9
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/page-login/README.md
+/:
+  en: eccbac5425e19d51
+  zh: 5075c0248e2a3608
+/deepseek-ai-dsh-experimental-page-login:
+  en: c1d192848ee326b3
+  zh: 9ea9de632d67d12e
+/deepseek-ai-dsh-experimental-page-login/summary:
+  en: a14f5946c63f3b77
+  zh: 30b0669a153f1939
+/deepseek-ai-dsh-experimental-page-login/table-of-contents:
+  en: f34203ff3c83489b
+  zh: e99143b3cbd819f5
+/deepseek-ai-dsh-experimental-page-login/configuration:
+  en: 0f55efabe396cbde
+  zh: aac1e07c7281f1fd
+/deepseek-ai-dsh-experimental-page-login/authentication:
+  en: 1c903872b5673068
+  zh: bfaddae0447ae7d4
+/deepseek-ai-dsh-experimental-page-login/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-page-login/model-experience/browser-authentication:
+  en: f3682a0ef1cdeaf8
+  zh: 08e4feb812e36902
+/deepseek-ai-dsh-experimental-page-login/model-experience/browser-authentication/what-the-model-sees:
+  en: 6449d98d46512a2b
+  zh: 19ae93adce20fa95
+/deepseek-ai-dsh-experimental-page-login/model-experience/browser-authentication/token-effect:
+  en: 4b158a7d82df5dcb
+  zh: 590171f7f4cdba77
+/deepseek-ai-dsh-experimental-page-login/model-experience/browser-authentication/kv-cache-effect:
+  en: b8d9be9eb0d07607
+  zh: 674cb87b76c64d1a
+/deepseek-ai-dsh-experimental-page-login/known-limitations-and-deferred-work:
+  en: 815f6dc07ac5136a
+  zh: ca26cfc8d4a9301f
+/deepseek-ai-dsh-experimental-page-login/known-limitations-and-deferred-work/dev-note:
+  en: 0a1253c6f7b5e8b9
+  zh: 9f56528562c7c914

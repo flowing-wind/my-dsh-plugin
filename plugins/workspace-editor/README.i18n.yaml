@@ -1,5 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md).
-# Both languages carry equal authority.
-# Re-record with: pnpm run verify-translation-pairing --write packages/experimental/workspace-editor/README.md
-README.md: b6884549cf80656adcfacc4ffe148b4a9ac9c264
-README.zh.md: 8777dea200174a07e54ed98ec80fa750e4946d29
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/workspace-editor/README.md
+/:
+  en: 2b4d0545c3199a10
+  zh: b8349bfcbb3547fc
+/deepseek-ai-dsh-experimental-workspace-editor:
+  en: cc752e1504fa46b7
+  zh: fc0ae3b62521e0db
+/deepseek-ai-dsh-experimental-workspace-editor/summary:
+  en: 94060dce00412896
+  zh: eb17f9032f797287
+/deepseek-ai-dsh-experimental-workspace-editor/table-of-contents:
+  en: ed122a1f086d7743
+  zh: 8a9737e5cb824642
+/deepseek-ai-dsh-experimental-workspace-editor/use-this-package:
+  en: 1805c7857f2aff77
+  zh: 195c781992cdc58e
+/deepseek-ai-dsh-experimental-workspace-editor/implementation:
+  en: 134e6e84057f4daa
+  zh: 25beef3c49627d46
+/deepseek-ai-dsh-experimental-workspace-editor/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-workspace-editor/model-experience/browser-editing:
+  en: fc9550f81c100d6e
+  zh: ad14d182c9f78d59
+/deepseek-ai-dsh-experimental-workspace-editor/model-experience/browser-editing/what-the-model-sees:
+  en: 8e2a7e4f214df631
+  zh: da9b64c245b97baa
+/deepseek-ai-dsh-experimental-workspace-editor/model-experience/browser-editing/token-effect:
+  en: 019551ef02a3f3bc
+  zh: bedbb1a9b1b1224d
+/deepseek-ai-dsh-experimental-workspace-editor/model-experience/browser-editing/kv-cache-effect:
+  en: b0e709a78e322640
+  zh: f5394d6b399bafb9
+/deepseek-ai-dsh-experimental-workspace-editor/known-limitations-and-deferred-work:
+  en: 7f96c7e8d69e4c83
+  zh: 28dc274f24737e2c
+/deepseek-ai-dsh-experimental-workspace-editor/known-limitations-and-deferred-work/dev-note:
+  en: 87d8f20aaba208b4
+  zh: ebc1bbf039ffbc39
