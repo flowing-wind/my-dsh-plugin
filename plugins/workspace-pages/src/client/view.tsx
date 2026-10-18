@@ -1,10 +1,9 @@
-/** Download actions for existing preview tabs and recorded agent deliveries. */
+/** Static-page actions for file rows and preview tabs. */
 import type { Context } from '@deepseek-ai/cordis'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import type {} from '@deepseek-ai/dsh-client-ui-deliverables/client'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
 import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
@@ -31,11 +30,7 @@ function FileDownload({ path, sessionId, t }: PropsRuntime<'sidebar.files.file.a
   return <a href={url(sessionId, path)} target="_blank" rel="noopener noreferrer" title={t('download')} aria-label={`${t('download')}: ${path}`} data-file-action><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M11 5H5v14h14v-6"/></svg></a>
 }
 
-function DeliveryAction({ path, sessionId, dismiss, t }: PropsRuntime<'deliverables.file.action'> & PropsLocale<'workspacePages'>) {
-  return <a role="menuitem" href={url(sessionId, path)} target="_blank" rel="noopener noreferrer" onClick={dismiss}>{t('download')}</a>
-}
-
-/** Slot owners and the existing deliverable event projection. */
+/** File-tree and preview-tab slot owners. */
 export const inject = ['slots', 'locale']
 
 /** @param ctx - Browser slot registry and locale service. */
@@ -47,7 +42,4 @@ export function apply(ctx: Context): void {
   ctx.slots.inject('sidebar.right.tab.menu.item', () => ctx.slots.register({
     name: 'sidebar.right.tab.menu.item', id: 'workspace-pages', locale: 'workspacePages',
   }, DownloadMenu))
-  ctx.slots.inject('deliverables.file.action', () => ctx.slots.register({
-    name: 'deliverables.file.action', id: 'workspace-pages', order: 10, locale: 'workspacePages',
-  }, DeliveryAction))
 }

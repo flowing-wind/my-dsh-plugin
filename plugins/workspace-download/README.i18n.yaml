@@ -3,47 +3,44 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/workspace-download/README.md
 /:
-  en: f3b44d23013df04f
-  zh: 6acc4e43f1d68019
+  en: b16dadc86aa168c1
+  zh: eefad5c172ba59cb
 /deepseek-ai-dsh-experimental-workspace-download:
   en: cca0612667e88f00
   zh: 978f2ac6606ba9b4
 /deepseek-ai-dsh-experimental-workspace-download/summary:
-  en: b8cf2b878edb801c
-  zh: d6139f8b3d2ec42b
+  en: 78361d1ec3674e79
+  zh: 061577e8e6af716e
 /deepseek-ai-dsh-experimental-workspace-download/table-of-contents:
   en: e6747830a09a09aa
   zh: 5e3c42faffdd2b19
 /deepseek-ai-dsh-experimental-workspace-download/use-this-package:
-  en: f78552d14b28027b
-  zh: 90bef87e6f7ea1b6
+  en: c28e457ebbc9df87
+  zh: 54f147f84807c736
 /deepseek-ai-dsh-experimental-workspace-download/understand-the-implementation:
-  en: cfcbfa45317a7723
-  zh: d8cb6a24e5391ea1
+  en: 8acc6873cb179bf6
+  zh: fa52ae289ebe26e2
 /deepseek-ai-dsh-experimental-workspace-download/further-exploration:
-  en: 0339073f8c6798d3
-  zh: 67116ca097d196d1
+  en: 4de4e2a1f4c783a1
+  zh: 7360ed0ae7f101ec
 /deepseek-ai-dsh-experimental-workspace-download/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-dsh-experimental-workspace-download/model-experience/file-delivery-guidance:
-  en: f6e518e0e7dce38d
-  zh: 8153525bc3a658b9
-/deepseek-ai-dsh-experimental-workspace-download/model-experience/file-delivery-guidance/what-the-model-sees:
-  en: 3895d4067c484234
-  zh: 75ca11ef9e6e00f6
-/deepseek-ai-dsh-experimental-workspace-download/model-experience/file-delivery-guidance/what-the-model-sees/delivery-guidance:
-  en: 6dbc7c22b44e9bc9
-  zh: 01f58d90977dec06
-/deepseek-ai-dsh-experimental-workspace-download/model-experience/file-delivery-guidance/token-effect:
-  en: 198c4f79c046e784
-  zh: 314058b2ebdfee7a
-/deepseek-ai-dsh-experimental-workspace-download/model-experience/file-delivery-guidance/kv-cache-effect:
-  en: 070e4bae6d24509e
-  zh: 55e9e60a30241593
+/deepseek-ai-dsh-experimental-workspace-download/model-experience/browser-downloads:
+  en: f5c5559dfb1bbc2f
+  zh: 07446cbc3145db56
+/deepseek-ai-dsh-experimental-workspace-download/model-experience/browser-downloads/what-the-model-sees:
+  en: 0924fc4973182508
+  zh: 8138e308693c30bf
+/deepseek-ai-dsh-experimental-workspace-download/model-experience/browser-downloads/token-effect:
+  en: 2abff0b5984936b2
+  zh: 0f1a95af4daf5e45
+/deepseek-ai-dsh-experimental-workspace-download/model-experience/browser-downloads/kv-cache-effect:
+  en: 40478b0cb880d6f7
+  zh: 414543e643cc0e22
 /deepseek-ai-dsh-experimental-workspace-download/known-limitations-and-deferred-work:
   en: 81677a0b86be7a78
   zh: 8d994318c35df993
 /deepseek-ai-dsh-experimental-workspace-download/known-limitations-and-deferred-work/dev-note:
-  en: 4e804e1396c6761e
-  zh: 442c4786900097d1
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

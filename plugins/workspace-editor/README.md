@@ -60,5 +60,3 @@ Editing a file leaves earlier messages intact; a later file read can add new con
 ### Dev Note
 
 None.
-
-Delivery actions register in the shared file card through deliverables.file.action; unloading removes the contributed action.

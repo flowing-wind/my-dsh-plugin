@@ -39,7 +39,7 @@ There is no separate ./invariant entry: the plugin projects owned services and f
 
 #### What the model sees
 
-The `workspace-pages` system section describes self-contained HTML deliveries through `present`. Browser preview interaction itself sends no message.
+The `workspace-pages` system section describes self-contained HTML pages opened from the file sidebar. Browser preview interaction itself sends no message.
 
 #### Token effect
 
@@ -58,5 +58,3 @@ The guidance is stable between requests; adding or removing it changes the reque
 ### Dev Note
 
 None.
-
-Delivery actions register in the shared file card through deliverables.file.action; unloading removes the contributed action.

@@ -1,4 +1,4 @@
-/** Download actions for existing preview tabs and recorded agent deliveries. */
+/** Download actions for file rows and preview tabs. */
 import { zh, en } from './locales.ts'
 import { useEffect, useRef, useState } from 'react'
 import { Modal, Button } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -7,7 +7,6 @@ import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
-import type {} from '@deepseek-ai/dsh-client-ui-deliverables/client'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
 import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
@@ -39,10 +38,10 @@ function FolderDownload({ path, sessionId, t }: PropsRuntime<'sidebar.files.dire
   const [prepared, setPrepared] = useState<PreparedArchive | null>(null)
   const active = useRef<PreparedArchive | null>(null)
   const request = useRef<AbortController | null>(null)
-  const address = (id: string, action?: string) => '/api/workspace-archive?' + new URLSearchParams({ sessionId, id, ...(action ? { action } : {}) })
+  const address = (id: string, action?: string) => '/api/workspace-archive?' + new URLSearchParams({ sessionId, id, ...(action ? { action } : {}) }).toString()
   useEffect(() => () => {
     request.current?.abort()
-    if (active.current) void fetch(address(active.current.id, 'cancel'), { method: 'POST', keepalive: true }).catch(error => console.error('Archive cancellation failed', error))
+    if (active.current) void fetch(address(active.current.id, 'cancel'), { method: 'POST', keepalive: true }).catch((error: unknown) => { console.error('Archive cancellation failed', error) })
   }, [sessionId, path])
   const download = (archive: PreparedArchive) => {
     const anchor = document.createElement('a')
@@ -87,11 +86,7 @@ function FolderDownload({ path, sessionId, t }: PropsRuntime<'sidebar.files.dire
   return <><button type="button" data-file-action disabled={busy} title={t(busy ? 'compressing' : 'folder')} aria-label={t(busy ? 'compressing' : 'folder') + ': ' + path} onClick={() => { void prepare() }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></svg></button>{prepared && <Modal open title={t('confirmTitle')} description={t('confirmSize', { size: (prepared.bytes / 1000000).toFixed(2) })} closeLabel={t('cancel')} onClose={() => { void cancel() }} footer={<><Button disabled={busy} onClick={() => { void cancel() }}>{t('cancel')}</Button><Button variant="primary" disabled={busy} onClick={() => { void confirm() }}>{t('confirm')}</Button></>} />}</>
 }
 
-function DeliveryAction({ path, sessionId, dismiss, t }: PropsRuntime<'deliverables.file.action'> & PropsLocale<'workspaceDownload'>) {
-  return <a role="menuitem" href={url(sessionId, path)} download onClick={dismiss}>{t('download')}</a>
-}
-
-/** Slot owners and the existing deliverable event projection. */
+/** File-tree and preview-tab slot owners. */
 export const inject = ['slots', 'locale']
 
 /** @param ctx - Browser slot registry and locale service. */
@@ -104,7 +99,4 @@ export function apply(ctx: Context): void {
   ctx.slots.inject('sidebar.right.tab.menu.item', () => ctx.slots.register({
     name: 'sidebar.right.tab.menu.item', id: 'workspace-download', locale: 'workspaceDownload',
   }, DownloadMenu))
-  ctx.slots.inject('deliverables.file.action', () => ctx.slots.register({
-    name: 'deliverables.file.action', id: 'workspace-download', order: 30, locale: 'workspaceDownload',
-  }, DeliveryAction))
 }

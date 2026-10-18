@@ -1,7 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-download",
   "version": "0.2.1-rc.2",
-  "description": "工作区文件下载：文件树下载、预览和对话交付",
+  "description": "工作区文件下载：文件树与预览标签下载",
   "type": "module",
   "license": "MIT",
   "publishConfig": {
@@ -36,7 +36,6 @@
     "@deepseek-ai/dsh-session-persistence": "workspace:^",
     "@deepseek-ai/dsh-client-connection": "workspace:^",
     "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-system-prompt": "workspace:^",
     "fflate": "^0.8.2",
     "@deepseek-ai/schemastery": "workspace:^"
   },
@@ -53,7 +52,6 @@
     "react": "^18.2.0",
     "@types/react": "~18.3.1",
     "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-deliverables": "workspace:^",
     "@deepseek-ai/dsh-util-workspace-path": "workspace:^",
     "@deepseek-ai/dsh-client-ui-chat": "workspace:^",
     "@deepseek-ai/dsh-client-ui-sidebar-files": "workspace:^",
@@ -63,7 +61,6 @@
     "client": {
       "inject": [
         "@deepseek-ai/dsh-client-ui-sidebar-right",
-        "@deepseek-ai/dsh-client-ui-deliverables",
         "@deepseek-ai/dsh-client-ui-sidebar-files"
       ],
       "platform": "web"

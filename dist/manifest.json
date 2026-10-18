@@ -14,8 +14,8 @@
       "name": "deepseek-ai-dsh-experimental-workspace-download-0.2.1-rc.2.tgz",
       "package": "@deepseek-ai/dsh-experimental-workspace-download",
       "version": "0.2.1-rc.2",
-      "bytes": 14532,
-      "sha256": "e5ce2eafbbd8d308c8d10b823b290123f9b77a9de42b82123c145a7ab84bda99"
+      "bytes": 13610,
+      "sha256": "d0197aa55e435867cf1fa608833906bfd948df5d5268b38252549e2a7ec1179a"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-management-0.2.1-rc.2.tgz",
@@ -28,15 +28,15 @@
       "name": "deepseek-ai-dsh-experimental-workspace-editor-0.2.1-rc.2.tgz",
       "package": "@deepseek-ai/dsh-experimental-workspace-editor",
       "version": "0.2.1-rc.2",
-      "bytes": 9455,
-      "sha256": "1133a2dbb52809fd262e2b76beb67897c85b7ff5cf7e52a63f8e786b19042281"
+      "bytes": 9264,
+      "sha256": "1263e78221f43ce941f139a936605e108a31c4cbc8b6b57d172bc0dba3985dea"
     },
     {
       "name": "deepseek-ai-dsh-experimental-workspace-pages-0.2.1-rc.2.tgz",
       "package": "@deepseek-ai/dsh-experimental-workspace-pages",
       "version": "0.2.1-rc.2",
-      "bytes": 10368,
-      "sha256": "72669dd7ba9fd2d78f8a7daf82761fb1604bfd334214d2dd29f0dd52f1bed890"
+      "bytes": 10158,
+      "sha256": "f84ec3c9e294453c0c0c55cd06ad8bb7fe1cfeb0b1d936679643147d1e71b54d"
     },
     {
       "name": "deepseek-ai-dsh-experimental-interactive-results-0.2.1-rc.2.tgz",

@@ -8,7 +8,6 @@ import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import type {} from '@deepseek-ai/dsh-client-ui-sidebar-files/client'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
-import type {} from '@deepseek-ai/dsh-client-ui-deliverables/client'
 import { z } from 'zod'
 import css from './view.module.css'
 
@@ -39,13 +38,13 @@ function Editor({ selected, close, t }: Labels & { selected: Selection; close: (
       } catch (failure) { if (!abort.signal.aborted) setError(String(failure)) }
       finally { if (!abort.signal.aborted) setBusy(false) }
     })()
-    return () => abort.abort()
+    return () => { abort.abort() }
   }, [selected, generation])
   useEffect(() => {
     if (!dirty) return
     const prevent = (event: BeforeUnloadEvent) => { event.preventDefault() }
     window.addEventListener('beforeunload', prevent)
-    return () => window.removeEventListener('beforeunload', prevent)
+    return () => { window.removeEventListener('beforeunload', prevent) }
   }, [dirty])
   const save = async () => {
     if (original === undefined) return
@@ -59,13 +58,12 @@ function Editor({ selected, close, t }: Labels & { selected: Selection; close: (
     finally { setBusy(false) }
   }
   const allowDiscard = () => !dirty || window.confirm(t('discard'))
-  return <Modal open className={css.dialog!} contentClassName={css.content!} title={t('edit')} closeLabel={t('close')} onClose={() => { if (!busy && allowDiscard()) close() }} footer={<><Button disabled={busy} onClick={() => { if (allowDiscard()) setGeneration(v => v + 1) }}>{t('reload')}</Button><Button variant="primary" disabled={busy || !dirty} onClick={() => { void save() }}>{t('save')}</Button></>}>
-    <div className={css.editor}><p className={css.path} title={selected.path}>{selected.path}</p><p role="status">{t(busy ? 'loading' : dirty ? 'dirty' : 'saved')}</p>{error && <p role="alert">{t('error', { message: error })}</p>}<textarea aria-label={selected.path} value={text} onChange={event => setText(event.target.value)} disabled={busy || original === undefined} spellCheck={false} autoCapitalize="off" autoCorrect="off" /></div>
+  return <Modal open className={css.dialog as string} contentClassName={css.content as string} title={t('edit')} closeLabel={t('close')} onClose={() => { if (!busy && allowDiscard()) close() }} footer={<><Button disabled={busy} onClick={() => { if (allowDiscard()) setGeneration(v => v + 1) }}>{t('reload')}</Button><Button variant="primary" disabled={busy || !dirty} onClick={() => { void save() }}>{t('save')}</Button></>}>
+    <div className={css.editor}><p className={css.path} title={selected.path}>{selected.path}</p><p role="status">{t(busy ? 'loading' : dirty ? 'dirty' : 'saved')}</p>{error && <p role="alert">{t('error', { message: error })}</p>}<textarea aria-label={selected.path} value={text} onChange={(event) => { setText(event.target.value) }} disabled={busy || original === undefined} spellCheck={false} autoCapitalize="off" autoCorrect="off" /></div>
   </Modal>
 }
-function Action({ path, sessionId, controller, t }: PropsRuntime<'sidebar.files.file.action'> & Labels & { controller: Controller }) { return <button data-file-action title={t('edit')} aria-label={`${t('edit')}: ${path}`} onClick={() => controller.select({ path, sessionId })}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 4 5 5-11 11H4v-5L15 4Zm-2 2 5 5"/></svg></button> }
-function DeliveryAction({ path, sessionId, dismiss, controller, t }: PropsRuntime<'deliverables.file.action'> & Labels & { controller: Controller }) { return <button role="menuitem" onClick={() => { dismiss(); controller.select({ path, sessionId }) }}>{t('edit')}</button> }
-function Dialog({ controller, t }: Labels & { controller: Controller }) { const selected = useSyncExternalStore(controller.subscribe, controller.get); return selected === null ? null : <Editor key={`${selected.sessionId}:${selected.path}`} selected={selected} close={() => controller.select(null)} t={t} /> }
+function Action({ path, sessionId, controller, t }: PropsRuntime<'sidebar.files.file.action'> & Labels & { controller: Controller }) { return <button data-file-action title={t('edit')} aria-label={`${t('edit')}: ${path}`} onClick={() => { controller.select({ path, sessionId }) }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 4 5 5-11 11H4v-5L15 4Zm-2 2 5 5"/></svg></button> }
+function Dialog({ controller, t }: Labels & { controller: Controller }) { const selected = useSyncExternalStore(controller.subscribe, controller.get); return selected === null ? null : <Editor key={`${selected.sessionId}:${selected.path}`} selected={selected} close={() => { controller.select(null) }} t={t} /> }
 /** Optional UI owners are bound through slots. */
 export const inject = ['slots', 'locale']
 /** @param ctx - Browser composition context. */
@@ -73,8 +71,11 @@ export function apply(ctx: Context): void {
   ctx.effect(() => ctx.locale.register('workspaceEditor', { zh, en }))
   let selected: Selection | null = null
   const listeners = new Set<() => void>()
-  const controller: Controller = { get: () => selected, subscribe: fn => { listeners.add(fn); return () => { listeners.delete(fn) } }, select: value => { selected = value; for (const fn of listeners) fn() } }
+  const controller: Controller = {
+    get: () => selected,
+    subscribe: (fn) => { listeners.add(fn); return () => { listeners.delete(fn) } },
+    select: (value) => { selected = value; for (const fn of listeners) fn() },
+  }
   ctx.slots.inject('sidebar.files.file.action', () => ctx.slots.register({ name: 'sidebar.files.file.action', id: 'workspace-editor', locale: 'workspaceEditor', inject: () => ({ controller }) }, Action))
-  ctx.slots.inject('deliverables.file.action', () => ctx.slots.register({ name: 'deliverables.file.action', id: 'workspace-editor', order: 20, locale: 'workspaceEditor', inject: () => ({ controller }) }, DeliveryAction))
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'workspace-editor', locale: 'workspaceEditor', inject: () => ({ controller }) }, Dialog))
 }

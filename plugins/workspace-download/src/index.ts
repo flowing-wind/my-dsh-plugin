@@ -4,7 +4,6 @@ import { SessionId } from '@deepseek-ai/dsh-session'
 import type {} from '@deepseek-ai/dsh-api-workspace-files'
 import type {} from '@deepseek-ai/dsh-client-connection'
 import type {} from '@deepseek-ai/dsh-session-persistence'
-import type {} from '@deepseek-ai/dsh-system-prompt'
 import { basename } from 'node:path'
 import schema from '@deepseek-ai/schemastery'
 import { registerArchives, type ArchiveConfig } from './archive-route.ts'
@@ -12,7 +11,11 @@ import { registerArchives, type ArchiveConfig } from './archive-route.ts'
 /** Folder ZIP storage and confirmation settings. */
 export type Config = ArchiveConfig
 /** Explicit deployment archive settings. */
-export const Config: schema<Config> = schema.object({ archiveDirectory: schema.string().required(), confirmationBytes: schema.natural().min(1).required(), archiveLifetimeMs: schema.natural().min(1).required() })
+export const Config: schema<Config> = schema.object({
+  archiveDirectory: schema.string().required(),
+  confirmationBytes: schema.natural().min(1).required(),
+  archiveLifetimeMs: schema.natural().min(1).required(),
+})
 
 /** Required authenticated carrier and existing file-read policy. */
 export const inject = ['connection', 'workspaceFiles', 'sessions', 'sessionPersistence']
@@ -23,16 +26,9 @@ export const inject = ['connection', 'workspaceFiles', 'sessions', 'sessionPersi
  */
 export function apply(ctx: Context, config: Config): void {
   registerArchives(ctx, config)
-  ctx.inject(['systemPrompt'], promptCtx => {
-    promptCtx.systemPrompt.section({
-      name: 'workspace-download:deliveries',
-      order: promptCtx.systemPrompt.getSectionOrder('WEB_SURFACE'),
-      text: () => 'When the user requests a file, save the finished file in the workspace and call the present tool with its path. The browser shows preview and download actions for presented files. Do not use a server desktop application to deliver a file to the user.',
-    })
-  })
   ctx.connection.fetch.register({
     path: '/api/workspace-download', methods: ['GET'], requestBody: 'buffered',
-    fetch: async request => {
+    fetch: async (request) => {
       const query = new URL(request.url).searchParams
       const rawId = query.get('sessionId')
       const path = query.get('path')
