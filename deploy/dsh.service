@@ -36,9 +36,9 @@ ReadWritePaths=/home/dsh
 ReadOnlyPaths=/tmp /var/tmp
 ProtectControlGroups=true
 RestrictSUIDSGID=true
-MemoryHigh=1200M
-MemoryMax=1800M
-TasksMax=512
+MemoryHigh=1800M
+MemoryMax=2304M
+TasksMax=1024
 
 [Install]
 WantedBy=multi-user.target
