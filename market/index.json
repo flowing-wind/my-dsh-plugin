@@ -65,12 +65,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/account-balance"
           },
           "engines": {
@@ -81,8 +81,8 @@
     },
     {
       "name": "@flowing-wind/dsh-compact-layout",
-      "title": "紧凑右侧面板",
-      "description": "右侧面板初始宽度为 300px，支持拖动调整。",
+      "title": "紧凑右侧面板与官方标识",
+      "description": "紧凑右侧面板与官方侧栏标识：默认 300px，可拖动调整。",
       "author": "flowing-wind",
       "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
       "repository": {
@@ -92,17 +92,17 @@
       "metadata": {
         "category": "layout",
         "labels": [
-          "server-build"
+          "standard-host"
         ]
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/compact-layout"
           },
           "engines": {
@@ -129,12 +129,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/interactive-results"
           },
           "engines": {
@@ -161,12 +161,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/mobile-layout"
           },
           "engines": {
@@ -193,12 +193,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/page-login"
           },
           "engines": {
@@ -225,12 +225,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/personal-instructions"
           },
           "engines": {
@@ -257,12 +257,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-diagram-design"
           },
           "engines": {
@@ -289,12 +289,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-hyperframes"
           },
           "engines": {
@@ -321,12 +321,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-no-negative-echo"
           },
           "engines": {
@@ -353,12 +353,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-ponytail"
           },
           "engines": {
@@ -385,12 +385,12 @@
       },
       "versions": [
         {
-          "version": "1.0.1",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-remotion"
           },
           "engines": {
@@ -417,12 +417,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/skills-ui-ux-pro-max"
           },
           "engines": {
@@ -449,12 +449,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/wolfram"
           },
           "engines": {
@@ -481,12 +481,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/workspace-download"
           },
           "engines": {
@@ -513,12 +513,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/workspace-editor"
           },
           "engines": {
@@ -545,12 +545,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/workspace-management"
           },
           "engines": {
@@ -577,12 +577,12 @@
       },
       "versions": [
         {
-          "version": "1.0.2",
-          "publishTimestamp": 1792423111,
+          "version": "1.0.4",
+          "publishTimestamp": 1792428153,
           "source": {
             "type": "git",
             "url": "https://github.com/flowing-wind/my-dsh-plugin",
-            "commit": "b0fec3bc56abc412d07b80895fa4cd44af728e43",
+            "commit": "8dd48a8f2745ac56162a759ecfc6db5c22037a65",
             "path": "dist/plugins/workspace-pages"
           },
           "engines": {
