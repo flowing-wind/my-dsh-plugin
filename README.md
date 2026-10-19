@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.j
 索引采用官方 format 1，将每个版本固定到完整 Git 提交和包子目录。仓库首页代表整个源码集合；在“添加插件”中安装单个插件时，需要使用完整子目录地址。例如：
 
 ```text
-git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-remotion
+git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-remotion
 ```
 
 详细步骤、每个插件的完整安装地址和升级方式见[安装说明](INSTALL.md)。插件保存在当前用户的全局 Harness profile，对该 profile 打开的所有工作区生效。Web 与 Desktop 分别管理 profile。Git 缓存和安装后的依赖是正常运行所需文件，后续更新源仍是远程仓库。

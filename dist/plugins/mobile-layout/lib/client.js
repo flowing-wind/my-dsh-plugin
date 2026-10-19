@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-mobile-layout",
+	id: "@flowing-wind/dsh-mobile-layout",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;

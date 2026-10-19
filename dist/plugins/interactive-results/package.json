@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-interactive-results",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "交互说明：表格、图表与表单交付",
   "type": "module",
   "license": "MIT",

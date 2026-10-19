@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-workspace-management",
+	id: "@flowing-wind/dsh-workspace-management",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -59,10 +59,10 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/workspace-management/src/client/actions.module.css.mjs
 		const css = ".zEZqJG_action{color:#d55959;text-align:left;font:inherit;cursor:pointer;background:0 0;border:0;border-radius:8px;padding:10px 14px;display:block}.zEZqJG_action[role=menuitem]{width:100%}.zEZqJG_action:hover{background:#b9383818}.zEZqJG_options{flex-direction:column;gap:16px;display:flex}.zEZqJG_options label{align-items:center;gap:10px;display:flex}.zEZqJG_options small{opacity:.65;line-height:1.6}";
-		const tagId = "@deepseek-ai/dsh-experimental-workspace-management/actions.module.css";
+		const tagId = "@flowing-wind/dsh-workspace-management/actions.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
-			tag.dataset.plugin = "@deepseek-ai/dsh-experimental-workspace-management";
+			tag.dataset.plugin = "@flowing-wind/dsh-workspace-management";
 			tag.dataset.pluginCss = tagId;
 			tag.textContent = css;
 			document.head.appendChild(tag);

@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-workspace-editor",
+	id: "@flowing-wind/dsh-workspace-editor",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -10,10 +10,10 @@ window.__ModuleLoader__.load({
 		let zod = require("zod");
 		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/workspace-editor/src/client/view.module.css.mjs
 		const css = ".y3S_da_dialog.y3S_da_dialog{width:min(1200px,100vw - 48px);height:min(900px,100dvh - 48px);max-height:calc(100dvh - 48px)}.y3S_da_content{flex:1;min-height:0}.y3S_da_content>div:last-child{flex:1;min-height:0;margin-top:0}.y3S_da_editor{flex-direction:column;flex:1;width:100%;min-width:0;min-height:0;display:flex}.y3S_da_editor textarea{box-sizing:border-box;resize:none;color:#e9eef5;tab-size:2;white-space:pre;background:#121416;border:1px solid #8884;border-radius:12px;flex:1;width:100%;min-height:0;padding:14px;font:14px/1.6 ui-monospace,monospace;overflow:auto}.y3S_da_editor p{overflow-wrap:anywhere;flex:none;margin:4px 0 10px;font-size:13px}.y3S_da_editor .y3S_da_path{text-overflow:ellipsis;white-space:nowrap;opacity:.7;overflow:hidden}@media (width<=700px){.y3S_da_dialog.y3S_da_dialog{width:calc(100vw - 24px);height:calc(100dvh - 84px);max-height:calc(100dvh - 84px)}.y3S_da_editor textarea{font-size:16px}}";
-		const tagId = "@deepseek-ai/dsh-experimental-workspace-editor/view.module.css";
+		const tagId = "@flowing-wind/dsh-workspace-editor/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
-			tag.dataset.plugin = "@deepseek-ai/dsh-experimental-workspace-editor";
+			tag.dataset.plugin = "@flowing-wind/dsh-workspace-editor";
 			tag.dataset.pluginCss = tagId;
 			tag.textContent = css;
 			document.head.appendChild(tag);

@@ -2,6 +2,20 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import vm from 'node:vm'
+
+test('client bundles register their published module names', () => {
+  for (const dir of fs.readdirSync('dist/plugins')) {
+    const base = 'dist/plugins/' + dir
+    const pkg = JSON.parse(fs.readFileSync(base + '/package.json'))
+    if (!fs.existsSync(base + '/lib/client.js')) continue
+    const registrations = []
+    vm.runInNewContext(fs.readFileSync(base + '/lib/client.js', 'utf8'), {
+      window: { __ModuleLoader__: { load: entry => registrations.push(entry.id) } },
+    })
+    assert.deepEqual(registrations, [pkg.name], dir)
+  }
+})
 test('independent release entries and versioned market sources', () => {
   const index=JSON.parse(fs.readFileSync('market/index.json'))
   const dirs=fs.readdirSync('dist/plugins')

@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-workspace-download",
+	id: "@flowing-wind/dsh-workspace-download",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;

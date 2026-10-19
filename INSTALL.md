@@ -2,36 +2,44 @@
 
 在官方插件页中添加[仓库索引](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json)，即可浏览每个插件的说明、版本及兼容范围。服务器管理员先确认配套宿主已构建，再安装服务器功能。Windows 官方客户端可安装通用工具和全部技能包。
 
+## 在另一台客户端上安装
+
+1. 安装 Harness `0.2.1-rc.2`，打开侧栏“插件”。如果没有“发现”页，点击“添加插件”，输入 `@deepseek-ai/dsh-experimental-plugin-market-bundle@0.2.1-rc.2` 并安装，按界面提示重启。
+2. 在“发现”的索引配置中添加 `https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json` 并刷新。
+3. 选择标记“官方宿主”的插件，查看说明并分别安装。六个 `skills-*` 包提供全局技能，Wolfram 提供 MCP 工具，三个通用功能包提供余额、个性化说明和交互结果。按界面提示完成重启。
+
+也可以跳过市场，在“添加插件”中粘贴下表任一完整地址。仓库根目录是多个插件的源码集合，安装单个插件需要保留地址中的 `&path:/dist/plugins/...`。每台机器的安装操作在该机器的当前用户下执行一次，技能即可供该 profile 的全部工作区使用。
+
 ## 在“添加插件”中单独安装
 
-复制所需插件的完整地址。`plugins-v1.0.1` 为发行标签，索引内部使用不可变的完整提交。所有包声明适配 Harness `0.2.1-rc.2`。
+复制所需插件的完整地址。`plugins-v1.0.2` 为发行标签，索引内部使用不可变的完整提交。所有包声明适配 Harness `0.2.1-rc.2`。
 
 | 插件 | 可粘贴的安装地址 |
 |---|---|
-| API Key 余额 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/account-balance` |
-| 紧凑右侧面板 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/compact-layout` |
-| 交互表格、图表与表单 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/interactive-results` |
-| 手机导航与触控布局 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/mobile-layout` |
-| 服务器页面登录 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/page-login` |
-| 全局个性化说明 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/personal-instructions` |
-| Diagram Design 图表设计 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-diagram-design` |
-| HyperFrames HTML 视频工作流 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-hyperframes` |
-| No Negative Echo 交付检查 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-no-negative-echo` |
-| Ponytail 开发与审阅 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-ponytail` |
-| Remotion 视频创作与渲染 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-remotion` |
-| UI/UX 设计与检索 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-ui-ux-pro-max` |
-| Wolfram 计算与知识 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/wolfram` |
-| 文件下载与 ZIP | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/workspace-download` |
-| 工作区文本编辑 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/workspace-editor` |
-| 会话与工作区管理 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/workspace-management` |
-| 文件与网页预览 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/workspace-pages` |
+| API Key 余额 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/account-balance` |
+| 紧凑右侧面板 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/compact-layout` |
+| 交互表格、图表与表单 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/interactive-results` |
+| 手机导航与触控布局 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/mobile-layout` |
+| 服务器页面登录 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/page-login` |
+| 全局个性化说明 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/personal-instructions` |
+| Diagram Design 图表设计 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-diagram-design` |
+| HyperFrames HTML 视频工作流 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-hyperframes` |
+| No Negative Echo 交付检查 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-no-negative-echo` |
+| Ponytail 开发与审阅 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-ponytail` |
+| Remotion 视频创作与渲染 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-remotion` |
+| UI/UX 设计与检索 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-ui-ux-pro-max` |
+| Wolfram 计算与知识 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/wolfram` |
+| 文件下载与 ZIP | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/workspace-download` |
+| 工作区文本编辑 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/workspace-editor` |
+| 会话与工作区管理 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/workspace-management` |
+| 文件与网页预览 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/workspace-pages` |
 
 ## Web 命令行安装
 
 命令作用于当前用户的全局 `web` profile，完成后在所有工作区生效。桌面 profile 由桌面应用管理，使用桌面插件页安装。
 
 ```bash
-dsh plugin --profile web add 'git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-remotion'
+dsh plugin --profile web add 'git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.2&path:/dist/plugins/skills-remotion'
 dsh web
 ```
 

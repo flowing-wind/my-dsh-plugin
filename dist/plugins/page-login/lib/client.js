@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-page-login",
+	id: "@flowing-wind/dsh-page-login",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;

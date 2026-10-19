@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "@deepseek-ai/dsh-experimental-interactive-results",
+	id: "@flowing-wind/dsh-interactive-results",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -43,10 +43,10 @@ window.__ModuleLoader__.load({
 		//#endregion
 		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/interactive-results/src/client/view.module.css.mjs
 		const css = ".c4RWYa_result{border:1px solid #8884;border-radius:18px;min-width:0;margin:20px 0;padding:20px}.c4RWYa_result h3{margin:0 0 12px}.c4RWYa_result p{opacity:.65;font-size:12px;line-height:1.6}.c4RWYa_block{margin-top:20px}.c4RWYa_result input,.c4RWYa_result select,.c4RWYa_result button{box-sizing:border-box;max-width:100%;min-height:44px;color:inherit;background:0 0;border:1px solid #8884;border-radius:9px;padding:9px 12px}.c4RWYa_result option{color:canvastext;background:canvas}.c4RWYa_result label{flex-direction:column;gap:8px;margin:14px 0;display:flex}.c4RWYa_result button{cursor:pointer;background:#438c7822}.c4RWYa_table{max-height:420px;margin-top:12px;overflow:auto}.c4RWYa_table table{border-collapse:collapse;width:100%}.c4RWYa_table th,.c4RWYa_table td{text-align:left;white-space:nowrap;border-bottom:1px solid #8883;padding:10px}.c4RWYa_bar{grid-template-columns:minmax(60px,1fr) 2fr auto;align-items:center;gap:12px;margin:16px 0;font-size:13px;display:grid}.c4RWYa_bar div{background:#8882;border-radius:5px;height:20px;overflow:hidden}.c4RWYa_bar i{background:#49a68c;height:100%;display:block}.c4RWYa_bar span{overflow-wrap:anywhere}@media (width<=700px){.c4RWYa_result{padding:14px}.c4RWYa_result input,.c4RWYa_result select{font-size:16px}}";
-		const tagId = "@deepseek-ai/dsh-experimental-interactive-results/view.module.css";
+		const tagId = "@flowing-wind/dsh-interactive-results/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
-			tag.dataset.plugin = "@deepseek-ai/dsh-experimental-interactive-results";
+			tag.dataset.plugin = "@flowing-wind/dsh-interactive-results";
 			tag.dataset.pluginCss = tagId;
 			tag.textContent = css;
 			document.head.appendChild(tag);

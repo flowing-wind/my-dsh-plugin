@@ -8,7 +8,7 @@ const harness = path.resolve(process.argv[2] ?? '.')
 const upstream = JSON.parse(fs.readFileSync(path.join(repo, 'upstream.json')))
 if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== upstream.version) throw Error('Build the matching Harness version first')
 const output = path.join(repo, 'dist/plugins')
-const version = '1.0.0'
+const version = '1.0.2'
 const versions = new Map()
 for (const group of fs.readdirSync(path.join(harness, 'packages'))) {
   const dir = path.join(harness, 'packages', group)
@@ -61,6 +61,8 @@ for (const [name, [title, category, serverBuild]] of Object.entries(details)) {
     const from = entry === 'lib' ? path.join(built, entry) : path.join(source, entry)
     if (fs.existsSync(from)) fs.cpSync(from, path.join(destination, entry), { recursive: true })
   }
+  const client = path.join(destination, 'lib/client.js')
+  if (fs.existsSync(client)) fs.writeFileSync(client, fs.readFileSync(client, 'utf8').replaceAll(originalName, pkg.name))
   fs.writeFileSync(path.join(destination, 'cordis.patch.yml'), fs.readFileSync(path.join(source, 'cordis.patch.yml'), 'utf8').replaceAll(originalName, pkg.name))
   json(path.join(destination, 'package.json'), pkg)
   fs.copyFileSync(path.join(repo, 'LICENSE'), path.join(destination, 'LICENSE'))
