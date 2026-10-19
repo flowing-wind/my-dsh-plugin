@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/mobile-layout/README.md
+/:
+  en: bf4c2bb80cba73de
+  zh: 18f30d3bdaed7a3c
+/deepseek-ai-dsh-experimental-mobile-layout:
+  en: c80eb2341737a53e
+  zh: 1d80488203479d89
+/deepseek-ai-dsh-experimental-mobile-layout/summary:
+  en: 406de650ed062146
+  zh: e9eead013d3acc12
+/deepseek-ai-dsh-experimental-mobile-layout/table-of-contents:
+  en: ed122a1f086d7743
+  zh: 8a9737e5cb824642
+/deepseek-ai-dsh-experimental-mobile-layout/use-this-package:
+  en: 7bcde0e34fc17d4d
+  zh: 41f8ac6a87fde6cb
+/deepseek-ai-dsh-experimental-mobile-layout/implementation:
+  en: 32a848ed73f15968
+  zh: ddc2d5a8492e741b
+/deepseek-ai-dsh-experimental-mobile-layout/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-mobile-layout/model-experience/browser-layout:
+  en: e66195ded1a19957
+  zh: 16dc99c2850a0b67
+/deepseek-ai-dsh-experimental-mobile-layout/model-experience/browser-layout/what-the-model-sees:
+  en: a6c10595bc68d08a
+  zh: 05f492e293c8cb40
+/deepseek-ai-dsh-experimental-mobile-layout/model-experience/browser-layout/token-effect:
+  en: 34d0d807e92782de
+  zh: fe2931812c2adc76
+/deepseek-ai-dsh-experimental-mobile-layout/model-experience/browser-layout/kv-cache-effect:
+  en: 586cd51685124ee6
+  zh: db29512f7fd17459
+/deepseek-ai-dsh-experimental-mobile-layout/known-limitations-and-deferred-work:
+  en: e4cc1cd97f59a201
+  zh: 19d050500ca68a1e
+/deepseek-ai-dsh-experimental-mobile-layout/known-limitations-and-deferred-work/dev-note:
+  en: 0a1253c6f7b5e8b9
+  zh: 9f56528562c7c914

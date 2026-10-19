@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-The public page shows a password dialog on the native dark background or the browser's selected wallpaper. Private application initialization waits for authentication. A logout action appears above the account menu in the left sidebar after login.
+The public page shows a password dialog on the official theme background. Private application initialization waits for authentication. A logout action appears above the account menu in the left sidebar after login.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ Enable the bundled layer in a Web profile and supply passwordHash, idleMs, and a
 <a id="authentication"></a>
 ## Authentication
 
-The plugin replaces Connection's startup-token and cookie authentication while retaining Host/Origin validation. Root HTML, the login endpoint, and the two packaged wallpapers are public. Protected HTTP requests and WebSocket upgrades require an in-memory credential. The page keeps no login cookie, localStorage entry, or sessionStorage entry. New pages and refreshes require another password entry.
+The plugin replaces Connection's startup-token and cookie authentication while retaining Host/Origin validation. Root HTML and the login endpoint are public. Protected HTTP requests and WebSocket upgrades require an in-memory credential. The page keeps no login cookie, localStorage entry, or sessionStorage entry. New pages and refreshes require another password entry.
 
 Closing the page sends a best-effort revocation beacon; logout explicitly revokes its credential and connected WebSockets. Crashes may prevent the beacon, but a reopened page has no credential. Idle expiry removes abandoned server entries. Browser-native previews and downloads carry the parent page's credential in their request URL; reverse-proxy access logs must redact the pageToken query parameter. Static HTML previews keep that credential outside their opaque content iframe. An already downloaded file or already rendered preview cannot be recalled by logout.
 

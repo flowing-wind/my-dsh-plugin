@@ -1,0 +1,46 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/workspace-management/README.md
+/:
+  en: 4b940757bfa6cff5
+  zh: 8004e4a736475b1e
+/deepseek-ai-dsh-experimental-workspace-management:
+  en: 122e5ebdec4f2111
+  zh: a525db662379d53e
+/deepseek-ai-dsh-experimental-workspace-management/summary:
+  en: a7c8068037e1872a
+  zh: 958efde359df65bf
+/deepseek-ai-dsh-experimental-workspace-management/table-of-contents:
+  en: e6747830a09a09aa
+  zh: 5e3c42faffdd2b19
+/deepseek-ai-dsh-experimental-workspace-management/use-this-package:
+  en: a3d37411598ab293
+  zh: 62d1acd082142a8e
+/deepseek-ai-dsh-experimental-workspace-management/understand-the-implementation:
+  en: 6414cc65aa9b06a0
+  zh: 7f30c2c607c14b66
+/deepseek-ai-dsh-experimental-workspace-management/further-exploration:
+  en: cbc9eef059e3180a
+  zh: 8bb8360a373afcb0
+/deepseek-ai-dsh-experimental-workspace-management/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-workspace-management/model-experience/browser-deletion:
+  en: 80a379af10ded597
+  zh: 67f51b5a9b27d056
+/deepseek-ai-dsh-experimental-workspace-management/model-experience/browser-deletion/what-the-model-sees:
+  en: 93df3439f6f9f426
+  zh: 43fb8d3711fc5ffe
+/deepseek-ai-dsh-experimental-workspace-management/model-experience/browser-deletion/token-effect:
+  en: 34d0d807e92782de
+  zh: fe2931812c2adc76
+/deepseek-ai-dsh-experimental-workspace-management/model-experience/browser-deletion/kv-cache-effect:
+  en: c888a246cd214d0f
+  zh: 5f85837aa6cdab2b
+/deepseek-ai-dsh-experimental-workspace-management/known-limitations-and-deferred-work:
+  en: 8cca5abd27529d2e
+  zh: 76db214201986062
+/deepseek-ai-dsh-experimental-workspace-management/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

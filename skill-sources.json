@@ -1,0 +1,86 @@
+[
+  {
+    "name": "remotion",
+    "repository": "https://github.com/remotion-dev/skills",
+    "commit": "1441a11e95db35443bd76bb318386c0d3ca00053",
+    "skills": [
+      "remotion-best-practices",
+      "remotion-captions",
+      "remotion-create",
+      "remotion-docs",
+      "remotion-interactivity",
+      "remotion-maps",
+      "remotion-markup",
+      "remotion-multimedia",
+      "remotion-render",
+      "remotion-saas",
+      "remotion-studio",
+      "remotion-upgrade"
+    ]
+  },
+  {
+    "name": "hyperframes",
+    "repository": "https://github.com/heygen-com/hyperframes",
+    "commit": "b168d0b4138cb578c07f21e12441c8302a217308",
+    "skills": [
+      "embedded-captions",
+      "faceless-explainer",
+      "figma",
+      "general-video",
+      "hyperframes",
+      "hyperframes-animation",
+      "hyperframes-audio",
+      "hyperframes-cli",
+      "hyperframes-core",
+      "hyperframes-creative",
+      "hyperframes-keyframes",
+      "hyperframes-registry",
+      "hyperframes-studio",
+      "media-use",
+      "motion-graphics",
+      "music-to-video",
+      "pr-to-video",
+      "product-launch-video",
+      "remotion-to-hyperframes",
+      "slideshow",
+      "talking-head-recut"
+    ]
+  },
+  {
+    "name": "ui-ux-pro-max",
+    "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "commit": "56ea9cf174ed86786187daa9de0e6247cb0747e4",
+    "skills": [
+      "ui-ux-pro-max"
+    ]
+  },
+  {
+    "name": "diagram-design",
+    "repository": "https://github.com/cathrynlavery/diagram-design",
+    "commit": "550fd66edff058bc73056c3416b76d69cfe865ba",
+    "skills": [
+      "diagram-design"
+    ]
+  },
+  {
+    "name": "no-negative-echo",
+    "repository": "https://github.com/LB623/no-negative-echo",
+    "commit": "eba9f1d2b4c19e699786a49427189988ad6d8d65",
+    "skills": [
+      "no-negative-echo"
+    ]
+  },
+  {
+    "name": "ponytail",
+    "repository": "https://github.com/DietrichGebert/ponytail",
+    "commit": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+    "skills": [
+      "ponytail",
+      "ponytail-audit",
+      "ponytail-debt",
+      "ponytail-gain",
+      "ponytail-help",
+      "ponytail-review"
+    ]
+  }
+]

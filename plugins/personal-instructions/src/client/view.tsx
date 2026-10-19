@@ -20,7 +20,7 @@ function Settings({ t }: PropsLocale<'personalInstructions'>) {
   const save = async () => {
     setStatus(t('saving'))
     try {
-      const response = await fetch('/api/personal-instructions', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ content: value }) })
+      const response = await fetch('/api/personal-instructions', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ content: value }) })
       if (!response.ok) throw new Error(String(response.status))
       setStatus(t('saved'))
     } catch (error) { setStatus(t('failed', { message: String(error) })) }

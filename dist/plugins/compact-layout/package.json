@@ -1,0 +1,24 @@
+{
+  "name": "@flowing-wind/dsh-compact-layout",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "右侧面板初始宽度为 300px，支持拖动调整。",
+  "license": "MIT",
+  "files": [
+    "**/*"
+  ],
+  "dependencies": {},
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
+  },
+  "dshMarket": {
+    "title": "紧凑右侧面板",
+    "category": "layout",
+    "serverBuild": true
+  }
+}

@@ -3,8 +3,8 @@ import type { Context } from '@deepseek-ai/cordis'
 import schema from '@deepseek-ai/schemastery'
 import { homedir } from 'node:os'
 import { dirname, isAbsolute, relative, resolve } from 'node:path'
-import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
-import type {} from '@deepseek-ai/dsh-host-webserver'
+import { mkdir, readFile } from 'node:fs/promises'
+import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
 import type {} from '@deepseek-ai/dsh-client-connection'
 import type {} from '@deepseek-ai/dsh-system-prompt'
 
@@ -21,9 +21,9 @@ export const Config: schema<Config> = schema.object({
   maxBytes: schema.natural().min(1024).default(131072),
 })
 /** Required prompt and HTTP services. */
-export const inject = ['systemPrompt', 'webServer', 'connection']
+export const inject = ['systemPrompt', 'connection']
 
-/** @param ctx - Prompt and web-server lifecycle. @param config - Home-relative storage settings. */
+/** @param ctx - Prompt and authenticated connection lifecycle. @param config - Home-relative storage settings. */
 export async function apply(ctx: Context, config: Config): Promise<void> {
   const home = resolve(homedir())
   const file = resolve(home, config.path)
@@ -41,29 +41,19 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     order: ctx.systemPrompt.getSectionOrder('DEPLOYMENT_PERSONA_SUFFIX'),
     text: () => content.trim() === '' ? '' : `# Personal instructions\n\n${content.trim()}`,
   }))
-  ctx.effect(() => ctx.webServer.register({ kind: 'exact', path: '/api/personal-instructions', handler: async (req, res) => {
-    res.setHeader('cache-control', 'no-store')
-    const rejection = ctx.connection.requestRejection(req)
-    if (rejection !== undefined) { res.writeHead(rejection); res.end(); return }
-    if (req.method === 'GET') {
-      res.writeHead(200, { 'content-type': 'application/json; charset=utf-8' })
-      res.end(JSON.stringify({ content }))
-      return
-    }
-    if (req.method !== 'PUT') { res.writeHead(405); res.end(); return }
-    let body = ''
-    for await (const chunk of req) {
-      body += String(chunk)
-      if (Buffer.byteLength(body) > config.maxBytes + 1024) { res.writeHead(413); res.end(); return }
-    }
-    let next: unknown
-    try { next = (JSON.parse(body) as { content?: unknown }).content } catch { res.writeHead(400); res.end(); return }
-    if (typeof next !== 'string' || Buffer.byteLength(next) > config.maxBytes) { res.writeHead(400); res.end(); return }
-    const temporary = `${file}.tmp`
-    await writeFile(temporary, next, { encoding: 'utf8', mode: 0o600 })
-    await rename(temporary, file)
+  ctx.connection.fetch.register({ path: '/api/personal-instructions', methods: ['GET', 'POST'], requestBody: 'buffered', fetch: async request => {
+    const headers = { 'cache-control': 'no-store', 'content-type': 'application/json; charset=utf-8' }
+    if (request.method === 'GET') return new Response(JSON.stringify({ content }), { headers })
+    const body = await request.text()
+    if (Buffer.byteLength(body) > config.maxBytes + 1024) return new Response(null, { status: 413 })
+    let input: unknown
+    try { input = JSON.parse(body) } catch (_error) { return new Response(null, { status: 400 }) }
+    if (typeof input !== 'object' || input === null || !('content' in input) || typeof input.content !== 'string') return new Response(null, { status: 400 })
+    const next = input.content
+    if (Buffer.byteLength(next) > config.maxBytes) return new Response(null, { status: 413 })
+    await writeFileAtomic(file, next, { mode: 0o600 })
     content = next
     ctx.emit('system-prompt/change')
-    res.writeHead(204); res.end()
-  } }))
+    return new Response(null, { status: 204, headers })
+  } })
 }

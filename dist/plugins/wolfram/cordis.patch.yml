@@ -1,0 +1,7 @@
+- insert:
+    - id: flowing-wind-wolfram
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: wolfram
+        transport: streamable-http
+        url: https://agenttools.wolfram.com/mcp

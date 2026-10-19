@@ -1,0 +1,5 @@
+- insert:
+    - id: interactive-results
+      name: '@flowing-wind/dsh-interactive-results'
+      config:
+        maxBytes: 1048576

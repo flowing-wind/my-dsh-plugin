@@ -15,13 +15,13 @@
       "path": "../../../vendor/schemastery"
     },
     {
-      "path": "../../host/webserver"
-    },
-    {
       "path": "../../client/connection/tsconfig.host.json"
     },
     {
       "path": "../../core/system-prompt"
+    },
+    {
+      "path": "../../util/atomic-write"
     }
   ]
 }

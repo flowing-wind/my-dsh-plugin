@@ -1,0 +1,5 @@
+- insert:
+    - id: workspace-editor
+      name: '@flowing-wind/dsh-workspace-editor'
+      config:
+        maxBytes: 1048576

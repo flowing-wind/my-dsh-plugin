@@ -1,0 +1,32 @@
+{
+  "name": "@flowing-wind/dsh-skills-hyperframes",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "在所有工作区提供 HyperFrames HTML 视频工作流 技能。",
+  "license": "MIT",
+  "files": [
+    "**/*"
+  ],
+  "dependencies": {
+    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.2"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2"
+  },
+  "dshMarket": {
+    "title": "HyperFrames HTML 视频工作流",
+    "category": "skills",
+    "serverBuild": false
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  }
+}

@@ -1,0 +1,3 @@
+- id: ui-layout
+  config:
+    rightbarDefaultWidth: 300

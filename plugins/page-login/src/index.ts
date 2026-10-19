@@ -54,7 +54,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     authorizeIndex: () => true,
     isAuthenticated: request => {
       const path = new URL(request.url ?? '/', 'http://localhost').pathname
-      if (path === '/page-login' || path === '/api/glass-skin/oregairu.webp' || path === '/api/glass-skin/whiteout.webp') return true
+      if (path === '/page-login') return true
       const token = credential(request)
       const session = sessions.get(token)
       if (session === undefined) return false

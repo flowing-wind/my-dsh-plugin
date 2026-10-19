@@ -1,0 +1,3 @@
+- insert:
+    - id: mobile-layout
+      name: '@flowing-wind/dsh-mobile-layout'

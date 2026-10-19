@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/remotion-dev/skills",
+  "commit": "1441a11e95db35443bd76bb318386c0d3ca00053",
+  "skills": [
+    "remotion-best-practices",
+    "remotion-captions",
+    "remotion-create",
+    "remotion-docs",
+    "remotion-interactivity",
+    "remotion-maps",
+    "remotion-markup",
+    "remotion-multimedia",
+    "remotion-render",
+    "remotion-saas",
+    "remotion-studio",
+    "remotion-upgrade"
+  ]
+}

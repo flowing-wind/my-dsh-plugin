@@ -1,0 +1,3 @@
+- insert:
+    - id: flowing-wind-skills-no-negative-echo
+      name: '@flowing-wind/dsh-skills-no-negative-echo'

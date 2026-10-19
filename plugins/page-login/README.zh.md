@@ -9,7 +9,7 @@ kind: "package-bundle"
 
 ## 概述
 
-公开页面在原生深色或浏览器已选壁纸上显示密码弹窗。验证成功后才初始化私有应用内容，并在左侧栏账号菜单上方显示登出操作。
+公开页面在官方主题背景上显示密码弹窗。验证成功后才初始化私有应用内容，并在左侧栏账号菜单上方显示登出操作。
 
 ## 目录
 
@@ -26,7 +26,7 @@ kind: "package-bundle"
 <a id="authentication"></a>
 ## 身份验证
 
-插件替换 Connection 默认的启动令牌与 Cookie 验证，同时保留 Host/Origin 校验。根页面、登录接口与两张内置壁纸公开访问。受保护的 HTTP 请求与 WebSocket 升级需要内存凭证。页面不保存登录 Cookie、localStorage 或 sessionStorage。新开页面或刷新页面都需要重新输入密码。
+插件替换 Connection 默认的启动令牌与 Cookie 验证，同时保留 Host/Origin 校验。根页面与登录接口公开访问。受保护的 HTTP 请求与 WebSocket 升级需要内存凭证。页面不保存登录 Cookie、localStorage 或 sessionStorage。新开页面或刷新页面都需要重新输入密码。
 
 关闭页面时尽力发送撤销请求；退出登录会主动撤销凭证及相关 WebSocket。浏览器崩溃可能阻止撤销请求，但重新打开的页面没有凭证。空闲过期会清理服务器上的遗留记录。浏览器原生预览与下载在请求 URL 中携带所属页面的凭证；反向代理访问日志必须隐藏 pageToken 查询参数。静态 HTML 预览把凭证保留在隔离内容 iframe 之外。已经下载的文件或已经显示的预览无法通过退出登录收回。
 

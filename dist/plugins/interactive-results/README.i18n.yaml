@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/interactive-results/README.md
+/:
+  en: 77027b4b7c292a4f
+  zh: 58da5f8b8dc70db5
+/deepseek-ai-dsh-experimental-interactive-results:
+  en: 818e7759080c9440
+  zh: f7abf878c69c63a8
+/deepseek-ai-dsh-experimental-interactive-results/summary:
+  en: 3daf646564891b5b
+  zh: 7ebd5cb7b6a1a95d
+/deepseek-ai-dsh-experimental-interactive-results/table-of-contents:
+  en: ed122a1f086d7743
+  zh: 8a9737e5cb824642
+/deepseek-ai-dsh-experimental-interactive-results/use-this-package:
+  en: 72d650989251beb5
+  zh: 7ef7e6e647cad8a8
+/deepseek-ai-dsh-experimental-interactive-results/implementation:
+  en: 134e6e84057f4daa
+  zh: 25beef3c49627d46
+/deepseek-ai-dsh-experimental-interactive-results/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-interactive-results/model-experience/structured-deliveries:
+  en: cf5ebbfb265fc45b
+  zh: c3fdd8d23babfe15
+/deepseek-ai-dsh-experimental-interactive-results/model-experience/structured-deliveries/what-the-model-sees:
+  en: 88724f3a88795d4d
+  zh: 0b1c535f1bc7cb38
+/deepseek-ai-dsh-experimental-interactive-results/model-experience/structured-deliveries/token-effect:
+  en: 3d87ea5386132bd0
+  zh: c2e8054c9bd81745
+/deepseek-ai-dsh-experimental-interactive-results/model-experience/structured-deliveries/kv-cache-effect:
+  en: d486972f4ae4ae9a
+  zh: dafa16b5dc7ec890
+/deepseek-ai-dsh-experimental-interactive-results/known-limitations-and-deferred-work:
+  en: 43747e814df1baf1
+  zh: e17bf9a77d0b7cb4
+/deepseek-ai-dsh-experimental-interactive-results/known-limitations-and-deferred-work/dev-note:
+  en: 0a1253c6f7b5e8b9
+  zh: 9f56528562c7c914

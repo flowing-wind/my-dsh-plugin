@@ -1,6 +1,4 @@
-* text=auto eol=lf
-*.patch text eol=lf whitespace=-blank-at-eol
-*.sh text eol=lf
-*.mjs text eol=lf
-*.webp binary
-*.tgz binary
+# Pinned upstream skills retain their original Markdown breaks and formatting.
+dist/plugins/skills-*/skills/** whitespace=-blank-at-eol,-blank-at-eof
+# Unified-diff context lines use a literal leading space for empty source lines.
+patches/*.patch whitespace=-blank-at-eol

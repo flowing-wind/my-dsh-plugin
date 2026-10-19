@@ -21,14 +21,14 @@ Users can edit instructions that apply to every conversation without changing an
 <a id="use"></a>
 ## Use
 
-Install the bundled layer in a Web profile. Settings → Personalization loads and saves the configured file. The default path is `.dsh/agent.md`, resolved below the operating-system user home directory. A path that escapes that directory fails during plugin startup.
+Install the bundle in the global Web or Desktop profile. Settings → Personalization loads and saves the configured file. The default path is `.dsh/agent.md`, resolved below the operating-system user home directory. A path that escapes that directory fails during plugin startup.
 
 Workspace `AGENTS.md` files continue to apply through their existing owner. Personal instructions are a separate deployment-wide input and do not edit Agent presets.
 
 <a id="implementation"></a>
 ## Implementation
 
-The Host loads the file at startup, writes updates atomically with user-only permissions, and serves an authenticated JSON endpoint for the settings editor. The system-prompt registry reads the current in-memory text for each assembly. Saving emits the registry change event so active sessions can record an updated system prompt through the existing prompt projection.
+The authenticated connection Fetch registry serves the settings endpoint on Web and Desktop. The Host loads the file at startup, writes updates atomically with user-only permissions, and serves an authenticated JSON endpoint for the settings editor. The system-prompt registry reads the current in-memory text for each assembly. Saving emits the registry change event so active sessions can record an updated system prompt through the existing prompt projection.
 
 <a id="model-experience"></a>
 ## Model Experience

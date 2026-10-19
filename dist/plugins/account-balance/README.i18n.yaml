@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/account-balance/README.md
+/:
+  en: b51e5e41a41b9104
+  zh: 2f5c6a5b6a4c574e
+/deepseek-ai-dsh-experimental-account-balance:
+  en: 5809ed728816efa6
+  zh: d0024e26db9b96d0
+/deepseek-ai-dsh-experimental-account-balance/summary:
+  en: 3798b2860d763d27
+  zh: e46ebf7bb5ae8e33
+/deepseek-ai-dsh-experimental-account-balance/table-of-contents:
+  en: 42843c912872c056
+  zh: f1379c6cd8b8d0d3
+/deepseek-ai-dsh-experimental-account-balance/use:
+  en: e6242fa6c39e1d9d
+  zh: 56f1c3ba19788ce6
+/deepseek-ai-dsh-experimental-account-balance/implementation:
+  en: 55b0f4fb64a0f8de
+  zh: 5cfbd79703052b02
+/deepseek-ai-dsh-experimental-account-balance/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/deepseek-ai-dsh-experimental-account-balance/model-experience/account-settings:
+  en: fcb8a3fe85b1e31d
+  zh: 5dcca97ee5501dd4
+/deepseek-ai-dsh-experimental-account-balance/model-experience/account-settings/what-the-model-sees:
+  en: 109f3fbff3ec786a
+  zh: 9f1b383be9baa250
+/deepseek-ai-dsh-experimental-account-balance/model-experience/account-settings/token-effect:
+  en: 34d0d807e92782de
+  zh: fe2931812c2adc76
+/deepseek-ai-dsh-experimental-account-balance/model-experience/account-settings/kv-cache-effect:
+  en: 1b828fceea579225
+  zh: bd458857a0496174
+/deepseek-ai-dsh-experimental-account-balance/known-limitations-and-deferred-work:
+  en: ee2ac8f547d3e589
+  zh: e8476723b7863ce0
+/deepseek-ai-dsh-experimental-account-balance/known-limitations-and-deferred-work/dev-note:
+  en: 0a1253c6f7b5e8b9
+  zh: 9f56528562c7c914
