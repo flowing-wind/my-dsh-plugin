@@ -24,13 +24,13 @@ node scripts/build-release.mjs /path/to/deepseek-harness
 ```bash
 git add plugins dist patches extras upstream.json scripts tests README.md INSTALL.md MAINTAINING.md deploy skill-sources.json package.json
 git commit -m 'Publish Harness plugin bundles'
-git tag plugins-v1.0.0
+git tag plugins-v1.0.1
 DSH_PLUGIN_COMMIT="$(git rev-parse HEAD)" node scripts/generate-index.mjs
 node --test tests/*.test.mjs
 git diff --check
 git add market/index.json
 git commit -m 'Publish plugin index'
-git push origin main plugins-v1.0.0
+git push origin main plugins-v1.0.1
 ```
 
 发布新版本时同步更新包版本、安装文档和标签。保持已发布标签与提交不变。索引版本按 SemVer 从新到旧排列；适配新 Harness 时重新检查公开接口、补丁及每个插件的消费者。

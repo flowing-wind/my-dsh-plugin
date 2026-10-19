@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.j
 索引采用官方 format 1，将每个版本固定到完整 Git 提交和包子目录。仓库首页代表整个源码集合；在“添加插件”中安装单个插件时，需要使用完整子目录地址。例如：
 
 ```text
-git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.0&path:/dist/plugins/skills-remotion
+git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.1&path:/dist/plugins/skills-remotion
 ```
 
 详细步骤、每个插件的完整安装地址和升级方式见[安装说明](INSTALL.md)。插件保存在当前用户的全局 Harness profile，对该 profile 打开的所有工作区生效。Web 与 Desktop 分别管理 profile。Git 缓存和安装后的依赖是正常运行所需文件，后续更新源仍是远程仓库。
@@ -64,3 +64,5 @@ Wolfram 包配置 Harness 官方 MCP 客户端，连接 `https://agenttools.wolf
 ## 验证范围
 
 发行检查包含官方索引解析、独立包入口、远程依赖声明，以及受影响的布局、认证和会话删除测试。部署时继续验证登录、文件操作、手机布局及官方插件管理器的 Git 子目录安装。完整 CI 与其他 Harness 版本需另行验证。
+
+Remotion 技能在首次启用时通过 Git 获取官方固定提交，缓存于用户 Harness 数据目录；后续加载复用该版本。运行此插件需要 Git。
