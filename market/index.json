@@ -538,12 +538,25 @@
         "directory": "dist/plugins/workspace-management"
       },
       "metadata": {
-        "category": "server",
+        "category": "tools",
         "labels": [
-          "server-build"
+          "standard-host"
         ]
       },
       "versions": [
+        {
+          "version": "1.0.5",
+          "publishTimestamp": 1792432083,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "d9f7ba54fa6e2386b553fe6dbb5f2a4c26b6ee31",
+            "path": "dist/plugins/workspace-management"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        },
         {
           "version": "1.0.4",
           "publishTimestamp": 1792428153,
