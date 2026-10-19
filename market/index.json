@@ -1,0 +1,595 @@
+{
+  "format": 1,
+  "title": {
+    "en": "Flowing Wind plugins",
+    "zh": "Flowing Wind 插件"
+  },
+  "metadata": {
+    "categories": {
+      "tools": {
+        "title": {
+          "en": "tools",
+          "zh": "功能"
+        }
+      },
+      "layout": {
+        "title": {
+          "en": "layout",
+          "zh": "布局"
+        }
+      },
+      "skills": {
+        "title": {
+          "en": "skills",
+          "zh": "技能"
+        }
+      },
+      "server": {
+        "title": {
+          "en": "server",
+          "zh": "服务器"
+        }
+      }
+    },
+    "labels": {
+      "server-build": {
+        "title": {
+          "en": "Matching server build",
+          "zh": "配套服务器构建"
+        }
+      },
+      "standard-host": {
+        "title": {
+          "en": "Official Host",
+          "zh": "官方宿主"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "@flowing-wind/dsh-account-balance",
+      "title": "API Key 余额",
+      "description": "DeepSeek API Key account balance and official billing links",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/account-balance"
+      },
+      "metadata": {
+        "category": "tools",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/account-balance"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-compact-layout",
+      "title": "紧凑右侧面板",
+      "description": "右侧面板初始宽度为 300px，支持拖动调整。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/compact-layout"
+      },
+      "metadata": {
+        "category": "layout",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/compact-layout"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-interactive-results",
+      "title": "交互表格、图表与表单",
+      "description": "交互说明：表格、图表与表单交付",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/interactive-results"
+      },
+      "metadata": {
+        "category": "tools",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/interactive-results"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-mobile-layout",
+      "title": "手机导航与触控布局",
+      "description": "移动端布局：手机导航与触控优化",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/mobile-layout"
+      },
+      "metadata": {
+        "category": "layout",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/mobile-layout"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-page-login",
+      "title": "服务器页面登录",
+      "description": "页面身份验证与内存登录凭证",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/page-login"
+      },
+      "metadata": {
+        "category": "server",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/page-login"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-personal-instructions",
+      "title": "全局个性化说明",
+      "description": "Home-scoped personal instructions with a settings editor",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/personal-instructions"
+      },
+      "metadata": {
+        "category": "tools",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/personal-instructions"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-diagram-design",
+      "title": "Diagram Design 图表设计",
+      "description": "在所有工作区提供 Diagram Design 图表设计 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-diagram-design"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-diagram-design"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-hyperframes",
+      "title": "HyperFrames HTML 视频工作流",
+      "description": "在所有工作区提供 HyperFrames HTML 视频工作流 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-hyperframes"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-hyperframes"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-no-negative-echo",
+      "title": "No Negative Echo 交付检查",
+      "description": "在所有工作区提供 No Negative Echo 交付检查 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-no-negative-echo"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-no-negative-echo"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-ponytail",
+      "title": "Ponytail 开发与审阅",
+      "description": "在所有工作区提供 Ponytail 开发与审阅 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-ponytail"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-ponytail"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-remotion",
+      "title": "Remotion 视频创作与渲染",
+      "description": "在所有工作区提供 Remotion 视频创作与渲染 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-remotion"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-remotion"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-skills-ui-ux-pro-max",
+      "title": "UI/UX 设计与检索",
+      "description": "在所有工作区提供 UI/UX 设计与检索 技能。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/skills-ui-ux-pro-max"
+      },
+      "metadata": {
+        "category": "skills",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/skills-ui-ux-pro-max"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-wolfram",
+      "title": "Wolfram 计算与知识",
+      "description": "通过官方 Wolfram Cloud MCP 提供计算与知识检索。",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/wolfram"
+      },
+      "metadata": {
+        "category": "tools",
+        "labels": [
+          "standard-host"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/wolfram"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-workspace-download",
+      "title": "文件下载与 ZIP",
+      "description": "工作区文件下载：文件树与预览标签下载",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/workspace-download"
+      },
+      "metadata": {
+        "category": "server",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/workspace-download"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-workspace-editor",
+      "title": "工作区文本编辑",
+      "description": "轻量文件编辑：直接修改工作区文本与代码",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/workspace-editor"
+      },
+      "metadata": {
+        "category": "server",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/workspace-editor"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-workspace-management",
+      "title": "会话与工作区管理",
+      "description": "对话与工作区删除：菜单删除、归档删除及可选磁盘文件清理",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/workspace-management"
+      },
+      "metadata": {
+        "category": "server",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/workspace-management"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@flowing-wind/dsh-workspace-pages",
+      "title": "文件与网页预览",
+      "description": "工作区网页：隔离的静态网页与新标签页预览",
+      "author": "flowing-wind",
+      "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
+      "repository": {
+        "url": "https://github.com/flowing-wind/my-dsh-plugin",
+        "directory": "dist/plugins/workspace-pages"
+      },
+      "metadata": {
+        "category": "server",
+        "labels": [
+          "server-build"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "publishTimestamp": 1792421143,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "8f7e821e6684814f2c8d9788c5fb6562f1cfd088",
+            "path": "dist/plugins/workspace-pages"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        }
+      ]
+    }
+  ]
+}
