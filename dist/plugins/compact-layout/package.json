@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-compact-layout",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "description": "右侧面板初始宽度为 300px，支持拖动调整。",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-personal-instructions",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Home-scoped personal instructions with a settings editor",
   "type": "module",
   "license": "MIT",
@@ -25,12 +25,12 @@
     "cordis.patch.yml"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5"
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-atomic-write": "0.2.1-rc.2"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
-    "@deepseek-ai/schemastery": "3.18.5",
-    "@deepseek-ai/dsh-atomic-write": "0.2.1-rc.2"
+    "@deepseek-ai/schemastery": "3.18.5"
   },
   "dsh": {
     "client": {

@@ -1,15 +1,13 @@
 {
   "name": "@flowing-wind/dsh-skills-ponytail",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "description": "在所有工作区提供 Ponytail 开发与审阅 技能。",
   "license": "MIT",
   "files": [
     "**/*"
   ],
-  "dependencies": {
-    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.2"
-  },
+  "dependencies": {},
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -28,5 +26,8 @@
     ".": "./index.js",
     "./package.json": "./package.json",
     "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-skill-filesystem": "0.2.1-rc.2"
   }
 }

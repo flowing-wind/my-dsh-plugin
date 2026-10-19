@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-page-login",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "页面身份验证与内存登录凭证",
   "type": "module",
   "license": "MIT",
@@ -26,11 +26,11 @@
     "cordis.patch.yml"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5"
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-host-webserver": "0.2.1-rc.2"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-host-webserver": "0.2.1-rc.2",
     "@deepseek-ai/schemastery": "3.18.5"
   },
   "dsh": {

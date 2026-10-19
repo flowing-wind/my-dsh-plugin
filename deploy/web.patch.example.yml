@@ -28,8 +28,15 @@
     attemptsPerMinute: 10
 - id: personal-instructions
   config:
-    path: .dsh/agent.md
+    path: /home/dsh/.dsh/agent.md
     maxBytes: 131072
+
+- id: workspace-management
+  config:
+    managedWorkspaceRoot: /home/dsh/Projects
+- id: workspace-download
+  config:
+    archiveDirectory: /home/dsh/.dsh/download-cache
 
 - id: connection
   config:

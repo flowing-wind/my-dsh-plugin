@@ -17,6 +17,8 @@ node scripts/build-release.mjs /path/to/deepseek-harness
 
 构建脚本将 workspace 依赖转换为对应官方包的版本，复制编译后的入口、前端资源和配置层，并将前端模块的注册名称替换为发行包名。发行测试实际执行模块注册入口，核对其名称与 package.json 一致。配置型 bundle 和技能包直接维护 `dist/plugins/` 目录。新增包声明 `dsh.bundle.patch`、精确的 `engines.dsh` 和索引展示信息。配套宿主使用补丁后的源码，运行时插件使用远程发行包。
 
+Harness 的服务模块使用 `peerDependencies`，由当前宿主提供同一份实例与实现。全局 profile 使用官方的 `nodeLinker: hoisted` 和 `autoInstallPeers: false` 设置。独立部署的验证必须从远程包安装后启动宿主，检查认证接口、文件操作与技能目录。
+
 ## 发布索引
 
 先提交完整运行包并创建版本标签，再生成索引指向该提交。索引文件提交在随后一个提交中：
@@ -24,13 +26,13 @@ node scripts/build-release.mjs /path/to/deepseek-harness
 ```bash
 git add plugins dist patches extras upstream.json scripts tests README.md INSTALL.md MAINTAINING.md deploy skill-sources.json package.json
 git commit -m 'Publish Harness plugin bundles'
-git tag plugins-v1.0.2
+git tag plugins-v1.0.3
 DSH_PLUGIN_COMMIT="$(git rev-parse HEAD)" node scripts/generate-index.mjs
 node --test tests/*.test.mjs
 git diff --check
 git add market/index.json
 git commit -m 'Publish plugin index'
-git push origin main plugins-v1.0.2
+git push origin main plugins-v1.0.3
 ```
 
 发布新版本时同步更新包版本、安装文档和标签。保持已发布标签与提交不变。索引版本按 SemVer 从新到旧排列；适配新 Harness 时重新检查公开接口、补丁及每个插件的消费者。

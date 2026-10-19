@@ -8,6 +8,8 @@
 
 插件依赖来自远程仓库。`profile.json` 是全局 Web profile 示例，安装为 `$DSH_HOME/profiles/web/package.json`，在该目录执行 `pnpm install`。其中 Git 版本引用公开发行标签。官方 base、web、Agent Teams、自动审批和自定义插件市场使用官方实现。私有 `web.patch.yml` 保留现有模型、权限和登录配置；`web.patch.example.yml` 只提供字段示例。
 
+使用官方 profile 的 `pnpm-workspace.yaml` 设置：`packages: ['.']`、`nodeLinker: hoisted`、`autoInstallPeers: false`。登录与文件管理所需部署配置包括 `DSH_HOME` 和 `DSH_WORKSPACE_ROOT`；私有配置也可直接指定工作区根目录和下载缓存目录。
+
 ## 登录与数据
 
 页面登录摘要格式为 16 字节随机盐的十六进制与 64 字节 scrypt 摘要的十六进制，以冒号连接。私有配置权限为 600，密码、摘要、API Key 和 SSH 凭据由部署者保管。反向代理日志应隐藏 `pageToken` 参数。持久化会话、附件、工作区、凭据及 `agent.md` 在升级时保留；新版会话不能假定支持旧版读取。

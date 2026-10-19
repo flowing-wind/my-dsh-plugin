@@ -1,15 +1,13 @@
 {
   "name": "@flowing-wind/dsh-wolfram",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "description": "通过官方 Wolfram Cloud MCP 提供计算与知识检索。",
   "license": "MIT",
   "files": [
     "**/*"
   ],
-  "dependencies": {
-    "@deepseek-ai/dsh-mcp-client": "0.2.1-rc.2"
-  },
+  "dependencies": {},
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -22,5 +20,8 @@
     "title": "Wolfram 计算与知识",
     "category": "tools",
     "serverBuild": false
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-mcp-client": "0.2.1-rc.2"
   }
 }

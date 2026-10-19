@@ -27,6 +27,7 @@ test('independent release entries and versioned market sources', () => {
     assert.equal(pkg.engines.dsh,'0.2.1-rc.2')
     assert.doesNotMatch(JSON.stringify(pkg),/workspace:|link:|\/home\/dsh/)
     for(const spec of Object.values(pkg.dependencies??{}))assert.doesNotMatch(spec,/^(git|https?:|file:|link:|workspace:)/)
+    assert.ok(Object.keys(pkg.dependencies??{}).every(name=>!name.startsWith('@deepseek-ai/dsh-')),dir+' shares Harness services through peer dependencies')
     assert.ok(fs.existsSync(base+'/'+pkg.dsh.bundle.patch))
     if(pkg.main)assert.ok(fs.existsSync(base+'/'+pkg.main))
     const row=index.plugins.find(p=>p.name===pkg.name)

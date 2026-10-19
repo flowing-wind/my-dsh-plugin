@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-workspace-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "轻量文件编辑：直接修改工作区文本与代码",
   "type": "module",
   "license": "MIT",
@@ -26,14 +26,14 @@
     "cordis.patch.yml"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5"
-  },
-  "dependencies": {
-    "@deepseek-ai/schemastery": "3.18.5",
-    "zod": "^4.4.3",
+    "@deepseek-ai/cordis": "4.0.5",
     "@deepseek-ai/dsh-session": "0.2.1-rc.2",
     "@deepseek-ai/dsh-session-persistence": "0.2.1-rc.2",
     "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "3.18.5",
+    "zod": "^4.4.3"
   },
   "dsh": {
     "client": {

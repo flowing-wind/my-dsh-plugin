@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-account-balance",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DeepSeek API Key account balance and official billing links",
   "type": "module",
   "license": "MIT",
@@ -28,11 +28,11 @@
     "assets/*LICENSE.txt"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5"
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
+    "@deepseek-ai/dsh-credentials": "0.2.1-rc.2"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.2",
-    "@deepseek-ai/dsh-credentials": "0.2.1-rc.2",
     "@deepseek-ai/schemastery": "3.18.5",
     "zod": "^4.1.0"
   },

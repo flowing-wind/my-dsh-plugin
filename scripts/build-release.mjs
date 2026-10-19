@@ -8,7 +8,7 @@ const harness = path.resolve(process.argv[2] ?? '.')
 const upstream = JSON.parse(fs.readFileSync(path.join(repo, 'upstream.json')))
 if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== upstream.version) throw Error('Build the matching Harness version first')
 const output = path.join(repo, 'dist/plugins')
-const version = '1.0.2'
+const version = '1.0.3'
 const versions = new Map()
 for (const group of fs.readdirSync(path.join(harness, 'packages'))) {
   const dir = path.join(harness, 'packages', group)
@@ -66,5 +66,17 @@ for (const [name, [title, category, serverBuild]] of Object.entries(details)) {
   fs.writeFileSync(path.join(destination, 'cordis.patch.yml'), fs.readFileSync(path.join(source, 'cordis.patch.yml'), 'utf8').replaceAll(originalName, pkg.name))
   json(path.join(destination, 'package.json'), pkg)
   fs.copyFileSync(path.join(repo, 'LICENSE'), path.join(destination, 'LICENSE'))
+}
+for (const name of fs.readdirSync(output)) {
+  const file = path.join(output, name, 'package.json')
+  const pkg = JSON.parse(fs.readFileSync(file))
+  for (const [dependency, spec] of Object.entries(pkg.dependencies ?? {})) {
+    if (!dependency.startsWith('@deepseek-ai/dsh-')) continue
+    pkg.peerDependencies ??= {}
+    pkg.peerDependencies[dependency] = spec
+    delete pkg.dependencies[dependency]
+  }
+  pkg.version = version
+  json(file, pkg)
 }
 console.log('Built', Object.keys(details).length, 'code plugins; skill and configuration bundles retain their pinned release files')
