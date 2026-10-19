@@ -40,7 +40,7 @@ git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/
 | `wolfram` | Wolfram 计算与知识 | 官方宿主 |
 | `workspace-download` | 文件下载与 ZIP | 配套宿主 |
 | `workspace-editor` | 工作区文本编辑 | 配套宿主 |
-| `workspace-management` | 会话与工作区管理 | 配套宿主 |
+| `workspace-management` | 会话与工作区管理（Windows / Linux） | 官方宿主 |
 | `workspace-pages` | 文件与网页预览 | 配套宿主 |
 
 工作区插件提供文件下载与 ZIP、UTF-8 编辑及版本冲突检查、新标签页预览，以及分别确认的会话永久删除、工作区注销和文件删除。登录插件保护网页、HTTP API 与实时连接。手机布局提供触控导航、全宽面板与设置分类布局；紧凑布局设置右面板初始宽度为 300px，支持拖动和收起后保持。个性化说明默认保存在 `~/.dsh/agent.md`。交互结果支持表格搜索、柱状图和明确提交的表单。
@@ -57,7 +57,7 @@ Wolfram 包配置 Harness 官方 MCP 客户端，连接 `https://agenttools.wolf
 
 ## 宿主适配与维护
 
-紧凑布局通过官方插槽共享当前版本的根布局状态，并复用官方侧栏标识，适用于官方 Web 和 Desktop。配套补丁提供手机布局区域标记、服务器认证、永久删除和文件操作入口；具体功能由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
+工作区管理 `1.0.5` 在同一安装包内提供固定版本的管理接口和工作区确认扩展，适用于官方 Windows Desktop 与 Linux Web；目录范围和权限说明见[插件说明](plugins/workspace-management/README.zh.md)。紧凑布局通过官方插槽共享当前版本的根布局状态，并复用官方侧栏标识，适用于官方 Web 和 Desktop。配套补丁提供手机布局区域标记、服务器认证、永久删除和文件操作入口；具体功能由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
 
 维护源码位于 `plugins/`，独立运行包位于 `dist/plugins/`。发行包依赖官方发布版本，安装后使用远程提交。配套宿主构建和服务器配置见[部署说明](deploy/README.md)，发布步骤见[维护说明](MAINTAINING.md)。
 

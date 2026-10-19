@@ -1,0 +1,41 @@
+{
+  "name": "@deepseek-ai/dsh-api-session-controller",
+  "version": "0.2.1-rc.2",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "default": "./lib/types/types.js"
+    },
+    "./remote-events": {
+      "default": "./lib/types/remote-events.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./typert": {
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "dsh": {
+    "client": {
+      "external": [
+        "@deepseek-ai/dsh-api-gateway/client"
+      ],
+      "inject": [
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-client-file-upload"
+      ],
+      "platform": "web"
+    }
+  }
+}

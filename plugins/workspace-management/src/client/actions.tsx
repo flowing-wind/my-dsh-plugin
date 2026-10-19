@@ -22,12 +22,13 @@ interface Controller {
   subscribe: (listener: () => void) => () => void
   select: (selection: Selection | null) => void
 }
-const workspacesSchema = z.object({ workspaces: z.array(z.object({ id: z.string(), canDeleteFiles: z.boolean() })) })
+const workspacesSchema = z.object({ workspaces: z.array(z.object({ id: z.string(), path: z.string(), canDeleteFiles: z.boolean() })) })
 
 function Confirmation({ selected, close, t }: Labels & { selected: Selection; close: () => void }) {
   const [files, setFiles] = useState(false)
   const [sessions, setSessions] = useState(false)
   const [canDeleteFiles, setCanDeleteFiles] = useState(false)
+  const [directory, setDirectory] = useState('')
   const [pending, setPending] = useState(false)
   const [error, setError] = useState('')
   useEffect(() => {
@@ -38,7 +39,11 @@ function Confirmation({ selected, close, t }: Labels & { selected: Selection; cl
         const response = await fetch('/api/workspace-management', { signal: abort.signal })
         if (!response.ok) throw new Error(await response.text())
         const value = workspacesSchema.parse(await response.json())
-        if (!abort.signal.aborted) setCanDeleteFiles(value.workspaces.find(row => row.id === selected.id)?.canDeleteFiles === true)
+        if (!abort.signal.aborted) {
+          const workspace = value.workspaces.find(row => row.id === selected.id)
+          setCanDeleteFiles(workspace?.canDeleteFiles === true)
+          setDirectory(workspace?.path ?? '')
+        }
       } catch (failure) { if (!abort.signal.aborted) setError(String(failure)) }
     })()
     return () => { abort.abort() }
@@ -57,9 +62,9 @@ function Confirmation({ selected, close, t }: Labels & { selected: Selection; cl
   }
   return <Modal open onClose={() => { if (!pending) close() }} closeLabel={t('cancel')} title={t('confirmation')} description={selected.title}
     footer={<><Button variant="outline" disabled={pending} onClick={close}>{t('cancel')}</Button><Button variant="primary" disabled={pending} onClick={() => { void remove() }}>{t(pending ? 'pending' : 'confirm')}</Button></>}>
-    {selected.kind === 'workspace' ? <div className={css.options}><p>{t('retain')}</p>
-      <label><input type="checkbox" checked={sessions} disabled={pending} onChange={event => setSessions(event.target.checked)} />{t('allSessions')}</label>
-      <label><input type="checkbox" checked={files} disabled={pending || !canDeleteFiles} onChange={event => setFiles(event.target.checked)} />{t('files')}</label>
+    {selected.kind === 'workspace' ? <div className={css.options}><p>{t('retain')}</p>{directory && <code className={css.path}>{directory}</code>}
+      <label><input type="checkbox" checked={sessions} disabled={pending} onChange={(event) => { setSessions(event.target.checked) }} />{t('allSessions')}</label>
+      <label><input type="checkbox" checked={files} disabled={pending || !canDeleteFiles} onChange={(event) => { setFiles(event.target.checked) }} />{t('files')}</label>
       <small>{t(canDeleteFiles ? 'filesNote' : 'filesUnavailable')}</small>
     </div> : <p>{t('sessionNote')}</p>}
     {error && <p role="alert">{t('error', { message: error })}</p>}
@@ -75,7 +80,7 @@ function SessionAction({ sessionId, displayTitle, useMenuOpenState, controller, 
 }
 function SessionDialog({ controller, t }: Labels & { controller: Controller }) {
   const selected = useSyncExternalStore(controller.subscribe, controller.get)
-  return selected === null ? null : <Confirmation key={selected.id} selected={selected} close={() => controller.select(null)} t={t} />
+  return selected === null ? null : <Confirmation key={selected.id} selected={selected} close={() => { controller.select(null) }} t={t} />
 }
 function WorkspaceDialog({ workspaceId, title, close, t }: PropsRuntime<'sidebar.workspaces.delete'> & Labels) {
   return <Confirmation key={workspaceId} selected={{ kind: 'workspace', id: workspaceId, title }} close={close} t={t} />
@@ -91,8 +96,8 @@ export function apply(ctx: Context): void {
   const listeners = new Set<() => void>()
   const controller: Controller = {
     get: () => selection,
-    subscribe: listener => { listeners.add(listener); return () => { listeners.delete(listener) } },
-    select: value => { selection = value; for (const listener of listeners) listener() },
+    subscribe: (listener) => { listeners.add(listener); return () => { listeners.delete(listener) } },
+    select: (value) => { selection = value; for (const listener of listeners) listener() },
   }
   ctx.slots.inject('sidebar.workspaces.session.menu.item', () => ctx.slots.register({
     name: 'sidebar.workspaces.session.menu.item', id: 'delete-session', locale: 'workspaceManagement', inject: () => ({ controller }),

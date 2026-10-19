@@ -1,12 +1,12 @@
 /** Optional authenticated deletion of conversations and workspace registrations. */
 import type { Context } from '@deepseek-ai/cordis';
 import schema from '@deepseek-ai/schemastery';
-/** Explicit root whose child workspace directories can be permanently removed. */
+/** Optional administrator restriction on removable workspace directories. */
 export interface Config {
-    /** Existing absolute directory whose child workspaces may be deleted from disk. */
-    managedWorkspaceRoot: string;
+    /** Existing absolute parent directory; omitted permits eligible registered directories. */
+    managedWorkspaceRoot?: string;
 }
-/** Directory deletion is restricted to children of this configured root. */
+/** Explicit roots restrict deletion; protected directories are always excluded. */
 export declare const Config: schema<Config>;
 /** Existing persistence, Agent ownership, and authenticated transport services. */
 export declare const inject: string[];

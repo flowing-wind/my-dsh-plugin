@@ -1,0 +1,14 @@
+{
+  "name": "@deepseek-ai/dsh-session-persistence-jsonl",
+  "version": "0.2.1-rc.2",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  }
+}

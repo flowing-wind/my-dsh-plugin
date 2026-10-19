@@ -1,5 +1,5 @@
 diff --git a/docs/config-catalog.md b/docs/config-catalog.md
-index 60484ba795..313c4b1a51 100644
+index 60484ba795..47091e99e5 100644
 --- a/docs/config-catalog.md
 +++ b/docs/config-catalog.md
 @@ -219,12 +219,14 @@ export interface Config {
@@ -162,13 +162,13 @@ index 60484ba795..313c4b1a51 100644
 +## `@deepseek-ai/dsh-experimental-workspace-management`
 +
 +- `inject`: `connection` · `sessionController` · `workspaceRegistry` · `sessionPersistence`
-+- `source`: [`packages/experimental/workspace-management/src/index.ts:14`](../packages/experimental/workspace-management/src/index.ts)
++- `source`: [`packages/experimental/workspace-management/src/index.ts:16`](../packages/experimental/workspace-management/src/index.ts)
 +
 +```ts config-catalog
-+/** Explicit root whose child workspace directories can be permanently removed. */
++/** Optional administrator restriction on removable workspace directories. */
 +export interface Config {
-+  /** Existing absolute directory whose child workspaces may be deleted from disk. */
-+  managedWorkspaceRoot: string
++  /** Existing absolute parent directory; omitted permits eligible registered directories. */
++  managedWorkspaceRoot?: string
 +}
 +```
 +<!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-workspace-management -->
@@ -208,7 +208,7 @@ index 60484ba795..313c4b1a51 100644
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/config-catalog.zh.md b/docs/config-catalog.zh.md
-index 8460650010..7ec26912ed 100644
+index 8460650010..6eadb4f0ac 100644
 --- a/docs/config-catalog.zh.md
 +++ b/docs/config-catalog.zh.md
 @@ -221,12 +221,14 @@ export interface Config {
@@ -371,13 +371,13 @@ index 8460650010..7ec26912ed 100644
 +## `@deepseek-ai/dsh-experimental-workspace-management`
 +
 +- `inject`: `connection` · `sessionController` · `workspaceRegistry` · `sessionPersistence`
-+- `source`: [`packages/experimental/workspace-management/src/index.ts:14`](../packages/experimental/workspace-management/src/index.ts)
++- `source`: [`packages/experimental/workspace-management/src/index.ts:16`](../packages/experimental/workspace-management/src/index.ts)
 +
 +```ts config-catalog
-+/** Explicit root whose child workspace directories can be permanently removed. */
++/** Optional administrator restriction on removable workspace directories. */
 +export interface Config {
-+  /** Existing absolute directory whose child workspaces may be deleted from disk. */
-+  managedWorkspaceRoot: string
++  /** Existing absolute parent directory; omitted permits eligible registered directories. */
++  managedWorkspaceRoot?: string
 +}
 +```
 +<!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-workspace-management -->
@@ -2031,7 +2031,7 @@ index f257ca0e1e..8628820e2f 100644
  
  export default SessionPersistence
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 5f38bae356..31064418a1 100644
+index 5f38bae356..2a0fb876f6 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -7569,6 +7569,52 @@ importers:
@@ -2300,7 +2300,7 @@ index 5f38bae356..31064418a1 100644
    packages/experimental/plugin-market-bundle:
      dependencies:
        '@deepseek-ai/dsh-client-ui-plugin-market':
-@@ -9736,6 +9981,244 @@ importers:
+@@ -9736,6 +9981,247 @@ importers:
          specifier: 5.0.0
          version: 5.0.0
  
@@ -2425,6 +2425,9 @@ index 5f38bae356..31064418a1 100644
 +
 +  packages/experimental/workspace-management:
 +    dependencies:
++      '@deepseek-ai/dsh-home-paths':
++        specifier: workspace:^
++        version: link:../../util/home-paths
 +      '@deepseek-ai/dsh-api-session-controller':
 +        specifier: workspace:^
 +        version: link:../../api/session-controller
@@ -2545,7 +2548,7 @@ index 5f38bae356..31064418a1 100644
    packages/experimental/worktree:
      dependencies:
        '@deepseek-ai/dsh-timeout':
-@@ -17786,10 +18269,12 @@ packages:
+@@ -17786,10 +18272,12 @@ packages:
  
    '@modelcontextprotocol/server-everything@2026.8.31':
      resolution: {integrity: sha512-5U3OZh8Xq0Li4nA26l6uNvV9/1suMDuWSn+NjLZIhzinhMY6N3A4DCrxVecBGPf2PsNFKTEv5krxGPRwzxc7jQ==}

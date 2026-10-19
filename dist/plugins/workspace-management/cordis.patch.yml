@@ -1,3 +1,20 @@
+- id: session-controller
+  disabled: true
+- id: session-persistence-jsonl
+  disabled: true
+- id: ui-workspace
+  disabled: true
+- insert:
+    - id: managed-session-controller
+      name: ./compat/session-controller/lib/index.js
+      config:
+        defaultCwd: !!js process.env.DSH_WORKSPACE_ROOT
+    - id: managed-session-persistence-jsonl
+      name: ./compat/session-persistence-jsonl/lib/index.js
+      config:
+        root: !!js dshHomePath('sessions')
+    - id: managed-ui-workspace
+      name: ./compat/ui-workspace/lib/index.js
 - insert:
     - id: workspace-management
       name: '@flowing-wind/dsh-workspace-management'

@@ -15,7 +15,7 @@ window.__ModuleLoader__.load({
 			deleteSession: "删除对话",
 			allSessions: "同时永久删除此工作区的所有对话（含已归档）",
 			sessionNote: "永久删除对话记录及用量明细，保留工作区文件。累计统计不会回退。",
-			filesUnavailable: "只有配置的可删除工作区根目录下的子目录允许删除磁盘文件。",
+			filesUnavailable: "此目录受保护、不存在、使用路径链接，或不在配置的删除范围内。",
 			title: "对话与工作区",
 			subtitle: "管理保存的对话与工作区，删除前请确认所选内容。",
 			sessions: "对话",
@@ -38,7 +38,7 @@ window.__ModuleLoader__.load({
 			deleteSession: "Delete conversation",
 			allSessions: "Also permanently delete all workspace conversations, including archived ones",
 			sessionNote: "Permanently deletes the conversation and its usage details. Workspace files and aggregate usage totals are retained.",
-			filesUnavailable: "Disk deletion is allowed only below the configured removable workspace root.",
+			filesUnavailable: "This directory is protected, missing, aliased, or outside the configured removable root.",
 			title: "Conversations & workspaces",
 			subtitle: "Manage saved conversations and workspaces. Review your selection before deleting.",
 			sessions: "Conversations",
@@ -57,8 +57,8 @@ window.__ModuleLoader__.load({
 			empty: "No records"
 		};
 		//#endregion
-		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/workspace-management/src/client/actions.module.css.mjs
-		const css = ".zEZqJG_action{color:#d55959;text-align:left;font:inherit;cursor:pointer;background:0 0;border:0;border-radius:8px;padding:10px 14px;display:block}.zEZqJG_action[role=menuitem]{width:100%}.zEZqJG_action:hover{background:#b9383818}.zEZqJG_options{flex-direction:column;gap:16px;display:flex}.zEZqJG_options label{align-items:center;gap:10px;display:flex}.zEZqJG_options small{opacity:.65;line-height:1.6}";
+		//#region \0dsh-css:/home/fuuraiko/.local/share/deepseek-harness/releases/0.2.1-rc.2/packages/experimental/workspace-management/src/client/actions.module.css.mjs
+		const css = ".Q0JMma_action{color:#d55959;text-align:left;font:inherit;cursor:pointer;background:0 0;border:0;border-radius:8px;padding:10px 14px;display:block}.Q0JMma_action[role=menuitem]{width:100%}.Q0JMma_action:hover{background:#b9383818}.Q0JMma_options{flex-direction:column;gap:16px;display:flex}.Q0JMma_options label{align-items:center;gap:10px;display:flex}.Q0JMma_options small{opacity:.65;line-height:1.6}.Q0JMma_path{overflow-wrap:anywhere;user-select:text}";
 		const tagId = "@flowing-wind/dsh-workspace-management/actions.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -68,20 +68,23 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var actions_module_css_default = {
-			"action": "zEZqJG_action",
-			"options": "zEZqJG_options"
+			"action": "Q0JMma_action",
+			"options": "Q0JMma_options",
+			"path": "Q0JMma_path"
 		};
 		//#endregion
 		//#region lib/types/client/actions.js
 		/** Deletion controls in existing menus, archives, and Workspace confirmations. */
 		const workspacesSchema = zod.z.object({ workspaces: zod.z.array(zod.z.object({
 			id: zod.z.string(),
+			path: zod.z.string(),
 			canDeleteFiles: zod.z.boolean()
 		})) });
 		function Confirmation({ selected, close, t }) {
 			const [files, setFiles] = (0, react.useState)(false);
 			const [sessions, setSessions] = (0, react.useState)(false);
 			const [canDeleteFiles, setCanDeleteFiles] = (0, react.useState)(false);
+			const [directory, setDirectory] = (0, react.useState)("");
 			const [pending, setPending] = (0, react.useState)(false);
 			const [error, setError] = (0, react.useState)("");
 			(0, react.useEffect)(() => {
@@ -92,7 +95,11 @@ window.__ModuleLoader__.load({
 						const response = await fetch("/api/workspace-management", { signal: abort.signal });
 						if (!response.ok) throw new Error(await response.text());
 						const value = workspacesSchema.parse(await response.json());
-						if (!abort.signal.aborted) setCanDeleteFiles(value.workspaces.find((row) => row.id === selected.id)?.canDeleteFiles === true);
+						if (!abort.signal.aborted) {
+							const workspace = value.workspaces.find((row) => row.id === selected.id);
+							setCanDeleteFiles(workspace?.canDeleteFiles === true);
+							setDirectory(workspace?.path ?? "");
+						}
 					} catch (failure) {
 						if (!abort.signal.aborted) setError(String(failure));
 					}
@@ -148,17 +155,25 @@ window.__ModuleLoader__.load({
 					className: actions_module_css_default.options,
 					children: [
 						(0, react_jsx_runtime.jsx)("p", { children: t("retain") }),
+						directory && (0, react_jsx_runtime.jsx)("code", {
+							className: actions_module_css_default.path,
+							children: directory
+						}),
 						(0, react_jsx_runtime.jsxs)("label", { children: [(0, react_jsx_runtime.jsx)("input", {
 							type: "checkbox",
 							checked: sessions,
 							disabled: pending,
-							onChange: (event) => setSessions(event.target.checked)
+							onChange: (event) => {
+								setSessions(event.target.checked);
+							}
 						}), t("allSessions")] }),
 						(0, react_jsx_runtime.jsxs)("label", { children: [(0, react_jsx_runtime.jsx)("input", {
 							type: "checkbox",
 							checked: files,
 							disabled: pending || !canDeleteFiles,
-							onChange: (event) => setFiles(event.target.checked)
+							onChange: (event) => {
+								setFiles(event.target.checked);
+							}
 						}), t("files")] }),
 						(0, react_jsx_runtime.jsx)("small", { children: t(canDeleteFiles ? "filesNote" : "filesUnavailable") })
 					]
@@ -188,7 +203,9 @@ window.__ModuleLoader__.load({
 			const selected = (0, react.useSyncExternalStore)(controller.subscribe, controller.get);
 			return selected === null ? null : (0, react_jsx_runtime.jsx)(Confirmation, {
 				selected,
-				close: () => controller.select(null),
+				close: () => {
+					controller.select(null);
+				},
 				t
 			}, selected.id);
 		}

@@ -22,11 +22,11 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
-包内包含 `dsh.bundle` 覆盖配置，可安装到 profile 并在插件页面切换。迁移需要包含下述扩展插槽和 Host API 的 Harness 构建；安装压缩包不会自动修补旧版 Harness。
+发行包 `@flowing-wind/dsh-workspace-management` 的 `1.0.5` 版本支持官方 Harness `0.2.1-rc.2` Windows Desktop 与 Linux Web。从[仓库索引](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json)安装这一个包即可；包内包含匹配的管理提供方和工作区确认扩展，应用程序本身保持官方版本。
 
-在插件页面的“已安装”区域切换此包；关闭后卸载它的配置层，重新开启会恢复该层。迁移时携带包内的 `cordis.patch.yml` 并调整其中的部署配置。
+安装、升级或停用前先等待正在运行的任务结束，再按提示重启。停用后恢复标准 profile 的提供方。源码部署使用配套 Host 补丁。
 
-在 Web profile 中挂载以下条目。必填的 `managedWorkspaceRoot` 必须为已存在的绝对路径。
+可选的 `managedWorkspaceRoot` 将文件删除范围限制在一个已存在的绝对父目录下。服务器可以保留现有设置；标准桌面端无需配置。
 
 ```yaml
 - name: '@deepseek-ai/dsh-experimental-workspace-management'
@@ -34,9 +34,9 @@ kind: "package-bundle"
     managedWorkspaceRoot: /absolute/path/to/managed-workspaces
 ```
 
-只有此根目录的子目录可以从磁盘删除。删除对话先停止其所属 Agent，再删除日志并解除工作区关联。删除工作区时，只有勾选对应选项才会删除文件或日志。删除文件前会停止相关所属 Agent。停用插件会移除菜单和归档列表中的删除操作，并恢复普通工作区确认弹窗。
+配置根目录时，只有其子目录可以从磁盘删除。未配置时，可删除不同磁盘上符合条件的已登记工作区目录。磁盘及共享根目录、用户主目录及其父目录、Harness 数据、应用程序和系统目录受到保护。删除对话先停止其所属 Agent，再删除日志并解除工作区关联。删除工作区时，只有勾选对应选项才会删除文件或日志。删除文件前会停止相关所属 Agent。停用插件会移除菜单和归档列表中的删除操作，并恢复普通工作区确认弹窗。
 
-启动打包配置层前，将 `DSH_WORKSPACE_ROOT` 设为允许删除的工作区所在的现有绝对父目录。插件不能删除该父目录本身。
+打包配置层在存在 `DSH_WORKSPACE_ROOT` 时读取该值。删除使用 Host 当前账号已有的权限，不请求提权。文件占用或权限不足会使删除失败；文件删除失败时保留工作区登记，但已删除的文件不会恢复。确认弹窗显示实际登记目录。
 
 <a id="understand-the-implementation"></a>
 ## 理解实现
@@ -44,7 +44,7 @@ kind: "package-bundle"
 <details>
 <summary>实现细节——点击展开</summary>
 
-[Host](src/index.ts)通过对话控制器关闭活动写入者，通过工作区登记服务移除登记。它解析并检查磁盘路径，再重命名受管理目录并删除。[客户端](src/client/actions.tsx)要求显式确认。持久化和工作区提供方拥有持久记录，本包不维护独立索引，因此不提供 invariant 配套模块。
+[Host](src/index.ts)通过对话控制器关闭活动写入者，通过工作区登记服务移除登记。它按当前平台的路径规则检查实际目录，并删除符合条件的目录，不跟随工作区路径别名。[客户端](src/client/actions.tsx)要求显式确认。持久化和工作区提供方拥有持久记录，本包不维护独立索引，因此不提供 invariant 配套模块。
 
 </details>
 
