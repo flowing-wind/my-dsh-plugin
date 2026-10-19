@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.j
 索引采用官方 format 1，将每个版本固定到完整 Git 提交和包子目录。仓库首页代表整个源码集合；在“添加插件”中安装单个插件时，需要使用完整子目录地址。例如：
 
 ```text
-git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.3&path:/dist/plugins/skills-remotion
+git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-remotion
 ```
 
 详细步骤、每个插件的完整安装地址和升级方式见[安装说明](INSTALL.md)。插件保存在当前用户的全局 Harness profile，对该 profile 打开的所有工作区生效。Web 与 Desktop 分别管理 profile。Git 缓存和安装后的依赖是正常运行所需文件，后续更新源仍是远程仓库。
@@ -26,7 +26,7 @@ git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.3&path:/dist/
 | 插件目录 | 功能 | 宿主 |
 |---|---|---|
 | `account-balance` | API Key 余额 | 官方宿主 |
-| `compact-layout` | 紧凑右侧面板 | 配套宿主 |
+| `compact-layout` | 紧凑右侧面板与官方标识 | 官方宿主 |
 | `interactive-results` | 交互表格、图表与表单 | 官方宿主 |
 | `mobile-layout` | 手机导航与触控布局 | 配套宿主 |
 | `page-login` | 服务器页面登录 | 配套宿主 |
@@ -57,7 +57,7 @@ Wolfram 包配置 Harness 官方 MCP 客户端，连接 `https://agenttools.wolf
 
 ## 宿主适配与维护
 
-当前官方布局接口尚未公开初始右面板宽度配置及手机布局所需区域标记。配套补丁补齐这些接口，并提供服务器认证、永久删除和文件操作入口；具体功能仍由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
+紧凑布局通过官方插槽共享当前版本的根布局状态，并复用官方侧栏标识，适用于官方 Web 和 Desktop。配套补丁提供手机布局区域标记、服务器认证、永久删除和文件操作入口；具体功能由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
 
 维护源码位于 `plugins/`，独立运行包位于 `dist/plugins/`。发行包依赖官方发布版本，安装后使用远程提交。配套宿主构建和服务器配置见[部署说明](deploy/README.md)，发布步骤见[维护说明](MAINTAINING.md)。
 

@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-workspace-pages",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "工作区网页：隔离的静态网页与新标签页预览",
   "type": "module",
   "license": "MIT",

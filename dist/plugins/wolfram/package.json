@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-wolfram",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "通过官方 Wolfram Cloud MCP 提供计算与知识检索。",
   "license": "MIT",

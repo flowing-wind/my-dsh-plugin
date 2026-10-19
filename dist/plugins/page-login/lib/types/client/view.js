@@ -1,9 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Tooltip } from '@deepseek-ai/dsh-client-ui-primitives';
+import css from './view.module.css';
 const zh = { logout: '登出' };
 const en = { logout: 'Log out' };
 function Logout({ wide, t }) {
-    return _jsx(Tooltip, { label: t('logout'), disabled: wide, delayMs: 500, children: _jsxs("button", { type: "button", "data-page-logout": true, "aria-label": t('logout'), onClick: () => globalThis.__DSH_PAGE_LOGOUT__?.(), children: [_jsx("svg", { width: wide ? 16 : 18, height: wide ? 16 : 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", "aria-hidden": true, children: _jsx("path", { d: "M14 8V5H5v14h9v-3M10 12h11m-4-4 4 4-4 4" }) }), wide && _jsx("span", { children: t('logout') })] }) });
+    return _jsx(Tooltip, { label: t('logout'), disabled: wide, delayMs: 500, children: _jsxs("button", { type: "button", className: css.trigger, "data-collapsed": !wide, "data-page-logout": true, "aria-label": t('logout'), onClick: () => globalThis.__DSH_PAGE_LOGOUT__?.(), children: [_jsx("span", { className: css.avatar, children: _jsx("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.8", "aria-hidden": "true", children: _jsx("path", { d: "M14 8V5H5v14h9v-3M10 12h11m-4-4 4 4-4 4" }) }) }), wide && _jsx("span", { children: t('logout') })] }) });
 }
 /** Required sidebar and locale services. */
 export const inject = ['slots', 'locale'];

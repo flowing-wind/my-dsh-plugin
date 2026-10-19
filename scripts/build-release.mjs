@@ -8,7 +8,7 @@ const harness = path.resolve(process.argv[2] ?? '.')
 const upstream = JSON.parse(fs.readFileSync(path.join(repo, 'upstream.json')))
 if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== upstream.version) throw Error('Build the matching Harness version first')
 const output = path.join(repo, 'dist/plugins')
-const version = '1.0.3'
+const version = '1.0.4'
 const versions = new Map()
 for (const group of fs.readdirSync(path.join(harness, 'packages'))) {
   const dir = path.join(harness, 'packages', group)
@@ -23,6 +23,7 @@ for (const name of fs.readdirSync(path.join(harness, 'vendor'))) {
   if (fs.existsSync(file)) { const p = JSON.parse(fs.readFileSync(file)); versions.set(p.name, p.version) }
 }
 const details = {
+  'compact-layout': ['紧凑右侧面板与官方标识', 'layout', false],
   'account-balance': ['API Key 余额', 'tools', false],
   'workspace-download': ['文件下载与 ZIP', 'server', true],
   'workspace-management': ['会话与工作区管理', 'server', true],

@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-account-balance",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "DeepSeek API Key account balance and official billing links",
   "type": "module",
   "license": "MIT",

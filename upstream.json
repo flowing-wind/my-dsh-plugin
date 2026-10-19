@@ -11,6 +11,7 @@
     "interactive-results",
     "mobile-layout",
     "page-login",
-    "personal-instructions"
+    "personal-instructions",
+    "compact-layout"
   ]
 }

@@ -1,0 +1,5 @@
+- insert:
+    - id: compact-layout
+      name: '@deepseek-ai/dsh-experimental-compact-layout'
+      config:
+        initialWidth: 300

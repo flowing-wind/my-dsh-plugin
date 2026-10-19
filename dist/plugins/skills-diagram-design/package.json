@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-skills-diagram-design",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "在所有工作区提供 Diagram Design 图表设计 技能。",
   "license": "MIT",

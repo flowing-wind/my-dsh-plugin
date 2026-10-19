@@ -1,3 +1,5 @@
-- id: ui-layout
-  config:
-    rightbarDefaultWidth: 300
+- insert:
+    - id: compact-layout
+      name: '@flowing-wind/dsh-compact-layout'
+      config:
+        initialWidth: 300

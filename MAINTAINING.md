@@ -26,13 +26,13 @@ Harness 的服务模块使用 `peerDependencies`，由当前宿主提供同一�
 ```bash
 git add plugins dist patches extras upstream.json scripts tests README.md INSTALL.md MAINTAINING.md deploy skill-sources.json package.json
 git commit -m 'Publish Harness plugin bundles'
-git tag plugins-v1.0.3
+git tag plugins-v1.0.4
 DSH_PLUGIN_COMMIT="$(git rev-parse HEAD)" node scripts/generate-index.mjs
 node --test tests/*.test.mjs
 git diff --check
 git add market/index.json
 git commit -m 'Publish plugin index'
-git push origin main plugins-v1.0.3
+git push origin main plugins-v1.0.4
 ```
 
 发布新版本时同步更新包版本、安装文档和标签。保持已发布标签与提交不变。索引版本按 SemVer 从新到旧排列；适配新 Harness 时重新检查公开接口、补丁及每个插件的消费者。

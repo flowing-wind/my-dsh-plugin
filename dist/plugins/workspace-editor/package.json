@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-workspace-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "轻量文件编辑：直接修改工作区文本与代码",
   "type": "module",
   "license": "MIT",

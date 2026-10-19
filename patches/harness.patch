@@ -1,5 +1,5 @@
 diff --git a/docs/config-catalog.md b/docs/config-catalog.md
-index 60484ba795..d466d7ba18 100644
+index 60484ba795..313c4b1a51 100644
 --- a/docs/config-catalog.md
 +++ b/docs/config-catalog.md
 @@ -219,12 +219,14 @@ export interface Config {
@@ -197,16 +197,18 @@ index 60484ba795..d466d7ba18 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4664,6 +4823,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
+@@ -4663,7 +4822,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
+ | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
++| `@deepseek-ai/dsh-experimental-compact-layout` | — | [`packages/experimental/compact-layout/src/index.ts`](../packages/experimental/compact-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | `computerUse` · `tools` · `systemPrompt` | [`packages/experimental/computer-use-cua-driver-native/src/index.ts`](../packages/experimental/computer-use-cua-driver-native/src/index.ts) |
 +| `@deepseek-ai/dsh-experimental-mobile-layout` | — | [`packages/experimental/mobile-layout/src/index.ts`](../packages/experimental/mobile-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-session-inspector` | — | [`packages/experimental/session-inspector/src/index.ts`](../packages/experimental/session-inspector/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/config-catalog.zh.md b/docs/config-catalog.zh.md
-index 8460650010..71520f076e 100644
+index 8460650010..7ec26912ed 100644
 --- a/docs/config-catalog.zh.md
 +++ b/docs/config-catalog.zh.md
 @@ -221,12 +221,14 @@ export interface Config {
@@ -404,9 +406,11 @@ index 8460650010..71520f076e 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4666,6 +4825,7 @@ export interface Config {
+@@ -4665,7 +4824,9 @@ export interface Config {
+ | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
++| `@deepseek-ai/dsh-experimental-compact-layout` | — | [`packages/experimental/compact-layout/src/index.ts`](../packages/experimental/compact-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | `computerUse` · `tools` · `systemPrompt` | [`packages/experimental/computer-use-cua-driver-native/src/index.ts`](../packages/experimental/computer-use-cua-driver-native/src/index.ts) |
 +| `@deepseek-ai/dsh-experimental-mobile-layout` | — | [`packages/experimental/mobile-layout/src/index.ts`](../packages/experimental/mobile-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-session-inspector` | — | [`packages/experimental/session-inspector/src/index.ts`](../packages/experimental/session-inspector/src/index.ts) |
@@ -1163,95 +1167,6 @@ index bbc165e99c..71ece07a2b 100644
  import type { Context as ClientContext } from '@deepseek-ai/cordis'
  import type {} from '@deepseek-ai/dsh-api-remotes/client'
  import type {} from '@deepseek-ai/dsh-client-connection/client'
-diff --git a/packages/client/ui-layout/README.i18n.yaml b/packages/client/ui-layout/README.i18n.yaml
-index 4ad7481ef7..8199fd5cce 100644
---- a/packages/client/ui-layout/README.i18n.yaml
-+++ b/packages/client/ui-layout/README.i18n.yaml
-@@ -9,14 +9,14 @@
-   en: a2f7bed6f7fd12d9
-   zh: 9d7981efe76c734d
- /deepseek-ai-dsh-client-ui-layout/summary:
--  en: 88db8e221f3eedc2
--  zh: 4a72a6887895f0fc
-+  en: c042a924759b6f16
-+  zh: 2f9be0b2abbb58c8
- /deepseek-ai-dsh-client-ui-layout/table-of-contents:
-   en: d152484eb41ac6b4
-   zh: 09388d293f9be9cb
- /deepseek-ai-dsh-client-ui-layout/use-this-package:
--  en: cc6e9021ba3001bc
--  zh: 97444857762b4e8e
-+  en: eeb6f145e96184ce
-+  zh: 21a3b6d432779424
- /deepseek-ai-dsh-client-ui-layout/use-this-package/window-chrome-seat:
-   en: 7eac53b38d0777fe
-   zh: 7f9422dff671ba50
-diff --git a/packages/client/ui-layout/README.md b/packages/client/ui-layout/README.md
-index 43c61b89d1..6c0be963f3 100644
---- a/packages/client/ui-layout/README.md
-+++ b/packages/client/ui-layout/README.md
-@@ -9,6 +9,8 @@ English | [中文](README.zh.md)
- 
- ## Summary
- 
-+The optional `rightbarDefaultWidth` configuration sets the normal right panel’s initial width in pixels (300–2000). Omit it for the viewport-based default. Dragging continues to update the width.
-+
- This package provides the Web GUI's three-column AppFrame, edge-column widths, and `ctx.layout` presentation control. The right column concedes space before the center; its occupant renders fullscreen while the frame retains the wide-screen track underneath. The theme presenter owns color scheme, alias tokens, font sizes, font lists, and document metadata. Layout state resets on reload.
- 
- ## Table of Contents
-@@ -25,9 +27,11 @@ This package provides the Web GUI's three-column AppFrame, edge-column widths, a
- <a id="use-this-package"></a>
- ## Use this package
- 
-+The frame exposes `data-app-frame`, `data-sidebar-col`, and `data-center-col` for optional responsive extensions. These attributes identify layout regions without changing their native behavior.
-+
- Desktop Mod+B toggles the left sidebar through the same layout action used by its controls. The shortcut command is unavailable behind modal dialogs and yields to terminal input.
- 
--The root slot composes the sidebar, main content, and right column. The sidebar spans 264–420px, defaults to 280px, and retains a 56px rail when collapsed; below 1024px it collapses automatically, and opening the right panel collapses a manually expanded sidebar. The right panel first opens at 45% of the viewport, then retains the user's pixel preference, capped at 70%. To protect 400px for the center, the frame first reduces the right panel to 300px, then reports insufficient room so its occupant closes it, and only then compresses the center further. Dragging has no transition delay; the right handle is absent while closed or fullscreen.
-+The root slot composes the sidebar, main content, and right column. The sidebar spans 264–420px, defaults to 280px, and retains a 56px rail when collapsed; below 1024px it collapses automatically, and opening the right panel collapses a manually expanded sidebar. The right panel first opens at the configured width or 45% of the frame, then retains the user's pixel preference, capped at 70%. To protect 400px for the center, the frame first reduces the right panel to 300px, then reports insufficient room so its occupant closes it, and only then compresses the center further. Dragging has no transition delay; the right handle is absent while closed or fullscreen.
- 
- Global panels occupy the root-scoped `main` keyed slot; `conversation` is the reserved key for the Conversation. `ctx.layout.selectPanel(id)` selects a registered panel, and `null` selects the Conversation without changing the current Session. The Plugins page contributes one of the shipped global panels.
- 
-diff --git a/packages/client/ui-layout/README.zh.md b/packages/client/ui-layout/README.zh.md
-index 9b426dcdef..d780f5ae4a 100644
---- a/packages/client/ui-layout/README.zh.md
-+++ b/packages/client/ui-layout/README.zh.md
-@@ -9,6 +9,8 @@ kind: "package-reference"
- 
- ## 概述
- 
-+可选配置 `rightbarDefaultWidth` 设置普通右侧面板的初始像素宽度（300～2000）。省略时使用基于视口的默认值。拖动仍可更新宽度。
-+
- 本包提供 Web GUI 的三栏 AppFrame、左右栏宽度与 `ctx.layout` 呈现控制。右栏先让步以保护中栏空间，全屏由占用方呈现，框架保留宽屏底层轨道。主题呈现器负责配色、别名 token、字号、字体列表与 document 元数据；布局状态在刷新后重置。
- 
- ## 目录
-@@ -25,9 +27,11 @@ kind: "package-reference"
- <a id="use-this-package"></a>
- ## 使用本包
- 
-+界面暴露 `data-app-frame`、`data-sidebar-col` 和 `data-center-col`，供可选响应式扩展识别布局区域；这些属性不改变原生行为。
-+
- 桌面 Mod+B 通过与控件共用的布局操作切换左侧栏。模态弹窗打开时此快捷键不可用；终端输入优先。
- 
--本插件在 root slot 中组合侧边栏、主内容和右栏。侧边栏宽度为 264～420px，默认为 280px，收起后保留 56px 控制栏；窗口宽度低于 1024px 时自动收起，打开右侧面板也会收起手动展开的侧边栏。右侧面板首次打开时使用视口宽度的 45%，之后保留用户的像素宽度偏好，上限为 70%。为给中栏保留 400px，框架先将右侧面板缩减至 300px，再报告空间不足，使占用方将其关闭，最后才进一步压缩中栏。拖动没有过渡延迟；右侧手柄在关闭或全屏时不显示。
-+本插件在 root slot 中组合侧边栏、主内容和右栏。侧边栏宽度为 264～420px，默认为 280px，收起后保留 56px 控制栏；窗口宽度低于 1024px 时自动收起，打开右侧面板也会收起手动展开的侧边栏。右侧面板首次打开时使用配置宽度或框架的 45%，之后保留用户的像素宽度偏好，上限为 70%。为给中栏保留 400px，框架先将右侧面板缩减至 300px，再报告空间不足，使占用方将其关闭，最后才进一步压缩中栏。拖动没有过渡延迟；右侧手柄在关闭或全屏时不显示。
- 
- 全局面板占据 root 作用域的 `main` keyed slot；`conversation` 是为会话界面保留的 key。`ctx.layout.selectPanel(id)` 选中已注册面板，`null` 则选中会话界面，但不改变当前会话。Plugins 页面是默认组合中的一个全局面板。
- 
-diff --git a/packages/client/ui-layout/package.json b/packages/client/ui-layout/package.json
-index a233d3410a..a7f0f14a0f 100644
---- a/packages/client/ui-layout/package.json
-+++ b/packages/client/ui-layout/package.json
-@@ -63,5 +63,8 @@
-     "lib/index.js",
-     "lib/client.js",
-     "lib/types/**/*.d.ts"
--  ]
-+  ],
-+  "dependencies": {
-+    "@deepseek-ai/schemastery": "workspace:^"
-+  }
- }
 diff --git a/packages/client/ui-layout/src/client/AppFrame.tsx b/packages/client/ui-layout/src/client/AppFrame.tsx
 index 5614947447..85b58dc4da 100644
 --- a/packages/client/ui-layout/src/client/AppFrame.tsx
@@ -1282,117 +1197,6 @@ index 5614947447..85b58dc4da 100644
          {sidebar}
        </div>
        <>
-diff --git a/packages/client/ui-layout/src/client/index.ts b/packages/client/ui-layout/src/client/index.ts
-index 3948c198b9..4a8d26f807 100644
---- a/packages/client/ui-layout/src/client/index.ts
-+++ b/packages/client/ui-layout/src/client/index.ts
-@@ -15,6 +15,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-theme/client'
- import type { HostObservable, SnapshotSelectorHook } from '@deepseek-ai/dsh-client-ui-slots'
- import type { PanelInfo } from './service.ts'
- import { AppFrame } from './AppFrame.tsx'
-+import type { Config } from '../index.ts'
- import { createLayoutStore } from './stores.ts'
- import { LayoutController } from './service.ts'
- import type { ShortcutCommandId } from '@deepseek-ai/dsh-client-shortcuts/client'
-@@ -155,12 +156,12 @@ export const inject = ['slots', 'theme', 'locale', 'shortcuts']
-  * and the shared root instance supplying commands and the panel-info source.
-  * @param ctx - client root context.
-  */
--export function apply(ctx: ClientContext): void {
-+export function apply(ctx: ClientContext, config: Config = {}): void {
-   ctx.effect(() => ctx.locale.register('shortcuts.layout', { zh, en }), 'layout: command labels')
-   const t = ctx.locale.bind('shortcuts.layout')
- 
-   ctx.effect(() => {
--    const handle = createLayoutStore()
-+    const handle = createLayoutStore(config.rightbarDefaultWidth)
-     const instance = handle.create()
-     const store: typeof handle = { ...handle, create: () => instance }
-     const retainMainPanels = (): void => {
-diff --git a/packages/client/ui-layout/src/client/stores.ts b/packages/client/ui-layout/src/client/stores.ts
-index 3a53caf4f1..4c5eff01d9 100644
---- a/packages/client/ui-layout/src/client/stores.ts
-+++ b/packages/client/ui-layout/src/client/stores.ts
-@@ -69,13 +69,14 @@ type LayoutActions = {
- /**
-  * Create the layout panel store handle. For the sidebar the preference IS the
-  * width, so closing it forgets its drag width — reopening restores the contract
-- * default. The right panel initializes at 45% of the frame on first opening
-+ * default. The right panel initializes at its configured width or 45% of the frame on first opening
-  * and keeps that px preference across resizes and close. Drag writes clamp to
-  * the current frame's range. Narrow sidebar toggles change only the expansion
-  * override; opening the right panel clears that override.
-+ * @param rightbarDefaultWidth - Initial normal right-panel width in pixels; omitted uses the viewport ratio.
-  * @returns the store handle (spec + type + identity + factory in one).
-  */
--export function createLayoutStore(): EngineStoreHandle<LayoutState, LayoutActions>  {
-+export function createLayoutStore(rightbarDefaultWidth?: number): EngineStoreHandle<LayoutState, LayoutActions>  {
-   const handle = defineStore({
-     init: (): LayoutState => ({
-       panelInfo: { activePanelId: null },
-@@ -83,7 +84,7 @@ export function createLayoutStore(): EngineStoreHandle<LayoutState, LayoutAction
-         sidebar: SIDEBAR_DEFAULT,
-         viewportWidth: window.innerWidth,
-         narrowExpanded: false,
--        rightbar: null,
-+        rightbar: rightbarDefaultWidth ?? null,
-         rightbarShown: false,
-         rightbarTrack: false,
-         rightbarFullscreen: false,
-diff --git a/packages/client/ui-layout/src/index.ts b/packages/client/ui-layout/src/index.ts
-index ba221f95ae..4cdc322da3 100644
---- a/packages/client/ui-layout/src/index.ts
-+++ b/packages/client/ui-layout/src/index.ts
-@@ -1,4 +1,11 @@
--/** Host loader entry for the browser-only layout plugin. */
--
--/** Provides no host-side behavior. */
-+/** Host configuration for the browser layout. */
-+import z from '@deepseek-ai/schemastery'
-+/** Optional initial panel geometry. */
-+export interface Config {
-+  /** Normal right-panel initial width in pixels; subsequent dragging owns the preference. */
-+  rightbarDefaultWidth?: number
-+}
-+/** Validate the composition's initial panel geometry. */
-+export const Config: z<Config> = z.object({ rightbarDefaultWidth: z.natural().min(300).max(2000) })
-+/** Host entry; layout presentation belongs to the browser plugin. */
- export function apply(): void {}
-diff --git a/packages/client/ui-layout/tests/layout-store.client.spec.ts b/packages/client/ui-layout/tests/layout-store.client.spec.ts
-index edf2a5a3c9..a0380fe8d3 100644
---- a/packages/client/ui-layout/tests/layout-store.client.spec.ts
-+++ b/packages/client/ui-layout/tests/layout-store.client.spec.ts
-@@ -36,6 +36,16 @@ describe('createLayoutStore', () => {
-     expect(write).not.toHaveBeenCalled()
-   })
- 
-+  it('uses a configured initial right-panel width and retains later drag changes', () => {
-+    const { store, actions } = createLayoutStore(300).create()
-+    actions.openRightbar(true, false)
-+    expect(store.getSnapshot().layoutInfo.rightbar).toBe(300)
-+    actions.setRightbar(420)
-+    actions.closeRightbar()
-+    actions.openRightbar(true, false)
-+    expect(store.getSnapshot().layoutInfo.rightbar).toBe(420)
-+  })
-+
-   it('clamps the sidebar to 264–420px', () => {
-     const { store, actions } = createLayoutStore().create()
-     actions.setSidebar(1)
-diff --git a/packages/client/ui-layout/tsconfig.json b/packages/client/ui-layout/tsconfig.json
-index b2daaaf054..10ccb4dfed 100644
---- a/packages/client/ui-layout/tsconfig.json
-+++ b/packages/client/ui-layout/tsconfig.json
-@@ -37,6 +37,9 @@
-     },
-     {
-       "path": "../shortcuts/tsconfig.client.json"
-+    },
-+    {
-+      "path": "../../../vendor/schemastery"
-     }
-   ]
- }
 diff --git a/packages/client/ui-sidebar-files/README.i18n.yaml b/packages/client/ui-sidebar-files/README.i18n.yaml
 index c9475ae68a..a270740eb6 100644
 --- a/packages/client/ui-sidebar-files/README.i18n.yaml
@@ -1648,7 +1452,7 @@ index 4b62826cbc..5312e5fbd1 100644
  function mount(overrides: Partial<WorkspaceBrowserProps> = {}) {
    const controls = createWorkspaceShortcutControls()
 diff --git a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
-index 50bcbe529a..e6ad612f88 100644
+index 50bcbe529a..80b395d68a 100644
 --- a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
 +++ b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
 @@ -503,6 +503,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
@@ -1668,24 +1472,6 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'conversation.input.activity',
-@@ -2160,7 +2161,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-     ],
-     replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'main\', () => ctx.slots.register(\n      { name: \'main\', key: \'<one key the owner dispatches>\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:73',
-+    source: 'packages/client/ui-layout/src/client/index.ts:74',
-   },
-   {
-     key: 'main.conversation',
-@@ -2673,7 +2674,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-     ],
-     replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'rightbar\', () => ctx.slots.register(\n      { name: \'rightbar\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:87',
-+    source: 'packages/client/ui-layout/src/client/index.ts:88',
-   },
-   {
-     key: 'rightbar.session',
 @@ -3244,6 +3245,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-settings-general GeneralSection id \'general\'',
        'client-ui-settings-models ModelsSection id \'models\'',
@@ -1695,49 +1481,26 @@ index 50bcbe529a..e6ad612f88 100644
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'settings.section\', () => ctx.slots.register(\n      { name: \'settings.section\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3311,7 +3314,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-     ],
-     replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'shell.bottom\', () => ctx.slots.register(\n      { name: \'shell.bottom\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:94',
-+    source: 'packages/client/ui-layout/src/client/index.ts:95',
-   },
-   {
-     key: 'shell.leading',
-@@ -3342,7 +3345,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-     ],
-     replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'shell.leading\', () => ctx.slots.register(\n      { name: \'shell.leading\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:119',
-+    source: 'packages/client/ui-layout/src/client/index.ts:120',
-   },
-   {
-     key: 'shell.overlay',
-@@ -3399,10 +3402,13 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3399,6 +3402,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-workspace SessionRenameDialog id \'workspace.session-rename\'',
        'client-ui-workspace SessionArchiveConfirmDialog id \'workspace.session-archive\'',
        'client-ui-workspace RowActionToast id \'workspace.row-toast\'',
++      'experimental-compact-layout WidthPreference id \'compact-layout\'',
 +      'experimental-mobile-layout Navigation id \'mobile-layout\'',
 +      'experimental-workspace-editor Dialog id \'workspace-editor\'',
 +      'experimental-workspace-management SessionDialog id \'delete-session\'',
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'shell.overlay\', () => ctx.slots.register(\n      { name: \'shell.overlay\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:105',
-+    source: 'packages/client/ui-layout/src/client/index.ts:106',
-   },
-   {
-     key: 'shell.quota-notice',
-@@ -3477,7 +3483,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3540,6 +3547,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
+     occupants: [
+       'client-ui-brand-official OfficialBrandName',
++      'experimental-compact-layout BrandName',
      ],
      replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar\', () => ctx.slots.register(\n      { name: \'sidebar\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-layout/src/client/index.ts:68',
-+    source: 'packages/client/ui-layout/src/client/index.ts:69',
-   },
-   {
-     key: 'sidebar.brand.mark',
-@@ -3585,6 +3591,126 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.brand.name\', () => ctx.slots.register(\n      { name: \'sidebar.brand.name\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
+@@ -3585,6 +3593,126 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.chat.conversation\', () => ctx.slots.register(\n      { name: \'sidebar.chat.conversation\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-subagent/src/client/sidebar-chat/index.tsx:42',
    },
@@ -1864,7 +1627,7 @@ index 50bcbe529a..e6ad612f88 100644
    {
      key: 'sidebar.footer.action',
      kind: 'list',
-@@ -3631,6 +3757,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3631,6 +3759,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      slotInject: '',
      declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
      occupants: [
@@ -1872,7 +1635,7 @@ index 50bcbe529a..e6ad612f88 100644
        'client-ui-cordis CordisPanel id \'cordis-panel\'',
      ],
      replaceRisk: 'none',
-@@ -4134,7 +4261,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4134,7 +4263,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.files.actions\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.files.actions\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1881,7 +1644,7 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'sidebar.right.tab.guide',
-@@ -4286,7 +4413,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4286,7 +4415,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      hookContext: '',
      slotInject: '',
      declaredBy: 'an entry in \'rightbar.session\' (client-ui-sidebar-right), so it exists while that entry is mounted',
@@ -1893,7 +1656,7 @@ index 50bcbe529a..e6ad612f88 100644
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.menu.item\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.menu.item\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-sidebar-right/src/client/contract/slots.ts:103',
-@@ -4343,7 +4473,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4343,7 +4475,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.hover\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.hover\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1902,7 +1665,7 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'sidebar.session.row.leading',
-@@ -4397,7 +4527,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4397,7 +4529,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.leading\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.leading\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1911,7 +1674,7 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'sidebar.settings',
-@@ -4496,6 +4626,37 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4496,6 +4628,37 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:42',
    },
@@ -1949,7 +1712,7 @@ index 50bcbe529a..e6ad612f88 100644
    {
      key: 'sidebar.workspaces.directoryFlow',
      kind: 'single',
-@@ -4528,7 +4689,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4528,7 +4691,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'shadows-shipped-ui',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.directoryFlow\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.directoryFlow\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1958,7 +1721,7 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'sidebar.workspaces.session.menu.item',
-@@ -4583,10 +4744,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4583,10 +4746,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-workspace ForkSessionMenuItem id \'fork\'',
        'client-ui-workspace ArchiveSessionMenuItem id \'archive\'',
        'client-ui-workspace SessionIdMenuItem id \'session-id\'',
@@ -1971,7 +1734,7 @@ index 50bcbe529a..e6ad612f88 100644
    },
    {
      key: 'sidebar.workspaces.session.row.action',
-@@ -4641,7 +4803,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4641,7 +4805,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.session.row.action\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.session.row.action\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -2079,7 +1842,7 @@ index be3e316263..aec5649637 100644
    {
      name: 'ContentBlockMap',
 diff --git a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-index eee345a99c..d360a15515 100644
+index eee345a99c..584e83942b 100644
 --- a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
 +++ b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
 @@ -184,6 +184,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
@@ -2090,7 +1853,12 @@ index eee345a99c..d360a15515 100644
  | `@deepseek-ai/dsh-experimental-agent-team` | yes | Implicit-root Agent Teams roster, direct peer messaging, and shared task DAG |
  | `@deepseek-ai/dsh-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
  | `@deepseek-ai/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset |
-@@ -199,6 +200,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+@@ -195,10 +196,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+ | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
+ | `@deepseek-ai/dsh-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
+ | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
++| `@deepseek-ai/dsh-experimental-compact-layout` | no | 紧凑右侧面板与官方侧栏标识：默认 300px，可拖动调整。 |
+ | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
  | `@deepseek-ai/dsh-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
  | `@deepseek-ai/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
@@ -2101,7 +1869,7 @@ index eee345a99c..d360a15515 100644
  | `@deepseek-ai/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
  | `@deepseek-ai/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
  | `@deepseek-ai/dsh-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
-@@ -206,6 +211,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+@@ -206,6 +212,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
  | `@deepseek-ai/dsh-experimental-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
  | `@deepseek-ai/dsh-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
  | `@deepseek-ai/dsh-experimental-translator` | yes | Machine translation with reusable Session results |
@@ -2262,6 +2030,534 @@ index f257ca0e1e..8628820e2f 100644
  }
  
  export default SessionPersistence
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 5f38bae356..31064418a1 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -7569,6 +7569,52 @@ importers:
+         specifier: workspace:*
+         version: link:../../core/session
+ 
++  packages/experimental/account-balance:
++    dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-credentials':
++        specifier: workspace:^
++        version: link:../../credentials/credentials
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      zod:
++        specifier: ^4.1.0
++        version: 4.4.3
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-settings':
++        specifier: workspace:^
++        version: link:../../client/ui-settings
++      '@deepseek-ai/dsh-client-ui-sidebar-right':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-right
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
+   packages/experimental/agent-team:
+     dependencies:
+       '@deepseek-ai/dsh-brand':
+@@ -8342,6 +8388,43 @@ importers:
+         specifier: ^18.2.0
+         version: 18.3.1(react@18.3.1)
+ 
++  packages/experimental/compact-layout:
++    dependencies:
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-settings':
++        specifier: workspace:^
++        version: link:../../client/ui-settings
++      '@deepseek-ai/dsh-client-ui-sidebar':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@deepseek-ai/dsh-settings':
++        specifier: workspace:^
++        version: link:../../settings/settings
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
+   packages/experimental/computer-use-cua-driver-mcp:
+     dependencies:
+       '@deepseek-ai/dsh-mcp-client':
+@@ -8903,6 +8986,168 @@ importers:
+         specifier: ^4.3.2
+         version: 4.3.2
+ 
++  packages/experimental/interactive-results:
++    dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-session':
++        specifier: workspace:^
++        version: link:../../core/session
++      '@deepseek-ai/dsh-session-persistence':
++        specifier: workspace:^
++        version: link:../../session/session-persistence
++      '@deepseek-ai/dsh-system-prompt':
++        specifier: workspace:^
++        version: link:../../core/system-prompt
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      zod:
++        specifier: ^4.4.3
++        version: 4.4.3
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-api-session-controller':
++        specifier: workspace:^
++        version: link:../../api/session-controller
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-chat':
++        specifier: workspace:^
++        version: link:../../client/ui-chat
++      '@deepseek-ai/dsh-client-ui-conversation':
++        specifier: workspace:^
++        version: link:../../client/ui-conversation
++      '@deepseek-ai/dsh-client-ui-deliverables':
++        specifier: workspace:^
++        version: link:../../client/ui-deliverables
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-session':
++        specifier: workspace:^
++        version: link:../../client/ui-session
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/mobile-layout:
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-sidebar-right':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-right
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/page-login:
++    dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-host-webserver':
++        specifier: workspace:^
++        version: link:../../host/webserver
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-sidebar':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@types/node':
++        specifier: ^22.20.0
++        version: 22.20.1
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/personal-instructions:
++    dependencies:
++      '@deepseek-ai/dsh-atomic-write':
++        specifier: workspace:^
++        version: link:../../util/atomic-write
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-settings':
++        specifier: workspace:^
++        version: link:../../client/ui-settings
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@deepseek-ai/dsh-system-prompt':
++        specifier: workspace:^
++        version: link:../../core/system-prompt
++      '@types/node':
++        specifier: ^22.20.0
++        version: 22.20.1
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
+   packages/experimental/plugin-market-bundle:
+     dependencies:
+       '@deepseek-ai/dsh-client-ui-plugin-market':
+@@ -9736,6 +9981,244 @@ importers:
+         specifier: 5.0.0
+         version: 5.0.0
+ 
++  packages/experimental/workspace-download:
++    dependencies:
++      '@deepseek-ai/dsh-api-workspace-files':
++        specifier: workspace:^
++        version: link:../../api/workspace-files
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-session':
++        specifier: workspace:^
++        version: link:../../core/session
++      '@deepseek-ai/dsh-session-persistence':
++        specifier: workspace:^
++        version: link:../../session/session-persistence
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      fflate:
++        specifier: ^0.8.2
++        version: 0.8.3
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-store':
++        specifier: workspace:^
++        version: link:../../client/store
++      '@deepseek-ai/dsh-client-ui-chat':
++        specifier: workspace:^
++        version: link:../../client/ui-chat
++      '@deepseek-ai/dsh-client-ui-conversation':
++        specifier: workspace:^
++        version: link:../../client/ui-conversation
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-session':
++        specifier: workspace:^
++        version: link:../../client/ui-session
++      '@deepseek-ai/dsh-client-ui-sidebar':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar
++      '@deepseek-ai/dsh-client-ui-sidebar-files':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-files
++      '@deepseek-ai/dsh-client-ui-sidebar-right':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-right
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@deepseek-ai/dsh-util-workspace-path':
++        specifier: workspace:^
++        version: link:../../util/workspace-path
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/workspace-editor:
++    dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-session':
++        specifier: workspace:^
++        version: link:../../core/session
++      '@deepseek-ai/dsh-session-persistence':
++        specifier: workspace:^
++        version: link:../../session/session-persistence
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      zod:
++        specifier: ^4.4.3
++        version: 4.4.3
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-session':
++        specifier: workspace:^
++        version: link:../../client/ui-session
++      '@deepseek-ai/dsh-client-ui-sidebar-files':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-files
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/workspace-management:
++    dependencies:
++      '@deepseek-ai/dsh-api-session-controller':
++        specifier: workspace:^
++        version: link:../../api/session-controller
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-session':
++        specifier: workspace:^
++        version: link:../../core/session
++      '@deepseek-ai/dsh-session-persistence':
++        specifier: workspace:^
++        version: link:../../session/session-persistence
++      '@deepseek-ai/dsh-workspace':
++        specifier: workspace:^
++        version: link:../../workspace/workspace
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++      zod:
++        specifier: ^4.4.3
++        version: 4.4.3
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-store':
++        specifier: workspace:^
++        version: link:../../client/store
++      '@deepseek-ai/dsh-client-ui-conversation':
++        specifier: workspace:^
++        version: link:../../client/ui-conversation
++      '@deepseek-ai/dsh-client-ui-layout':
++        specifier: workspace:^
++        version: link:../../client/ui-layout
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-session':
++        specifier: workspace:^
++        version: link:../../client/ui-session
++      '@deepseek-ai/dsh-client-ui-sidebar':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@deepseek-ai/dsh-client-ui-workspace':
++        specifier: workspace:^
++        version: link:../../client/ui-workspace
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
++  packages/experimental/workspace-pages:
++    dependencies:
++      '@deepseek-ai/dsh-client-connection':
++        specifier: workspace:^
++        version: link:../../client/connection
++      '@deepseek-ai/dsh-session':
++        specifier: workspace:^
++        version: link:../../core/session
++      '@deepseek-ai/dsh-session-persistence':
++        specifier: workspace:^
++        version: link:../../session/session-persistence
++      '@deepseek-ai/dsh-system-prompt':
++        specifier: workspace:^
++        version: link:../../core/system-prompt
++      '@deepseek-ai/schemastery':
++        specifier: link:../../../vendor/schemastery
++        version: link:../../../vendor/schemastery
++    devDependencies:
++      '@deepseek-ai/cordis':
++        specifier: workspace:^
++        version: link:../../../vendor/cordis
++      '@deepseek-ai/dsh-client-locale':
++        specifier: workspace:^
++        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-chat':
++        specifier: workspace:^
++        version: link:../../client/ui-chat
++      '@deepseek-ai/dsh-client-ui-conversation':
++        specifier: workspace:^
++        version: link:../../client/ui-conversation
++      '@deepseek-ai/dsh-client-ui-renderer':
++        specifier: workspace:^
++        version: link:../../client/ui-renderer
++      '@deepseek-ai/dsh-client-ui-session':
++        specifier: workspace:^
++        version: link:../../client/ui-session
++      '@deepseek-ai/dsh-client-ui-sidebar-files':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-files
++      '@deepseek-ai/dsh-client-ui-sidebar-right':
++        specifier: workspace:^
++        version: link:../../client/ui-sidebar-right
++      '@deepseek-ai/dsh-client-ui-slots':
++        specifier: workspace:^
++        version: link:../../client/ui-slots
++      '@deepseek-ai/dsh-util-workspace-path':
++        specifier: workspace:^
++        version: link:../../util/workspace-path
++      '@types/react':
++        specifier: ~18.3.1
++        version: 18.3.31
++      react:
++        specifier: ^18.2.0
++        version: 18.3.1
++
+   packages/experimental/worktree:
+     dependencies:
+       '@deepseek-ai/dsh-timeout':
+@@ -17786,10 +18269,12 @@ packages:
+ 
+   '@modelcontextprotocol/server-everything@2026.8.31':
+     resolution: {integrity: sha512-5U3OZh8Xq0Li4nA26l6uNvV9/1suMDuWSn+NjLZIhzinhMY6N3A4DCrxVecBGPf2PsNFKTEv5krxGPRwzxc7jQ==}
++    deprecated: 'Date-based versions are no longer published. This package has resumed semantic versioning at 1.0.0: install the latest version.'
+     hasBin: true
+ 
+   '@modelcontextprotocol/server-filesystem@2026.8.31':
+     resolution: {integrity: sha512-kKaFkyAh6oipvc9+EAbJ552JafnMnOq5nzmzWkp1jJdBhTAAGpmIpWihUG1+rfNhmEFM98gUZDdCHCDD4v6a7Q==}
++    deprecated: 'Date-based versions are no longer published. This package has resumed semantic versioning at 1.0.0: install the latest version.'
+     hasBin: true
+ 
+   '@modelcontextprotocol/server@2.2.0':
 diff --git a/scripts/gen-cordis-catalog.ts b/scripts/gen-cordis-catalog.ts
 index ebd7527142..0b60b59825 100644
 --- a/scripts/gen-cordis-catalog.ts
@@ -2275,16 +2571,18 @@ index ebd7527142..0b60b59825 100644
    ConnectionAdmission: 'physical socket admission and release are owned by packages/client/connection/src/rpc.ts',
    PeerScope: 'Peer scope contract is owned by packages/typert/protocol/src/types.ts',
 diff --git a/tsconfig.base.json b/tsconfig.base.json
-index 2b3e9aad37..686ec0f0fd 100644
+index 2b3e9aad37..f30f7ce7e7 100644
 --- a/tsconfig.base.json
 +++ b/tsconfig.base.json
-@@ -28,6 +28,24 @@
+@@ -28,6 +28,26 @@
      // not declaration path aliases, keep each package/vendor source compiled
      // under its own tsconfig boundary.
      "paths": {
 +      "@deepseek-ai/dsh-experimental-personal-instructions": ["./packages/experimental/personal-instructions/src/index.ts"],
 +      "@deepseek-ai/dsh-experimental-personal-instructions/client": ["./packages/experimental/personal-instructions/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-page-login": ["./packages/experimental/page-login/src/index.ts"],
++      "@deepseek-ai/dsh-experimental-compact-layout": ["./packages/experimental/compact-layout/src/index.ts"],
++      "@deepseek-ai/dsh-experimental-compact-layout/client": ["./packages/experimental/compact-layout/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-page-login/client": ["./packages/experimental/page-login/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-mobile-layout": ["./packages/experimental/mobile-layout/src/index.ts"],
 +      "@deepseek-ai/dsh-experimental-mobile-layout/client": ["./packages/experimental/mobile-layout/src/client/index.ts"],
@@ -2304,15 +2602,16 @@ index 2b3e9aad37..686ec0f0fd 100644
        "@deepseek-ai/dsh-experimental-ralph-bundle": ["./packages/experimental/ralph-bundle/src/index.ts"],
        "@deepseek-ai/dsh-experimental-terminal-bundle": ["./packages/experimental/terminal-bundle/src/index.ts"],
 diff --git a/tsconfig.client.json b/tsconfig.client.json
-index b2f0423c7c..df2b80071c 100644
+index b2f0423c7c..d3c222ced3 100644
 --- a/tsconfig.client.json
 +++ b/tsconfig.client.json
-@@ -53,6 +53,15 @@
+@@ -53,6 +53,16 @@
      "packages/client/*/tests/**/*.host.ts"
    ],
    "references": [
 +    { "path": "./packages/experimental/personal-instructions/tsconfig.client.json" },
 +    { "path": "./packages/experimental/page-login/tsconfig.client.json" },
++    { "path": "./packages/experimental/compact-layout/tsconfig.client.json" },
 +    { "path": "./packages/experimental/mobile-layout/tsconfig.client.json" },
 +    { "path": "./packages/experimental/interactive-results/tsconfig.client.json" },
 +    { "path": "./packages/experimental/workspace-pages/tsconfig.client.json" },
@@ -2324,15 +2623,16 @@ index b2f0423c7c..df2b80071c 100644
      { "path": "./packages/client/product-analytics/tsconfig.client.json" },
      { "path": "./apps/desktop/tsconfig.client.json" },
 diff --git a/tsconfig.host.json b/tsconfig.host.json
-index 6eb4662f88..53ea17082a 100644
+index 6eb4662f88..8e1d73cd2f 100644
 --- a/tsconfig.host.json
 +++ b/tsconfig.host.json
-@@ -237,6 +237,15 @@
+@@ -237,6 +237,16 @@
      "scripts/client-bundle-purity.spec.ts"
    ],
    "references": [
 +    { "path": "./packages/experimental/personal-instructions/tsconfig.host.json" },
 +    { "path": "./packages/experimental/page-login/tsconfig.host.json" },
++    { "path": "./packages/experimental/compact-layout/tsconfig.host.json" },
 +    { "path": "./packages/experimental/mobile-layout/tsconfig.host.json" },
 +    { "path": "./packages/experimental/interactive-results/tsconfig.host.json" },
 +    { "path": "./packages/experimental/workspace-pages/tsconfig.host.json" },

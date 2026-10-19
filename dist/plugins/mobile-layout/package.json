@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-mobile-layout",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "移动端布局：手机导航与触控优化",
   "type": "module",
   "license": "MIT",

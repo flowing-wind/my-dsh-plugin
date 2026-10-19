@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-workspace-management",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "对话与工作区删除：菜单删除、归档删除及可选磁盘文件清理",
   "type": "module",
   "license": "MIT",

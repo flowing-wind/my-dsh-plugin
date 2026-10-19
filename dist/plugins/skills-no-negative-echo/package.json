@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-skills-no-negative-echo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "在所有工作区提供 No Negative Echo 交付检查 技能。",
   "license": "MIT",

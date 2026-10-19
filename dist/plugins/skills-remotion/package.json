@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-skills-remotion",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "在所有工作区提供 Remotion 视频创作与渲染 技能。",
   "license": "MIT",

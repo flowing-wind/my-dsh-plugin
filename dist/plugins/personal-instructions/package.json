@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-personal-instructions",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Home-scoped personal instructions with a settings editor",
   "type": "module",
   "license": "MIT",

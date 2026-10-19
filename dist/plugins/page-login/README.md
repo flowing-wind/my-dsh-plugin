@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-The public page shows a password dialog on the official theme background. Private application initialization waits for authentication. A logout action appears above the account menu in the left sidebar after login.
+The public page shows a password dialog on the official theme background. Private application initialization waits for authentication. A logout row appears above the account menu after login, using the sidebar’s native spacing, avatar treatment, hover state, and keyboard focus outline.
 
 ## Table of Contents
 

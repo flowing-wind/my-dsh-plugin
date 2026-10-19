@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-skills-ponytail",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "在所有工作区提供 Ponytail 开发与审阅 技能。",
   "license": "MIT",

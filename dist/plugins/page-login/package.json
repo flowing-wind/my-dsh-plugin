@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-page-login",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "页面身份验证与内存登录凭证",
   "type": "module",
   "license": "MIT",
