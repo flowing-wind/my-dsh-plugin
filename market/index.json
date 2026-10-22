@@ -225,6 +225,19 @@
       },
       "versions": [
         {
+          "version": "1.0.5",
+          "publishTimestamp": 1792661998,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "75a3562d4f122025f0a305928b294cd57e5c5cac",
+            "path": "dist/plugins/personal-instructions"
+          },
+          "engines": {
+            "dsh": "0.2.1-rc.2"
+          }
+        },
+        {
           "version": "1.0.4",
           "publishTimestamp": 1792428153,
           "source": {
