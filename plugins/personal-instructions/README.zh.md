@@ -25,6 +25,8 @@ kind: "package-bundle"
 
 工作区 `AGENTS.md` 文件继续由原有功能加载。个性化要求是独立的部署级输入，不修改 Agent 预设。
 
+编辑器铺满设置内容栏，打开时提供较大的编辑区域。它沿用 Harness 主题，并支持纵向调整高度。
+
 <a id="implementation"></a>
 ## 实现
 

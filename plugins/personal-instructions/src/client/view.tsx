@@ -1,22 +1,25 @@
 /** Settings editor for home-scoped personal instructions. */
 import type { Context } from '@deepseek-ai/cordis'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
+import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import { zh, en } from './locales.ts'
+import css from './view.module.css'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap { personalInstructions: keyof typeof zh } }
 
 function Settings({ t }: PropsLocale<'personalInstructions'>) {
+  const headingId = useId()
   const [value, setValue] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [status, setStatus] = useState('')
-  useEffect(() => { void fetch('/api/personal-instructions').then(async response => {
+  useEffect(() => { void fetch('/api/personal-instructions').then(async (response) => {
     if (!response.ok) throw new Error(String(response.status))
     setValue((await response.json() as { content: string }).content); setLoaded(true)
-  }).catch(error => setStatus(t('failed', { message: String(error) }))) }, [t])
+  }).catch((error: unknown) => { setStatus(t('failed', { message: String(error) })) }) }, [t])
   const save = async () => {
     setStatus(t('saving'))
     try {
@@ -25,7 +28,28 @@ function Settings({ t }: PropsLocale<'personalInstructions'>) {
       setStatus(t('saved'))
     } catch (error) { setStatus(t('failed', { message: String(error) })) }
   }
-  return <section data-personal-instructions><h2>{t('heading')}</h2><p>{t('description')}</p><textarea aria-label={t('heading')} placeholder={t('placeholder')} value={value} disabled={!loaded} onChange={event => { setValue(event.target.value); setStatus('') }}/><div><span role="status">{status}</span><button type="button" disabled={!loaded || status === t('saving')} onClick={() => { void save() }}>{t('save')}</button></div></section>
+  return (
+    <section className={css.section} data-personal-instructions>
+      <header className={css.header}>
+        <h2 id={headingId} className={css.heading}>{t('heading')}</h2>
+        <p id={`${headingId}-description`} className={css.description}>{t('description')}</p>
+      </header>
+      <textarea
+        className={css.editor}
+        rows={16}
+        aria-labelledby={headingId}
+        aria-describedby={`${headingId}-description`}
+        placeholder={t('placeholder')}
+        value={value}
+        disabled={!loaded}
+        onChange={(event) => { setValue(event.target.value); setStatus('') }}
+      />
+      <div className={css.actions}>
+        <span className={css.status} role="status">{status}</span>
+        <Button variant="primary" disabled={!loaded || status === t('saving')} onClick={() => { void save() }}>{t('save')}</Button>
+      </div>
+    </section>
+  )
 }
 
 /** Required settings and locale services. */

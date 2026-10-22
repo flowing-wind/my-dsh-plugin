@@ -21,7 +21,7 @@
 | 交互表格、图表与表单 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/interactive-results` |
 | 手机导航与触控布局 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/mobile-layout` |
 | 服务器页面登录 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/page-login` |
-| 全局个性化说明 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/personal-instructions` |
+| 全局个性化说明 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#personal-instructions-v1.0.5&path:/dist/plugins/personal-instructions` |
 | Diagram Design 图表设计 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-diagram-design` |
 | HyperFrames HTML 视频工作流 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-hyperframes` |
 | No Negative Echo 交付检查 | `git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-no-negative-echo` |

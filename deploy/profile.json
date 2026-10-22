@@ -7,7 +7,7 @@
     "@flowing-wind/dsh-interactive-results": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/interactive-results",
     "@flowing-wind/dsh-mobile-layout": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/mobile-layout",
     "@flowing-wind/dsh-page-login": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/page-login",
-    "@flowing-wind/dsh-personal-instructions": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/personal-instructions",
+    "@flowing-wind/dsh-personal-instructions": "git+https://github.com/flowing-wind/my-dsh-plugin.git#personal-instructions-v1.0.5&path:/dist/plugins/personal-instructions",
     "@flowing-wind/dsh-skills-diagram-design": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-diagram-design",
     "@flowing-wind/dsh-skills-hyperframes": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-hyperframes",
     "@flowing-wind/dsh-skills-no-negative-echo": "git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.4&path:/dist/plugins/skills-no-negative-echo",

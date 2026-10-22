@@ -17,6 +17,8 @@ node scripts/build-release.mjs /path/to/deepseek-harness
 
 单独构建工作区管理包使用 `node scripts/build-release.mjs /path/to/deepseek-harness workspace-management`。它将已编译的会话控制器、JSONL 后端及工作区界面放入该包的 `compat/`，通过 bundle 配置层替换标准 profile 的对应提供方。原始源码及修改由固定上游提交和 `patches/harness.patch` 维护。内部清单沿用官方模块名，使客户端只加载一份对应模块；用户只安装一个包。兼容提供方使用标准 `dshHomePath('sessions')` 目录；定制过后端的部署须同步检查 `managed-session-persistence-jsonl` 配置。
 
+单独构建个性化说明包使用 `node scripts/build-release.mjs /path/to/deepseek-harness personal-instructions`，发行版本为 `1.0.5`。
+
 构建脚本将 workspace 依赖转换为对应官方包的版本，复制编译后的入口、前端资源和配置层，并将前端模块的注册名称替换为发行包名。发行测试实际执行模块注册入口，核对其名称与 package.json 一致。配置型 bundle 和技能包直接维护 `dist/plugins/` 目录。新增包声明 `dsh.bundle.patch`、精确的 `engines.dsh` 和索引展示信息。配套宿主使用补丁后的源码，运行时插件使用远程发行包。
 
 Harness 的服务模块使用 `peerDependencies`，由当前宿主提供同一份实例与实现。全局 profile 使用官方的 `nodeLinker: hoisted` 和 `autoInstallPeers: false` 设置。独立部署的验证必须从远程包安装后启动宿主，检查认证接口、文件操作与技能目录。

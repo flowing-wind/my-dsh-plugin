@@ -25,6 +25,8 @@ Install the bundle in the global Web or Desktop profile. Settings → Personaliz
 
 Workspace `AGENTS.md` files continue to apply through their existing owner. Personal instructions are a separate deployment-wide input and do not edit Agent presets.
 
+The editor fills the settings content column and opens with a large editing area. It follows the Harness theme and supports vertical resizing.
+
 <a id="implementation"></a>
 ## Implementation
 

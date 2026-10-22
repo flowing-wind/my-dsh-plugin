@@ -11,7 +11,8 @@ if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== 
 const output = path.join(repo, 'dist/plugins')
 const version = '1.0.4'
 const selected = process.argv[3]
-if (selected !== undefined && selected !== 'workspace-management') throw Error('Unknown release package: ' + selected)
+if (selected !== undefined && !['workspace-management', 'personal-instructions'].includes(selected)) throw Error('Unknown release package: ' + selected)
+const releaseVersion = name => ['workspace-management', 'personal-instructions'].includes(name) ? '1.0.5' : version
 const versions = new Map()
 for (const group of fs.readdirSync(path.join(harness, 'packages'))) {
   const dir = path.join(harness, 'packages', group)
@@ -58,14 +59,14 @@ for (const [name, [title, category, serverBuild]] of Object.entries(details)) {
     }
   }
   pkg.name = '@flowing-wind/dsh-' + name
-  pkg.version = name === 'workspace-management' ? '1.0.5' : version
+  pkg.version = releaseVersion(name)
   pkg.engines = { dsh: upstream.version }
   pkg.repository = { type: 'git', url: 'https://github.com/flowing-wind/my-dsh-plugin.git', directory: 'dist/plugins/' + name }
   pkg.dshMarket = { title, category, serverBuild }
   delete pkg.scripts
   delete pkg.devDependencies
   delete pkg.publishConfig
-  for (const entry of ['lib', 'assets', 'locale', 'README.md', 'README.zh.md']) {
+  for (const entry of ['lib', 'assets', 'locale', 'README.md', 'README.zh.md', 'README.i18n.yaml']) {
     const from = entry === 'lib' ? path.join(built, entry) : path.join(source, entry)
     if (fs.existsSync(from)) fs.cpSync(from, path.join(destination, entry), { recursive: true, filter: file => !file.endsWith('.tsbuildinfo') && (!file.startsWith(path.join(from, 'types') + path.sep) || file.endsWith('.d.ts') || file.endsWith('.d.ts.map') || fs.statSync(file).isDirectory()) })
   }
@@ -81,12 +82,12 @@ for (const name of fs.readdirSync(output)) {
   const file = path.join(output, name, 'package.json')
   const pkg = JSON.parse(fs.readFileSync(file))
   for (const [dependency, spec] of Object.entries(pkg.dependencies ?? {})) {
-    if (!dependency.startsWith('@deepseek-ai/')) continue
+    if (!dependency.startsWith('@deepseek-ai/dsh-')) continue
     pkg.peerDependencies ??= {}
     pkg.peerDependencies[dependency] = spec
     delete pkg.dependencies[dependency]
   }
-  pkg.version = name === 'workspace-management' ? '1.0.5' : version
+  pkg.version = releaseVersion(name)
   json(file, pkg)
 }
-console.log('Built', Object.keys(details).length, 'code plugins; skill and configuration bundles retain their pinned release files')
+console.log('Built', selected === undefined ? Object.keys(details).length : 1, 'code plugins; skill and configuration bundles retain their pinned release files')
