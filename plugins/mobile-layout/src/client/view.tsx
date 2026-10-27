@@ -77,5 +77,5 @@ export function apply(ctx: Context): void {
     document.addEventListener('click', selected)
     return () => { mounted.disconnect(); media.removeEventListener('change', closeSidebar); document.removeEventListener('click', selected); style.remove(); document.documentElement.removeAttribute('data-mobile-layout') }
   })
-  ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'mobile-layout', locale: 'mobileLayout', inject: () => ({ menu: () => ctx.layout.toggleSidebar() }) }, Navigation))
+  ctx.slots.inject('shell.overlay', () => ctx.slots.register({ name: 'shell.overlay', id: 'mobile-layout', locale: 'mobileLayout', inject: () => ({ menu: () => { ctx.layout.toggleSidebar() } }) }, Navigation))
 }

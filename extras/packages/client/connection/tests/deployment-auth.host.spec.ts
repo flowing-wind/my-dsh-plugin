@@ -5,7 +5,7 @@ import { HostConnectionService } from '../src/rpc-host.ts'
 
 it('keeps deployment page credentials behind the Host and Origin fence and restores native auth on disposal', async () => {
   const ctx = new Context()
-  const fiber = ctx.plugin(pluginCtx => {
+  const fiber = ctx.plugin((pluginCtx) => {
     new HostConnectionService(pluginCtx, ['cloud.example'], {
       isAuthenticated: () => false, authenticateApi: () => undefined,
       authenticatedUrl: (value: string) => value + '?native',

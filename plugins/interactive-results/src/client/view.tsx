@@ -19,7 +19,7 @@ type Actions = { send: (text: string) => Promise<void> }
 function Result({ sessionId, path, t, send }: Labels & Actions & { sessionId: string; path: string }) {
   const [data, setData] = useState<z.infer<typeof resultSchema>>()
   const [error, setError] = useState(''), [query, setQuery] = useState(''), [status, setStatus] = useState<{ index: number; phase: 'sent' | 'sending' }>()
-  useEffect(() => { const abort = new AbortController(); void (async () => { try { const response = await fetch(`/api/interactive-results?${new URLSearchParams({ sessionId, path })}`, { signal: abort.signal }); if (!response.ok) throw Error(await response.text()); const value = resultSchema.parse(await response.json()); if (!abort.signal.aborted) setData(value) } catch (error) { if (!abort.signal.aborted) setError(String(error)) } })(); return () => abort.abort() }, [sessionId, path])
+  useEffect(() => { const abort = new AbortController(); void (async () => { try { const response = await fetch(`/api/interactive-results?${new URLSearchParams({ sessionId, path })}`, { signal: abort.signal }); if (!response.ok) throw Error(await response.text()); const value = resultSchema.parse(await response.json()); if (!abort.signal.aborted) setData(value) } catch (error) { if (!abort.signal.aborted) setError(String(error)) } })(); return () => { abort.abort() } }, [sessionId, path])
   const submit = async (form: HTMLFormElement, index: number) => {
     setStatus({ index, phase: 'sending' })
     try {
@@ -28,12 +28,14 @@ function Result({ sessionId, path, t, send }: Labels & Actions & { sessionId: st
       setStatus({ index, phase: 'sent' }); setError('')
     } catch (error) { setError(String(error)); setStatus(undefined) }
   }
-  const maxima = data?.blocks.map(block => block.type === 'bar' ? block.entries.reduce((max, entry) => Math.max(max, entry.value), 1) : 1) ?? []
-  return <section className={css.result} aria-label={t('title')}><h3>{data?.title ?? t('loading')}</h3>{error && <p role="alert">{t('failed', { message: error })}</p>}{data && <><p>{t('local')}</p>{data.blocks.map((block, index) => <div key={index} className={css.block}>{block.type === 'table' ? <><input aria-label={t('search')} placeholder={t('search')} value={query} onChange={e => setQuery(e.target.value)} /><div className={css.table}><table><thead><tr>{block.columns.map((column, i) => <th key={i}>{column}</th>)}</tr></thead><tbody>{block.rows.filter(row => row.some(value => value.toLowerCase().includes(query.toLowerCase()))).map((row, i) => <tr key={i}>{row.map((value, j) => <td key={j}>{value}</td>)}</tr>)}</tbody></table></div></> : block.type === 'bar' ? <div>{block.entries.map((entry, i) => <div className={css.bar} key={i}><span>{entry.label}</span><div><i style={{ width: `${entry.value / maxima[index]! * 100}%` }} /></div><strong>{entry.value.toLocaleString()}</strong></div>)}</div> : <form onSubmit={event => { event.preventDefault(); void submit(event.currentTarget, index) }}>{block.fields.map(field => <label key={field.name}>{field.label}{field.type === 'select' ? <select name={field.name}>{field.options?.map(option => <option key={option}>{option}</option>)}</select> : <input name={field.name} type={field.type} required />}</label>)}<button disabled={status?.phase === 'sending'} type="submit">{t(status?.index === index && status.phase === 'sending' ? 'sending' : 'send')}</button>{status?.index === index && status.phase === 'sent' && <p role="status">{t('sent')}</p>}</form>}</div>)}</>}</section>
+  return <section className={css.result} aria-label={t('title')}><h3>{data?.title ?? t('loading')}</h3>{error && <p role="alert">{t('failed', { message: error })}</p>}{data && <><p>{t('local')}</p>{data.blocks.map((block, index) => {
+    const maximum = block.type === 'bar' ? block.entries.reduce((max, entry) => Math.max(max, entry.value), 1) : 1
+    return <div key={index} className={css.block}>{block.type === 'table' ? <><input aria-label={t('search')} placeholder={t('search')} value={query} onChange={(e) => { setQuery(e.target.value) }} /><div className={css.table}><table><thead><tr>{block.columns.map((column, i) => <th key={i}>{column}</th>)}</tr></thead><tbody>{block.rows.filter(row => row.some(value => value.toLowerCase().includes(query.toLowerCase()))).map((row, i) => <tr key={i}>{row.map((value, j) => <td key={j}>{value}</td>)}</tr>)}</tbody></table></div></> : block.type === 'bar' ? <div>{block.entries.map((entry, i) => <div className={css.bar} key={i}><span>{entry.label}</span><div><i style={{ width: `${entry.value / maximum * 100}%` }} /></div><strong>{entry.value.toLocaleString()}</strong></div>)}</div> : <form onSubmit={(event) => { event.preventDefault(); void submit(event.currentTarget, index) }}>{block.fields.map(field => <label key={field.name}>{field.label}{field.type === 'select' ? <select name={field.name}>{field.options?.map(option => <option key={option}>{option}</option>)}</select> : <input name={field.name} type={field.type} required />}</label>)}<button disabled={status?.phase === 'sending'} type="submit">{t(status?.index === index && status.phase === 'sending' ? 'sending' : 'send')}</button>{status?.index === index && status.phase === 'sent' && <p role="status">{t('sent')}</p>}</form>}</div> })}</>}</section>
 }
 function Deliveries(props: PropsRuntime<'conversation.chat.turnTail'> & Labels & Actions) {
   const files = props.turn.data.get('deliverables')?.presented?.filter(file => file.seq < props.seq && file.path.endsWith('.interactive.json')) ?? []
-  return <>{[...new Map(files.map(file => [file.path, file])).values()].map(file => <Result key={file.path} sessionId={props.sessionId} path={file.path} t={props.t} send={props.send} />)}</>
+  return <>{[...new Map(files.map(file => [file.path, file])).values()].map(file =>
+    <Result key={file.path} sessionId={props.sessionId} path={file.path} t={props.t} send={props.send} />)}</>
 }
 /** Existing delivery and conversation owners. */
 export const inject = ['slots', 'locale', 'sessions']
@@ -42,6 +44,7 @@ export function apply(ctx: Context): void {
   ctx.effect(() => ctx.locale.register('interactiveResults', { zh, en }))
   ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register({
     name: 'conversation.chat.turnTail', id: 'interactive-results', locale: 'interactiveResults',
+    // oxlint-disable-next-line typescript/no-non-null-assertion -- The turnTail slot belongs to a loaded Session.
     inject: sessionId => ({ send: (text: string) => ctx.sessions.scope(sessionId)!.conversation.send(text) }),
   }, Deliveries))
 }

@@ -40,7 +40,7 @@ function Balance({ t }: PropsLocale<'accountBalance'>) {
         <span className={css.avatar}><IconUserOutlineMedium size={20}/></span>
         <div className={css.identityCopy}><span className={css.name}>{t('provider')}</span><span className={css.secondary}>{t('description')}</span></div>
       </div>
-      <Button disabled={loading} variant="outline" className={css.refresh} onClick={() =>{  setGeneration(value => value + 1) }}>{t('refresh')}</Button>
+      <Button disabled={loading} variant="outline" className={css.refresh} onClick={() => { setGeneration(value => value + 1) }}>{t('refresh')}</Button>
     </div>
     <div className={css.balanceCard} aria-busy={loading}>
       {balance?.balance_infos.map(wallet => <dl key={wallet.currency} className={css.balances}>

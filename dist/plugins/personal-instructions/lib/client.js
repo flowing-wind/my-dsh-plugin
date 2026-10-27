@@ -29,8 +29,8 @@ window.__ModuleLoader__.load({
 			placeholder: "Enter instructions the Agent should always follow"
 		};
 		//#endregion
-		//#region \0dsh-css:/home/dsh/deepseek-harness/.codex/personal-instructions-20261022/build/packages/experimental/personal-instructions/src/client/view.module.css.mjs
-		const css = ".t9yD5q_section{flex-direction:column;gap:16px;width:100%;min-width:0;display:flex}.t9yD5q_header{flex-direction:column;gap:8px;display:flex}.t9yD5q_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:16px;font-weight:600;line-height:24px}.t9yD5q_description{color:var(--dsw-alias-label-secondary);margin:0;font-size:13px;line-height:20px}.t9yD5q_editor{box-sizing:border-box;resize:vertical;border:1px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);width:100%;height:clamp(320px,48vh,520px);min-height:240px;color:var(--dsw-alias-label-primary);border-radius:12px;outline:none;padding:12px 14px;font-family:inherit;font-size:14px;line-height:22px}.t9yD5q_editor::placeholder{color:var(--dsw-alias-label-dimmed)}.t9yD5q_editor:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.t9yD5q_editor:disabled{opacity:.4;cursor:not-allowed}.t9yD5q_actions{justify-content:flex-end;align-items:center;gap:12px;display:flex}.t9yD5q_status{overflow-wrap:anywhere;min-width:0;color:var(--dsw-alias-label-secondary);margin-right:auto;font-size:13px;line-height:20px}";
+		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/upstream-upgrade-20261027/harness-release/packages/experimental/personal-instructions/src/client/view.module.css.mjs
+		const css = ".Lnnhaq_section{flex-direction:column;gap:16px;width:100%;min-width:0;display:flex}.Lnnhaq_header{flex-direction:column;gap:8px;display:flex}.Lnnhaq_heading{color:var(--dsw-alias-label-primary);margin:0;font-size:16px;font-weight:600;line-height:24px}.Lnnhaq_description{color:var(--dsw-alias-label-secondary);margin:0;font-size:13px;line-height:20px}.Lnnhaq_editor{box-sizing:border-box;resize:vertical;border:1px solid var(--dsw-alias-border-l4);background:var(--dsw-alias-bg-layer-1);width:100%;height:clamp(320px,48vh,520px);min-height:240px;color:var(--dsw-alias-label-primary);border-radius:12px;outline:none;padding:12px 14px;font-family:inherit;font-size:14px;line-height:22px}.Lnnhaq_editor::placeholder{color:var(--dsw-alias-label-dimmed)}.Lnnhaq_editor:focus-visible{border-color:var(--dsw-alias-brand-primary);outline:2px solid var(--dsw-alias-brand-primary);outline-offset:2px}.Lnnhaq_editor:disabled{opacity:.4;cursor:not-allowed}.Lnnhaq_actions{justify-content:flex-end;align-items:center;gap:12px;display:flex}.Lnnhaq_status{overflow-wrap:anywhere;min-width:0;color:var(--dsw-alias-label-secondary);margin-right:auto;font-size:13px;line-height:20px}";
 		const tagId = "@flowing-wind/dsh-personal-instructions/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -40,13 +40,13 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var view_module_css_default = {
-			"actions": "t9yD5q_actions",
-			"description": "t9yD5q_description",
-			"editor": "t9yD5q_editor",
-			"header": "t9yD5q_header",
-			"heading": "t9yD5q_heading",
-			"section": "t9yD5q_section",
-			"status": "t9yD5q_status"
+			"actions": "Lnnhaq_actions",
+			"description": "Lnnhaq_description",
+			"editor": "Lnnhaq_editor",
+			"header": "Lnnhaq_header",
+			"heading": "Lnnhaq_heading",
+			"section": "Lnnhaq_section",
+			"status": "Lnnhaq_status"
 		};
 		//#endregion
 		//#region lib/types/client/view.js

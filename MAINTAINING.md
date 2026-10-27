@@ -17,7 +17,7 @@ node scripts/build-release.mjs /path/to/deepseek-harness
 
 单独构建工作区管理包使用 `node scripts/build-release.mjs /path/to/deepseek-harness workspace-management`。它将已编译的会话控制器、JSONL 后端及工作区界面放入该包的 `compat/`，通过 bundle 配置层替换标准 profile 的对应提供方。原始源码及修改由固定上游提交和 `patches/harness.patch` 维护。内部清单沿用官方模块名，使客户端只加载一份对应模块；用户只安装一个包。兼容提供方使用标准 `dshHomePath('sessions')` 目录；定制过后端的部署须同步检查 `managed-session-persistence-jsonl` 配置。
 
-单独构建个性化说明包使用 `node scripts/build-release.mjs /path/to/deepseek-harness personal-instructions`，发行版本为 `1.0.5`。
+单独构建个性化说明包使用 `node scripts/build-release.mjs /path/to/deepseek-harness personal-instructions`，发行版本为 `1.0.6`。
 
 构建脚本将 workspace 依赖转换为对应官方包的版本，复制编译后的入口、前端资源和配置层，并将前端模块的注册名称替换为发行包名。发行测试实际执行模块注册入口，核对其名称与 package.json 一致。配置型 bundle 和技能包直接维护 `dist/plugins/` 目录。新增包声明 `dsh.bundle.patch`、精确的 `engines.dsh` 和索引展示信息。配套宿主使用补丁后的源码，运行时插件使用远程发行包。
 
@@ -30,13 +30,13 @@ Harness 的服务模块使用 `peerDependencies`，由当前宿主提供同一�
 ```bash
 git add plugins dist patches extras upstream.json scripts tests README.md INSTALL.md MAINTAINING.md deploy skill-sources.json package.json
 git commit -m 'Publish Harness plugin bundles'
-git tag workspace-management-v1.0.5
+git tag plugins-v1.0.6
 DSH_PLUGIN_COMMIT="$(git rev-parse HEAD)" node scripts/generate-index.mjs
 node --test tests/*.test.mjs
 git diff --check
 git add market/index.json
 git commit -m 'Publish plugin index'
-git push origin main workspace-management-v1.0.5
+git push origin main plugins-v1.0.6
 ```
 
 发布新版本时同步更新受影响包的版本、安装文档和标签。索引生成器保留已有版本的提交与时间，新版本指向新运行包提交。保持已发布标签与提交不变。索引版本按 SemVer 从新到旧排列；适配新 Harness 时重新检查公开接口、补丁及每个插件的消费者。
@@ -44,3 +44,7 @@ git push origin main workspace-management-v1.0.5
 ## 验证
 
 在匹配的 Harness 源码中运行受影响的布局、认证、会话删除及文件界面测试，执行官方构建，再从远程提交安装到独立 profile。索引通过官方 `parseMarketIndex` 验证。服务器验证未认证请求被拒绝、真实登录、文件保存与下载、390px 手机布局及面板拖动。切换服务前使用官方会话列表核对运行状态，任务空闲后切换，保留持久数据。
+
+## 上游与部署同步
+
+官方源码按 `upstream.json` 的发行标签和提交检出，功能源码与宿主改动统一保存在本仓库的 `plugins/`、`extras/` 和 `patches/harness.patch`。更新时先检查上游与插件的功能重合，再在独立工作目录重建全部发行包。提交运行包、发布索引并推送后，核对本地 HEAD 与远程 main 相同；服务器、WSL 与桌面 profile 使用同一发行提交，保留各自选用的插件和私人配置。部署后核对宿主版本、插件版本、实际安装提交及服务状态。

@@ -12,7 +12,9 @@ import { Zip, ZipDeflate, ZipPassThrough } from 'fflate'
  * @param signal - Request and plugin-lifetime cancellation.
  * @returns Compressed bytes and omitted link/special-file count.
  */
-export async function archiveDirectory(root: string, directory: string, output: string, signal: AbortSignal): Promise<{ bytes: number; skipped: number }> {
+export async function archiveDirectory(
+  root: string, directory: string, output: string, signal: AbortSignal,
+): Promise<{ bytes: number; skipped: number }> {
   const file = await open(output, 'wx', 0o600)
   const chunks: Uint8Array[] = []
   let failure: Error | null = null

@@ -22,7 +22,7 @@ window.__ModuleLoader__.load({
 					type: zod.z.literal("bar"),
 					entries: zod.z.array(zod.z.object({
 						label: zod.z.string(),
-						value: zod.z.number().finite().nonnegative()
+						value: zod.z.number().nonnegative()
 					}))
 				}),
 				zod.z.object({
@@ -41,8 +41,8 @@ window.__ModuleLoader__.load({
 			]))
 		});
 		//#endregion
-		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/interactive-results/src/client/view.module.css.mjs
-		const css = ".c4RWYa_result{border:1px solid #8884;border-radius:18px;min-width:0;margin:20px 0;padding:20px}.c4RWYa_result h3{margin:0 0 12px}.c4RWYa_result p{opacity:.65;font-size:12px;line-height:1.6}.c4RWYa_block{margin-top:20px}.c4RWYa_result input,.c4RWYa_result select,.c4RWYa_result button{box-sizing:border-box;max-width:100%;min-height:44px;color:inherit;background:0 0;border:1px solid #8884;border-radius:9px;padding:9px 12px}.c4RWYa_result option{color:canvastext;background:canvas}.c4RWYa_result label{flex-direction:column;gap:8px;margin:14px 0;display:flex}.c4RWYa_result button{cursor:pointer;background:#438c7822}.c4RWYa_table{max-height:420px;margin-top:12px;overflow:auto}.c4RWYa_table table{border-collapse:collapse;width:100%}.c4RWYa_table th,.c4RWYa_table td{text-align:left;white-space:nowrap;border-bottom:1px solid #8883;padding:10px}.c4RWYa_bar{grid-template-columns:minmax(60px,1fr) 2fr auto;align-items:center;gap:12px;margin:16px 0;font-size:13px;display:grid}.c4RWYa_bar div{background:#8882;border-radius:5px;height:20px;overflow:hidden}.c4RWYa_bar i{background:#49a68c;height:100%;display:block}.c4RWYa_bar span{overflow-wrap:anywhere}@media (width<=700px){.c4RWYa_result{padding:14px}.c4RWYa_result input,.c4RWYa_result select{font-size:16px}}";
+		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/upstream-upgrade-20261027/harness-release/packages/experimental/interactive-results/src/client/view.module.css.mjs
+		const css = "._4cqBna_result{border:1px solid #8884;border-radius:18px;min-width:0;margin:20px 0;padding:20px}._4cqBna_result h3{margin:0 0 12px}._4cqBna_result p{opacity:.65;font-size:12px;line-height:1.6}._4cqBna_block{margin-top:20px}._4cqBna_result input,._4cqBna_result select,._4cqBna_result button{box-sizing:border-box;max-width:100%;min-height:44px;color:inherit;background:0 0;border:1px solid #8884;border-radius:9px;padding:9px 12px}._4cqBna_result option{color:canvastext;background:canvas}._4cqBna_result label{flex-direction:column;gap:8px;margin:14px 0;display:flex}._4cqBna_result button{cursor:pointer;background:#438c7822}._4cqBna_table{max-height:420px;margin-top:12px;overflow:auto}._4cqBna_table table{border-collapse:collapse;width:100%}._4cqBna_table th,._4cqBna_table td{text-align:left;white-space:nowrap;border-bottom:1px solid #8883;padding:10px}._4cqBna_bar{grid-template-columns:minmax(60px,1fr) 2fr auto;align-items:center;gap:12px;margin:16px 0;font-size:13px;display:grid}._4cqBna_bar div{background:#8882;border-radius:5px;height:20px;overflow:hidden}._4cqBna_bar i{background:#49a68c;height:100%;display:block}._4cqBna_bar span{overflow-wrap:anywhere}@media (width<=700px){._4cqBna_result{padding:14px}._4cqBna_result input,._4cqBna_result select{font-size:16px}}";
 		const tagId = "@flowing-wind/dsh-interactive-results/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -52,10 +52,10 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var view_module_css_default = {
-			"bar": "c4RWYa_bar",
-			"block": "c4RWYa_block",
-			"result": "c4RWYa_result",
-			"table": "c4RWYa_table"
+			"bar": "_4cqBna_bar",
+			"block": "_4cqBna_block",
+			"result": "_4cqBna_result",
+			"table": "_4cqBna_table"
 		};
 		//#endregion
 		//#region lib/types/client/locales.js
@@ -101,7 +101,9 @@ window.__ModuleLoader__.load({
 						if (!abort.signal.aborted) setError(String(error));
 					}
 				})();
-				return () => abort.abort();
+				return () => {
+					abort.abort();
+				};
 			}, [sessionId, path]);
 			const submit = async (form, index) => {
 				setStatus({
@@ -121,7 +123,6 @@ window.__ModuleLoader__.load({
 					setStatus(void 0);
 				}
 			};
-			const maxima = data?.blocks.map((block) => block.type === "bar" ? block.entries.reduce((max, entry) => Math.max(max, entry.value), 1) : 1) ?? [];
 			return (0, react_jsx_runtime.jsxs)("section", {
 				className: view_module_css_default.result,
 				"aria-label": t("title"),
@@ -131,49 +132,54 @@ window.__ModuleLoader__.load({
 						role: "alert",
 						children: t("failed", { message: error })
 					}),
-					data && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("p", { children: t("local") }), data.blocks.map((block, index) => (0, react_jsx_runtime.jsx)("div", {
-						className: view_module_css_default.block,
-						children: block.type === "table" ? (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("input", {
-							"aria-label": t("search"),
-							placeholder: t("search"),
-							value: query,
-							onChange: (e) => setQuery(e.target.value)
-						}), (0, react_jsx_runtime.jsx)("div", {
-							className: view_module_css_default.table,
-							children: (0, react_jsx_runtime.jsxs)("table", { children: [(0, react_jsx_runtime.jsx)("thead", { children: (0, react_jsx_runtime.jsx)("tr", { children: block.columns.map((column, i) => (0, react_jsx_runtime.jsx)("th", { children: column }, i)) }) }), (0, react_jsx_runtime.jsx)("tbody", { children: block.rows.filter((row) => row.some((value) => value.toLowerCase().includes(query.toLowerCase()))).map((row, i) => (0, react_jsx_runtime.jsx)("tr", { children: row.map((value, j) => (0, react_jsx_runtime.jsx)("td", { children: value }, j)) }, i)) })] })
-						})] }) : block.type === "bar" ? (0, react_jsx_runtime.jsx)("div", { children: block.entries.map((entry, i) => (0, react_jsx_runtime.jsxs)("div", {
-							className: view_module_css_default.bar,
-							children: [
-								(0, react_jsx_runtime.jsx)("span", { children: entry.label }),
-								(0, react_jsx_runtime.jsx)("div", { children: (0, react_jsx_runtime.jsx)("i", { style: { width: `${entry.value / maxima[index] * 100}%` } }) }),
-								(0, react_jsx_runtime.jsx)("strong", { children: entry.value.toLocaleString() })
-							]
-						}, i)) }) : (0, react_jsx_runtime.jsxs)("form", {
-							onSubmit: (event) => {
-								event.preventDefault();
-								submit(event.currentTarget, index);
-							},
-							children: [
-								block.fields.map((field) => (0, react_jsx_runtime.jsxs)("label", { children: [field.label, field.type === "select" ? (0, react_jsx_runtime.jsx)("select", {
-									name: field.name,
-									children: field.options?.map((option) => (0, react_jsx_runtime.jsx)("option", { children: option }, option))
-								}) : (0, react_jsx_runtime.jsx)("input", {
-									name: field.name,
-									type: field.type,
-									required: true
-								})] }, field.name)),
-								(0, react_jsx_runtime.jsx)("button", {
-									disabled: status?.phase === "sending",
-									type: "submit",
-									children: t(status?.index === index && status.phase === "sending" ? "sending" : "send")
-								}),
-								status?.index === index && status.phase === "sent" && (0, react_jsx_runtime.jsx)("p", {
-									role: "status",
-									children: t("sent")
-								})
-							]
-						})
-					}, index))] })
+					data && (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("p", { children: t("local") }), data.blocks.map((block, index) => {
+						const maximum = block.type === "bar" ? block.entries.reduce((max, entry) => Math.max(max, entry.value), 1) : 1;
+						return (0, react_jsx_runtime.jsx)("div", {
+							className: view_module_css_default.block,
+							children: block.type === "table" ? (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [(0, react_jsx_runtime.jsx)("input", {
+								"aria-label": t("search"),
+								placeholder: t("search"),
+								value: query,
+								onChange: (e) => {
+									setQuery(e.target.value);
+								}
+							}), (0, react_jsx_runtime.jsx)("div", {
+								className: view_module_css_default.table,
+								children: (0, react_jsx_runtime.jsxs)("table", { children: [(0, react_jsx_runtime.jsx)("thead", { children: (0, react_jsx_runtime.jsx)("tr", { children: block.columns.map((column, i) => (0, react_jsx_runtime.jsx)("th", { children: column }, i)) }) }), (0, react_jsx_runtime.jsx)("tbody", { children: block.rows.filter((row) => row.some((value) => value.toLowerCase().includes(query.toLowerCase()))).map((row, i) => (0, react_jsx_runtime.jsx)("tr", { children: row.map((value, j) => (0, react_jsx_runtime.jsx)("td", { children: value }, j)) }, i)) })] })
+							})] }) : block.type === "bar" ? (0, react_jsx_runtime.jsx)("div", { children: block.entries.map((entry, i) => (0, react_jsx_runtime.jsxs)("div", {
+								className: view_module_css_default.bar,
+								children: [
+									(0, react_jsx_runtime.jsx)("span", { children: entry.label }),
+									(0, react_jsx_runtime.jsx)("div", { children: (0, react_jsx_runtime.jsx)("i", { style: { width: `${entry.value / maximum * 100}%` } }) }),
+									(0, react_jsx_runtime.jsx)("strong", { children: entry.value.toLocaleString() })
+								]
+							}, i)) }) : (0, react_jsx_runtime.jsxs)("form", {
+								onSubmit: (event) => {
+									event.preventDefault();
+									submit(event.currentTarget, index);
+								},
+								children: [
+									block.fields.map((field) => (0, react_jsx_runtime.jsxs)("label", { children: [field.label, field.type === "select" ? (0, react_jsx_runtime.jsx)("select", {
+										name: field.name,
+										children: field.options?.map((option) => (0, react_jsx_runtime.jsx)("option", { children: option }, option))
+									}) : (0, react_jsx_runtime.jsx)("input", {
+										name: field.name,
+										type: field.type,
+										required: true
+									})] }, field.name)),
+									(0, react_jsx_runtime.jsx)("button", {
+										disabled: status?.phase === "sending",
+										type: "submit",
+										children: t(status?.index === index && status.phase === "sending" ? "sending" : "send")
+									}),
+									status?.index === index && status.phase === "sent" && (0, react_jsx_runtime.jsx)("p", {
+										role: "status",
+										children: t("sent")
+									})
+								]
+							})
+						}, index);
+					})] })
 				]
 			});
 		}

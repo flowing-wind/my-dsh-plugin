@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-download",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.1-rc.3",
   "description": "工作区文件下载：文件树与预览标签下载",
   "type": "module",
   "license": "MIT",
@@ -70,6 +70,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.2"
+    "dsh": "0.2.1-rc.3"
   }
 }

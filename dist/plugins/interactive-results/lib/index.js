@@ -18,7 +18,7 @@ const resultSchema = z.object({
 			type: z.literal("bar"),
 			entries: z.array(z.object({
 				label: z.string(),
-				value: z.number().finite().nonnegative()
+				value: z.number().nonnegative()
 			}))
 		}),
 		z.object({

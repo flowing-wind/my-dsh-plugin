@@ -16,5 +16,5 @@ export const Config = z.object({ initialWidth: z.natural().min(300).max(2000).de
  * @param ctx - Host plugin lifecycle.
  */
 export function apply(ctx: Context): void {
-  ctx.inject(['settings'], child => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })
+  ctx.inject(['settings'], (child) => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })
 }

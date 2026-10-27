@@ -22,7 +22,7 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
-发行包 `@flowing-wind/dsh-workspace-management` 的 `1.0.5` 版本支持官方 Harness `0.2.1-rc.2` Windows Desktop 与 Linux Web。从[仓库索引](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json)安装这一个包即可；包内包含匹配的管理提供方和工作区确认扩展，应用程序本身保持官方版本。
+发行包 `@flowing-wind/dsh-workspace-management` 的 `1.0.6` 版本支持官方 Harness `0.2.1-rc.3` Windows Desktop 与 Linux Web。从[仓库索引](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json)安装这一个包即可；包内包含匹配的管理提供方和工作区确认扩展，应用程序本身保持官方版本。
 
 安装、升级或停用前先等待正在运行的任务结束，再按提示重启。停用后恢复标准 profile 的提供方。源码部署使用配套 Host 补丁。
 

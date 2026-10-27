@@ -1,5 +1,5 @@
 diff --git a/docs/config-catalog.md b/docs/config-catalog.md
-index 60484ba795..47091e99e5 100644
+index 875563ce39..b0574a3188 100644
 --- a/docs/config-catalog.md
 +++ b/docs/config-catalog.md
 @@ -219,12 +219,14 @@ export interface Config {
@@ -197,7 +197,7 @@ index 60484ba795..47091e99e5 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4663,7 +4822,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
+@@ -4654,7 +4813,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
  | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
@@ -208,7 +208,7 @@ index 60484ba795..47091e99e5 100644
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/config-catalog.zh.md b/docs/config-catalog.zh.md
-index 8460650010..6eadb4f0ac 100644
+index 52b98e69d8..d58fbf6399 100644
 --- a/docs/config-catalog.zh.md
 +++ b/docs/config-catalog.zh.md
 @@ -221,12 +221,14 @@ export interface Config {
@@ -406,7 +406,7 @@ index 8460650010..6eadb4f0ac 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4665,7 +4824,9 @@ export interface Config {
+@@ -4656,7 +4815,9 @@ export interface Config {
  | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
@@ -417,7 +417,7 @@ index 8460650010..6eadb4f0ac 100644
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/event-producer-consumer.md b/docs/event-producer-consumer.md
-index 3d1bbaf987..cf83a8baad 100644
+index 4aebd22751..4e87bfdbaa 100644
 --- a/docs/event-producer-consumer.md
 +++ b/docs/event-producer-consumer.md
 @@ -22,11 +22,12 @@ This matrix shows which packages dispatch each harness-owned event and which pac
@@ -457,7 +457,7 @@ index 3d1bbaf987..cf83a8baad 100644
  | `workflow/agent-start` | `emit` | [`packages/workflow/workflow/src/index.ts:68`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | [`tool-workflow`](../packages/workflow/tool-workflow) |
  | `workflow/end` | `emit` | [`packages/workflow/workflow/src/index.ts:89`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | - |
 diff --git a/docs/event-producer-consumer.zh.md b/docs/event-producer-consumer.zh.md
-index 213180e82e..3d218d5a47 100644
+index 901dfca3fa..eda3fbd159 100644
 --- a/docs/event-producer-consumer.zh.md
 +++ b/docs/event-producer-consumer.zh.md
 @@ -24,11 +24,12 @@
@@ -1323,7 +1323,7 @@ index fb2ab7ad43..ae7b46841c 100644
      FilesBody,
    )), 'ui-sidebar-files: files tab body')
 diff --git a/packages/client/ui-workspace/README.i18n.yaml b/packages/client/ui-workspace/README.i18n.yaml
-index 60a03011cf..49398b686b 100644
+index 469aa0c0e5..caab3851e6 100644
 --- a/packages/client/ui-workspace/README.i18n.yaml
 +++ b/packages/client/ui-workspace/README.i18n.yaml
 @@ -15,8 +15,8 @@
@@ -1338,7 +1338,7 @@ index 60a03011cf..49398b686b 100644
    en: 8673afc1d72ad077
    zh: 9fbb83a4029c5d10
 diff --git a/packages/client/ui-workspace/README.md b/packages/client/ui-workspace/README.md
-index 2654447b77..1f2809a4a4 100644
+index f630f0fdf7..5fa35af6c8 100644
 --- a/packages/client/ui-workspace/README.md
 +++ b/packages/client/ui-workspace/README.md
 @@ -27,6 +27,8 @@ This package lets users browse grouped or flat Session lists, choose a Workspace
@@ -1351,7 +1351,7 @@ index 2654447b77..1f2809a4a4 100644
  
  History rows without a stored title use the localized unnamed label (未命名 / Untitled), rather than a directory name. The current blank row remains New Session; other blank rows remain hidden. Rename drafts use the stored title, or start empty when unnamed; unnamed rows do not offer title copying.
 diff --git a/packages/client/ui-workspace/README.zh.md b/packages/client/ui-workspace/README.zh.md
-index c655995453..64199f9422 100644
+index 80f726cfe6..922c71d191 100644
 --- a/packages/client/ui-workspace/README.zh.md
 +++ b/packages/client/ui-workspace/README.zh.md
 @@ -27,6 +27,8 @@ kind: "package-reference"
@@ -1452,7 +1452,7 @@ index 4b62826cbc..5312e5fbd1 100644
  function mount(overrides: Partial<WorkspaceBrowserProps> = {}) {
    const controls = createWorkspaceShortcutControls()
 diff --git a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
-index 50bcbe529a..80b395d68a 100644
+index 33794f1a71..9201f63fd1 100644
 --- a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
 +++ b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
 @@ -503,6 +503,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
@@ -1472,7 +1472,7 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'conversation.input.activity',
-@@ -3244,6 +3245,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3298,6 +3299,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-settings-general GeneralSection id \'general\'',
        'client-ui-settings-models ModelsSection id \'models\'',
        'client-ui-settings-plugins PluginsSettingsSection id \'plugins\'',
@@ -1481,7 +1481,7 @@ index 50bcbe529a..80b395d68a 100644
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'settings.section\', () => ctx.slots.register(\n      { name: \'settings.section\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3399,6 +3402,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3453,6 +3456,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-workspace SessionRenameDialog id \'workspace.session-rename\'',
        'client-ui-workspace SessionArchiveConfirmDialog id \'workspace.session-archive\'',
        'client-ui-workspace RowActionToast id \'workspace.row-toast\'',
@@ -1492,7 +1492,7 @@ index 50bcbe529a..80b395d68a 100644
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'shell.overlay\', () => ctx.slots.register(\n      { name: \'shell.overlay\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3540,6 +3547,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3594,6 +3601,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
      occupants: [
        'client-ui-brand-official OfficialBrandName',
@@ -1500,7 +1500,7 @@ index 50bcbe529a..80b395d68a 100644
      ],
      replaceRisk: 'shadows-shipped-ui',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.brand.name\', () => ctx.slots.register(\n      { name: \'sidebar.brand.name\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3585,6 +3593,126 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3639,6 +3647,126 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.chat.conversation\', () => ctx.slots.register(\n      { name: \'sidebar.chat.conversation\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-subagent/src/client/sidebar-chat/index.tsx:42',
    },
@@ -1627,7 +1627,7 @@ index 50bcbe529a..80b395d68a 100644
    {
      key: 'sidebar.footer.action',
      kind: 'list',
-@@ -3631,6 +3759,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3685,6 +3813,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      slotInject: '',
      declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
      occupants: [
@@ -1635,7 +1635,7 @@ index 50bcbe529a..80b395d68a 100644
        'client-ui-cordis CordisPanel id \'cordis-panel\'',
      ],
      replaceRisk: 'none',
-@@ -4134,7 +4263,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4242,7 +4371,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.files.actions\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.files.actions\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1644,7 +1644,7 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'sidebar.right.tab.guide',
-@@ -4286,7 +4415,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4448,7 +4577,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      hookContext: '',
      slotInject: '',
      declaredBy: 'an entry in \'rightbar.session\' (client-ui-sidebar-right), so it exists while that entry is mounted',
@@ -1655,8 +1655,8 @@ index 50bcbe529a..80b395d68a 100644
 +    ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.menu.item\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.menu.item\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-     source: 'packages/client/ui-sidebar-right/src/client/contract/slots.ts:103',
-@@ -4343,7 +4475,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     source: 'packages/client/ui-sidebar-right/src/client/contract/slots.ts:105',
+@@ -4505,7 +4637,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.hover\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.hover\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1665,7 +1665,7 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'sidebar.session.row.leading',
-@@ -4397,7 +4529,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4559,7 +4691,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.leading\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.leading\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1674,9 +1674,9 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'sidebar.settings',
-@@ -4496,6 +4628,37 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4658,6 +4790,37 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-     source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:42',
+     source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:45',
    },
 +  {
 +    key: 'sidebar.workspaces.delete',
@@ -1712,7 +1712,7 @@ index 50bcbe529a..80b395d68a 100644
    {
      key: 'sidebar.workspaces.directoryFlow',
      kind: 'single',
-@@ -4528,7 +4691,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4690,7 +4853,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'shadows-shipped-ui',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.directoryFlow\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.directoryFlow\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1721,7 +1721,7 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'sidebar.workspaces.session.menu.item',
-@@ -4583,10 +4746,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4745,10 +4908,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-workspace ForkSessionMenuItem id \'fork\'',
        'client-ui-workspace ArchiveSessionMenuItem id \'archive\'',
        'client-ui-workspace SessionIdMenuItem id \'session-id\'',
@@ -1734,7 +1734,7 @@ index 50bcbe529a..80b395d68a 100644
    },
    {
      key: 'sidebar.workspaces.session.row.action',
-@@ -4641,7 +4805,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4803,7 +4967,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.session.row.action\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.session.row.action\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
@@ -1744,7 +1744,7 @@ index 50bcbe529a..80b395d68a 100644
    {
      key: 'tool.call.images',
 diff --git a/packages/extensions/tool-cordis/src/api-catalog.ts b/packages/extensions/tool-cordis/src/api-catalog.ts
-index be3e316263..aec5649637 100644
+index 03fdcaa7b4..06ba76321c 100644
 --- a/packages/extensions/tool-cordis/src/api-catalog.ts
 +++ b/packages/extensions/tool-cordis/src/api-catalog.ts
 @@ -743,6 +743,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
@@ -1821,7 +1821,7 @@ index be3e316263..aec5649637 100644
    },
    {
      name: 'api-session/status',
-@@ -4973,6 +5006,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
+@@ -4977,6 +5010,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
      name: 'BrandedNumber',
      declaration: 'export type BrandedNumber<B extends string> = number & {\n    readonly [BRAND]: B;\n};',
    },
@@ -1832,7 +1832,7 @@ index be3e316263..aec5649637 100644
    {
      name: 'BrowserUseProviderName',
      declaration: 'export type BrowserUseProviderName = Branded<\'BrowserUseProviderName\'>;',
-@@ -5151,7 +5188,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
+@@ -5155,7 +5192,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
    },
    {
      name: 'ConnectionTrustRequest',
@@ -1842,10 +1842,10 @@ index be3e316263..aec5649637 100644
    {
      name: 'ContentBlockMap',
 diff --git a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-index eee345a99c..584e83942b 100644
+index 06e0cd0225..5497edf0b3 100644
 --- a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
 +++ b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-@@ -184,6 +184,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+@@ -185,6 +185,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
  
  | Package | Config | Description |
  |---|---|---|
@@ -1853,7 +1853,7 @@ index eee345a99c..584e83942b 100644
  | `@deepseek-ai/dsh-experimental-agent-team` | yes | Implicit-root Agent Teams roster, direct peer messaging, and shared task DAG |
  | `@deepseek-ai/dsh-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
  | `@deepseek-ai/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset |
-@@ -195,10 +196,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+@@ -196,10 +197,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
  | `@deepseek-ai/dsh-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
@@ -1869,7 +1869,7 @@ index eee345a99c..584e83942b 100644
  | `@deepseek-ai/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
  | `@deepseek-ai/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
  | `@deepseek-ai/dsh-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
-@@ -206,6 +212,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+@@ -207,6 +213,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
  | `@deepseek-ai/dsh-experimental-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
  | `@deepseek-ai/dsh-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
  | `@deepseek-ai/dsh-experimental-translator` | yes | Machine translation with reusable Session results |
@@ -2031,10 +2031,10 @@ index f257ca0e1e..8628820e2f 100644
  
  export default SessionPersistence
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 5f38bae356..2a0fb876f6 100644
+index d6df9aae42..d7836fec0c 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -7569,6 +7569,52 @@ importers:
+@@ -7629,6 +7629,52 @@ importers:
          specifier: workspace:*
          version: link:../../core/session
  
@@ -2087,7 +2087,7 @@ index 5f38bae356..2a0fb876f6 100644
    packages/experimental/agent-team:
      dependencies:
        '@deepseek-ai/dsh-brand':
-@@ -8342,6 +8388,43 @@ importers:
+@@ -8402,6 +8448,43 @@ importers:
          specifier: ^18.2.0
          version: 18.3.1(react@18.3.1)
  
@@ -2131,7 +2131,7 @@ index 5f38bae356..2a0fb876f6 100644
    packages/experimental/computer-use-cua-driver-mcp:
      dependencies:
        '@deepseek-ai/dsh-mcp-client':
-@@ -8903,6 +8986,168 @@ importers:
+@@ -8963,6 +9046,171 @@ importers:
          specifier: ^4.3.2
          version: 4.3.2
  
@@ -2275,6 +2275,9 @@ index 5f38bae356..2a0fb876f6 100644
 +      '@deepseek-ai/dsh-client-locale':
 +        specifier: workspace:^
 +        version: link:../../client/locale
++      '@deepseek-ai/dsh-client-ui-primitives':
++        specifier: workspace:^
++        version: link:../../client/ui-primitives
 +      '@deepseek-ai/dsh-client-ui-renderer':
 +        specifier: workspace:^
 +        version: link:../../client/ui-renderer
@@ -2300,7 +2303,7 @@ index 5f38bae356..2a0fb876f6 100644
    packages/experimental/plugin-market-bundle:
      dependencies:
        '@deepseek-ai/dsh-client-ui-plugin-market':
-@@ -9736,6 +9981,247 @@ importers:
+@@ -9796,6 +10044,247 @@ importers:
          specifier: 5.0.0
          version: 5.0.0
  
@@ -2425,15 +2428,15 @@ index 5f38bae356..2a0fb876f6 100644
 +
 +  packages/experimental/workspace-management:
 +    dependencies:
-+      '@deepseek-ai/dsh-home-paths':
-+        specifier: workspace:^
-+        version: link:../../util/home-paths
 +      '@deepseek-ai/dsh-api-session-controller':
 +        specifier: workspace:^
 +        version: link:../../api/session-controller
 +      '@deepseek-ai/dsh-client-connection':
 +        specifier: workspace:^
 +        version: link:../../client/connection
++      '@deepseek-ai/dsh-home-paths':
++        specifier: workspace:^
++        version: link:../../util/home-paths
 +      '@deepseek-ai/dsh-session':
 +        specifier: workspace:^
 +        version: link:../../core/session
@@ -2548,7 +2551,7 @@ index 5f38bae356..2a0fb876f6 100644
    packages/experimental/worktree:
      dependencies:
        '@deepseek-ai/dsh-timeout':
-@@ -17786,10 +18272,12 @@ packages:
+@@ -17843,10 +18332,12 @@ packages:
  
    '@modelcontextprotocol/server-everything@2026.8.31':
      resolution: {integrity: sha512-5U3OZh8Xq0Li4nA26l6uNvV9/1suMDuWSn+NjLZIhzinhMY6N3A4DCrxVecBGPf2PsNFKTEv5krxGPRwzxc7jQ==}
@@ -2574,7 +2577,7 @@ index ebd7527142..0b60b59825 100644
    ConnectionAdmission: 'physical socket admission and release are owned by packages/client/connection/src/rpc.ts',
    PeerScope: 'Peer scope contract is owned by packages/typert/protocol/src/types.ts',
 diff --git a/tsconfig.base.json b/tsconfig.base.json
-index 2b3e9aad37..f30f7ce7e7 100644
+index f083f9b35e..5f3c5b9596 100644
 --- a/tsconfig.base.json
 +++ b/tsconfig.base.json
 @@ -28,6 +28,26 @@
@@ -2601,11 +2604,11 @@ index 2b3e9aad37..f30f7ce7e7 100644
 +      "@deepseek-ai/dsh-experimental-workspace-download/client": ["./packages/experimental/workspace-download/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-account-balance": ["./packages/experimental/account-balance/src/index.ts"],
 +      "@deepseek-ai/dsh-experimental-account-balance/client": ["./packages/experimental/account-balance/src/client/index.ts"],
-       "@deepseek-ai/dsh-experimental-session-search": ["./packages/experimental/session-search/src/index.ts"],
-       "@deepseek-ai/dsh-experimental-ralph-bundle": ["./packages/experimental/ralph-bundle/src/index.ts"],
-       "@deepseek-ai/dsh-experimental-terminal-bundle": ["./packages/experimental/terminal-bundle/src/index.ts"],
+       "@deepseek-ai/dsh-client-ui-entry-customization": ["./packages/client/ui-entry-customization/src/index.ts"],
+       "@deepseek-ai/dsh-client-ui-entry-customization/client": ["./packages/client/ui-entry-customization/src/client/index.ts"],
+       "@deepseek-ai/dsh-client-ui-entry-customization/src/*": ["./packages/client/ui-entry-customization/src/*"],
 diff --git a/tsconfig.client.json b/tsconfig.client.json
-index b2f0423c7c..d3c222ced3 100644
+index e8bb0d4408..092cba14fe 100644
 --- a/tsconfig.client.json
 +++ b/tsconfig.client.json
 @@ -53,6 +53,16 @@
@@ -2626,10 +2629,10 @@ index b2f0423c7c..d3c222ced3 100644
      { "path": "./packages/client/product-analytics/tsconfig.client.json" },
      { "path": "./apps/desktop/tsconfig.client.json" },
 diff --git a/tsconfig.host.json b/tsconfig.host.json
-index 6eb4662f88..8e1d73cd2f 100644
+index 5298e67528..436719b71f 100644
 --- a/tsconfig.host.json
 +++ b/tsconfig.host.json
-@@ -237,6 +237,16 @@
+@@ -238,6 +238,16 @@
      "scripts/client-bundle-purity.spec.ts"
    ],
    "references": [

@@ -24,7 +24,7 @@ const hash = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('h
 
 /** @param ctx - Host services. @param config - Maximum editable UTF-8 file size. */
 export function apply(ctx: Context, config: Config): void {
-  ctx.connection.fetch.register({ path: '/api/workspace-editor', methods: ['GET', 'POST'], requestBody: 'buffered', fetch: async request => {
+  ctx.connection.fetch.register({ path: '/api/workspace-editor', methods: ['GET', 'POST'], requestBody: 'buffered', fetch: async (request) => {
     try {
       const query = new URL(request.url).searchParams
       const edit = request.method === 'POST' ? input.parse(await request.json()) : undefined

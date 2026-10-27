@@ -24,13 +24,15 @@ test('independent release entries and versioned market sources', () => {
     const base='dist/plugins/'+dir
     const pkg=JSON.parse(fs.readFileSync(base+'/package.json'))
     assert.match(pkg.name,/^@flowing-wind\/dsh-/)
-    assert.equal(pkg.engines.dsh,'0.2.1-rc.2')
+    assert.equal(pkg.engines.dsh,JSON.parse(fs.readFileSync('upstream.json')).version)
     assert.doesNotMatch(JSON.stringify(pkg),/workspace:|link:|\/home\/dsh/)
     for(const spec of Object.values(pkg.dependencies??{}))assert.doesNotMatch(spec,/^(git|https?:|file:|link:|workspace:)/)
     assert.ok(Object.keys(pkg.dependencies??{}).every(name=>!name.startsWith('@deepseek-ai/dsh-')),dir+' shares Harness services through peer dependencies')
     assert.ok(fs.existsSync(base+'/'+pkg.dsh.bundle.patch))
     if(pkg.main)assert.ok(fs.existsSync(base+'/'+pkg.main))
     const row=index.plugins.find(p=>p.name===pkg.name)
+    assert.equal(row.versions[0].version,pkg.version)
+    assert.deepEqual(row.versions[0].engines,pkg.engines)
     assert.match(row.versions[0].source.commit,/^[a-f0-9]{40}$/)
     assert.equal(row.versions[0].source.path,base)
   }

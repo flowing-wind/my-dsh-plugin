@@ -89,7 +89,7 @@ async function apply(ctx, config) {
 			let input;
 			try {
 				input = JSON.parse(body);
-			} catch (error) {
+			} catch (_invalidJson) {
 				res.writeHead(400);
 				res.end();
 				return;

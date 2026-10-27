@@ -26,7 +26,7 @@ Install the bundled cordis.patch.yml layer. The initialWidth live configuration 
 <a id="implementation"></a>
 ## Implementation
 
-The client shares ui-layout's root store through an additive shell.overlay registration, so the official renderer supplies its actions. This adapter is pinned to Harness 0.2.1-rc.2, whose root registration shares one store instance. Upgrade the adapter when the official layout API changes. The sidebar.brand.name slot uses the official BrandWordmark primitive; an existing official occupant retains its place. Host configuration reaches clients through the official configuration-form projection.
+The client shares ui-layout's root store through an additive shell.overlay registration, so the official renderer supplies its actions. This adapter is pinned to Harness 0.2.1-rc.3, whose root registration shares one store instance. Upgrade the adapter when the official layout API changes. The sidebar.brand.name slot uses the official BrandWordmark primitive; an existing official occupant retains its place. Host configuration reaches clients through the official configuration-form projection.
 
 There is no separate ./invariant entry: the plugin contributes presentation and does not maintain independent state replicas.
 

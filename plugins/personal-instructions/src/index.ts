@@ -32,8 +32,8 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     throw new Error('personal-instructions: path must stay below the user home directory')
   }
   await mkdir(dirname(file), { recursive: true })
-  let content = await readFile(file, 'utf8').catch((error: NodeJS.ErrnoException) => {
-    if (error.code === 'ENOENT') return ''
+  let content = await readFile(file, 'utf8').catch((error: unknown) => {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return ''
     throw error
   })
   ctx.effect(() => ctx.systemPrompt.section({
@@ -41,7 +41,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     order: ctx.systemPrompt.getSectionOrder('DEPLOYMENT_PERSONA_SUFFIX'),
     text: () => content.trim() === '' ? '' : `# Personal instructions\n\n${content.trim()}`,
   }))
-  ctx.connection.fetch.register({ path: '/api/personal-instructions', methods: ['GET', 'POST'], requestBody: 'buffered', fetch: async request => {
+  ctx.connection.fetch.register({ path: '/api/personal-instructions', methods: ['GET', 'POST'], requestBody: 'buffered', fetch: async (request) => {
     const headers = { 'cache-control': 'no-store', 'content-type': 'application/json; charset=utf-8' }
     if (request.method === 'GET') return new Response(JSON.stringify({ content }), { headers })
     const body = await request.text()

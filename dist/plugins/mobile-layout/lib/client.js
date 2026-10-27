@@ -139,7 +139,9 @@ html[data-mobile-layout] [data-files-entry='file']>a,html[data-mobile-layout] [d
 				name: "shell.overlay",
 				id: "mobile-layout",
 				locale: "mobileLayout",
-				inject: () => ({ menu: () => ctx.layout.toggleSidebar() })
+				inject: () => ({ menu: () => {
+					ctx.layout.toggleSidebar();
+				} })
 			}, Navigation));
 		}
 		//#endregion

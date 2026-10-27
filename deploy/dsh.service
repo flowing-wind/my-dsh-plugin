@@ -7,7 +7,7 @@ After=network-online.target
 Type=simple
 User=dsh
 Group=dsh
-WorkingDirectory=/home/dsh/deepseek-harness/releases/0.2.1-rc.2
+WorkingDirectory=/home/dsh/deepseek-harness/releases/0.2.1-rc.3
 Environment=HOME=/home/dsh
 Environment=DSH_HOME=/home/dsh/.dsh
 Environment=DSH_WORKSPACE_ROOT=/home/dsh/Projects

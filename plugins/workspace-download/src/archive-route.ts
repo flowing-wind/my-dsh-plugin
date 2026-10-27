@@ -19,7 +19,15 @@ export interface ArchiveConfig {
   /** Maximum retention of one prepared archive in milliseconds. */
   archiveLifetimeMs: number
 }
-interface Archive { directory: string; file: string; name: string; bytes: number; sessionId: string; confirmed: boolean; timer: ReturnType<typeof setTimeout> }
+interface Archive {
+  directory: string
+  file: string
+  name: string
+  bytes: number
+  sessionId: string
+  confirmed: boolean
+  timer: ReturnType<typeof setTimeout>
+}
 
 /**
  * Register two-phase archive preparation and download routes.
@@ -43,7 +51,7 @@ export function registerArchives(ctx: Context, config: ArchiveConfig): void {
     await Promise.allSettled([...pending])
     await Promise.all([...archives.keys()].map(remove))
   })
-  ctx.connection.fetch.register({ path: '/api/workspace-archive', methods: ['POST', 'GET'], requestBody: 'buffered', fetch: async request => {
+  ctx.connection.fetch.register({ path: '/api/workspace-archive', methods: ['POST', 'GET'], requestBody: 'buffered', fetch: async (request) => {
     const query = new URL(request.url).searchParams
     const sessionId = query.get('sessionId')
     if (!sessionId) return new Response('Conversation is required', { status: 400 })
@@ -72,7 +80,9 @@ export function registerArchives(ctx: Context, config: ArchiveConfig): void {
           signal.throwIfAborted()
           const id = randomUUID()
           const requiresConfirmation = result.bytes > config.confirmationBytes
-          const timer = setTimeout(() => { void remove(id).catch(error => console.error('Archive cleanup failed', error)) }, config.archiveLifetimeMs)
+          const timer = setTimeout(() => {
+            void remove(id).catch((error: unknown) => { console.error('Archive cleanup failed', error) })
+          }, config.archiveLifetimeMs)
           timer.unref()
           archives.set(id, { directory, file, name: basename(target) + '.zip', bytes: result.bytes, sessionId, confirmed: !requiresConfirmation, timer })
           directory = undefined
@@ -96,9 +106,10 @@ export function registerArchives(ctx: Context, config: ArchiveConfig): void {
     clearTimeout(archive.timer)
     archives.delete(id)
     const stream = createReadStream(archive.file, { signal })
-    const finished = new Promise<void>(resolveDone => {
+    const finished = new Promise<void>((resolveDone) => {
       stream.once('close', () => {
-        void rm(archive.directory, { recursive: true, force: true }).catch(error => console.error('Archive cleanup failed', error)).finally(resolveDone)
+        void rm(archive.directory, { recursive: true, force: true })
+          .catch((error: unknown) => { console.error('Archive cleanup failed', error) }).finally(resolveDone)
       })
     })
     pending.add(finished); void finished.finally(() => pending.delete(finished))

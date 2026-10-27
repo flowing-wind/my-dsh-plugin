@@ -52,7 +52,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   ctx.effect(() => ctx.connection.registerBrowserAuthentication({
     authenticatedUrl: base => base,
     authorizeIndex: () => true,
-    isAuthenticated: request => {
+    isAuthenticated: (request) => {
       const path = new URL(request.url ?? '/', 'http://localhost').pathname
       if (path === '/page-login') return true
       const token = credential(request)
@@ -68,7 +68,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
       return true
     },
   }))
-  ctx.on('webserver/index-inject', table => {
+  ctx.on('webserver/index-inject', (table) => {
     table.unshift({ kind: 'script', placement: 'head', text: script })
   })
   ctx.effect(() => ctx.webServer.register({ kind: 'exact', path: '/page-login', handler: async (req, res) => {
@@ -82,7 +82,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
       if (Buffer.byteLength(body) > 1024) { res.writeHead(413); res.end(); return }
     }
     let input: unknown
-    try { input = JSON.parse(body) } catch (error) { res.writeHead(400); res.end(); return }
+    try { input = JSON.parse(body) } catch (_invalidJson) { res.writeHead(400); res.end(); return }
     if (typeof input !== 'object' || input === null) { res.writeHead(400); res.end(); return }
     if ('logout' in input && typeof input.logout === 'string') { revoke(input.logout); res.writeHead(204); res.end(); return }
     if (!('password' in input) || typeof input.password !== 'string') { res.writeHead(400); res.end(); return }

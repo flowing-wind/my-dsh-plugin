@@ -8,8 +8,8 @@ window.__ModuleLoader__.load({
 		let react = require("react");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 		let zod = require("zod");
-		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/rollout-20261019/harness/packages/experimental/workspace-editor/src/client/view.module.css.mjs
-		const css = ".y3S_da_dialog.y3S_da_dialog{width:min(1200px,100vw - 48px);height:min(900px,100dvh - 48px);max-height:calc(100dvh - 48px)}.y3S_da_content{flex:1;min-height:0}.y3S_da_content>div:last-child{flex:1;min-height:0;margin-top:0}.y3S_da_editor{flex-direction:column;flex:1;width:100%;min-width:0;min-height:0;display:flex}.y3S_da_editor textarea{box-sizing:border-box;resize:none;color:#e9eef5;tab-size:2;white-space:pre;background:#121416;border:1px solid #8884;border-radius:12px;flex:1;width:100%;min-height:0;padding:14px;font:14px/1.6 ui-monospace,monospace;overflow:auto}.y3S_da_editor p{overflow-wrap:anywhere;flex:none;margin:4px 0 10px;font-size:13px}.y3S_da_editor .y3S_da_path{text-overflow:ellipsis;white-space:nowrap;opacity:.7;overflow:hidden}@media (width<=700px){.y3S_da_dialog.y3S_da_dialog{width:calc(100vw - 24px);height:calc(100dvh - 84px);max-height:calc(100dvh - 84px)}.y3S_da_editor textarea{font-size:16px}}";
+		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/upstream-upgrade-20261027/harness-release/packages/experimental/workspace-editor/src/client/view.module.css.mjs
+		const css = ".VbG_pq_dialog.VbG_pq_dialog{width:min(1200px,100vw - 48px);height:min(900px,100dvh - 48px);max-height:calc(100dvh - 48px)}.VbG_pq_content{flex:1;min-height:0}.VbG_pq_content>div:last-child{flex:1;min-height:0;margin-top:0}.VbG_pq_editor{flex-direction:column;flex:1;width:100%;min-width:0;min-height:0;display:flex}.VbG_pq_editor textarea{box-sizing:border-box;resize:none;color:#e9eef5;tab-size:2;white-space:pre;background:#121416;border:1px solid #8884;border-radius:12px;flex:1;width:100%;min-height:0;padding:14px;font:14px/1.6 ui-monospace,monospace;overflow:auto}.VbG_pq_editor p{overflow-wrap:anywhere;flex:none;margin:4px 0 10px;font-size:13px}.VbG_pq_editor .VbG_pq_path{text-overflow:ellipsis;white-space:nowrap;opacity:.7;overflow:hidden}@media (width<=700px){.VbG_pq_dialog.VbG_pq_dialog{width:calc(100vw - 24px);height:calc(100dvh - 84px);max-height:calc(100dvh - 84px)}.VbG_pq_editor textarea{font-size:16px}}";
 		const tagId = "@flowing-wind/dsh-workspace-editor/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -19,10 +19,10 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var view_module_css_default = {
-			"content": "y3S_da_content",
-			"dialog": "y3S_da_dialog",
-			"editor": "y3S_da_editor",
-			"path": "y3S_da_path"
+			"content": "VbG_pq_content",
+			"dialog": "VbG_pq_dialog",
+			"editor": "VbG_pq_editor",
+			"path": "VbG_pq_path"
 		};
 		//#endregion
 		//#region lib/types/client/locales.js

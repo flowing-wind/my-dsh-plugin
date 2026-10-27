@@ -22,7 +22,7 @@ Delete conversations from native sidebar menus, including archived rows. The Wor
 <a id="use-this-package"></a>
 ## Use this package
 
-The published `@flowing-wind/dsh-workspace-management` bundle version `1.0.5` supports official Harness `0.2.1-rc.2` Windows Desktop and Linux Web. Install this single package from the [repository index](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json). It includes matching management providers and the Workspace confirmation extension; the application executable is unchanged.
+The published `@flowing-wind/dsh-workspace-management` bundle version `1.0.6` supports official Harness `0.2.1-rc.3` Windows Desktop and Linux Web. Install this single package from the [repository index](https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json). It includes matching management providers and the Workspace confirmation extension; the application executable is unchanged.
 
 Wait for running tasks to finish before installing, upgrading or disabling this package, then restart as prompted. Disabling restores the standard profile providers. Source deployments use the matching Host patch.
 

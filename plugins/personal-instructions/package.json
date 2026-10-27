@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-personal-instructions",
-  "version": "0.2.1-rc.2",
+  "version": "0.2.1-rc.3",
   "description": "Home-scoped personal instructions with a settings editor",
   "type": "module",
   "license": "MIT",
@@ -56,6 +56,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.2"
+    "dsh": "0.2.1-rc.3"
   }
 }

@@ -9,10 +9,9 @@ const harness = path.resolve(process.argv[2] ?? '.')
 const upstream = JSON.parse(fs.readFileSync(path.join(repo, 'upstream.json')))
 if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== upstream.version) throw Error('Build the matching Harness version first')
 const output = path.join(repo, 'dist/plugins')
-const version = '1.0.4'
+const version = '1.0.6'
 const selected = process.argv[3]
 if (selected !== undefined && !['workspace-management', 'personal-instructions'].includes(selected)) throw Error('Unknown release package: ' + selected)
-const releaseVersion = name => ['workspace-management', 'personal-instructions'].includes(name) ? '1.0.5' : version
 const versions = new Map()
 for (const group of fs.readdirSync(path.join(harness, 'packages'))) {
   const dir = path.join(harness, 'packages', group)
@@ -59,7 +58,7 @@ for (const [name, [title, category, serverBuild]] of Object.entries(details)) {
     }
   }
   pkg.name = '@flowing-wind/dsh-' + name
-  pkg.version = releaseVersion(name)
+  pkg.version = version
   pkg.engines = { dsh: upstream.version }
   pkg.repository = { type: 'git', url: 'https://github.com/flowing-wind/my-dsh-plugin.git', directory: 'dist/plugins/' + name }
   pkg.dshMarket = { title, category, serverBuild }
@@ -87,7 +86,7 @@ for (const name of fs.readdirSync(output)) {
     pkg.peerDependencies[dependency] = spec
     delete pkg.dependencies[dependency]
   }
-  pkg.version = releaseVersion(name)
+  pkg.version = version
   json(file, pkg)
 }
 console.log('Built', selected === undefined ? Object.keys(details).length : 1, 'code plugins; skill and configuration bundles retain their pinned release files')

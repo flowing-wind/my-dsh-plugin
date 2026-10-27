@@ -26,7 +26,7 @@ kind: "package-bundle"
 <a id="implementation"></a>
 ## 实现
 
-客户端通过附加的 shell.overlay 注册共享 ui-layout 的根存储，由官方渲染器提供操作接口。适配器固定兼容 Harness 0.2.1-rc.2，该版本的根注册共享同一存储实例；官方布局 API 变化时需更新适配器。sidebar.brand.name 插槽使用官方 BrandWordmark 组件，已有官方注册保持原位。宿主配置通过官方配置表单传到客户端。
+客户端通过附加的 shell.overlay 注册共享 ui-layout 的根存储，由官方渲染器提供操作接口。适配器固定兼容 Harness 0.2.1-rc.3，该版本的根注册共享同一存储实例；官方布局 API 变化时需更新适配器。sidebar.brand.name 插槽使用官方 BrandWordmark 组件，已有官方注册保持原位。宿主配置通过官方配置表单传到客户端。
 
 此插件贡献界面，不维护独立状态副本，因此没有单独的 ./invariant 入口。
 

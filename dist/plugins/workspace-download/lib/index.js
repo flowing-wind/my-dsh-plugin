@@ -170,7 +170,9 @@ function registerArchives(ctx, config) {
 						const id = randomUUID();
 						const requiresConfirmation = result.bytes > config.confirmationBytes;
 						const timer = setTimeout(() => {
-							remove(id).catch((error) => console.error("Archive cleanup failed", error));
+							remove(id).catch((error) => {
+								console.error("Archive cleanup failed", error);
+							});
 						}, config.archiveLifetimeMs);
 						timer.unref();
 						archives.set(id, {
@@ -230,7 +232,9 @@ function registerArchives(ctx, config) {
 					rm(archive.directory, {
 						recursive: true,
 						force: true
-					}).catch((error) => console.error("Archive cleanup failed", error)).finally(resolveDone);
+					}).catch((error) => {
+						console.error("Archive cleanup failed", error);
+					}).finally(resolveDone);
 				});
 			});
 			pending.add(finished);

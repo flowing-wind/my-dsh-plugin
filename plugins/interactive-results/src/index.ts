@@ -19,10 +19,10 @@ export const Config: schema<Config> = schema.object({ maxBytes: schema.natural()
 export const inject = ['connection', 'sessionPersistence']
 /** @param ctx - Host services. @param config - Result size limit. */
 export function apply(ctx: Context, config: Config): void {
-  ctx.inject(['systemPrompt'], promptCtx => {
+  ctx.inject(['systemPrompt'], (promptCtx) => {
     promptCtx.systemPrompt.section({ name: 'interactive-results', order: promptCtx.systemPrompt.getSectionOrder('WEB_SURFACE'), text: () => 'For an interactive table, bar chart, or form, write a UTF-8 file ending .interactive.json inside the workspace and call present with that path. Format: {"title":"Title","blocks":[{"type":"table","columns":["Name","Value"],"rows":[["Example","12"]]},{"type":"bar","entries":[{"label":"Example","value":12}]},{"type":"form","fields":[{"name":"choice","label":"Choose","type":"select","options":["A","B"]}]}]}. Form fields support text, number, select. Users can search tables and interact locally without a model request; only clicking Send to Agent submits form values as a normal user message. Do not include secrets in delivered files.' })
   })
-  ctx.connection.fetch.register({ path: '/api/interactive-results', methods: ['GET'], requestBody: 'buffered', fetch: async request => {
+  ctx.connection.fetch.register({ path: '/api/interactive-results', methods: ['GET'], requestBody: 'buffered', fetch: async (request) => {
     try {
       const query = new URL(request.url).searchParams, id = query.get('sessionId'), path = query.get('path')
       if (!id || !path) return new Response('Conversation and path are required', { status: 400 })
