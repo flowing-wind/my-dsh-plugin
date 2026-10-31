@@ -57,8 +57,8 @@ window.__ModuleLoader__.load({
 			empty: "No records"
 		};
 		//#endregion
-		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/upstream-upgrade-20261027/harness-release/packages/experimental/workspace-management/src/client/actions.module.css.mjs
-		const css = ".gqsVfG_action{color:#d55959;text-align:left;font:inherit;cursor:pointer;background:0 0;border:0;border-radius:8px;padding:10px 14px;display:block}.gqsVfG_action[role=menuitem]{width:100%}.gqsVfG_action:hover{background:#b9383818}.gqsVfG_options{flex-direction:column;gap:16px;display:flex}.gqsVfG_options label{align-items:center;gap:10px;display:flex}.gqsVfG_options small{opacity:.65;line-height:1.6}.gqsVfG_path{overflow-wrap:anywhere;user-select:text}";
+		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/update-20261031/plugin/build-rc5/packages/experimental/workspace-management/src/client/actions.module.css.mjs
+		const css = ".ydBVRW_action{color:#d55959;text-align:left;font:inherit;cursor:pointer;background:0 0;border:0;border-radius:8px;padding:10px 14px;display:block}.ydBVRW_action[role=menuitem]{width:100%}.ydBVRW_action:hover{background:#b9383818}.ydBVRW_options{flex-direction:column;gap:16px;display:flex}.ydBVRW_options label{align-items:center;gap:10px;display:flex}.ydBVRW_options small{opacity:.65;line-height:1.6}.ydBVRW_path{overflow-wrap:anywhere;user-select:text}";
 		const tagId = "@flowing-wind/dsh-workspace-management/actions.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -68,9 +68,9 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var actions_module_css_default = {
-			"action": "gqsVfG_action",
-			"options": "gqsVfG_options",
-			"path": "gqsVfG_path"
+			"action": "ydBVRW_action",
+			"options": "ydBVRW_options",
+			"path": "ydBVRW_path"
 		};
 		//#endregion
 		//#region lib/types/client/actions.js

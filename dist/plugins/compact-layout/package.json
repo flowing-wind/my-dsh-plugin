@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-compact-layout",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "紧凑右侧面板与官方侧栏标识：默认 300px，可拖动调整。",
   "type": "module",
   "license": "MIT",
@@ -45,7 +45,7 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.3"
+    "dsh": "0.2.1-rc.5"
   },
   "repository": {
     "type": "git",

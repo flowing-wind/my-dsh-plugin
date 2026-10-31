@@ -6,8 +6,8 @@ window.__ModuleLoader__.load({
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 		let react_jsx_runtime = require("react/jsx-runtime");
 		let _deepseek_ai_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
-		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/upstream-upgrade-20261027/harness-release/packages/experimental/page-login/src/client/view.module.css.mjs
-		const css = ".k-UzRG_trigger{box-sizing:border-box;border-radius:var(--dsw-radius-md);width:100%;height:44px;color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border:0;align-items:center;gap:8px;padding:6px;font-size:14px;display:flex}.k-UzRG_trigger[data-collapsed=true]{justify-content:center;width:36px;height:36px;padding:0}.k-UzRG_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}.k-UzRG_trigger:focus-visible{outline-offset:2px;outline:2px solid}.k-UzRG_avatar{background:var(--dsw-alias-bg-skeleton);width:24px;height:24px;color:var(--dsw-alias-label-tertiary);border-radius:50%;flex:none;place-items:center;display:grid}";
+		//#region \0dsh-css:/home/fuuraiko/Projects/deepseek-harness/.codex/update-20261031/plugin/build-rc5/packages/experimental/page-login/src/client/view.module.css.mjs
+		const css = ".F4vAoG_trigger{box-sizing:border-box;border-radius:var(--dsw-radius-md);width:100%;height:44px;color:var(--dsw-alias-label-primary);font:inherit;cursor:pointer;background:0 0;border:0;align-items:center;gap:8px;padding:6px;font-size:14px;display:flex}.F4vAoG_trigger[data-collapsed=true]{justify-content:center;width:36px;height:36px;padding:0}.F4vAoG_trigger:hover{background:var(--dsw-alias-interactive-bg-hover)}.F4vAoG_trigger:focus-visible{outline-offset:2px;outline:2px solid}.F4vAoG_avatar{background:var(--dsw-alias-bg-skeleton);width:24px;height:24px;color:var(--dsw-alias-label-tertiary);border-radius:50%;flex:none;place-items:center;display:grid}";
 		const tagId = "@flowing-wind/dsh-page-login/view.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -17,8 +17,8 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var view_module_css_default = {
-			"avatar": "k-UzRG_avatar",
-			"trigger": "k-UzRG_trigger"
+			"avatar": "F4vAoG_avatar",
+			"trigger": "F4vAoG_trigger"
 		};
 		//#endregion
 		//#region lib/types/client/view.js

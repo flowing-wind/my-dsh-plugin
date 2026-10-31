@@ -1,10 +1,10 @@
 # Flowing Wind Harness 插件
 
-为 DeepSeek Harness 提供通用工具、全局技能和服务器网页功能。所有发行包适配官方 **0.2.1-rc.3**，源码固定为 [1f81c047fc48fa190a683e469daa699857e9afe8](https://github.com/deepseek-ai/deepseek-harness/commit/1f81c047fc48fa190a683e469daa699857e9afe8)。每个插件都可以从同一仓库单独安装、启停和更新。
+为 DeepSeek Harness 提供通用工具、全局技能和服务器网页功能。所有发行包适配官方 **0.2.1-rc.5**，源码固定为 [b830ec950faba0a46dda564be3e2d854afed94f1](https://github.com/deepseek-ai/deepseek-harness/commit/b830ec950faba0a46dda564be3e2d854afed94f1)。每个插件都可以从同一仓库单独安装、启停和更新。
 
 ## 安装与更新
 
-推荐在官方插件页启用“自定义插件市场”，添加下面的索引地址，再在“发现”中按需安装。如果还没有“发现”页，在“添加插件”中先安装官方包 `@deepseek-ai/dsh-experimental-plugin-market-bundle@0.2.1-rc.3`。
+推荐在官方插件页启用“自定义插件市场”，添加下面的索引地址，再在“发现”中按需安装。如果还没有“发现”页，在“添加插件”中先安装官方包 `@deepseek-ai/dsh-experimental-plugin-market-bundle@0.2.1-rc.5`。
 
 ```text
 https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.json
@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/flowing-wind/my-dsh-plugin/main/market/index.j
 索引采用官方 format 1，将每个版本固定到完整 Git 提交和包子目录。仓库首页代表整个源码集合；在“添加插件”中安装单个插件时，需要使用完整子目录地址。例如：
 
 ```text
-git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.6&path:/dist/plugins/skills-remotion
+git+https://github.com/flowing-wind/my-dsh-plugin.git#plugins-v1.0.7&path:/dist/plugins/skills-remotion
 ```
 
 详细步骤、每个插件的完整安装地址和升级方式见[安装说明](INSTALL.md)。插件保存在当前用户的全局 Harness profile，对该 profile 打开的所有工作区生效。Web 与 Desktop 分别管理 profile。Git 缓存和安装后的依赖是正常运行所需文件，后续更新源仍是远程仓库。
@@ -57,7 +57,7 @@ Wolfram 包配置 Harness 官方 MCP 客户端，连接 `https://agenttools.wolf
 
 ## 宿主适配与维护
 
-工作区管理 `1.0.6` 在同一安装包内提供固定版本的管理接口和工作区确认扩展，适用于官方 Windows Desktop 与 Linux Web；目录范围和权限说明见[插件说明](plugins/workspace-management/README.zh.md)。紧凑布局通过官方插槽共享当前版本的根布局状态，并复用官方侧栏标识，适用于官方 Web 和 Desktop。配套补丁提供手机布局区域标记、服务器认证、永久删除和文件操作入口；具体功能由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
+工作区管理 `1.0.7` 在同一安装包内提供固定版本的管理接口和工作区确认扩展，适用于官方 Windows Desktop 与 Linux Web；目录范围和权限说明见[插件说明](plugins/workspace-management/README.zh.md)。紧凑布局通过官方插槽共享当前版本的根布局状态，并复用官方侧栏标识，适用于官方 Web 和 Desktop。配套补丁提供手机布局区域标记、服务器认证、永久删除和文件操作入口；具体功能由独立插件贡献。每个发行包使用精确的 `engines.dsh` 兼容声明，升级 Harness 时先核对接口并重新构建验证，再发布新版本。
 
 维护源码位于 `plugins/`，独立运行包位于 `dist/plugins/`。发行包依赖官方发布版本，安装后使用远程提交。配套宿主构建和服务器配置见[部署说明](deploy/README.md)，发布步骤见[维护说明](MAINTAINING.md)。
 

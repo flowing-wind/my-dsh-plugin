@@ -1,6 +1,6 @@
 # 全局 Web 部署
 
-示例服务使用 `dsh` 账号、`/home/dsh/deepseek-harness/releases/0.2.1-rc.3` 版本目录、`/home/dsh/.dsh` 持久数据和 `/home/dsh/Projects` 工作区。部署到其他账号时统一修改示例路径和域名。
+示例服务使用 `dsh` 账号、`/home/dsh/deepseek-harness/releases/0.2.1-rc.5` 版本目录、`/home/dsh/.dsh` 持久数据和 `/home/dsh/Projects` 工作区。部署到其他账号时统一修改示例路径和域名。
 
 ## 配套宿主
 

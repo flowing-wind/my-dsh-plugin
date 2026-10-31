@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-pages",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.1-rc.5",
   "description": "工作区网页：隔离的静态网页与新标签页预览",
   "type": "module",
   "license": "MIT",
@@ -66,6 +66,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.3"
+    "dsh": "0.2.1-rc.5"
   }
 }

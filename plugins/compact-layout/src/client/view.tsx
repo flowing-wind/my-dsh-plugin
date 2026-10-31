@@ -29,7 +29,7 @@ export const inject = ['slots', 'configForms']
  */
 export function apply(ctx: Context): void {
   ctx.slots.inject('shell.overlay', () => {
-    // shortcut: 0.2.1-rc.3 shares this root store; use a public width service when one is released.
+    // shortcut: 0.2.1-rc.5 shares this root store; use a public width service when one is released.
     // oxlint-disable-next-line typescript/no-non-null-assertion -- The registered root declares shell.overlay.
     const store = ctx.slots.entriesOfSlot('root')[0]!.store as LayoutStore
     return ctx.slots.register({ name: 'shell.overlay', id: 'compact-layout', store,

@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-interactive-results",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.1-rc.5",
   "description": "交互说明：表格、图表与表单交付",
   "type": "module",
   "license": "MIT",
@@ -65,6 +65,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.3"
+    "dsh": "0.2.1-rc.5"
   }
 }

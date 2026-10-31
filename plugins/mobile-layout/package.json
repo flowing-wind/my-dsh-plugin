@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-mobile-layout",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.1-rc.5",
   "description": "移动端布局：手机导航与触控优化",
   "type": "module",
   "license": "MIT",
@@ -55,6 +55,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.3"
+    "dsh": "0.2.1-rc.5"
   }
 }

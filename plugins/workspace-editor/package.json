@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-editor",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.1-rc.5",
   "description": "轻量文件编辑：直接修改工作区文本与代码",
   "type": "module",
   "license": "MIT",
@@ -64,6 +64,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.3"
+    "dsh": "0.2.1-rc.5"
   }
 }
