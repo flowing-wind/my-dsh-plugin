@@ -405,7 +405,7 @@
     {
       "name": "@flowing-wind/dsh-personal-instructions",
       "title": "全局个性化说明",
-      "description": "Home-scoped personal instructions with a settings editor",
+      "description": "Edit the Harness global AGENTS.md file in Settings",
       "author": "flowing-wind",
       "homepage": "https://github.com/flowing-wind/my-dsh-plugin#plugins",
       "repository": {
@@ -419,6 +419,19 @@
         ]
       },
       "versions": [
+        {
+          "version": "1.0.9",
+          "publishTimestamp": 1794850590,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/flowing-wind/my-dsh-plugin",
+            "commit": "28ce5a22c53e642d9a6fc448294dd588e4029ecd",
+            "path": "dist/plugins/personal-instructions"
+          },
+          "engines": {
+            "dsh": "0.2.2-rc.3"
+          }
+        },
         {
           "version": "1.0.8",
           "publishTimestamp": 1794849523,
