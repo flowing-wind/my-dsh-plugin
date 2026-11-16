@@ -1,5 +1,3 @@
 - insert:
     - id: personal-instructions
       name: '@deepseek-ai/dsh-experimental-personal-instructions'
-      config:
-        path: .dsh/agent.md

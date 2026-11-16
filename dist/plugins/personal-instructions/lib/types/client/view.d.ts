@@ -1,4 +1,4 @@
-/** Settings editor for home-scoped personal instructions. */
+/** Settings editor for the Harness global AGENTS.md file. */
 import type { Context } from '@deepseek-ai/cordis';
 import { zh } from './locales.ts';
 declare module '@deepseek-ai/dsh-client-ui-slots' {

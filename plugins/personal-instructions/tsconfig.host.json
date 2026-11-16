@@ -18,7 +18,7 @@
       "path": "../../client/connection/tsconfig.host.json"
     },
     {
-      "path": "../../core/system-prompt"
+      "path": "../../util/home-paths"
     },
     {
       "path": "../../util/atomic-write"

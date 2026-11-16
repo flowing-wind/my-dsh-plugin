@@ -28,7 +28,6 @@
     attemptsPerMinute: 10
 - id: personal-instructions
   config:
-    path: /home/dsh/.dsh/agent.md
     maxBytes: 131072
 
 - id: workspace-management

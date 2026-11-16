@@ -2202,7 +2202,7 @@ index 951c60b31f2254d7950a3c3a450e4c0ffbc5efcc..96121fca111a25c685785a770819b2fe
  
  export default SessionPersistence
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 9a84d64b213cb37f074294d8f62c69eb789a8c9a..e8d36eb12f6f1f42456989582063c3dfaede4fac 100644
+index 9a84d64b213cb37f074294d8f62c69eb789a8c9a..b52ba458b7071df3eb580ae04b4d80906505fa9c 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -8496,6 +8496,52 @@ importers:
@@ -2443,6 +2443,9 @@ index 9a84d64b213cb37f074294d8f62c69eb789a8c9a..e8d36eb12f6f1f42456989582063c3df
 +      '@deepseek-ai/dsh-client-connection':
 +        specifier: workspace:^
 +        version: link:../../client/connection
++      '@deepseek-ai/dsh-home-paths':
++        specifier: workspace:^
++        version: link:../../util/home-paths
 +      '@deepseek-ai/schemastery':
 +        specifier: link:../../../vendor/schemastery
 +        version: link:../../../vendor/schemastery
@@ -2465,9 +2468,6 @@ index 9a84d64b213cb37f074294d8f62c69eb789a8c9a..e8d36eb12f6f1f42456989582063c3df
 +      '@deepseek-ai/dsh-client-ui-slots':
 +        specifier: workspace:^
 +        version: link:../../client/ui-slots
-+      '@deepseek-ai/dsh-system-prompt':
-+        specifier: workspace:^
-+        version: link:../../core/system-prompt
 +      '@types/node':
 +        specifier: ^22.20.0
 +        version: 22.20.1

@@ -1,7 +1,7 @@
 {
   "name": "@flowing-wind/dsh-personal-instructions",
-  "version": "1.0.8",
-  "description": "Home-scoped personal instructions with a settings editor",
+  "version": "1.0.9",
+  "description": "Edit the Harness global AGENTS.md file in Settings",
   "type": "module",
   "license": "MIT",
   "main": "lib/index.js",
@@ -27,7 +27,8 @@
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.1.0",
     "@deepseek-ai/dsh-client-connection": "0.2.2-rc.3",
-    "@deepseek-ai/dsh-atomic-write": "0.2.2-rc.3"
+    "@deepseek-ai/dsh-atomic-write": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-home-paths": "0.2.2-rc.3"
   },
   "dependencies": {
     "@deepseek-ai/schemastery": "3.19.0"

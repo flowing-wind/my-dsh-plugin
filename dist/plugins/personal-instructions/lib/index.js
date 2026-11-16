@@ -1,62 +1,73 @@
 import schema from "@deepseek-ai/schemastery";
-import { homedir } from "node:os";
-import { dirname, isAbsolute, relative, resolve } from "node:path";
-import { mkdir, readFile } from "node:fs/promises";
-import { writeFileAtomic } from "@deepseek-ai/dsh-atomic-write";
+import { createHash } from "node:crypto";
+import { lstat, mkdir, readFile, realpath } from "node:fs/promises";
+import { dirname } from "node:path";
+import { withFileLock, writeFileAtomic } from "@deepseek-ai/dsh-atomic-write";
+import { dshHomePath } from "@deepseek-ai/dsh-home-paths";
 //#region lib/types/index.js
-/** Personal instruction files remain below the service account home directory. */
-const Config = schema.object({
-	path: schema.string().default(".dsh/agent.md"),
-	maxBytes: schema.natural().min(1024).default(131072)
-});
-/** Required prompt and HTTP services. */
-const inject = ["systemPrompt", "connection"];
-/** @param ctx - Prompt and authenticated connection lifecycle. @param config - Home-relative storage settings. */
-async function apply(ctx, config) {
-	const home = resolve(homedir());
-	const file = resolve(home, config.path);
-	const fromHome = relative(home, file);
-	if (isAbsolute(fromHome) || fromHome === ".." || fromHome.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`)) throw new Error("personal-instructions: path must stay below the user home directory");
-	await mkdir(dirname(file), { recursive: true });
-	let content = await readFile(file, "utf8").catch((error) => {
-		if (error.code === "ENOENT") return "";
+/** Bounds writes to the authenticated settings endpoint. */
+const Config = schema.object({ maxBytes: schema.natural().min(1024).default(131072) });
+/** Required authenticated HTTP service. */
+const inject = ["connection"];
+function revisionOf(content) {
+	return createHash("sha256").update(content).digest("hex");
+}
+async function readInstructions(file) {
+	const entry = await lstat(file).catch((error) => {
+		if (error.code === "ENOENT") return void 0;
 		throw error;
 	});
-	ctx.effect(() => ctx.systemPrompt.section({
-		name: "deployment:personal-instructions",
-		order: ctx.systemPrompt.getSectionOrder("DEPLOYMENT_PERSONA_SUFFIX"),
-		text: () => content.trim() === "" ? "" : `# Personal instructions\n\n${content.trim()}`
-	}));
-	ctx.connection.fetch.register({
+	const target = entry?.isSymbolicLink() ? await realpath(file) : file;
+	const content = entry === void 0 ? "" : await readFile(target, "utf8");
+	return {
+		target,
+		content,
+		revision: revisionOf(content)
+	};
+}
+/**
+* Register the editor for the same Harness home that native instruction loading uses.
+* @param ctx - Authenticated connection lifecycle.
+* @param config - Editor write limit.
+*/
+function apply(ctx, config) {
+	const file = dshHomePath("AGENTS.md");
+	const headers = { "cache-control": "no-store" };
+	ctx.effect(() => ctx.connection.fetch.register({
 		path: "/api/personal-instructions",
 		methods: ["GET", "POST"],
 		requestBody: "buffered",
 		fetch: async (request) => {
-			const headers = {
-				"cache-control": "no-store",
-				"content-type": "application/json; charset=utf-8"
-			};
-			if (request.method === "GET") return new Response(JSON.stringify({ content }), { headers });
+			if (request.method === "GET") {
+				const { content, revision } = await readInstructions(file);
+				return Response.json({
+					content,
+					revision
+				}, { headers });
+			}
 			const body = await request.text();
-			if (Buffer.byteLength(body) > config.maxBytes + 1024) return new Response(null, { status: 413 });
+			if (Buffer.byteLength(body) > config.maxBytes * 6 + 128) return new Response(null, { status: 413 });
 			let input;
 			try {
 				input = JSON.parse(body);
 			} catch (_error) {
 				return new Response(null, { status: 400 });
 			}
-			if (typeof input !== "object" || input === null || !("content" in input) || typeof input.content !== "string") return new Response(null, { status: 400 });
-			const next = input.content;
-			if (Buffer.byteLength(next) > config.maxBytes) return new Response(null, { status: 413 });
-			await writeFileAtomic(file, next, { mode: 384 });
-			content = next;
-			ctx.emit("system-prompt/change");
-			return new Response(null, {
-				status: 204,
-				headers
+			if (typeof input !== "object" || input === null || !("content" in input) || typeof input.content !== "string" || !("revision" in input) || typeof input.revision !== "string") return new Response(null, { status: 400 });
+			const { content, revision } = input;
+			if (Buffer.byteLength(content) > config.maxBytes) return new Response(null, { status: 413 });
+			await mkdir(dirname(file), {
+				recursive: true,
+				mode: 448
 			});
+			return withFileLock(file, async () => {
+				const current = await readInstructions(file);
+				if (current.revision !== revision) return new Response(null, { status: 409 });
+				await writeFileAtomic(current.target, content, { mode: 384 });
+				return Response.json({ revision: revisionOf(content) }, { headers });
+			}, { signal: request.signal });
 		}
-	});
+	}));
 }
 //#endregion
 export { Config, apply, inject };

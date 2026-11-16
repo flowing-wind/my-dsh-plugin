@@ -1,5 +1,5 @@
 ---
-description: "Home 目录内的个性化要求文件、设置编辑器与系统提示贡献。"
+description: "在设置中编辑 Harness 的全局 AGENTS.md。"
 kind: "package-bundle"
 ---
 
@@ -9,52 +9,44 @@ kind: "package-bundle"
 
 ## 概述
 
-用户可以编辑应用于所有对话的要求，而无需修改 Agent 预设。插件将文本保存在服务账户 Home 目录下的一个文件中，并在设置中提供编辑入口。
+设置 → 个性化可编辑 Harness 的全局 `AGENTS.md`。原生指令加载器会将保存的正文提供给新建或重新打开的会话。
 
 ## 目录
 
 - [使用](#use)
+- [从 1.0.8 升级](#upgrade)
 - [实现](#implementation)
 - [模型体验](#model-experience)
-- [已知限制与延期工作](#known-limitations-and-deferred-work)
+- [已知限制与暂缓事项](#known-limitations-and-deferred-work)
 
 <a id="use"></a>
 ## 使用
 
-在全局 Web 或 Desktop profile 中安装包内配置层。设置 → 个性化会读取和保存配置文件。默认路径为 `.dsh/agent.md`，相对于操作系统用户的 Home 目录解析。超出该目录的路径会使插件在启动时失败。
+在 Web 或 Desktop profile 中安装插件包，打开设置 → 个性化 → 全局 AGENTS.md。编辑器读写 `$DSH_HOME/AGENTS.md`，默认是 `~/.dsh/AGENTS.md`。原生指令插件也会加载工作区指令文件和共享的 `$DSH_AGENTS_HOME/AGENTS.md`。
 
-工作区 `AGENTS.md` 文件继续由原有功能加载。个性化要求是独立的部署级输入，不修改 Agent 预设。
+如果文件在编辑器打开后发生变化，保存时会提示冲突并保留草稿。重新打开页面前先复制草稿，再将草稿与文件当前内容合并。
 
-编辑器铺满设置内容栏，打开时提供较大的编辑区域。它沿用 Harness 主题，并支持纵向调整高度。
+<a id="upgrade"></a>
+## 从 1.0.8 升级
+
+备份旧指令文件。将 `~/.dsh/agent.md` 或此前通过 `path` 指定的文件内容复制到 `$DSH_HOME/AGENTS.md`。如果目标已存在，请合并两个文件并保留双方的指令。从 `personal-instructions` 的 profile 补丁中移除旧 `path` 选项，升级插件后重启 Harness。
 
 <a id="implementation"></a>
 ## 实现
 
-经过身份验证的 Connection Fetch 注册表在 Web 和 Desktop 中提供设置接口。Host 在启动时读取文件，以仅限当前用户访问的权限原子写入更新，并为设置编辑器提供经过身份验证的 JSON 接口。系统提示注册表在每次组装时读取当前内存文本。保存后发出注册表变更事件，使活动对话通过现有提示投影记录更新后的系统提示。
+设置接口经过认证并从磁盘读取当前内容。保存时比较编辑器加载的版本，然后以仅限所有者访问的权限原子替换文件。文件为符号链接时保留链接，并更新其目标。
 
 <a id="model-experience"></a>
 ## 模型体验
 
-### 个性化要求
+Harness 将正文纳入原生的用户全局指令链。已经打开的会话按[原生指令加载器](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.3/packages/context/agent-instructions/README.md#known-limitations-and-deferred-work)的规则刷新。
 
-#### 模型看到的内容
-
-非空内容会作为 `Personal instructions` 系统提示分区应用于所有 Agent scope。
-
-#### Token 影响
-
-每次请求都会包含保存的文本，因此输入用量随文本长度增加。
-
-#### KV Cache 影响
-
-文本未变化时可在请求间保持稳定。保存新文本会改变系统提示前缀，并可能降低缓存复用率。
-
-## 已知限制与延期工作
+## 已知限制与暂缓事项
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- 插件为部署用户提供一个共享文件，不提供按账户或工作区覆盖。配置的文件大小上限默认为 128 KiB。关闭插件会移除设置入口和提示贡献，但保留文件。
+- 编辑器的 `maxBytes` 限制写入大小，默认是 128 KiB。原生加载器对合并后的全局指令链使用自己的提示词字节预算。
 
-### 开发备注
+### 开发注记
 
 无。

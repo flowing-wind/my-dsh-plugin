@@ -1,5 +1,5 @@
 ---
-description: "Home-scoped personal instructions with a settings editor and system-prompt contribution."
+description: "Edit the Harness global AGENTS.md file in Settings."
 kind: "package-bundle"
 ---
 
@@ -9,11 +9,12 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Users can edit instructions that apply to every conversation without changing an Agent preset. The plugin stores the text in one file below the service account home directory and exposes it in Settings.
+Settings → Personalization edits the Harness global `AGENTS.md`. The stock instruction loader supplies the saved text to new or reopened sessions.
 
 ## Table of Contents
 
 - [Use](#use)
+- [Upgrade from 1.0.8](#upgrade)
 - [Implementation](#implementation)
 - [Model Experience](#model-experience)
 - [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
@@ -21,39 +22,30 @@ Users can edit instructions that apply to every conversation without changing an
 <a id="use"></a>
 ## Use
 
-Install the bundle in the global Web or Desktop profile. Settings → Personalization loads and saves the configured file. The default path is `.dsh/agent.md`, resolved below the operating-system user home directory. A path that escapes that directory fails during plugin startup.
+Install the bundle in the Web or Desktop profile and open Settings → Personalization → Global AGENTS.md. The editor reads and writes `$DSH_HOME/AGENTS.md`, which defaults to `~/.dsh/AGENTS.md`. Workspace instruction files and the shared `$DSH_AGENTS_HOME/AGENTS.md` are also loaded by the native instruction plugin.
 
-Workspace `AGENTS.md` files continue to apply through their existing owner. Personal instructions are a separate deployment-wide input and do not edit Agent presets.
+If the file changes after the editor loads it, saving reports a conflict and retains the draft. Copy your draft before reopening the page and merging it with the current file.
 
-The editor fills the settings content column and opens with a large editing area. It follows the Harness theme and supports vertical resizing.
+<a id="upgrade"></a>
+## Upgrade from 1.0.8
+
+Back up the previous instruction file. Copy the contents of `~/.dsh/agent.md`, or the previous configured `path`, into `$DSH_HOME/AGENTS.md`. If the destination already exists, merge the two files and keep both sets of instructions. Remove the previous `path` option from any `personal-instructions` profile patch and restart Harness after upgrading the plugin.
 
 <a id="implementation"></a>
 ## Implementation
 
-The authenticated connection Fetch registry serves the settings endpoint on Web and Desktop. The Host loads the file at startup, writes updates atomically with user-only permissions, and serves an authenticated JSON endpoint for the settings editor. The system-prompt registry reads the current in-memory text for each assembly. Saving emits the registry change event so active sessions can record an updated system prompt through the existing prompt projection.
+The authenticated settings endpoint reads the current file from disk. Saves compare the revision loaded by the editor and replace the file atomically with owner-only permissions. An existing symbolic link is kept and the editor updates its target.
 
 <a id="model-experience"></a>
 ## Model Experience
 
-### Personal instructions
-
-#### What the model sees
-
-Non-empty content appears in a `Personal instructions` system-prompt section for every Agent scope.
-
-#### Token effect
-
-Each request includes the saved text, so input usage grows with its length.
-
-#### KV Cache effect
-
-Unchanged text remains stable across requests. Saving new text changes the system-prompt prefix and can reduce cache reuse.
+Harness includes the text in its native user-global instruction chain. Existing open sessions refresh according to the [native instruction loader](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.3/packages/context/agent-instructions/README.md#known-limitations-and-deferred-work).
 
 ## Known Limitations and Deferred Work
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- The plugin provides one shared file for the deployment user. It does not provide per-account or per-workspace overrides. The configured maximum file size defaults to 128 KiB. Disabling the plugin removes its settings section and prompt contribution while retaining the file.
+- The editor's `maxBytes` setting limits file writes and defaults to 128 KiB. The native loader applies its own prompt budget to the combined global instruction chain.
 
 ### Dev Note
 

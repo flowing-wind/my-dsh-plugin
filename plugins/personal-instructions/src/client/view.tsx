@@ -1,4 +1,4 @@
-/** Settings editor for home-scoped personal instructions. */
+/** Settings editor for the Harness global AGENTS.md file. */
 import type { Context } from '@deepseek-ai/cordis'
 import { useEffect, useId, useState } from 'react'
 import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
@@ -14,17 +14,26 @@ declare module '@deepseek-ai/dsh-client-ui-slots' { interface LocaleNamespaceMap
 function Settings({ t }: PropsLocale<'personalInstructions'>) {
   const headingId = useId()
   const [value, setValue] = useState('')
-  const [loaded, setLoaded] = useState(false)
+  const [revision, setRevision] = useState<string>()
   const [status, setStatus] = useState('')
   useEffect(() => { void fetch('/api/personal-instructions').then(async (response) => {
     if (!response.ok) throw new Error(String(response.status))
-    setValue((await response.json() as { content: string }).content); setLoaded(true)
-  }).catch((error: unknown) => { setStatus(t('failed', { message: String(error) })) }) }, [t])
+    const current: { content: string; revision: string } = await response.json()
+    setValue(current.content)
+    setRevision(current.revision)
+  }).catch((_error: unknown) => { setStatus(t('loadFailed')) }) }, [t])
   const save = async () => {
+    if (revision === undefined) return
     setStatus(t('saving'))
     try {
-      const response = await fetch('/api/personal-instructions', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ content: value }) })
+      const response = await fetch('/api/personal-instructions', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ content: value, revision }) })
+      if (response.status === 409) {
+        setStatus(t('conflict'))
+        return
+      }
       if (!response.ok) throw new Error(String(response.status))
+      const result: { revision: string } = await response.json()
+      setRevision(result.revision)
       setStatus(t('saved'))
     } catch (error) { setStatus(t('failed', { message: String(error) })) }
   }
@@ -41,12 +50,12 @@ function Settings({ t }: PropsLocale<'personalInstructions'>) {
         aria-describedby={`${headingId}-description`}
         placeholder={t('placeholder')}
         value={value}
-        disabled={!loaded}
+        disabled={revision === undefined}
         onChange={(event) => { setValue(event.target.value); setStatus('') }}
       />
       <div className={css.actions}>
         <span className={css.status} role="status">{status}</span>
-        <Button variant="primary" disabled={!loaded || status === t('saving')} onClick={() => { void save() }}>{t('save')}</Button>
+        <Button variant="primary" disabled={revision === undefined || status === t('saving')} onClick={() => { void save() }}>{t('save')}</Button>
       </div>
     </section>
   )

@@ -3,41 +3,32 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/personal-instructions/README.md
 /:
-  en: 4d476f839b74ca82
-  zh: 0936cc6eaaca67c1
+  en: 8530d1c9e03fdb1f
+  zh: 33fff7875ca96cc2
 /deepseek-ai-dsh-experimental-personal-instructions:
   en: fff6e2246368de9e
   zh: 094cd4d6ddf61d18
 /deepseek-ai-dsh-experimental-personal-instructions/summary:
-  en: 47d0335310704084
-  zh: 8827059726136e41
+  en: 821f5b9da5482e6b
+  zh: fe6d01e2c499d7db
 /deepseek-ai-dsh-experimental-personal-instructions/table-of-contents:
-  en: 42843c912872c056
-  zh: f1379c6cd8b8d0d3
+  en: 17cb2944366431d5
+  zh: 9e5db42b082da96e
 /deepseek-ai-dsh-experimental-personal-instructions/use:
-  en: 86abc2c281582fc0
-  zh: ffac3f4d1f63684a
+  en: 4d954a5c7a8109e7
+  zh: ab07b4c4f9e55697
+/deepseek-ai-dsh-experimental-personal-instructions/upgrade-from-1-0-8:
+  en: 6c8fe28c6e625627
+  zh: 82aec4affd640011
 /deepseek-ai-dsh-experimental-personal-instructions/implementation:
-  en: 22d588d7a8f6347f
-  zh: c58ef5e145eeb1d2
+  en: 76178850fe628d00
+  zh: 6b9499f6182162f7
 /deepseek-ai-dsh-experimental-personal-instructions/model-experience:
-  en: 215e7ba838619b7b
-  zh: a311da3843709f90
-/deepseek-ai-dsh-experimental-personal-instructions/model-experience/personal-instructions:
-  en: 844c63a5cc426186
-  zh: 3f1cf18c81a3d2b1
-/deepseek-ai-dsh-experimental-personal-instructions/model-experience/personal-instructions/what-the-model-sees:
-  en: 5a8e027f5af36965
-  zh: 1cf4f4928e309007
-/deepseek-ai-dsh-experimental-personal-instructions/model-experience/personal-instructions/token-effect:
-  en: bd2e24626ee706c3
-  zh: f7a6abb25603345e
-/deepseek-ai-dsh-experimental-personal-instructions/model-experience/personal-instructions/kv-cache-effect:
-  en: cfd7c0c31b8f0b22
-  zh: 666d9fab791a4545
+  en: ae97b549ca26e944
+  zh: fe27b4f2bf15b7b6
 /deepseek-ai-dsh-experimental-personal-instructions/known-limitations-and-deferred-work:
-  en: 79a0ee9e0773e5e1
-  zh: 836441b3c37e937e
+  en: 89c5854a4c36873d
+  zh: e092ad0257559dae
 /deepseek-ai-dsh-experimental-personal-instructions/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
-  zh: 9f56528562c7c914
+  zh: 2c310847929790fe
