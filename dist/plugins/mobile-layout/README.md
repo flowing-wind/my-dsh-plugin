@@ -23,12 +23,12 @@ Provide full-width phone conversations, overlay workspace navigation, and large 
 
 Install the bundled cordis.patch.yml layer and switch the feature independently in the Plugins list. Migration carries the package and configuration; the target Harness must expose the official APIs and UI extension slots used here.
 
-No configuration. The browser plugin adds removable styles and a top-left sidebar toggle below 700px. Both sidebars fill the phone viewport and cover underlying text with opaque official-theme surfaces. Their header buttons close them. The conversation title reserves space for the left toggle. The toggle paints its own opaque theme layer over scrolling content.
+Below 700px, both sidebars fill the phone viewport and cover underlying text with the active theme background. Use the top-left sidebar button to open the navigation drawer and its header button to close it. Settings groups also use the full width. This package has no configuration.
 
 <a id="implementation"></a>
 ## Implementation
 
-The Host entry activates the browser package. The browser entry registers lifecycle-owned styles and navigation controls, removing them on unload.
+The Host entry activates the browser package. The browser entry registers removable styles and uses the Harness navigation drawer on supported hosts.
 
 There is no separate ./invariant entry: the plugin projects owned services and files without maintaining independently observed replicas.
 

@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-page-login",
-  "version": "0.2.1-rc.5",
+  "version": "0.2.2-rc.3",
   "description": "页面身份验证与内存登录凭证",
   "type": "module",
   "license": "MIT",
@@ -56,6 +56,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.5"
+    "dsh": "0.2.2-rc.3"
   }
 }

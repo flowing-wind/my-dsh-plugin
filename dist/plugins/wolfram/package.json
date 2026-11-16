@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-wolfram",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "description": "通过官方 Wolfram Cloud MCP 提供计算与知识检索。",
   "license": "MIT",
@@ -14,7 +14,7 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.5"
+    "dsh": "0.2.2-rc.3"
   },
   "dshMarket": {
     "title": "Wolfram 计算与知识",
@@ -22,6 +22,6 @@
     "serverBuild": false
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-mcp-client": "0.2.1-rc.5"
+    "@deepseek-ai/dsh-mcp-client": "0.2.2-rc.3"
   }
 }

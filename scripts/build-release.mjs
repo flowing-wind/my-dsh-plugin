@@ -9,7 +9,7 @@ const harness = path.resolve(process.argv[2] ?? '.')
 const upstream = JSON.parse(fs.readFileSync(path.join(repo, 'upstream.json')))
 if (JSON.parse(fs.readFileSync(path.join(harness, 'package.json'))).version !== upstream.version) throw Error('Build the matching Harness version first')
 const output = path.join(repo, 'dist/plugins')
-const version = '1.0.7'
+const version = '1.0.8'
 const selected = process.argv[3]
 if (selected !== undefined && !['workspace-management', 'personal-instructions'].includes(selected)) throw Error('Unknown release package: ' + selected)
 const versions = new Map()

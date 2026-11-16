@@ -1,15 +1,15 @@
 diff --git a/docs/config-catalog.md b/docs/config-catalog.md
-index 875563ce39..b0574a3188 100644
+index e691d06b8a3eedc8bf4403cf320a7320eab0bd5f..809f4526ea4dc1f5d85390af2468346f20f8b62d 100644
 --- a/docs/config-catalog.md
 +++ b/docs/config-catalog.md
-@@ -219,12 +219,14 @@ export interface Config {
+@@ -261,12 +261,14 @@ export interface Config {
  
  ## `@deepseek-ai/dsh-api-session-controller`
  
--- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionProjections` · `sessionQuery` · `typert` · `workspaceRegistry`
--- `source`: [`packages/api/session-controller/src/index.ts:94`](../packages/api/session-controller/src/index.ts)
-+- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionPersistence` · `sessionProjections` · `sessionQuery` · `typert` · `workspaceRegistry`
-+- `source`: [`packages/api/session-controller/src/index.ts:96`](../packages/api/session-controller/src/index.ts)
+-- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionProjections` · `sessionQuery` · `typert` · `typertGateway` · `workspaceRegistry`
+-- `source`: [`packages/api/session-controller/src/index.ts:110`](../packages/api/session-controller/src/index.ts)
++- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionPersistence` · `sessionProjections` · `sessionQuery` · `typert` · `typertGateway` · `workspaceRegistry`
++- `source`: [`packages/api/session-controller/src/index.ts:112`](../packages/api/session-controller/src/index.ts)
  
  ```ts config-catalog
  /** Session Controller deployment policy. */
@@ -19,9 +19,9 @@ index 875563ce39..b0574a3188 100644
    /** Override platform desktop-opener detection. */
    readonly nativeOpen?: boolean
    /** Positive integral milliseconds of list work before yielding between complete rows. */
-@@ -835,6 +837,27 @@ export interface Config {
+@@ -954,6 +956,27 @@ export interface Config {
  ```
- <!-- END GENERATED config-catalog:@deepseek-ai/dsh-deepseek-account-platform -->
+ <!-- END GENERATED config-catalog:@deepseek-ai/dsh-deepseek-chat-import -->
  
 +<!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-account-balance -->
 +<a id="deepseek-aidsh-experimental-account-balance"></a>
@@ -44,10 +44,10 @@ index 875563ce39..b0574a3188 100644
 +```
 +<!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-account-balance -->
 +
- <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-agent-team -->
- <a id="deepseek-aidsh-experimental-agent-team"></a>
+ <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-api-speech-to-text -->
+ <a id="deepseek-aidsh-experimental-api-speech-to-text"></a>
  
-@@ -1112,6 +1135,63 @@ export interface InspectorOptions {
+@@ -1351,6 +1374,63 @@ export interface InspectorOptions {
  ```
  <!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-inspector -->
  
@@ -111,7 +111,7 @@ index 875563ce39..b0574a3188 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-ptc-runtime-python -->
  <a id="deepseek-aidsh-experimental-ptc-runtime-python"></a>
  
-@@ -1321,6 +1401,85 @@ export type PaidTranslationProvider = 'deepseek-account' | 'deepseek-official'
+@@ -1587,6 +1667,85 @@ export type PaidTranslationProvider = 'deepseek-account' | 'deepseek-official'
  ```
  <!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-translator -->
  
@@ -197,9 +197,9 @@ index 875563ce39..b0574a3188 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4654,7 +4813,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
- | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
+@@ -5156,7 +5315,9 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
+ | `@deepseek-ai/dsh-experimental-client-ui-stats` | — | [`packages/experimental/client-ui-stats/src/index.ts`](../packages/experimental/client-ui-stats/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
 +| `@deepseek-ai/dsh-experimental-compact-layout` | — | [`packages/experimental/compact-layout/src/index.ts`](../packages/experimental/compact-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | `computerUse` · `tools` · `systemPrompt` | [`packages/experimental/computer-use-cua-driver-native/src/index.ts`](../packages/experimental/computer-use-cua-driver-native/src/index.ts) |
@@ -208,17 +208,17 @@ index 875563ce39..b0574a3188 100644
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/config-catalog.zh.md b/docs/config-catalog.zh.md
-index 52b98e69d8..d58fbf6399 100644
+index 2f7d8eb29f0408e5bedaa15f0a2cd7679219b1e5..4372a75151d47832e14cea13a092c70142751d5f 100644
 --- a/docs/config-catalog.zh.md
 +++ b/docs/config-catalog.zh.md
-@@ -221,12 +221,14 @@ export interface Config {
+@@ -263,12 +263,14 @@ export interface Config {
  
  ## `@deepseek-ai/dsh-api-session-controller`
  
--- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionProjections` · `sessionQuery` · `typert` · `workspaceRegistry`
--- `source`: [`packages/api/session-controller/src/index.ts:94`](../packages/api/session-controller/src/index.ts)
-+- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionPersistence` · `sessionProjections` · `sessionQuery` · `typert` · `workspaceRegistry`
-+- `source`: [`packages/api/session-controller/src/index.ts:96`](../packages/api/session-controller/src/index.ts)
+-- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionProjections` · `sessionQuery` · `typert` · `typertGateway` · `workspaceRegistry`
+-- `source`: [`packages/api/session-controller/src/index.ts:110`](../packages/api/session-controller/src/index.ts)
++- `inject`: `agentDefaultModel` · `agents` · `attachments` · `fileUploads` · `fs` · `llm` · `remoteAccess` · `sessions` · `sessionPersistence` · `sessionProjections` · `sessionQuery` · `typert` · `typertGateway` · `workspaceRegistry`
++- `source`: [`packages/api/session-controller/src/index.ts:112`](../packages/api/session-controller/src/index.ts)
  
  ```ts config-catalog
  /** Session Controller deployment policy. */
@@ -228,9 +228,9 @@ index 52b98e69d8..d58fbf6399 100644
    /** Override platform desktop-opener detection. */
    readonly nativeOpen?: boolean
    /** Positive integral milliseconds of list work before yielding between complete rows. */
-@@ -837,6 +839,27 @@ export interface Config {
+@@ -956,6 +958,27 @@ export interface Config {
  ```
- <!-- END GENERATED config-catalog:@deepseek-ai/dsh-deepseek-account-platform -->
+ <!-- END GENERATED config-catalog:@deepseek-ai/dsh-deepseek-chat-import -->
  
 +<!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-account-balance -->
 +<a id="deepseek-aidsh-experimental-account-balance"></a>
@@ -253,10 +253,10 @@ index 52b98e69d8..d58fbf6399 100644
 +```
 +<!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-account-balance -->
 +
- <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-agent-team -->
- <a id="deepseek-aidsh-experimental-agent-team"></a>
+ <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-api-speech-to-text -->
+ <a id="deepseek-aidsh-experimental-api-speech-to-text"></a>
  
-@@ -1114,6 +1137,63 @@ export interface InspectorOptions {
+@@ -1353,6 +1376,63 @@ export interface InspectorOptions {
  ```
  <!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-inspector -->
  
@@ -320,7 +320,7 @@ index 52b98e69d8..d58fbf6399 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-ptc-runtime-python -->
  <a id="deepseek-aidsh-experimental-ptc-runtime-python"></a>
  
-@@ -1323,6 +1403,85 @@ export type PaidTranslationProvider = 'deepseek-account' | 'deepseek-official'
+@@ -1589,6 +1669,85 @@ export type PaidTranslationProvider = 'deepseek-account' | 'deepseek-official'
  ```
  <!-- END GENERATED config-catalog:@deepseek-ai/dsh-experimental-translator -->
  
@@ -406,9 +406,9 @@ index 52b98e69d8..d58fbf6399 100644
  <!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-experimental-worktree -->
  <a id="deepseek-aidsh-experimental-worktree"></a>
  
-@@ -4656,7 +4815,9 @@ export interface Config {
- | `@deepseek-ai/dsh-experimental-client-ui-agent-team` | — | [`packages/experimental/client-ui-agent-team/src/index.ts`](../packages/experimental/client-ui-agent-team/src/index.ts) |
+@@ -5158,7 +5317,9 @@ export interface Config {
  | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | — | [`packages/experimental/client-ui-claude-code-mods/src/index.ts`](../packages/experimental/client-ui-claude-code-mods/src/index.ts) |
+ | `@deepseek-ai/dsh-experimental-client-ui-stats` | — | [`packages/experimental/client-ui-stats/src/index.ts`](../packages/experimental/client-ui-stats/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | — | [`packages/experimental/client-ui-voice-input/src/index.ts`](../packages/experimental/client-ui-voice-input/src/index.ts) |
 +| `@deepseek-ai/dsh-experimental-compact-layout` | — | [`packages/experimental/compact-layout/src/index.ts`](../packages/experimental/compact-layout/src/index.ts) |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | `computerUse` · `tools` · `systemPrompt` | [`packages/experimental/computer-use-cua-driver-native/src/index.ts`](../packages/experimental/computer-use-cua-driver-native/src/index.ts) |
@@ -417,90 +417,90 @@ index 52b98e69d8..d58fbf6399 100644
  | `@deepseek-ai/dsh-experimental-tool-worktree` | `tools` · `worktrees` | [`packages/experimental/tool-worktree/src/index.ts`](../packages/experimental/tool-worktree/src/index.ts) |
  | `@deepseek-ai/dsh-fs-observation-policy` | — | [`packages/fs/fs-observation-policy/src/index.ts`](../packages/fs/fs-observation-policy/src/index.ts) |
 diff --git a/docs/event-producer-consumer.md b/docs/event-producer-consumer.md
-index 4aebd22751..4e87bfdbaa 100644
+index 1d80e1cfe70738aa31ca86822870d8232fa1e6a1..a8c599bfdf8bfb75a0f7fbed22cd938c0ce55327 100644
 --- a/docs/event-producer-consumer.md
 +++ b/docs/event-producer-consumer.md
-@@ -22,11 +22,12 @@ This matrix shows which packages dispatch each harness-owned event and which pac
- | `agent/request-error` | `waterfall` | [`packages/core/agent/src/runtime-types.ts:353`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`waterfall`) | [`compaction-basic`](../packages/compaction/compaction-basic), [`compaction-image-offload`](../packages/compaction/compaction-image-offload), [`llm-retry`](../packages/llm/llm-retry) |
- | `agent/status` | `emit` | [`packages/core/agent/src/runtime-types.ts:280`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`emit`) | [`acp`](../packages/acp/acp), `agent-team`, [`compaction-basic`](../packages/compaction/compaction-basic), [`goal-round-driver`](../packages/goal/goal-round-driver), `server`, `session-controller` |
- | `agent/turn-stopping` | `serial` | [`packages/core/agent/src/runtime-types.ts:381`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`serial`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`workspace-changes`](../packages/deliverables/workspace-changes) |
--| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:629`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:609`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:636`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:615`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:622`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:643`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:623`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/before-delete` | `parallel` | [`packages/api/session-controller/src/types.ts:608`](../packages/api/session-controller/src/types.ts) | `session-controller` (`parallel`) | - |
-+| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:650`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:614`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:636`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
- | `app-boot/config-reload` | `emit` | [`packages/boot/app-boot/src/index.ts:54`](../packages/boot/app-boot/src/index.ts) | [`app-boot`](../packages/boot/app-boot) (`emit`) | [`settings`](../packages/settings/settings) |
- | `approval/request` | `waterfall` | [`packages/interaction/user-approval/src/types.ts:87`](../packages/interaction/user-approval/src/types.ts) | [`user-approval`](../packages/interaction/user-approval) (`waterfall`) | [`acp`](../packages/acp/acp), `remotes` |
+@@ -23,11 +23,12 @@ Application listeners are outside this package matrix. Desktop Host subscribes t
+ | `agent/request-error` | `waterfall` | [`packages/core/agent/src/runtime-types.ts:390`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`waterfall`) | [`compaction-basic`](../packages/compaction/compaction-basic), [`compaction-image-offload`](../packages/compaction/compaction-image-offload), [`llm-retry`](../packages/llm/llm-retry) |
+ | `agent/status` | `emit` | [`packages/core/agent/src/runtime-types.ts:310`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`emit`) | [`acp`](../packages/acp/acp), [`compaction-basic`](../packages/compaction/compaction-basic), [`goal-round-driver`](../packages/goal/goal-round-driver), `server`, `session-controller` |
+ | `agent/turn-stopping` | `serial` | [`packages/core/agent/src/runtime-types.ts:418`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`serial`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`workspace-changes`](../packages/deliverables/workspace-changes) |
+-| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:705`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:685`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:712`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:691`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:698`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:713`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:693`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/before-delete` | `parallel` | [`packages/api/session-controller/src/types.ts:684`](../packages/api/session-controller/src/types.ts) | `session-controller` (`parallel`) | - |
++| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:720`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:699`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:706`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+ | `app-boot/config-reload` | `emit` | [`packages/boot/app-boot/src/index.ts:55`](../packages/boot/app-boot/src/index.ts) | [`app-boot`](../packages/boot/app-boot) (`emit`) | [`settings`](../packages/settings/settings) |
+ | `approval/request` | `waterfall` | [`packages/interaction/user-approval/src/types.ts:87`](../packages/interaction/user-approval/src/types.ts) | [`user-approval`](../packages/interaction/user-approval) (`waterfall`) | [`acp`](../packages/acp/acp), `remotes`, `server` |
  | `authorization/settled` | `emit` | [`packages/credentials/authorization/src/index.ts:57`](../packages/credentials/authorization/src/index.ts) | [`authorization`](../packages/credentials/authorization) (`events.dispatch`) | - |
-@@ -73,7 +74,7 @@ This matrix shows which packages dispatch each harness-owned event and which pac
+@@ -82,7 +83,7 @@ Application listeners are outside this package matrix. Desktop Host subscribes t
  | `subagent/provider-removed` | `emit` | [`packages/subagent/subagent/src/index.ts:148`](../packages/subagent/subagent/src/index.ts) | [`subagent`](../packages/subagent/subagent) (`events.dispatch`) | [`tool-subagent`](../packages/subagent/tool-subagent) |
  | `subagent/start` | `emit` | [`packages/subagent/subagent/src/index.ts:158`](../packages/subagent/subagent/src/index.ts) | [`subagent`](../packages/subagent/subagent) (`events.dispatch`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code) |
- | `system-prompt/assemble` | `waterfall` | [`packages/core/system-prompt/src/index.ts:31`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`waterfall`) | [`agent`](../packages/core/agent), `browser-use-runtime`, [`session-reference`](../packages/context/session-reference), [`working-directory`](../packages/session/working-directory) |
+ | `system-prompt/assemble` | `waterfall` | [`packages/core/system-prompt/src/index.ts:31`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`waterfall`) | `browser-use-runtime`, [`working-directory`](../packages/session/working-directory) |
 -| `system-prompt/change` | `emit` | [`packages/core/system-prompt/src/index.ts:37`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`emit`) | - |
 +| `system-prompt/change` | `emit` | [`packages/core/system-prompt/src/index.ts:37`](../packages/core/system-prompt/src/index.ts) | `personal-instructions` (`emit`), [`system-prompt`](../packages/core/system-prompt) (`emit`) | - |
- | `tools/change` | `emit` | [`packages/core/tools/src/index.ts:209`](../packages/core/tools/src/index.ts) | [`agent-preset-registry`](../packages/preset/agent-preset-registry) (`emit`), [`tools`](../packages/core/tools) (`emit`) | `browser-use-runtime`, [`tool-subagent`](../packages/subagent/tool-subagent) |
- | `tools/execute` | `waterfall` | [`packages/core/tools/src/index.ts:165`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `browser-use-runtime`, `browser-use-stagehand-native`, `claude-code-mods`, `computer-use-cua-driver-native`, [`session-checkpoint-policy`](../packages/session/session-checkpoint-policy), `timeout-policy` |
- | `tools/post-execute` | `waterfall` | [`packages/core/tools/src/index.ts:177`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `claude-code-mods`, [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`repeat-tool-reminder`](../packages/guard/repeat-tool-reminder), [`spill-policy`](../packages/spill/spill-policy), [`tool-fs-search`](../packages/fs/tool-fs-search) |
-@@ -81,7 +82,7 @@ This matrix shows which packages dispatch each harness-owned event and which pac
- | `tools/ptc-dispatch-log` | `waterfall` | [`packages/core/tools/src/index.ts:191`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | [`spill-policy`](../packages/spill/spill-policy) |
- | `tools/result` | `emit` | [`packages/core/tools/src/index.ts:199`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`events.dispatch`) | [`agent-instructions`](../packages/context/agent-instructions), `claude-code-mods`, [`subagent`](../packages/subagent/subagent), [`tool-present`](../packages/deliverables/tool-present) |
- | `user-questions/request` | `waterfall` | [`packages/interaction/user-questions/src/types.ts:157`](../packages/interaction/user-questions/src/types.ts) | [`user-questions`](../packages/interaction/user-questions) (`waterfall`) | `remotes` |
--| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:39`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
-+| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:39`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `page-login`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
+ | `tools/change` | `emit` | [`packages/core/tools/src/events.ts:56`](../packages/core/tools/src/events.ts) | [`agent-preset-registry`](../packages/preset/agent-preset-registry) (`emit`), [`tools`](../packages/core/tools) (`emit`) | `browser-use-runtime` |
+ | `tools/execute` | `waterfall` | [`packages/core/tools/src/events.ts:29`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `browser-use-runtime`, `browser-use-stagehand-native`, `claude-code-mods`, `computer-use-cua-driver-native`, `cua-macos`, [`session-checkpoint-policy`](../packages/session/session-checkpoint-policy), `timeout-policy` |
+ | `tools/post-execute` | `waterfall` | [`packages/core/tools/src/events.ts:41`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `claude-code-mods`, [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`repeat-tool-reminder`](../packages/guard/repeat-tool-reminder), [`spill-policy`](../packages/spill/spill-policy), [`tool-fs-search`](../packages/fs/tool-fs-search) |
+@@ -91,7 +92,7 @@ Application listeners are outside this package matrix. Desktop Host subscribes t
+ | `tools/result` | `emit` | [`packages/core/tools/src/events.ts:49`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`events.dispatch`) | [`action-cards`](../packages/experimental/action-cards), [`agent-instructions`](../packages/context/agent-instructions), `claude-code-mods`, `forge-session`, `liveshare`, [`subagent`](../packages/subagent/subagent), [`tool-office`](../packages/document/tool-office), [`tool-present`](../packages/deliverables/tool-present), `ui-trajectory` |
+ | `user-questions/request` | `waterfall` | [`packages/interaction/user-questions/src/types.ts:174`](../packages/interaction/user-questions/src/types.ts) | [`user-questions`](../packages/interaction/user-questions) (`waterfall`) | `remotes`, `server` |
+ | `web/providers-changed` | `emit` | [`packages/web/web/src/types.ts:21`](../packages/web/web/src/types.ts) | [`web`](../packages/web/web) (`events.dispatch`) | `remotes` |
+-| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:44`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
++| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:44`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `page-login`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
  | `workflow/agent-end` | `emit` | [`packages/workflow/workflow/src/index.ts:79`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | [`tool-workflow`](../packages/workflow/tool-workflow) |
  | `workflow/agent-start` | `emit` | [`packages/workflow/workflow/src/index.ts:68`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | [`tool-workflow`](../packages/workflow/tool-workflow) |
  | `workflow/end` | `emit` | [`packages/workflow/workflow/src/index.ts:89`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | - |
 diff --git a/docs/event-producer-consumer.zh.md b/docs/event-producer-consumer.zh.md
-index 901dfca3fa..eda3fbd159 100644
+index 9245fa8fab69fce96da5369d5b0b77571fb8ea68..92c7abf9b2cf572248ebd89d55fdcfd16906871a 100644
 --- a/docs/event-producer-consumer.zh.md
 +++ b/docs/event-producer-consumer.zh.md
-@@ -24,11 +24,12 @@
- | `agent/request-error` | `waterfall` | [`packages/core/agent/src/runtime-types.ts:353`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`waterfall`) | [`compaction-basic`](../packages/compaction/compaction-basic), [`compaction-image-offload`](../packages/compaction/compaction-image-offload), [`llm-retry`](../packages/llm/llm-retry) |
- | `agent/status` | `emit` | [`packages/core/agent/src/runtime-types.ts:280`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`emit`) | [`acp`](../packages/acp/acp), `agent-team`, [`compaction-basic`](../packages/compaction/compaction-basic), [`goal-round-driver`](../packages/goal/goal-round-driver), `server`, `session-controller` |
- | `agent/turn-stopping` | `serial` | [`packages/core/agent/src/runtime-types.ts:381`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`serial`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`workspace-changes`](../packages/deliverables/workspace-changes) |
--| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:629`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:609`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:636`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:615`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
--| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:622`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:643`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:623`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/before-delete` | `parallel` | [`packages/api/session-controller/src/types.ts:608`](../packages/api/session-controller/src/types.ts) | `session-controller` (`parallel`) | - |
-+| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:650`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:614`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
-+| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:636`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
- | `app-boot/config-reload` | `emit` | [`packages/boot/app-boot/src/index.ts:54`](../packages/boot/app-boot/src/index.ts) | [`app-boot`](../packages/boot/app-boot) (`emit`) | [`settings`](../packages/settings/settings) |
- | `approval/request` | `waterfall` | [`packages/interaction/user-approval/src/types.ts:87`](../packages/interaction/user-approval/src/types.ts) | [`user-approval`](../packages/interaction/user-approval) (`waterfall`) | [`acp`](../packages/acp/acp), `remotes` |
+@@ -25,11 +25,12 @@
+ | `agent/request-error` | `waterfall` | [`packages/core/agent/src/runtime-types.ts:390`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`waterfall`) | [`compaction-basic`](../packages/compaction/compaction-basic), [`compaction-image-offload`](../packages/compaction/compaction-image-offload), [`llm-retry`](../packages/llm/llm-retry) |
+ | `agent/status` | `emit` | [`packages/core/agent/src/runtime-types.ts:310`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`emit`) | [`acp`](../packages/acp/acp), [`compaction-basic`](../packages/compaction/compaction-basic), [`goal-round-driver`](../packages/goal/goal-round-driver), `server`, `session-controller` |
+ | `agent/turn-stopping` | `serial` | [`packages/core/agent/src/runtime-types.ts:418`](../packages/core/agent/src/runtime-types.ts) | [`agent-loop`](../packages/core/agent-loop) (`serial`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`workspace-changes`](../packages/deliverables/workspace-changes) |
+-| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:705`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:685`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:712`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:691`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+-| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:698`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/activity` | `emit` | [`packages/api/session-controller/src/types.ts:713`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/added` | `emit` | [`packages/api/session-controller/src/types.ts:693`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/before-delete` | `parallel` | [`packages/api/session-controller/src/types.ts:684`](../packages/api/session-controller/src/types.ts) | `session-controller` (`parallel`) | - |
++| `api-session/error` | `emit` | [`packages/api/session-controller/src/types.ts:720`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/removed` | `emit` | [`packages/api/session-controller/src/types.ts:699`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
++| `api-session/status` | `emit` | [`packages/api/session-controller/src/types.ts:706`](../packages/api/session-controller/src/types.ts) | `session-controller` (`emit`) | `remotes` |
+ | `app-boot/config-reload` | `emit` | [`packages/boot/app-boot/src/index.ts:55`](../packages/boot/app-boot/src/index.ts) | [`app-boot`](../packages/boot/app-boot) (`emit`) | [`settings`](../packages/settings/settings) |
+ | `approval/request` | `waterfall` | [`packages/interaction/user-approval/src/types.ts:87`](../packages/interaction/user-approval/src/types.ts) | [`user-approval`](../packages/interaction/user-approval) (`waterfall`) | [`acp`](../packages/acp/acp), `remotes`, `server` |
  | `authorization/settled` | `emit` | [`packages/credentials/authorization/src/index.ts:57`](../packages/credentials/authorization/src/index.ts) | [`authorization`](../packages/credentials/authorization) (`events.dispatch`) | - |
-@@ -75,7 +76,7 @@
+@@ -84,7 +85,7 @@
  | `subagent/provider-removed` | `emit` | [`packages/subagent/subagent/src/index.ts:148`](../packages/subagent/subagent/src/index.ts) | [`subagent`](../packages/subagent/subagent) (`events.dispatch`) | [`tool-subagent`](../packages/subagent/tool-subagent) |
  | `subagent/start` | `emit` | [`packages/subagent/subagent/src/index.ts:158`](../packages/subagent/subagent/src/index.ts) | [`subagent`](../packages/subagent/subagent) (`events.dispatch`) | [`hooks-claude-code`](../packages/experimental/hooks-claude-code) |
- | `system-prompt/assemble` | `waterfall` | [`packages/core/system-prompt/src/index.ts:31`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`waterfall`) | [`agent`](../packages/core/agent), `browser-use-runtime`, [`session-reference`](../packages/context/session-reference), [`working-directory`](../packages/session/working-directory) |
+ | `system-prompt/assemble` | `waterfall` | [`packages/core/system-prompt/src/index.ts:31`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`waterfall`) | `browser-use-runtime`, [`working-directory`](../packages/session/working-directory) |
 -| `system-prompt/change` | `emit` | [`packages/core/system-prompt/src/index.ts:37`](../packages/core/system-prompt/src/index.ts) | [`system-prompt`](../packages/core/system-prompt) (`emit`) | - |
 +| `system-prompt/change` | `emit` | [`packages/core/system-prompt/src/index.ts:37`](../packages/core/system-prompt/src/index.ts) | `personal-instructions` (`emit`), [`system-prompt`](../packages/core/system-prompt) (`emit`) | - |
- | `tools/change` | `emit` | [`packages/core/tools/src/index.ts:209`](../packages/core/tools/src/index.ts) | [`agent-preset-registry`](../packages/preset/agent-preset-registry) (`emit`), [`tools`](../packages/core/tools) (`emit`) | `browser-use-runtime`, [`tool-subagent`](../packages/subagent/tool-subagent) |
- | `tools/execute` | `waterfall` | [`packages/core/tools/src/index.ts:165`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `browser-use-runtime`, `browser-use-stagehand-native`, `claude-code-mods`, `computer-use-cua-driver-native`, [`session-checkpoint-policy`](../packages/session/session-checkpoint-policy), `timeout-policy` |
- | `tools/post-execute` | `waterfall` | [`packages/core/tools/src/index.ts:177`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `claude-code-mods`, [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`repeat-tool-reminder`](../packages/guard/repeat-tool-reminder), [`spill-policy`](../packages/spill/spill-policy), [`tool-fs-search`](../packages/fs/tool-fs-search) |
-@@ -83,7 +84,7 @@
- | `tools/ptc-dispatch-log` | `waterfall` | [`packages/core/tools/src/index.ts:191`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`waterfall`) | [`spill-policy`](../packages/spill/spill-policy) |
- | `tools/result` | `emit` | [`packages/core/tools/src/index.ts:199`](../packages/core/tools/src/index.ts) | [`tools`](../packages/core/tools) (`events.dispatch`) | [`agent-instructions`](../packages/context/agent-instructions), `claude-code-mods`, [`subagent`](../packages/subagent/subagent), [`tool-present`](../packages/deliverables/tool-present) |
- | `user-questions/request` | `waterfall` | [`packages/interaction/user-questions/src/types.ts:157`](../packages/interaction/user-questions/src/types.ts) | [`user-questions`](../packages/interaction/user-questions) (`waterfall`) | `remotes` |
--| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:39`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
-+| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:39`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `page-login`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
+ | `tools/change` | `emit` | [`packages/core/tools/src/events.ts:56`](../packages/core/tools/src/events.ts) | [`agent-preset-registry`](../packages/preset/agent-preset-registry) (`emit`), [`tools`](../packages/core/tools) (`emit`) | `browser-use-runtime` |
+ | `tools/execute` | `waterfall` | [`packages/core/tools/src/events.ts:29`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `browser-use-runtime`, `browser-use-stagehand-native`, `claude-code-mods`, `computer-use-cua-driver-native`, `cua-macos`, [`session-checkpoint-policy`](../packages/session/session-checkpoint-policy), `timeout-policy` |
+ | `tools/post-execute` | `waterfall` | [`packages/core/tools/src/events.ts:41`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`waterfall`) | `claude-code-mods`, [`hooks-claude-code`](../packages/experimental/hooks-claude-code), [`hooks-codex`](../packages/experimental/hooks-codex), [`repeat-tool-reminder`](../packages/guard/repeat-tool-reminder), [`spill-policy`](../packages/spill/spill-policy), [`tool-fs-search`](../packages/fs/tool-fs-search) |
+@@ -93,7 +94,7 @@
+ | `tools/result` | `emit` | [`packages/core/tools/src/events.ts:49`](../packages/core/tools/src/events.ts) | [`tools`](../packages/core/tools) (`events.dispatch`) | [`action-cards`](../packages/experimental/action-cards), [`agent-instructions`](../packages/context/agent-instructions), `claude-code-mods`, `forge-session`, `liveshare`, [`subagent`](../packages/subagent/subagent), [`tool-office`](../packages/document/tool-office), [`tool-present`](../packages/deliverables/tool-present), `ui-trajectory` |
+ | `user-questions/request` | `waterfall` | [`packages/interaction/user-questions/src/types.ts:174`](../packages/interaction/user-questions/src/types.ts) | [`user-questions`](../packages/interaction/user-questions) (`waterfall`) | `remotes`, `server` |
+ | `web/providers-changed` | `emit` | [`packages/web/web/src/types.ts:21`](../packages/web/web/src/types.ts) | [`web`](../packages/web/web) (`events.dispatch`) | `remotes` |
+-| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:44`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
++| `webserver/index-inject` | `emit` | [`packages/host/webserver/src/index.ts:44`](../packages/host/webserver/src/index.ts) | `webserver` (`emit`) | `connection`, `inspector`, `modules`, `page-login`, `remote-access`, `shortcuts`, `ui-sidebar-documentpreview`, `ui-theme` |
  | `workflow/agent-end` | `emit` | [`packages/workflow/workflow/src/index.ts:79`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | [`tool-workflow`](../packages/workflow/tool-workflow) |
  | `workflow/agent-start` | `emit` | [`packages/workflow/workflow/src/index.ts:68`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | [`tool-workflow`](../packages/workflow/tool-workflow) |
  | `workflow/end` | `emit` | [`packages/workflow/workflow/src/index.ts:89`](../packages/workflow/workflow/src/index.ts) | [`workflow`](../packages/workflow/workflow) (`events.dispatch`) | - |
 diff --git a/docs/subsystems/persistence.md b/docs/subsystems/persistence.md
-index 3c0c2586a7..b206c7b7d5 100644
+index bca5126a2c0736a43eeb812c37f20b70cbb1f3a7..6d999f9669bc2f29e41458145d79796a0150caf3 100644
 --- a/docs/subsystems/persistence.md
 +++ b/docs/subsystems/persistence.md
-@@ -410,6 +410,15 @@ abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<S
+@@ -439,6 +439,15 @@ abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<S
   * @returns one snapshot per stored session.
   */
  abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>
@@ -517,10 +517,10 @@ index 3c0c2586a7..b206c7b7d5 100644
  
  Types: [SessionId](core.md)
 diff --git a/docs/subsystems/persistence.zh.md b/docs/subsystems/persistence.zh.md
-index dba0685409..ef7e2abd47 100644
+index ce458e1487234c5cae1ded0675e814f07363bcab..c999b50e53bfe8da8521d7c558b2c9bd45a18ddb 100644
 --- a/docs/subsystems/persistence.zh.md
 +++ b/docs/subsystems/persistence.zh.md
-@@ -410,6 +410,15 @@ abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<S
+@@ -439,6 +439,15 @@ abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<S
   * @returns one snapshot per stored session.
   */
  abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>
@@ -537,13 +537,21 @@ index dba0685409..ef7e2abd47 100644
  
  Types: [SessionId](core.zh.md)
 diff --git a/docs/subsystems/session.md b/docs/subsystems/session.md
-index 4933734d57..89c6dc6146 100644
+index c1651bf32e7b0cd18b23d4bd137ccf5c965b7247..aa82b7cc60b19f275b9effaa27d935843e65e004 100644
 --- a/docs/subsystems/session.md
 +++ b/docs/subsystems/session.md
-@@ -839,6 +839,22 @@ resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult>
+@@ -885,6 +885,30 @@ Host service backing the generated `ctx.remote.session` namespace.
   */
- inspect( sessionId: SessionId, signal?: AbortSignal, ): Promise<SessionInspection>
+ resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult>
  
++/**
++ * Inspect one attached or persisted Session without activating its Agent.
++ * @param sessionId - durable Session identity.
++ * @param signal - optional caller cancellation for persistence reads.
++ * @returns the current attached state or persisted header and event prefix.
++ */
++async inspect(sessionId: SessionId, signal?: AbortSignal): Promise<SessionInspection>
++
 +/**
 + * Permanently remove an ordinary Session through an explicitly mounted management consumer.
 + * This method is Host-only; the default browser RPC namespace exposes no deletion operation.
@@ -563,7 +571,16 @@ index 4933734d57..89c6dc6146 100644
  /**
   * Read all visible Session rows without resuming an Agent.
   * @param _request - reserved empty list request.
-@@ -1183,6 +1199,25 @@ A Session became visible or its Agent was created or disposed. Consumers upsert
+@@ -1077,7 +1101,7 @@ workspaceDesktop(): { name: string; available: boolean; fileManager: 'finder' |
+ @Remote({ mode: 'stream' }) async *control(signal: AbortSignal): AsyncIterable<SessionControlFrame>
+ ```
+ 
+-Types: [SessionId](core.md) · [SessionSearchRequest](session-query.md)
++Types: [SessionId](core.md) · [SessionInspection](persistence.md) · [SessionSearchRequest](session-query.md)
+ 
+ Source: [`packages/api/session-controller/src/index.ts`](../../packages/api/session-controller/src/index.ts)
+ 
+@@ -1292,6 +1316,25 @@ A Session became visible or its Agent was created or disposed. Consumers upsert
  
  Source: [`packages/api/session-controller/src/types.ts`](../../packages/api/session-controller/src/types.ts)
  
@@ -589,31 +606,22 @@ index 4933734d57..89c6dc6146 100644
  <a id="api-sessionerror--emit"></a>
  
  #### `api-session/error` — emit
-@@ -1207,13 +1242,13 @@ Source: [`packages/api/session-controller/src/types.ts`](../../packages/api/sess
- 
- #### `api-session/removed` — emit
- 
--A Session left the live Host registry.
-+Announces that a managed Session has been removed from persistence.
- 
- ```ts cordis-catalog
- /**
-- * A Session left the live Host registry.
-+ * Announces that a managed Session has been removed from persistence.
-  * @mode emit
-- * @param sessionId - removed Session identity.
-+ * @param sessionId - Removed Session identity.
-  */
- 'api-session/removed'(sessionId: SessionId): void
- ```
 diff --git a/docs/subsystems/session.zh.md b/docs/subsystems/session.zh.md
-index a3e5446b61..bc392a3d98 100644
+index e359382e86bee8da64ef1e751f903d0608a2113b..a51c2564638f8f4cdcb0e1b78efc7a1c50ff161e 100644
 --- a/docs/subsystems/session.zh.md
 +++ b/docs/subsystems/session.zh.md
-@@ -843,6 +843,22 @@ resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult>
+@@ -889,6 +889,30 @@ Host service backing the generated `ctx.remote.session` namespace.
   */
- inspect( sessionId: SessionId, signal?: AbortSignal, ): Promise<SessionInspection>
+ resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult>
  
++/**
++ * Inspect one attached or persisted Session without activating its Agent.
++ * @param sessionId - durable Session identity.
++ * @param signal - optional caller cancellation for persistence reads.
++ * @returns the current attached state or persisted header and event prefix.
++ */
++async inspect(sessionId: SessionId, signal?: AbortSignal): Promise<SessionInspection>
++
 +/**
 + * Permanently remove an ordinary Session through an explicitly mounted management consumer.
 + * This method is Host-only; the default browser RPC namespace exposes no deletion operation.
@@ -633,7 +641,16 @@ index a3e5446b61..bc392a3d98 100644
  /**
   * Read all visible Session rows without resuming an Agent.
   * @param _request - reserved empty list request.
-@@ -1187,6 +1203,25 @@ A Session became visible or its Agent was created or disposed. Consumers upsert
+@@ -1081,7 +1105,7 @@ workspaceDesktop(): { name: string; available: boolean; fileManager: 'finder' |
+ @Remote({ mode: 'stream' }) async *control(signal: AbortSignal): AsyncIterable<SessionControlFrame>
+ ```
+ 
+-Types: [SessionId](core.zh.md) · [SessionSearchRequest](session-query.zh.md)
++Types: [SessionId](core.zh.md) · [SessionInspection](persistence.zh.md) · [SessionSearchRequest](session-query.zh.md)
+ 
+ Source: [`packages/api/session-controller/src/index.ts`](../../packages/api/session-controller/src/index.ts)
+ 
+@@ -1296,6 +1320,25 @@ A Session became visible or its Agent was created or disposed. Consumers upsert
  
  Source: [`packages/api/session-controller/src/types.ts`](../../packages/api/session-controller/src/types.ts)
  
@@ -659,28 +676,11 @@ index a3e5446b61..bc392a3d98 100644
  <a id="api-sessionerror--emit"></a>
  
  #### `api-session/error` — emit
-@@ -1211,13 +1246,13 @@ Source: [`packages/api/session-controller/src/types.ts`](../../packages/api/sess
- 
- #### `api-session/removed` — emit
- 
--A Session left the live Host registry.
-+Announces that a managed Session has been removed from persistence.
- 
- ```ts cordis-catalog
- /**
-- * A Session left the live Host registry.
-+ * Announces that a managed Session has been removed from persistence.
-  * @mode emit
-- * @param sessionId - removed Session identity.
-+ * @param sessionId - Removed Session identity.
-  */
- 'api-session/removed'(sessionId: SessionId): void
- ```
 diff --git a/docs/subsystems/web-server.md b/docs/subsystems/web-server.md
-index c85f7a9b08..9f1f4414a1 100644
+index 2420b6713b851ce0d31636fd72993105f51c6a0d..d748d994d63f713c68a6cf83b27f840ace010a1c 100644
 --- a/docs/subsystems/web-server.md
 +++ b/docs/subsystems/web-server.md
-@@ -100,6 +100,13 @@ Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnp
+@@ -122,6 +122,13 @@ Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnp
  Host `ctx.connection` members consumed by transport-independent adapters.
  
  ```ts cordis-catalog
@@ -695,10 +695,10 @@ index c85f7a9b08..9f1f4414a1 100644
   * Compose exact Fetch routes and the shared-channel RPC interceptor.
   * @param channel - shared channel mounted by Connection.
 diff --git a/docs/subsystems/web-server.zh.md b/docs/subsystems/web-server.zh.md
-index d108ad5f67..eac3224b66 100644
+index a59344ad75516405d971c5d38b482a622a7d8886..14384beb033651cbfce49585470ab1a6f0aace1d 100644
 --- a/docs/subsystems/web-server.zh.md
 +++ b/docs/subsystems/web-server.zh.md
-@@ -100,6 +100,13 @@ Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnp
+@@ -122,6 +122,13 @@ Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnp
  Host `ctx.connection` members consumed by transport-independent adapters.
  
  ```ts cordis-catalog
@@ -713,27 +713,27 @@ index d108ad5f67..eac3224b66 100644
   * Compose exact Fetch routes and the shared-channel RPC interceptor.
   * @param channel - shared channel mounted by Connection.
 diff --git a/packages/api/session-controller/README.i18n.yaml b/packages/api/session-controller/README.i18n.yaml
-index 46f670802e..0c26b4ac7b 100644
+index 94482498be4ab2d7210bd8d3269e84c1e76e601b..024f72b332d4e4dd81bc20b110a41609f8f4ac7f 100644
 --- a/packages/api/session-controller/README.i18n.yaml
 +++ b/packages/api/session-controller/README.i18n.yaml
 @@ -15,8 +15,8 @@
    en: 1fdf707322fb6996
    zh: 0204f7e9d4aa3cce
  /session-controller/use-this-package:
--  en: f9e4042fae88f801
--  zh: f379f78966d57c2e
-+  en: 515f3f6d25234519
-+  zh: 6f18963c092e380e
+-  en: 50fa3dd0a2ce79c8
+-  zh: 88bd7ea6058d2122
++  en: 21b86a3840d7aa97
++  zh: 020b60c232d4bdfb
  /session-controller/client-references:
-   en: 41bdda1ac32df558
-   zh: aa5d0e325924066b
+   en: e8979a803ec3e194
+   zh: c567efcd971728ba
 diff --git a/packages/api/session-controller/README.md b/packages/api/session-controller/README.md
-index 02dff176ba..d3460dd214 100644
+index f414ce78ef9caedf3b01d9182a4d9d1a57a0109d..659832842471823c0d518eb501f1d0a9a8f3f791 100644
 --- a/packages/api/session-controller/README.md
 +++ b/packages/api/session-controller/README.md
-@@ -27,6 +27,8 @@ Desktop analytics follows the [product collection policy](../../client/product-a
- <a id="use-this-package"></a>
- ## Use this package
+@@ -31,6 +31,8 @@ Prompt retries use the request identity in the first committed inbox insertion,
+ 
+ The controller reads a Session's recorded preset through the optional `agentPresets.presetForSession(session)` service method. A null result means no preset was recorded; an absent service means preset identity is unavailable to the controller.
  
 +Host extensions can call `deleteSession` to stop a controller-owned ordinary Agent before deleting its persisted data, or `withSessionsStopped` to hold activation while a management operation runs. Subagent ownership remains protected. Optional `defaultCwd` supplies an absolute directory when create names no Workspace or cwd.
 +
@@ -741,12 +741,12 @@ index 02dff176ba..d3460dd214 100644
  
  The Client journal validates current Session event envelopes before publishing follow snapshots, live entries, or history pages. It reuses the browser-safe Session validators for required surface markers, exact replacement endpoints, earlier unique source seqs, embedded Assistant provider metadata, request-header omissions, and tool-error consistency. Invalid records fail without field stripping or normalization; range membership and source existence remain durable-log checks on the Host.
 diff --git a/packages/api/session-controller/README.zh.md b/packages/api/session-controller/README.zh.md
-index b01a99cc1f..07ca08bf04 100644
+index 2a83f4504dcfb13a55e83e716a751fa227009897..b8ea8cce115a7ee428e80ea3c793ac07e6adbf3b 100644
 --- a/packages/api/session-controller/README.zh.md
 +++ b/packages/api/session-controller/README.zh.md
-@@ -27,6 +27,8 @@ kind: "package-reference"
- <a id="use-this-package"></a>
- ## 使用本包
+@@ -31,6 +31,8 @@ kind: "package-reference"
+ 
+ 控制器通过可选服务方法 `agentPresets.presetForSession(session)` 读取 Session 已记录的预设。null 结果表示未记录预设；服务缺席表示控制器无法获知预设身份。
  
 +Host 扩展可调用 `deleteSession`，先停止控制器持有的普通 Agent，再删除其持久数据；也可使用 `withSessionsStopped`，在管理操作期间暂停激活。子代理的所有权仍受保护。可选 `defaultCwd` 在创建请求未指定工作区或 cwd 时提供绝对目录。
 +
@@ -754,19 +754,19 @@ index b01a99cc1f..07ca08bf04 100644
  
  Client journal 在发布 follow 快照、live entry 或历史页之前验证当前 Session 事件 envelope。它复用浏览器安全的 Session validator，检查必需的 surface marker、精确的 replacement endpoint、更早且唯一的 source seq、内嵌 Assistant 提供方元数据、request header 可选字段的省略规则以及工具错误一致性。无效 record 直接失败，不删除字段或归一化；范围成员与来源存在性仍由 Host 的持久日志检查。
 diff --git a/packages/api/session-controller/src/agent.ts b/packages/api/session-controller/src/agent.ts
-index aaacc886e7..9af428f854 100644
+index 343ad9ba5fb8d19252d6f9fb75bf5cac3bfbb252..e6ad6fd85cfc0dfc4b987130ec12c59028d47dbc 100644
 --- a/packages/api/session-controller/src/agent.ts
 +++ b/packages/api/session-controller/src/agent.ts
-@@ -5,7 +5,7 @@ import { mkdir } from 'node:fs/promises'
+@@ -3,7 +3,7 @@
+ import { randomUUID } from 'node:crypto'
+ import { mkdir } from 'node:fs/promises'
  import type { Context } from '@deepseek-ai/cordis'
- import { installModelSelection } from '@deepseek-ai/dsh-agent'
- import type {
--  Agent, AgentOptions, AgentSetup, ModelSelection as AgentModelSelection, ModelSelectionRef,
-+  Agent, AgentHandle, AgentOptions, AgentSetup, ModelSelection as AgentModelSelection, ModelSelectionRef,
- } from '@deepseek-ai/dsh-agent'
+-import type { Agent, AgentOptions, AgentSetup } from '@deepseek-ai/dsh-agent'
++import type { Agent, AgentHandle, AgentOptions, AgentSetup } from '@deepseek-ai/dsh-agent'
  import type {} from '@deepseek-ai/dsh-agent-default-model'
+ import { installModelSelection } from '@deepseek-ai/dsh-agent'
  import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-@@ -168,6 +168,8 @@ export async function inspectApiSession(
+@@ -114,6 +114,8 @@ export function apiSessionSubagentOwnershipError(sessionId: SessionId): ApiSessi
  
  /** Owns every operation that may create, resume, or configure a Web Agent. */
  export class ApiSessionAgentController {
@@ -774,18 +774,18 @@ index aaacc886e7..9af428f854 100644
 +  private readonly deleting = new Set<SessionId>()
    private readonly resumes = new Map<SessionId, Promise<Agent>>()
    private readonly claims = new Map<SessionId, Promise<void>>()
-   private readonly selections = new WeakMap<Agent, InstalledSelection>()
-@@ -175,6 +177,9 @@ export class ApiSessionAgentController {
- 
-   /** @param ctx - Host context carrying Agent, model, persistence, and Typert services. */
-   constructor(private readonly ctx: Context) {
+   private readonly imageAdmissionChains = new WeakMap<Agent, Promise<void>>()
+@@ -126,6 +128,9 @@ export class ApiSessionAgentController {
+    */
+   initialize(): void {
+     const ctx = this.ctx
 +    ctx.on('agent/disposed', ({ agent }) => {
 +      if (this.handles.get(agent.session.id)?.agent === agent) this.handles.delete(agent.session.id)
 +    })
      ctx.typert.lookups.configure('agent', async (sessionId: SessionId) => {
        const found = await this.resolveAgent(sessionId)
        if ('error' in found) throw found.error
-@@ -214,6 +219,7 @@ export class ApiSessionAgentController {
+@@ -165,6 +170,7 @@ export class ApiSessionAgentController {
      sessionId: SessionId,
      observation?: SessionObservation,
    ): Promise<ApiSessionAgentResult> {
@@ -793,8 +793,8 @@ index aaacc886e7..9af428f854 100644
      const live = this.liveAgent(sessionId)
      if (live !== undefined) return live
      const attached = this.ctx.sessions.get(sessionId)
-@@ -437,11 +443,11 @@ export class ApiSessionAgentController {
-     if (published !== undefined && hasApiSessionSubagentOwner(this.ctx, published, live)) {
+@@ -310,11 +316,11 @@ export class ApiSessionAgentController {
+     if (published !== undefined && hasApiSessionSubagentOwner(published)) {
        throw new ApiSessionSubagentOwnership(sessionId)
      }
 -    return (await this.ctx.agents.resume({
@@ -807,15 +807,15 @@ index aaacc886e7..9af428f854 100644
    }
  
    private async inOrder<Value>(sessionId: SessionId, operation: () => Promise<Value>): Promise<Value> {
-@@ -457,6 +463,7 @@ export class ApiSessionAgentController {
+@@ -330,6 +336,7 @@ export class ApiSessionAgentController {
  
    /** @returns the reused Session, a new Session under `sessionId` when none is stored, or a new Session under a minted identity. */
    private async claim(sessionId: SessionId, request: ApiSessionCreateRequest): Promise<Agent> {
 +    if (this.deleting.has(sessionId)) throw new Error('Session deletion is in progress')
      const attached = this.ctx.sessions.get(sessionId)
      const live = this.ctx.agents.get(sessionId)
-     if (attached !== undefined && hasApiSessionSubagentOwner(this.ctx, attached, live)) {
-@@ -491,11 +498,11 @@ export class ApiSessionAgentController {
+     if (attached !== undefined && hasApiSessionSubagentOwner(attached)) {
+@@ -364,11 +371,11 @@ export class ApiSessionAgentController {
      if (!reusable) return this.createMinted(request.cwd, composition)
      this.assertPresetApplicable(sessionId, request.agentPreset)
      try {
@@ -829,7 +829,7 @@ index aaacc886e7..9af428f854 100644
      } catch (error: unknown) {
        if (error instanceof ApiSessionStartedSinceObserved) return this.createMinted(request.cwd, composition)
        if (!(error instanceof Error) || error.name !== 'SessionAlreadyOwnedError') throw error
-@@ -566,7 +573,7 @@ export class ApiSessionAgentController {
+@@ -439,7 +446,7 @@ export class ApiSessionAgentController {
      } catch (error: unknown) {
        throw new Error(`failed to ensure project directory "${cwd}": ${String(error)}`, { cause: error })
      }
@@ -838,7 +838,7 @@ index aaacc886e7..9af428f854 100644
        sessionId,
        agentOptions: this.agentOptions(),
        meta: {
-@@ -574,7 +581,57 @@ export class ApiSessionAgentController {
+@@ -447,7 +454,57 @@ export class ApiSessionAgentController {
          ...(composition.agentPreset === undefined ? {} : { agentPreset: composition.agentPreset }),
        },
        setup: composition.setup,
@@ -884,7 +884,7 @@ index aaacc886e7..9af428f854 100644
 +        await Promise.all([this.claims.get(sessionId), this.resumes.get(sessionId)])
 +        const live = this.ctx.agents.get(sessionId)
 +        const handle = this.handles.get(sessionId)
-+        if (live !== undefined && (handle?.agent !== live || hasApiSessionSubagentOwner(this.ctx, live.session, live))) {
++        if (live !== undefined && (handle?.agent !== live || hasApiSessionSubagentOwner(live.session))) {
 +          throw new Error('Session is owned by another Agent; stop its owner before deleting it')
 +        }
 +        if (handle !== undefined) {
@@ -898,10 +898,10 @@ index aaacc886e7..9af428f854 100644
  
    private agentOptions(): AgentOptions {
 diff --git a/packages/api/session-controller/src/commands.ts b/packages/api/session-controller/src/commands.ts
-index 8dd38573c8..43927f6d2a 100644
+index 921d71cd239421e446fe3e900013cdc52dce7291..ffd4859a0e98304c99295db4dbc1ec62f5929098 100644
 --- a/packages/api/session-controller/src/commands.ts
 +++ b/packages/api/session-controller/src/commands.ts
-@@ -273,7 +273,7 @@ export class SessionCommandController {
+@@ -276,7 +276,7 @@ export class SessionCommandController {
      const composition = await this.agents.composeAgent(this.agents.presetForObservation(source))
      try {
        const { provider, model } = this.ctx.agentDefaultModel.currentSelection()
@@ -910,7 +910,7 @@ index 8dd38573c8..43927f6d2a 100644
          sessionId: childId,
          seed,
          inheritedEventCount: SessionLogOffset(boundary + 1),
-@@ -287,7 +287,7 @@ export class SessionCommandController {
+@@ -289,7 +289,7 @@ export class SessionCommandController {
          },
          agentOptions: { provider, model },
          setup: composition.setup,
@@ -920,15 +920,37 @@ index 8dd38573c8..43927f6d2a 100644
        throw new RemoteError(
          'gateway/internal',
 diff --git a/packages/api/session-controller/src/index.ts b/packages/api/session-controller/src/index.ts
-index 2362bce21c..80d7a5e3bc 100644
+index 6303340cd817c56724cda0cd13f62abafb0cd78c..4a4600b302e2bdda5abb986e02991e789abaa9ca 100644
 --- a/packages/api/session-controller/src/index.ts
 +++ b/packages/api/session-controller/src/index.ts
-@@ -90,8 +90,12 @@ function addressedSession(request: { readonly address: SessionAddress }): Sessio
-   return request.address.kind === 'session' ? request.address.sessionId : request.address.childSessionId
- }
+@@ -1,7 +1,7 @@
+ /** Session Remote owner: cold reads, explicit Agent commands, and live control state. */
  
-+import { isAbsolute } from 'node:path'
-+
+ import { hostname } from 'node:os'
+-import { resolve } from 'node:path'
++import { isAbsolute, resolve } from 'node:path'
+ import type { Agent } from '@deepseek-ai/dsh-agent'
+ import type {} from '@deepseek-ai/dsh-fs'
+ import { Context, Service } from '@deepseek-ai/cordis'
+@@ -11,13 +11,15 @@ import type {} from '@deepseek-ai/dsh-client-file-upload'
+ import { canOpenNativePath, nativeFileManager, nativeFileApplications, openNativeFileApplication, openNativeAssociatedPath, revealNativePath } from '@deepseek-ai/dsh-native-command'
+ import type { SessionId } from '@deepseek-ai/dsh-session'
+ import type {} from '@deepseek-ai/dsh-session-projection-cache'
+-import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
++import type { SessionInspection } from '@deepseek-ai/dsh-session-persistence'
++import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
+ import { Remote, RemoteError, TypertRemoteService, principalOf, type TypertResourceResolveInput } from '@deepseek-ai/dsh-typert-protocol'
+ import { canonicalClientTimeZone } from '@deepseek-ai/dsh-util-time'
+ import { assertNever } from '@deepseek-ai/dsh-util-values'
+ import type {} from '@deepseek-ai/dsh-api-remote-access'
+ import {
+   ApiSessionAgentController,
++  ApiSessionNotFound,
+   type ApiSessionAgentResult,
+ } from './agent.ts'
+ import { SessionCommandController, hasPromptContent } from './commands.ts'
+@@ -108,6 +110,8 @@ function resolveSessionResource({ args, parameters }: TypertResourceResolveInput
+ 
  /** Session Controller deployment policy. */
  export interface Config {
 +  /** Absolute default directory for new Sessions that select no workspace. */
@@ -936,7 +958,7 @@ index 2362bce21c..80d7a5e3bc 100644
    /** Override platform desktop-opener detection. */
    readonly nativeOpen?: boolean
    /** Positive integral milliseconds of list work before yielding between complete rows. */
-@@ -126,6 +130,7 @@ export class SessionController extends TypertRemoteService {
+@@ -142,6 +146,7 @@ export class SessionController extends TypertRemoteService {
      'llm',
      'remoteAccess',
      'sessions',
@@ -944,7 +966,7 @@ index 2362bce21c..80d7a5e3bc 100644
      'sessionProjections',
      'sessionQuery',
      'typert',
-@@ -134,6 +139,7 @@ export class SessionController extends TypertRemoteService {
+@@ -151,6 +156,7 @@ export class SessionController extends TypertRemoteService {
  
    static Config: z<Config, ResolvedConfig> = z.object({
      nativeOpen: z.boolean(),
@@ -952,24 +974,70 @@ index 2362bce21c..80d7a5e3bc 100644
      listWorkSliceMs: z.natural().min(1).default(16),
    })
  
-@@ -156,11 +162,12 @@ export class SessionController extends TypertRemoteService {
+@@ -168,16 +174,20 @@ export class SessionController extends TypertRemoteService {
+   private readonly revealPath: (path: string, signal: AbortSignal) => Promise<void>
+   private readonly canOpenPath: () => boolean
+   private readonly listWorkSliceMs: number
++  private readonly defaultCwd: string
+   private readonly promotions = new Set<Promise<void>>()
+ 
+   /**
+    * @param ctx - Host context containing the Session capability assembly.
+-   * @param config - native-opener and list-scheduling deployment policy.
++   * @param config - default directory, native opener, and list scheduling policy.
+    * @param internals - host integrations replaceable by direct unit tests.
     */
    constructor(ctx: Context, config: Config, internals: SessionControllerInternals = {}) {
      super(ctx, 'sessionController', { namespace: 'session' })
-+    if (config.defaultCwd !== undefined && !isAbsolute(config.defaultCwd)) throw new Error('defaultCwd must be absolute')
-     ctx.typert.resources.register('session', { field: 'sessionId' })
-     const resolved = SessionController.Config(config)
-     installModelSelectionProjection(ctx)
+-    this.listWorkSliceMs = SessionController.Config(config).listWorkSliceMs
++    const resolved = SessionController.Config(config)
++    if (resolved.defaultCwd !== undefined && !isAbsolute(resolved.defaultCwd)) throw new Error('defaultCwd must be absolute')
++    this.defaultCwd = resolved.defaultCwd ?? process.cwd()
++    this.listWorkSliceMs = resolved.listWorkSliceMs
+     this.fileApplications = internals.fileApplications ?? nativeFileApplications
+     this.openFileApplication = internals.openFileApplication ?? openNativeFileApplication
+     this.openPath = internals.openPath ?? openNativeAssociatedPath
+@@ -191,7 +201,7 @@ export class SessionController extends TypertRemoteService {
+     ctx.typert.resources.register('session', { resolve: resolveSessionResource })
      this.agents = new ApiSessionAgentController(ctx)
+     this.agents.initialize()
 -    this.commands = new SessionCommandController(ctx, this.agents, process.cwd())
-+    this.commands = new SessionCommandController(ctx, this.agents, config.defaultCwd ?? process.cwd())
++    this.commands = new SessionCommandController(ctx, this.agents, this.defaultCwd)
      ctx.effect(() => ctx.fileUploads.registerAgentResolver(async (sessionId) => {
        const result = await this.agents.resolveAgent(sessionId)
        if ('error' in result) throw result.error
-@@ -266,6 +273,28 @@ export class SessionController extends TypertRemoteService {
-     return inspectApiSession(this.ctx, sessionId, signal)
+@@ -272,6 +282,56 @@ export class SessionController extends TypertRemoteService {
+     return this.agents.resolveAgent(sessionId)
    }
  
++  /**
++   * Inspect one attached or persisted Session without activating its Agent.
++   * @param sessionId - durable Session identity.
++   * @param signal - optional caller cancellation for persistence reads.
++   * @returns the current attached state or persisted header and event prefix.
++   */
++  async inspect(sessionId: SessionId, signal?: AbortSignal): Promise<SessionInspection> {
++    try {
++      using observation = await this.ctx.sessionQuery.observeSession(sessionId, {
++        ...(signal === undefined ? {} : { signal }),
++        projectionMode: 'none',
++      })
++      if (observation.source === 'prepared' && observation.header.cwd === undefined) {
++        throw new ApiSessionNotFound(`session "${sessionId}" not found`)
++      }
++      return {
++        meta: observation.header,
++        inheritedEventCount: observation.inheritedEventCount,
++        events: [...observation.events],
++      }
++    } catch (error: unknown) {
++      if (error instanceof SessionQueryError && error.code === 'SESSION_QUERY_SESSION_NOT_FOUND') {
++        throw new ApiSessionNotFound(`session "${sessionId}" not found`)
++      }
++      throw error
++    }
++  }
++
 +  /**
 +   * Permanently remove an ordinary Session through an explicitly mounted management consumer.
 +   * This method is Host-only; the default browser RPC namespace exposes no deletion operation.
@@ -996,11 +1064,11 @@ index 2362bce21c..80d7a5e3bc 100644
     * Read all visible Session rows without resuming an Agent.
     * @param _request - reserved empty list request.
 diff --git a/packages/api/session-controller/src/types.ts b/packages/api/session-controller/src/types.ts
-index c0b2b9a573..f43aba7c26 100644
+index 49cd7c0f9d1d36b0d05af5a90dc30fe4cbc34392..54678f7ad0518d0f6b20b1b69f36e6bfa4e6b0a1 100644
 --- a/packages/api/session-controller/src/types.ts
 +++ b/packages/api/session-controller/src/types.ts
-@@ -599,6 +599,20 @@ export type SessionControlFrame =
-   | ({ readonly type: 'projection' } & SessionProjectionUpdate)
+@@ -675,6 +675,14 @@ export type SessionProjectionFrame =
+   | SessionProjectionChange
  
  declare module '@deepseek-ai/cordis' {
 +  interface Events {
@@ -1010,18 +1078,12 @@ index c0b2b9a573..f43aba7c26 100644
 +     * @param sessionId - Session selected for deletion.
 +     */
 +    'api-session/before-delete'(sessionId: SessionId): Promise<void>
-+    /**
-+     * Announces that a managed Session has been removed from persistence.
-+     * @mode emit
-+     * @param sessionId - Removed Session identity.
-+     */
-+    'api-session/removed'(sessionId: SessionId): void
 +  }
    interface Events {
      /**
       * A Session became visible or its Agent was created or disposed.
 diff --git a/packages/client/connection/README.i18n.yaml b/packages/client/connection/README.i18n.yaml
-index c3032532d7..d201de598c 100644
+index c3032532d77c4ef51b731726a29d58e54d67a5bf..d201de598ca6b1e2629d6681a1308ce2b0e3b2c5 100644
 --- a/packages/client/connection/README.i18n.yaml
 +++ b/packages/client/connection/README.i18n.yaml
 @@ -15,8 +15,8 @@
@@ -1036,7 +1098,7 @@ index c3032532d7..d201de598c 100644
    en: e2154aa9caa859b4
    zh: 32832efe4dc37c06
 diff --git a/packages/client/connection/README.md b/packages/client/connection/README.md
-index e6de487bdb..9c483d9adf 100644
+index e6de487bdb7b66c6087f45a2b7df5fee12b0a0cc..9c483d9adfe29407cd1ff8b43a1bde49c96aaca9 100644
 --- a/packages/client/connection/README.md
 +++ b/packages/client/connection/README.md
 @@ -25,6 +25,8 @@ The package carries browser-to-Host Remote calls, exact Fetch responses, and con
@@ -1049,7 +1111,7 @@ index e6de487bdb..9c483d9adf 100644
  
  A static desktop page can provide `__DSH_TRANSPORT__.streamBaseUrl` for the HTTP origin of its owned Host. The Gateway uses that origin for its WebSocket while HTTP transport remains independently selected. The desktop carrier owns authentication; setting the origin alone grants no access.
 diff --git a/packages/client/connection/README.zh.md b/packages/client/connection/README.zh.md
-index 5b57792975..f8e8663028 100644
+index 5b5779297510419563fec6d82a7579b6e8488115..f8e8663028808bce6b0b78c19d15a517f7a9e822 100644
 --- a/packages/client/connection/README.zh.md
 +++ b/packages/client/connection/README.zh.md
 @@ -25,6 +25,8 @@ kind: "package-reference"
@@ -1062,7 +1124,7 @@ index 5b57792975..f8e8663028 100644
  
  静态桌面页面可以通过 `__DSH_TRANSPORT__.streamBaseUrl` 提供其所拥有 Host 的 HTTP origin。Gateway 将该 origin 用于 WebSocket，HTTP 传输仍独立选择。桌面载体负责认证；仅设置 origin 不会授予访问权限。
 diff --git a/packages/client/connection/src/rpc-host.ts b/packages/client/connection/src/rpc-host.ts
-index 88e7b48baa..2bfb9ebe45 100644
+index 88e7b48baa54df58392b0f1bcec6d4416cb30c7a..2bfb9ebe45b7dd97ccd5b547f5e3089f0ead6d5d 100644
 --- a/packages/client/connection/src/rpc-host.ts
 +++ b/packages/client/connection/src/rpc-host.ts
 @@ -16,6 +16,7 @@ import { API_PATH } from './api-path.ts'
@@ -1117,7 +1179,7 @@ index 88e7b48baa..2bfb9ebe45 100644
    }
  
 diff --git a/packages/client/connection/src/rpc.ts b/packages/client/connection/src/rpc.ts
-index aec79d0728..eb7581e414 100644
+index aec79d07285e43d9bc0659499dbec18cf0940d98..eb7581e414e4c95e2af824cad57099e9d20071ce 100644
 --- a/packages/client/connection/src/rpc.ts
 +++ b/packages/client/connection/src/rpc.ts
 @@ -96,6 +96,8 @@ export type RpcMessage = ClientRequest | ServerResponse
@@ -1156,10 +1218,10 @@ index aec79d0728..eb7581e414 100644
    readonly rpc: HostConnectionRpc
    /** Exact Fetch routes for streaming or browser-native responses. */
 diff --git a/packages/client/ui-deliverables/src/client/index.ts b/packages/client/ui-deliverables/src/client/index.ts
-index bbc165e99c..71ece07a2b 100644
+index e07e6090ef63247614880b25f6e2aac58deef08d..847449ddf2a5e793398699e2bd26823fed85bdf6 100644
 --- a/packages/client/ui-deliverables/src/client/index.ts
 +++ b/packages/client/ui-deliverables/src/client/index.ts
-@@ -9,6 +9,7 @@
+@@ -10,6 +10,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-context-menu/client'
   * surface; the owning view renders an empty list and inert prose at zero cost.
   */
  import './file-actions.ts'
@@ -1168,206 +1230,269 @@ index bbc165e99c..71ece07a2b 100644
  import type {} from '@deepseek-ai/dsh-api-remotes/client'
  import type {} from '@deepseek-ai/dsh-client-connection/client'
 diff --git a/packages/client/ui-layout/src/client/AppFrame.tsx b/packages/client/ui-layout/src/client/AppFrame.tsx
-index 5614947447..85b58dc4da 100644
+index 23e71c9c03841b9ec9ddf881296e6f8ee29f8d72..a58f4082f1da0b7808c75c483c8fbe19e4389f95 100644
 --- a/packages/client/ui-layout/src/client/AppFrame.tsx
 +++ b/packages/client/ui-layout/src/client/AppFrame.tsx
-@@ -33,7 +33,7 @@ export type AppFrameProps =
+@@ -39,7 +39,7 @@ export type AppFrameProps =
  
  /** Center column grid item (session-body building block). */
- function CenterColumn(props: { children?: ReactNode }) {
--  return <div className={css.centerCol}>{props.children}</div>
-+  return <div className={css.centerCol} data-center-col>{props.children}</div>
+ function CenterColumn(props: { children?: ReactNode; inert: boolean }) {
+-  return <div className={css.centerCol} {...{ inert: props.inert ? '' : undefined }}>{props.children}</div>
++  return <div className={css.centerCol} data-center-col {...{ inert: props.inert ? '' : undefined }}>{props.children}</div>
  }
  
  /** Subscribe to the main key without subscribing the column frame to each panel id. */
-@@ -258,6 +258,7 @@ export function AppFrame({
+@@ -288,6 +288,7 @@ export function AppFrame({
    return (
      <div
        ref={frameRef}
 +      data-app-frame
        className={css.frame}
        style={{
-         ...(document.documentElement.hasAttribute('data-windows-titlebar')
-@@ -277,7 +278,7 @@ export function AppFrame({
-         useSessions={useSessions}
-         usePanelInfo={usePanelInfo}
+         ...(windowsTitlebar
+@@ -311,7 +312,7 @@ export function AppFrame({
        />
--      <div className={css.sidebarCol}>
-+      <div className={css.sidebarCol} data-sidebar-col>
+       {drawer && <div className={css.drawerMask} data-sidebar-mask aria-hidden="true"
+         onClick={drawerOpen ? () => { actions.toggleSidebar() } : undefined} />}
+-      <div className={css.sidebarCol}
++      <div className={css.sidebarCol} data-sidebar-col
+         style={drawer ? { width: sidebarWidth } : undefined}
+         {...{ inert: drawer && sidebarCollapsed ? '' : undefined }}>
          {sidebar}
-       </div>
-       <>
 diff --git a/packages/client/ui-sidebar-files/README.i18n.yaml b/packages/client/ui-sidebar-files/README.i18n.yaml
-index c9475ae68a..a270740eb6 100644
+index dd3d34d879b048c607d8800076bacb81b7cc773a..22aa284bf28ff94cfa12be0c886c082a54878f65 100644
 --- a/packages/client/ui-sidebar-files/README.i18n.yaml
 +++ b/packages/client/ui-sidebar-files/README.i18n.yaml
 @@ -15,8 +15,8 @@
-   en: 9411fb4809692e09
-   zh: dd13990d39c5be7f
+   en: 81cb6e051699a7b4
+   zh: 566d0278acae69fa
  /deepseek-ai-dsh-client-ui-sidebar-files/what-it-registers:
--  en: ed52405be7c3fa24
--  zh: d06dbd49c786c5f0
-+  en: 6371798f462215e9
-+  zh: f5d4875cb16b4ab4
- /deepseek-ai-dsh-client-ui-sidebar-files/the-tree:
-   en: a0ae0b1f223b3df1
-   zh: 8ddc325519bd75b2
+-  en: c4b8f3a52f68bd51
+-  zh: 30b580320637572c
++  en: c51eefffb713ceb2
++  zh: 7ee54fc1a446659f
+ /deepseek-ai-dsh-client-ui-sidebar-files/the-navigator:
+   en: 3424600b15bde2d2
+   zh: 2cf1c99ffef2ad50
 diff --git a/packages/client/ui-sidebar-files/README.md b/packages/client/ui-sidebar-files/README.md
-index 5c04f195d1..50ad5b79f4 100644
+index 3991ccec18e6c3be055945eb02200c31af439e26..ad8f38f484486441b214c918c9f5a42f3c0a8c71 100644
 --- a/packages/client/ui-sidebar-files/README.md
 +++ b/packages/client/ui-sidebar-files/README.md
-@@ -24,6 +24,8 @@ Browse a Session's workspace tree and open files in Sidebar previews. The root a
+@@ -27,6 +27,8 @@ Browse a Session's workspace tree beside the files you preview. Each pane keeps
  <a id="what-it-registers"></a>
  ## What it registers
  
-+Cloud extensions contribute per-row controls through `sidebar.files.file.action` and `sidebar.files.directory.action`. Both slots receive the absolute file path and the bound Session standard props; native file opening and directory expansion remain independent.
++Workspace plugins contribute per-row controls through `sidebar.files.file.action` and `sidebar.files.directory.action`. Each slot receives the absolute path and the bound Session props.
 +
- The `workspace.files` command opens or focuses the file page in the focused pane; from the conversation it uses the current Session's active dock pane. A guide gives way to the file page, and repeated opens retain one file page per pane. Desktop defaults to Mod+P. The guide entry displays the effective shortcut; Windows and macOS Web use the [shortcut service’s platform defaults](../shortcuts/README.md); Linux Web leaves this command unbound by default.
+ The `workspace.files` command shows the navigator beside a docked preview or expands the search bar on an existing docked files page, and moves keyboard focus to its search field, keeping the tab; from the conversation it uses the current Session's active dock pane. Elsewhere — a tab without the navigator, a Session without a working directory, a floating tab — it opens or focuses the files page, whose tree always shows. A guide gives way to the files page, and repeated opens retain one files page per pane. Desktop defaults to Mod+P. The guide entry displays the effective shortcut; Windows and macOS Web use the [shortcut service’s platform defaults](../shortcuts/README.md); Linux Web leaves this command unbound by default.
  
  - **The type** — `ctx.sidebarRightTabs.register(...)` with kind `files`, id `@deepseek-ai/dsh-client-ui-sidebar-files`, band `builtin`, no patterns, and one guide entry (order 10, its title and description from the `sidebarFiles` namespace, its glyph a yellow folder) that opens the type.
 diff --git a/packages/client/ui-sidebar-files/README.zh.md b/packages/client/ui-sidebar-files/README.zh.md
-index ec092a362d..a63cecaffa 100644
+index 5c5e776ad29eaa33a1e71fb375cade933a26ed79..b40e8e778ce18fa99aab1e232d77f6decebc473a 100644
 --- a/packages/client/ui-sidebar-files/README.zh.md
 +++ b/packages/client/ui-sidebar-files/README.zh.md
-@@ -24,6 +24,8 @@ kind: "package-reference"
+@@ -27,6 +27,8 @@ kind: "package-reference"
  <a id="what-it-registers"></a>
  ## 注册了什么
  
-+云端扩展通过 `sidebar.files.file.action` 和 `sidebar.files.directory.action` 提供文件行操作。两个插槽均接收绝对路径和绑定对话的标准属性，原生文件打开和目录展开保持独立。
++工作区插件通过 `sidebar.files.file.action` 和 `sidebar.files.directory.action` 提供行操作。两个插槽都接收绝对路径与所绑定会话的属性。
 +
- 命令 `workspace.files` 在焦点分栏内打开或聚焦文件页；从聊天区触发时使用当前会话的活动停靠分栏。文件页替换开始页，同一分栏内重复打开仍保留一个文件页。桌面默认键为 Mod+P。开始页入口显示有效快捷键；Windows 和 macOS Web 使用[快捷键服务的平台默认值](../shortcuts/README.zh.md)；Linux Web 默认不绑定此命令。
+ 命令 `workspace.files` 在焦点分栏内显示停靠预览旁的导航栏，或展开已有停靠文件页的搜索栏，并把键盘焦点移到其搜索框，保留该 tab；从聊天区触发时使用当前会话的活动停靠分栏。其他情况下（不带导航栏的 tab、没有工作目录的会话、浮动 tab）打开或聚焦文件页，文件页的目录树始终显示。文件页替换开始页，同一分栏内重复打开仍保留一个文件页。桌面默认键为 Mod+P。开始页入口显示有效快捷键；Windows 和 macOS Web 使用[快捷键服务的平台默认值](../shortcuts/README.zh.md)；Linux Web 默认不绑定此命令。
  
  - **类型**：`ctx.sidebarRightTabs.register(...)`，kind 为 `files`，id 为 `@deepseek-ai/dsh-client-ui-sidebar-files`，档位 `builtin`，没有 patterns，另有一个打开该类型的引导页入口（order 10，标题与描述取自 `sidebarFiles` 命名空间，图标为黄色文件夹）。
+diff --git a/packages/client/ui-sidebar-files/src/client/FileNavigator.tsx b/packages/client/ui-sidebar-files/src/client/FileNavigator.tsx
+index dac8bb7f889fff25d3f2260960c7dbfec4099525..51fdac3a950e4e19cc4c505e32ea9f5a5ccb6c3a 100644
+--- a/packages/client/ui-sidebar-files/src/client/FileNavigator.tsx
++++ b/packages/client/ui-sidebar-files/src/client/FileNavigator.tsx
+@@ -35,6 +35,8 @@ export interface FileNavigatorInput {
+   readonly useTabInfo: UseSidebarRightTabInfo
+   /** Drawn for the `files` page: always shown and filling the page. */
+   readonly page: boolean
++  /** Independent row controls supplied by the files page. */
++  readonly rowAccessory?: (props: { entry: TreeEntry }) => ReactNode
+   /** Ask the containing plugin to open a file. @param address - the file's resource address. */
+   readonly onOpen: (address: string) => void
+ }
+@@ -166,10 +168,11 @@ function SearchFailure({ failure, onRetry, t }: {
+  * @returns the navigator, or nothing while hidden or without a workspace.
+  */
+ export function FileNavigator({
+-  useTabInfo, page, onOpen, sessionId, useSessions, useStore, actions, useRowWidth, useCanOpen, useSearchPreferences,
++  useTabInfo, page, onOpen, rowAccessory, sessionId, useSessions, useStore, actions, useRowWidth, useCanOpen, useSearchPreferences,
+   attach, placeBeside, hold, toggle, scrolled, bodyDrawn, currentDrawn, navigatorDrawn,
+   setQuery, toggleSearch, retrySearch, setSearchPreferences, searchDrawn, t, renderFactorySlot, useContextMenu,
+ }: FactoryComponentPropsOf<'sidebar.files.navigator'>): ReactNode {
++  const treeSlots = rowAccessory === undefined ? undefined : { slots: { accessory: rowAccessory } }
+   const { tab, panel } = useTabInfo()
+   const { getTriggerProps } = useContextMenu()
+   const paneId = panel.id
+@@ -414,11 +417,11 @@ export function FileNavigator({
+                     && renderFactorySlot('sidebar.files.tree', {
+                       ...resultView, entries: resultEntries, directories: resultDirectories, highlight: found.query,
+                       current: resultCurrent, currentRef,
+-                    })}
++                    }, treeSlots)}
+                   <SearchNotes result={found} t={t} />
+                 </>
+               )
+-            : renderFactorySlot('sidebar.files.tree', { ...view, entries, directories, current: location?.current, currentRef })}
++            : renderFactorySlot('sidebar.files.tree', { ...view, entries, directories, current: location?.current, currentRef }, treeSlots)}
+       </div>
+       {searchBarOpen && draft !== undefined && (
+         <SearchSettings rules={draft} trigger={trigger} onChange={setDraft}
 diff --git a/packages/client/ui-sidebar-files/src/client/FilesBody.module.css b/packages/client/ui-sidebar-files/src/client/FilesBody.module.css
-index 4569973ccc..4a0da5c903 100644
+index 315d5afae86d55b7115331ebb0e067e6bced4ee6..6808629f4180e0195958b1a03ec21fc3955a8ca4 100644
 --- a/packages/client/ui-sidebar-files/src/client/FilesBody.module.css
 +++ b/packages/client/ui-sidebar-files/src/client/FilesBody.module.css
-@@ -176,3 +176,9 @@
- .titleIcon {
-   flex: none;
+@@ -532,3 +532,31 @@
+     font-size: 16px;
+   }
  }
 +
-+.item { position: relative; }
-+.item:has(> .entryActions) > .row { padding-right: 105px; }
-+.entryActions { position: absolute; right: 4px; top: 0; display: flex; gap: 2px; align-items: center; height: 30px; }
-+.entryActions :is(button, a) { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 0; background: transparent; color: inherit; border-radius: 6px; cursor: pointer; }
-+.entryActions :is(button, a):hover { background: var(--dsw-alias-interactive-bg-hover); }
++.entryActions {
++  display: flex;
++  gap: 2px;
++}
++
++.entryActions:empty {
++  display: none;
++}
++
++.entryActions :is(button, a) {
++  display: inline-flex;
++  align-items: center;
++  justify-content: center;
++  width: 30px;
++  height: 30px;
++  border: 0;
++  border-radius: var(--dsw-radius-md);
++  background: transparent;
++  color: inherit;
++  cursor: pointer;
++}
++
++@media (hover: hover) {
++  .entryActions :is(button, a):hover {
++    background: var(--dsw-alias-interactive-bg-hover);
++  }
++}
 diff --git a/packages/client/ui-sidebar-files/src/client/FilesBody.tsx b/packages/client/ui-sidebar-files/src/client/FilesBody.tsx
-index 2aa024b649..064abb5e96 100644
+index 0f6b26d7f6ba54711bca3b9603eb1b0a1629399d..f09741d5f6ecd2d4fb1dc45f47a8d09dd9a20843 100644
 --- a/packages/client/ui-sidebar-files/src/client/FilesBody.tsx
 +++ b/packages/client/ui-sidebar-files/src/client/FilesBody.tsx
-@@ -30,7 +30,7 @@ import css from './FilesBody.module.css'
- /** The body's composed props: the tab it draws, its store, its face, and its copy. */
+@@ -18,6 +18,7 @@ import {
+ } from '@deepseek-ai/dsh-client-ui-primitives'
+ import type { FilesInjected } from './face.ts'
+ import type {} from './FileNavigator.tsx'
++import type { TreeEntry } from './FileTree.tsx'
+ import type {} from './locales.ts'
+ import type { createFilesStore } from './store.ts'
+ import css from './FilesBody.module.css'
+@@ -25,7 +26,7 @@ import css from './FilesBody.module.css'
+ /** The page's composed props: the tab it draws, its directory-actions seat, the pane records and the tree's face, and copy. */
  export type FilesBodyProps =
    & PropsRuntime<'sidebar.right.pane.tab'>
 -  & PropsRenderSlots<'sidebar.right.tab.files.actions'>
 +  & PropsRenderSlots<'sidebar.right.tab.files.actions' | 'sidebar.files.file.action' | 'sidebar.files.directory.action'>
+   & PropsRenderFactories
    & PropsStore<ReturnType<typeof createFilesStore>>
-   & FilesInjected
-   & PropsLocale<'sidebarFiles'>
-@@ -70,7 +70,7 @@ export function failureLine(t: TranslateNS<'sidebarFiles'>, failure: RemoteFailu
- }
- 
- /** What every level shares: the tab's tree and the two gestures. */
--interface TreeContext {
-+interface TreeContext extends Pick<FilesBodyProps, 'renderSlot'> {
-   readonly state: FilesTabState
-   readonly onToggle: (parent: string, path: string) => void
-   readonly onOpen: (path: string) => void
-@@ -88,6 +88,7 @@ function Entry({ parent, entry, tree }: { parent: string; entry: WorkspaceDirect
-           {expanded ? <IconFolderOpenRegular className={css.icon} /> : <IconFolderCloseRegular className={css.icon} />}
-           <span className={css.name}>{entry.name}</span>
-         </button>
-+        <span className={css.entryActions}>{tree.renderSlot('sidebar.files.directory.action', { path })}</span>
-         {expanded && <ul className={css.level}><Level path={path} tree={tree} /></ul>}
-       </li>
-     )
-@@ -99,6 +100,7 @@ function Entry({ parent, entry, tree }: { parent: string; entry: WorkspaceDirect
-           <FileTypeIcon kind={classifyFileType(entry.name)} size={16} className={css.fileIcon} />
-           <span className={css.name}>{entry.name}</span>
-         </button>
-+        <span className={css.entryActions}>{tree.renderSlot('sidebar.files.file.action', { path })}</span>
-       </li>
+   & InjectFace<FilesInjected>
+@@ -51,6 +52,12 @@ export function FilesBody(props: FilesBodyProps): ReactNode {
+     () => tab.actions.bindCommands({ refresh: () => { refresh(panel.id) } }),
+     [tab.actions, panel.id, refresh],
+   )
++  const RowActions = useCallback(({ entry }: { entry: TreeEntry }): ReactNode => {
++    if (entry.meta?.kind !== 'directory' && entry.meta?.kind !== 'file') return null
++    const slot = entry.meta.kind === 'directory' ? 'sidebar.files.directory.action' : 'sidebar.files.file.action'
++    const actions = renderSlot(slot, { path: entry.path })
++    return <div className={css.entryActions}>{actions}</div>
++  }, [renderSlot])
+   const cwd = useSessions(sessions => sessions.byId[sessionId]?.cwd)
+   // The setting belongs to a listed tree, so there is nothing to set before one.
+   const autoRefresh = useStore((store) => {
+@@ -68,7 +75,7 @@ export function FilesBody(props: FilesBodyProps): ReactNode {
      )
    }
-@@ -181,6 +183,7 @@ export function FilesBody({
-   }
-   if (state === undefined) return null
-   const tree: TreeContext = {
-+    renderSlot,
-     state,
-     onToggle: (parent, path) => { toggle(tab.id, parent, path, state.expanded, signal) },
-     // Every row is under the tree's root, so its address is session-relative.
+   const automatic = autoRefresh ?? true
+-  const navigator = renderFactorySlot('sidebar.files.navigator', { useTabInfo, page: true, onOpen })
++  const navigator = renderFactorySlot('sidebar.files.navigator', { useTabInfo, page: true, onOpen, rowAccessory: RowActions })
+   return (
+     <div className={css.page} data-files-page>
+       <div className={css.header}>
 diff --git a/packages/client/ui-sidebar-files/src/client/index.ts b/packages/client/ui-sidebar-files/src/client/index.ts
-index fb2ab7ad43..ae7b46841c 100644
+index 95acbdde1b86857493c69177ccbbc81eb74db443..74faebcf868df102b30ccf7e265437487566fdd5 100644
 --- a/packages/client/ui-sidebar-files/src/client/index.ts
 +++ b/packages/client/ui-sidebar-files/src/client/index.ts
-@@ -30,6 +30,10 @@ export type { FilesBodyProps } from './FilesBody.tsx'
+@@ -42,6 +42,10 @@ export type { NavigatorToggleInput } from './NavigatorToggle.tsx'
  
  declare module '@deepseek-ai/dsh-client-ui-slots' {
    interface SlotMap {
-+    /** File-tree actions supplied by optional browser plugins. */
++    /** Optional controls for a file in the workspace files page. */
 +    'sidebar.files.file.action': { kind: 'list'; scope: 'session'; owner: { path: string } }
-+    /** Directory-tree actions supplied by optional browser plugins. */
++    /** Optional controls for a directory in the workspace files page. */
 +    'sidebar.files.directory.action': { kind: 'list'; scope: 'session'; owner: { path: string } }
-     /** Workspace directory actions after the file tree's reload control. */
+     /** Workspace directory actions after the `files` page's reload control. */
      'sidebar.right.tab.files.actions': {
        kind: 'list'
-@@ -86,7 +90,7 @@ export function apply(ctx: ClientContext): void {
+@@ -174,7 +178,11 @@ export function apply(ctx: ClientContext): void {
    ctx.effect(() => ctx.slots.inject('sidebar.right.pane.tab', () => ctx.slots.register(
      {
-       name: 'sidebar.right.pane.tab', key: FILES_ID, locale: NS, store, inject,
+       name: 'sidebar.right.pane.tab', key: FILES_ID, locale: NS, store, inject: injectFace,
 -      children: { 'sidebar.right.tab.files.actions': { kind: 'list', scope: 'session' } },
-+      children: { 'sidebar.files.file.action': { kind: 'list', scope: 'session' }, 'sidebar.files.directory.action': { kind: 'list', scope: 'session' }, 'sidebar.right.tab.files.actions': { kind: 'list', scope: 'session' } },
++      children: {
++        'sidebar.files.file.action': { kind: 'list', scope: 'session' },
++        'sidebar.files.directory.action': { kind: 'list', scope: 'session' },
++        'sidebar.right.tab.files.actions': { kind: 'list', scope: 'session' },
++      },
      },
      FilesBody,
    )), 'ui-sidebar-files: files tab body')
 diff --git a/packages/client/ui-workspace/README.i18n.yaml b/packages/client/ui-workspace/README.i18n.yaml
-index 469aa0c0e5..caab3851e6 100644
+index c9d0efca1c9648dcebc08e5ecbdea977da3a0a2f..1c14f016b59e213e12c795a540f535dbecd1afdf 100644
 --- a/packages/client/ui-workspace/README.i18n.yaml
 +++ b/packages/client/ui-workspace/README.i18n.yaml
-@@ -15,8 +15,8 @@
-   en: d152484eb41ac6b4
-   zh: 09388d293f9be9cb
- /deepseek-ai-dsh-client-ui-workspace/use-this-package:
--  en: d042b4b1dd7e7f56
--  zh: c12fa070ef5a02a4
-+  en: f4f1737763b8ac80
-+  zh: febb73d136111bbf
- /deepseek-ai-dsh-client-ui-workspace/use-this-package/reordering-and-view-options:
-   en: 8673afc1d72ad077
-   zh: 9fbb83a4029c5d10
+@@ -36,8 +36,8 @@
+   en: 249d9552d8bef805
+   zh: 405b1c636cba8e0b
+ /deepseek-ai-dsh-client-ui-workspace/understand-the-implementation:
+-  en: 8f170900a4096408
+-  zh: 85332e80adf39403
++  en: 6b903692a0736a30
++  zh: c81c7cdcd698be79
+ /deepseek-ai-dsh-client-ui-workspace/understand-the-implementation/the-directory-flow-hole:
+   en: b4c44f1b6d96966d
+   zh: 96e9c8c003e2341a
 diff --git a/packages/client/ui-workspace/README.md b/packages/client/ui-workspace/README.md
-index f630f0fdf7..5fa35af6c8 100644
+index f799572b157c2c3fda676d94926ffdfb9e0dea46..d1ea5d45ec62e03b24f25712769d794543734b1e 100644
 --- a/packages/client/ui-workspace/README.md
 +++ b/packages/client/ui-workspace/README.md
-@@ -27,6 +27,8 @@ This package lets users browse grouped or flat Session lists, choose a Workspace
- <a id="use-this-package"></a>
- ## Use this package
+@@ -115,6 +115,8 @@ Session rows accept Tab focus and open with unmodified Enter or Space; Tab also
  
-+The optional `sidebar.workspaces.delete` slot receives the selected Workspace and close callback. Its empty fallback is the native Workspace deletion dialog; cloud extensions can supply explicit file and Session removal choices.
+ Client callers can pass `prompt`, `whenDraftExists`, and `clearPreviousDraft` in the second argument to `uiWorkspace.startSession`. A prompt is plain text; structured drafts are handled internally during restoration and Workspace transfer. An empty draft adopts the prompt. When the target already has text or attachments, `whenDraftExists: 'keep'` (the default) preserves them, `'replace'` replaces only the target Session's text and inline references with the prompt or clears them without one, and `'append'` adds the prompt as new paragraphs after the existing text; attachments stay in every case. `clearPreviousDraft: true` acts as `'replace'` only when `whenDraftExists` is omitted. Option values are captured before asynchronous creation and applied to the exact retained binding before navigation commits. Superseded navigation does not write content; a submission-blocked input refuses preparation and keeps the previous selection. Calls with or without options open the blank Session chosen as described above, so New Session returns to its unsent draft. The [draft initialization decision](../../../.agents/notes/implemented/architecture/2026-09-30-structured-draft-initialization.md) describes the input owner's data flow.
+ 
++The root-scoped `sidebar.workspaces.delete` slot receives the selected Workspace ID, title, and close callback. A plugin can supply its own confirmation. An empty slot renders the built-in Workspace removal dialog.
 +
- Use the sidebar to browse Workspaces and their Sessions, reorder them, and start new ones; use the picker in the Session Intent hero to choose a Workspace for a new session. An open Workspace shows its first non-blank Sessions in list order up to a per-Workspace watermark, initially five. The watermark rises to cover the last Session within the first 50 that is running, has a running child, awaits the user, has an unread completion, or is open in the main view; a Session opened from search raises it to that Session at any position. The watermark is a row count that never falls on its own, so the rows stay visible after a run or notification ends; a reorder that moves a Session past the watermark hides it. Each **Show more** click raises it by five, without the 50-row limit, and reveals the rest when five or fewer remain; after the final batch, **Show less** resets it. Folding a Workspace resets its watermark and those of its nested Workspaces; a reset watermark still covers the qualifying Sessions. The selected blank **New Session** is an extra row outside the watermark until its first prompt. Watermarks are not persisted; any unmount of the grouped tree resets them.
+ ### The directory-flow hole
  
- History rows without a stored title use the localized unnamed label (未命名 / Untitled), rather than a directory name. The current blank row remains New Session; other blank rows remain hidden. Rename drafts use the stored title, or start empty when unnamed; unnamed rows do not offer title copying.
+ Each registration declares a **directory-flow child hole** (`single` kind: `conversation.hero.workspace.directoryFlow` / `sidebar.workspaces.directoryFlow`), and the `workspace.picker` Factory declares `workspace.picker.directoryFlow`; the composed picker package's client half fills all three with its picking interaction — the `-native` backend's renderless OS-chooser driver, an in-app browsing dialog under a `-browse` composition. The flat **Add workspace...** action renders only while the surface's hole is occupied; an empty hole means the composition has no picking affordance. The sidebar Add workspace action preserves an existing blank Session and its draft. This package owns the trigger and the adoption: the occupant reports one picked path per open through the hole's owner conversation (`open`/`busy`/`onPicked`/`onCancel`/`onError`), and the owner adopts it through the object layer, selecting the committed Workspace only after its list projection has refreshed.
 diff --git a/packages/client/ui-workspace/README.zh.md b/packages/client/ui-workspace/README.zh.md
-index 80f726cfe6..922c71d191 100644
+index bd6cd38fdb81fc41486c0a4121300a102dde8864..cb0d2fdbc8c74fc8ab2cd1a04d42cb301015238c 100644
 --- a/packages/client/ui-workspace/README.zh.md
 +++ b/packages/client/ui-workspace/README.zh.md
-@@ -27,6 +27,8 @@ kind: "package-reference"
- <a id="use-this-package"></a>
- ## 使用本包
+@@ -115,6 +115,8 @@ Session 行可通过 Tab 聚焦，使用不带修饰键的 Enter 或空格打开
  
-+可选 `sidebar.workspaces.delete` 插槽接收选中的工作区和关闭回调。没有扩展时使用原生工作区删除弹窗，云端扩展可提供显式的文件和对话删除选项。
+ 客户端调用方可以在 `uiWorkspace.startSession` 的第二参数中传入 `prompt`、`whenDraftExists` 与 `clearPreviousDraft`。提示词仅接受普通文字；结构化草稿由内部恢复和工作区携带流程处理。空稿直接采用提示词。目标已有文字或附件时，`whenDraftExists: 'keep'`（默认）保留原稿，`'replace'` 只用提示词替换目标 Session 的文字和内联引用、无提示词时清空，`'append'` 在原有文字之后另起段落追加提示词；附件在各种情况下都保留。只有未传 `whenDraftExists` 时，`clearPreviousDraft: true` 才等同 `'replace'`。在异步创建前捕获选项值，在导航提交前应用到准确保留的 binding。已被后续操作取代的导航不写内容；输入处于提交阻塞状态时拒绝准备并保留原选择。无论是否传入选项，都按上文所述选择并打开空白 Session，因此新会话会回到其未发送的草稿。[草稿初始化决策](../../../.agents/notes/implemented/architecture/2026-09-30-structured-draft-initialization.zh.md)说明输入 owner 的数据流。
+ 
++根作用域的 `sidebar.workspaces.delete` 插槽接收选中的 Workspace ID、标题和关闭回调。插件可以提供自己的确认弹窗。插槽为空时使用内置的工作区移除弹窗。
 +
- 用侧边栏浏览 Workspace 及其 Session、重排它们并新建会话；在 Session Intent 主视觉区用选择器为新会话选择 Workspace。打开的 Workspace 按列表顺序显示前面的非空白 Session，直到该 Workspace 自己的水位线，水位线初始为五。水位线会升高，以覆盖前 50 条中最后一条正在运行、有子会话正在运行、等待用户、有未读完成提醒或在主视图中打开的 Session；从搜索打开的 Session 会把水位线升高到该 Session，无论其位置。水位线是一个行数，不会自行回落，因此运行或通知结束后这些行仍保持可见；重排若把某个 Session 移到水位线之后，该 Session 会被隐藏。每次点击**展开其余**将水位线升高五条，不受 50 行限制；剩余五条或更少时显示全部；最后一批显示后，**收起**重置水位线。折叠 Workspace 会重置其水位线及其嵌套 Workspace 的水位线；重置后的水位线仍覆盖符合条件的 Session。当前选中的空白**新会话**在首条提示词落地前是水位线之外的额外行。水位线不持久化；分组树的任何卸载都会重置水位线。
+ ### 目录流子 slot
  
- 未保存标题的历史会话显示本地化名称「未命名 / Untitled」，不使用目录名兜底。当前空会话仍显示「新会话」，其他空会话仍隐藏。重命名草稿使用已保存标题，无标题时留空；无标题行不提供标题复制。
+ 每个注册各自声明一个**目录流子 slot**（`single` kind：`conversation.hero.workspace.directoryFlow`／`sidebar.workspaces.directoryFlow`），`workspace.picker` Factory 则声明 `workspace.picker.directoryFlow`；组合的选择器包 client half 向这三处填入其选取交互——`-native` 后端的无渲染 OS 选择器驱动，`-browse` 组合下则是应用内浏览对话框。平铺显示的**添加工作区…** 操作仅在当前界面的 slot 被占用时渲染；slot 为空意味着该组合没有目录选择能力。侧栏的添加工作区操作保留已有空白 Session 及其草稿。本包持有触发与接纳：占用方通过 slot 的属主交互约定（`open`/`busy`/`onPicked`/`onCancel`/`onError`）每次打开上报一个所选路径，owner 通过对象层接纳它，并等待 Workspace 列表投影刷新后才选中已提交的 Workspace。
 diff --git a/packages/client/ui-workspace/src/client/contract/slots.ts b/packages/client/ui-workspace/src/client/contract/slots.ts
-index d00b3658d8..1ba15661e6 100644
+index e71545191ab5f00af853ed259c7b1352395aedff..59bde45cbc3b81de5718578ec28f48eabf18f301 100644
 --- a/packages/client/ui-workspace/src/client/contract/slots.ts
 +++ b/packages/client/ui-workspace/src/client/contract/slots.ts
-@@ -115,6 +115,8 @@ export interface SessionRowScheduleOwnerProps {
+@@ -137,6 +137,8 @@ export interface SessionRowTrailingOwnerProps {
  
  declare module '@deepseek-ai/dsh-client-ui-slots' {
    interface SlotMap {
@@ -1376,69 +1501,70 @@ index d00b3658d8..1ba15661e6 100644
      /** Directory-flow hole under the conversation empty-state picker (declared by the WorkspacePicker entry). */
      'conversation.hero.workspace.directoryFlow': { kind: 'single'; scope: 'root'; owner: DirectoryFlowOwnerProps }
      /** Directory-flow hole under the sidebar browsing region (declared by the WorkspaceBrowser entry). */
-@@ -468,6 +470,7 @@ export type RowToastProps =
- export type WorkspaceBrowserProps =
+@@ -526,6 +528,7 @@ export type WorkspaceBrowserProps =
    PropsRuntime<'sidebar.workspaces'>
+   & PropsRenderFactories
    & PropsRenderSlots<
 +    | 'sidebar.workspaces.delete'
      | 'sidebar.workspaces.directoryFlow'
-     | 'sidebar.workspaces.session.menu.item'
      | 'sidebar.workspaces.session.row.action'
+     | 'sidebar.session.row.trailing'
 diff --git a/packages/client/ui-workspace/src/client/index.ts b/packages/client/ui-workspace/src/client/index.ts
-index cc9da072c9..8c4d1746ce 100644
+index 3405214331797439100d8d6056780c823928d891..49401f073f8b34060ad3bbf8f4e46b6c4edd9374 100644
 --- a/packages/client/ui-workspace/src/client/index.ts
 +++ b/packages/client/ui-workspace/src/client/index.ts
-@@ -293,6 +293,7 @@ export function apply(ctx: Context): void {
+@@ -367,6 +367,7 @@ export function apply(ctx: Context): void {
      {
        name: 'sidebar.workspaces',
        children: {
 +        'sidebar.workspaces.delete': { kind: 'single', scope: 'root' },
          'sidebar.workspaces.directoryFlow': { kind: 'single', scope: 'root' },
-         // Every row entry reads the menu's open state through a hook bound
-         // from the row's render occurrence (the owner passes the state pair
+         'sidebar.workspaces.session.row.action': { kind: 'list', scope: 'root' },
+         'sidebar.session.row.leading': { kind: 'list', scope: 'root', inline: true },
 diff --git a/packages/client/ui-workspace/src/client/rows/WorkspaceBrowser.tsx b/packages/client/ui-workspace/src/client/rows/WorkspaceBrowser.tsx
-index df871654ee..8490f7ddc0 100644
+index f7c7f1ff0495e35f820e92051827ef69cb5e51f8..5dd026fa43e033e8a36f78bcd026a55a531417ba 100644
 --- a/packages/client/ui-workspace/src/client/rows/WorkspaceBrowser.tsx
 +++ b/packages/client/ui-workspace/src/client/rows/WorkspaceBrowser.tsx
-@@ -1513,14 +1513,12 @@ export function WorkspaceBrowser({
-         {renameError !== null && <div className={css.renameError} role="alert">{renameError}</div>}
-       </Modal>
+@@ -1215,6 +1215,12 @@ export function WorkspaceBrowser({
+       console.warn('session unarchive rejected:', reason)
+     })
+   }
++  const workspaceDialog = workspaceActionRequest === null ? null : (
++    <WorkspaceDialogs key={`${workspaceActionRequest.action}/${workspaceActionRequest.workspaceId}`}
++      request={workspaceActionRequest} workspaces={workspaces} renameWorkspace={renameWorkspace} deleteWorkspace={deleteWorkspace}
++      settleWorkspaceAction={settleWorkspaceAction} t={t} />
++  )
++
+   return (
+     <div className={clsx(css.root, !wide && css.rail)}>
+       <div className={clsx(css.sectionHeader, wide && searchSpacingMotionEnabled && css.searchSpacingMotion)} data-sidebar-workspace-header="">
+@@ -1427,9 +1433,9 @@ export function WorkspaceBrowser({
+             ))}
+       </div>
  
--      <Modal
--        open={deleteTarget !== null}
-+      {deleteTarget !== null && renderSlot('sidebar.workspaces.delete', { ...deleteTarget, close: closeDelete }, { fallback: <Modal
-+        open
-         onClose={closeDelete}
-         closeLabel={t('close')}
-         title={t('delete.workspace')}
--        {...deleteTarget === null
--          ? {}
--          : { description: t('delete.desc', { name: deleteTarget.title }) }}
-+        description={t('delete.desc', { name: deleteTarget.title })}
-         footer={(
-           <>
-             <Button variant="outline" disabled={deleting} onClick={closeDelete}>{t('cancel')}</Button>
-@@ -1537,7 +1535,7 @@ export function WorkspaceBrowser({
-       >
-         {deleting && <div className={css.deleteStatus} role="status">{t('delete.pending')}</div>}
-         {deleteError !== null && <div className={css.renameError} role="alert">{deleteError}</div>}
--      </Modal>
-+      </Modal> })}
+-      {workspaceActionRequest !== null && <WorkspaceDialogs key={`${workspaceActionRequest.action}/${workspaceActionRequest.workspaceId}`}
+-        request={workspaceActionRequest} workspaces={workspaces} renameWorkspace={renameWorkspace} deleteWorkspace={deleteWorkspace}
+-        settleWorkspaceAction={settleWorkspaceAction} t={t} />}
++      {workspaceActionRequest?.action === 'delete' ? renderSlot('sidebar.workspaces.delete', {
++        workspaceId: workspaceActionRequest.workspaceId, title: workspaceActionRequest.displayTitle, close: settleWorkspaceAction,
++      }, { fallback: workspaceDialog }) : workspaceDialog}
      </div>
    )
  }
 diff --git a/packages/client/ui-workspace/tests/workspace-browser.client.spec.tsx b/packages/client/ui-workspace/tests/workspace-browser.client.spec.tsx
-index 4b62826cbc..5312e5fbd1 100644
+index 5df4923b4fb5920c6bd30e247b1f0686a294c0d9..83c562aa7edef1ff5df033ac6d12ac31171287e5 100644
 --- a/packages/client/ui-workspace/tests/workspace-browser.client.spec.tsx
 +++ b/packages/client/ui-workspace/tests/workspace-browser.client.spec.tsx
-@@ -1,5 +1,5 @@
+@@ -1,7 +1,7 @@
  // @vitest-environment jsdom
+ import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
+ import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 -import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
-+import type { GlobalStandardProps, RenderOpts } from '@deepseek-ai/dsh-client-ui-slots'
++import type { GlobalStandardProps, OwnerOf, RenderOpts } from '@deepseek-ai/dsh-client-ui-slots'
+ import { Profiler } from 'react'
  import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
  import { act, cleanup, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
- import { allowAllAccess, bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-@@ -99,10 +99,10 @@ function dragData(): Pick<DataTransfer, 'effectAllowed' | 'dropEffect' | 'setDat
+@@ -104,10 +104,10 @@ function dragData(): Pick<DataTransfer, 'effectAllowed' | 'dropEffect' | 'setDat
  // The default child stub: an open directory flow shows its marker; the two
  // Session row lists stay empty (their entries have their own spec). A stub
  // satisfies the generic render signature only with an erased owner type.
@@ -1449,30 +1575,55 @@ index 4b62826cbc..5312e5fbd1 100644
 -    : null
 +    : options?.fallback ?? null
  
- function mount(overrides: Partial<WorkspaceBrowserProps> = {}) {
-   const controls = createWorkspaceShortcutControls()
+ // Mounted outside a sidebar, the browser binds its list area to nothing.
+ const SECTION_SCROLLER = { bindScrollerRef: () => {} }
+@@ -2582,6 +2582,24 @@ describe('WorkspaceBrowser', () => {
+     expect(screen.queryByRole('dialog', { name: '删除工作区' })).toBeNull()
+   })
+ 
++  it('passes the selected Workspace to the custom deletion dialog', () => {
++    const renderSlot: WorkspaceBrowserProps['renderSlot'] = (name: string, owner: object, options?: RenderOpts) => {
++      if (name === 'sidebar.workspaces.delete') {
++        const { workspaceId, title, close } = owner as OwnerOf<'sidebar.workspaces.delete'>
++        return <div>{workspaceId}: {title}<button onClick={close}>Close custom dialog</button></div>
++      }
++      return options?.fallback ?? null
++    }
++    const browser = mount({
++      useWorkspaces: hook(workspaceState([workspace('alpha', [], 'Alpha')])),
++      renderSlot,
++    })
++    browser.openDialog(wid('alpha'), 'Alpha', 'delete')
++    expect(screen.getByText('alpha: Alpha')).toBeTruthy()
++    fireEvent.click(screen.getByRole('button', { name: 'Close custom dialog' }))
++    expect(screen.queryByText('alpha: Alpha')).toBeNull()
++  })
++
+   it('keeps the delete dialog open on failure and allows retry or cancellation', async () => {
+     const deleteWorkspace = vi.fn()
+       .mockRejectedValueOnce(new Error('storage unavailable'))
 diff --git a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
-index 33794f1a71..9201f63fd1 100644
+index 617b47fe2f29ebbeeb76bcde7652145e416d4ba9..f9005014189734b7471ab8441576400803cd8a1e 100644
 --- a/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
 +++ b/packages/extensions/cordis-client-runner/src/client/slot-catalog.ts
-@@ -503,6 +503,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-       'client-ui-deliverables DeliverablesTail id \'@deepseek-ai/dsh-client-ui-deliverables\'',
+@@ -724,6 +724,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-plan PlanCards',
        'client-ui-schedule ScheduleTurnCard id \'schedule-created\'',
+       'client-ui-action-cards ActionCardTail id \'@deepseek-ai/dsh-client-ui-action-cards\'',
 +      'experimental-interactive-results Deliveries id \'interactive-results\'',
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'conversation.chat.turnTail\', () => ctx.slots.register(\n      { name: \'conversation.chat.turnTail\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -975,7 +976,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -1314,7 +1315,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'shadows-shipped-ui',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'conversation.hero.workspace.directoryFlow\', () => ctx.slots.register(\n      { name: \'conversation.hero.workspace.directoryFlow\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:119',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:121',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:141',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:143',
    },
    {
      key: 'conversation.input.activity',
-@@ -3298,6 +3299,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -3851,6 +3852,8 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-settings-general GeneralSection id \'general\'',
        'client-ui-settings-models ModelsSection id \'models\'',
        'client-ui-settings-plugins PluginsSettingsSection id \'plugins\'',
@@ -1481,26 +1632,27 @@ index 33794f1a71..9201f63fd1 100644
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'settings.section\', () => ctx.slots.register(\n      { name: \'settings.section\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3453,6 +3456,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-       'client-ui-workspace SessionRenameDialog id \'workspace.session-rename\'',
+@@ -4067,7 +4070,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
        'client-ui-workspace SessionArchiveConfirmDialog id \'workspace.session-archive\'',
        'client-ui-workspace RowActionToast id \'workspace.row-toast\'',
+       'experimental-client-ui-forge ActionToast id \'forge-panel.toast\'',
 +      'experimental-compact-layout WidthPreference id \'compact-layout\'',
+       'cua PermissionToast id \'cua-permission-outcome\'',
 +      'experimental-mobile-layout Navigation id \'mobile-layout\'',
 +      'experimental-workspace-editor Dialog id \'workspace-editor\'',
 +      'experimental-workspace-management SessionDialog id \'delete-session\'',
+       'session-log-export SessionMarkdownCopyToast id \'session-log-download.copy-toast\'',
+       'session-log-export SessionLogDownloadDialog id \'session-log-download\'',
      ],
-     replaceRisk: 'none',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'shell.overlay\', () => ctx.slots.register(\n      { name: \'shell.overlay\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3594,6 +3601,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4216,6 +4223,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
      occupants: [
        'client-ui-brand-official OfficialBrandName',
 +      'experimental-compact-layout BrandName',
+       'experimental-liveshare ViewerBrandName',
      ],
      replaceRisk: 'shadows-shipped-ui',
-     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.brand.name\', () => ctx.slots.register(\n      { name: \'sidebar.brand.name\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-@@ -3639,6 +3647,126 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4263,6 +4271,128 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.chat.conversation\', () => ctx.slots.register(\n      { name: \'sidebar.chat.conversation\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-subagent/src/client/sidebar-chat/index.tsx:42',
    },
@@ -1508,8 +1660,8 @@ index 33794f1a71..9201f63fd1 100644
 +    key: 'sidebar.files.directory.action',
 +    kind: 'list',
 +    scope: 'session',
-+    summary: 'Directory-tree actions supplied by optional browser plugins.',
-+    doc: 'Directory-tree actions supplied by optional browser plugins.',
++    summary: 'Optional controls for a directory in the workspace files page.',
++    doc: 'Optional controls for a directory in the workspace files page.',
 +    registerOptions: [
 +      {
 +        name: 'id',
@@ -1535,6 +1687,7 @@ index 33794f1a71..9201f63fd1 100644
 +    standardProps: [
 +      'useRemoteAccess: (action: RemoteEndpoint) => boolean',
 +      'useResource: UseResource',
++      'useContextMenu: UseContextMenu',
 +      'useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>',
 +      'usePanelInfo: UsePanelInfo',
 +      'useSessions: UseSessions',
@@ -1561,14 +1714,14 @@ index 33794f1a71..9201f63fd1 100644
 +    ],
 +    replaceRisk: 'none',
 +    example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.files.directory.action\', () => ctx.slots.register(\n      { name: \'sidebar.files.directory.action\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-+    source: 'packages/client/ui-sidebar-files/src/client/index.ts:36',
++    source: 'packages/client/ui-sidebar-files/src/client/index.ts:48',
 +  },
 +  {
 +    key: 'sidebar.files.file.action',
 +    kind: 'list',
 +    scope: 'session',
-+    summary: 'File-tree actions supplied by optional browser plugins.',
-+    doc: 'File-tree actions supplied by optional browser plugins.',
++    summary: 'Optional controls for a file in the workspace files page.',
++    doc: 'Optional controls for a file in the workspace files page.',
 +    registerOptions: [
 +      {
 +        name: 'id',
@@ -1594,6 +1747,7 @@ index 33794f1a71..9201f63fd1 100644
 +    standardProps: [
 +      'useRemoteAccess: (action: RemoteEndpoint) => boolean',
 +      'useResource: UseResource',
++      'useContextMenu: UseContextMenu',
 +      'useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>',
 +      'usePanelInfo: UsePanelInfo',
 +      'useSessions: UseSessions',
@@ -1622,12 +1776,12 @@ index 33794f1a71..9201f63fd1 100644
 +    ],
 +    replaceRisk: 'none',
 +    example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.files.file.action\', () => ctx.slots.register(\n      { name: \'sidebar.files.file.action\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-+    source: 'packages/client/ui-sidebar-files/src/client/index.ts:34',
++    source: 'packages/client/ui-sidebar-files/src/client/index.ts:46',
 +  },
    {
      key: 'sidebar.footer.action',
      kind: 'list',
-@@ -3685,6 +3813,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4310,6 +4440,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      slotInject: '',
      declaredBy: 'an entry in \'sidebar\' (client-ui-sidebar), so it exists while that entry is mounted',
      occupants: [
@@ -1635,19 +1789,19 @@ index 33794f1a71..9201f63fd1 100644
        'client-ui-cordis CordisPanel id \'cordis-panel\'',
      ],
      replaceRisk: 'none',
-@@ -4242,7 +4371,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -4882,7 +5013,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.files.actions\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.files.actions\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-sidebar-files/src/client/index.ts:34',
-+    source: 'packages/client/ui-sidebar-files/src/client/index.ts:38',
+-    source: 'packages/client/ui-sidebar-files/src/client/index.ts:46',
++    source: 'packages/client/ui-sidebar-files/src/client/index.ts:50',
    },
    {
      key: 'sidebar.right.tab.guide',
-@@ -4448,7 +4577,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5092,7 +5223,10 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      hookContext: '',
      slotInject: '',
-     declaredBy: 'an entry in \'rightbar.session\' (client-ui-sidebar-right), so it exists while that entry is mounted',
+     declaredBy: 'an entry in \'contextMenu.content\' (client-ui-sidebar-right), so it exists while that entry is mounted',
 -    occupants: [],
 +    occupants: [
 +      'experimental-workspace-download DownloadMenu id \'workspace-download\'',
@@ -1656,27 +1810,36 @@ index 33794f1a71..9201f63fd1 100644
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.right.tab.menu.item\', () => ctx.slots.register(\n      { name: \'sidebar.right.tab.menu.item\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
      source: 'packages/client/ui-sidebar-right/src/client/contract/slots.ts:105',
-@@ -4505,7 +4637,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5204,7 +5338,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.hover\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.hover\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:136',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:138',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:175',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:177',
    },
    {
      key: 'sidebar.session.row.leading',
-@@ -4559,7 +4691,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5260,7 +5394,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.leading\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.leading\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:131',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:133',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:161',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:163',
+   },
+   {
+     key: 'sidebar.session.row.trailing',
+@@ -5315,7 +5449,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     ],
+     replaceRisk: 'none',
+     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.session.row.trailing\', () => ctx.slots.register(\n      { name: \'sidebar.session.row.trailing\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:170',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:172',
    },
    {
      key: 'sidebar.settings',
-@@ -4658,6 +4790,37 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5417,6 +5551,38 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-     source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:45',
+     source: 'packages/client/ui-sidebar/src/client/contract/slots.ts:58',
    },
 +  {
 +    key: 'sidebar.workspaces.delete',
@@ -1690,6 +1853,7 @@ index 33794f1a71..9201f63fd1 100644
 +    standardProps: [
 +      'useRemoteAccess: (action: RemoteEndpoint) => boolean',
 +      'useResource: UseResource',
++      'useContextMenu: UseContextMenu',
 +      'useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>',
 +      'usePanelInfo: UsePanelInfo',
 +      'useSessions: UseSessions',
@@ -1707,47 +1871,58 @@ index 33794f1a71..9201f63fd1 100644
 +    ],
 +    replaceRisk: 'shadows-shipped-ui',
 +    example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.delete\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.delete\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:119',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:141',
 +  },
    {
      key: 'sidebar.workspaces.directoryFlow',
      kind: 'single',
-@@ -4690,7 +4853,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5450,7 +5616,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'shadows-shipped-ui',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.directoryFlow\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.directoryFlow\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:121',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:123',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:143',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:145',
    },
    {
      key: 'sidebar.workspaces.session.menu.item',
-@@ -4745,10 +4908,11 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
-       'client-ui-workspace ForkSessionMenuItem id \'fork\'',
-       'client-ui-workspace ArchiveSessionMenuItem id \'archive\'',
-       'client-ui-workspace SessionIdMenuItem id \'session-id\'',
+@@ -5500,10 +5666,12 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     hookContext: 'MenuOpenState',
+     slotInject: '{ hooks: { menuOpenState: SlotHookFactory<\'sidebar.workspaces.session.menu.item\', UseMenuOpenState> shortcuts: HostObservable<readonly ShortcutCatalogEntry[]> } }',
+     declaredBy: 'an entry in \'contextMenu.content\' (client-ui-workspace), so it exists while that entry is mounted',
+-    occupants: [],
++    occupants: [
 +      'experimental-workspace-management SessionAction id \'delete-session\'',
-     ],
++    ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    const copyLabel = \'Copy session title\' // Localize in the contributing package.\n    ctx.slots.inject(\'sidebar.workspaces.session.menu.item\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.session.menu.item\', id: \'copy-session-title\', order: 500 },\n      ({ displayTitle, useMenuOpenState }) => {\n        const [, setMenuOpen] = useMenuOpenState()\n        return React.createElement(\n          \'button\',\n          {\n            type: \'button\', role: \'menuitem\',\n            onClick: () => { setMenuOpen(false); void navigator.clipboard.writeText(displayTitle) },\n          },\n          copyLabel,\n        )\n      },\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:171',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:173',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:205',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:207',
    },
    {
      key: 'sidebar.workspaces.session.row.action',
-@@ -4803,7 +4967,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+@@ -5559,7 +5727,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
      ],
      replaceRisk: 'none',
      example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'sidebar.workspaces.session.row.action\', () => ctx.slots.register(\n      { name: \'sidebar.workspaces.session.row.action\', id: \'my-entry\', order: 100, label: \'My entry\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
--    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:189',
-+    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:191',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:224',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:226',
    },
    {
      key: 'tool.call.images',
+@@ -5812,7 +5980,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
+     ],
+     replaceRisk: 'shadows-shipped-ui',
+     example: 'return {\n  inject: [\'slots\'],\n  apply(ctx) {\n    ctx.slots.inject(\'workspace.picker.directoryFlow\', () => ctx.slots.register(\n      { name: \'workspace.picker.directoryFlow\' },\n      () => React.createElement(\'div\', null, \'hello\'),\n    ))\n  },\n}',
+-    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:151',
++    source: 'packages/client/ui-workspace/src/client/contract/slots.ts:153',
+   },
+   {
+     key: 'workspace.toast',
 diff --git a/packages/extensions/tool-cordis/src/api-catalog.ts b/packages/extensions/tool-cordis/src/api-catalog.ts
-index 03fdcaa7b4..06ba76321c 100644
+index a61db08033c7f707b7340b5778dfd0b1b8c8759c..cb1ab4ff96d2ff536be534f163e927edd3819b0a 100644
 --- a/packages/extensions/tool-cordis/src/api-catalog.ts
 +++ b/packages/extensions/tool-cordis/src/api-catalog.ts
-@@ -743,6 +743,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
+@@ -748,6 +748,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
      summary: 'Host `ctx.connection` members consumed by transport-independent adapters.',
      description: 'Host `ctx.connection` members consumed by transport-independent adapters.',
      methods: [
@@ -1760,10 +1935,16 @@ index 03fdcaa7b4..06ba76321c 100644
        {
          signature: 'readonly rpc: HostConnectionRpc',
          description: 'Generic RPC channel registry.',
-@@ -2070,6 +2076,18 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
-         parameters: [{ name: 'sessionId', description: 'durable Session identity.' }, { name: 'signal', description: 'optional caller cancellation for persistence reads.' }],
-         returns: 'the current attached state or persisted header and event prefix.',
+@@ -2907,6 +2913,24 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
+         parameters: [{ name: 'sessionId', description: 'Session identity whose Agent owns the operation.' }],
+         returns: 'the live Agent or the stable Session-domain failure.',
        },
++      {
++        signature: 'async inspect(sessionId: SessionId, signal?: AbortSignal): Promise<SessionInspection>',
++        description: 'Inspect one attached or persisted Session without activating its Agent.',
++        parameters: [{ name: 'sessionId', description: 'durable Session identity.' }, { name: 'signal', description: 'optional caller cancellation for persistence reads.' }],
++        returns: 'the current attached state or persisted header and event prefix.',
++      },
 +      {
 +        signature: 'async deleteSession(sessionId: SessionId): Promise<boolean>',
 +        description: 'Permanently remove an ordinary Session through an explicitly mounted management consumer. This method is Host-only; the default browser RPC namespace exposes no deletion operation.',
@@ -1779,7 +1960,7 @@ index 03fdcaa7b4..06ba76321c 100644
        {
          signature: '@Remote(\'list\') async list(_request: SessionListRequest, signal: AbortSignal): Promise<SessionListValue>',
          description: 'Read all visible Session rows without resuming an Agent.',
-@@ -2263,6 +2281,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
+@@ -3143,6 +3167,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
          parameters: [{ name: 'options', description: 'optional cancellation.' }],
          returns: 'one snapshot per stored session.',
        },
@@ -1793,7 +1974,7 @@ index 03fdcaa7b4..06ba76321c 100644
      ],
    },
    {
-@@ -4125,6 +4150,14 @@ export const EVENT_API: readonly EventApiEntry[] = [
+@@ -5096,6 +5127,14 @@ export const EVENT_API: readonly EventApiEntry[] = [
      description: 'A Session became visible or its Agent was created or disposed. Consumers upsert the summary and replace its current running and availability state.',
      parameters: [{ name: 'summary', description: 'current list row for the Session.' }],
    },
@@ -1808,20 +1989,7 @@ index 03fdcaa7b4..06ba76321c 100644
    {
      name: 'api-session/error',
      mode: 'emit',
-@@ -4137,9 +4170,9 @@ export const EVENT_API: readonly EventApiEntry[] = [
-     name: 'api-session/removed',
-     mode: 'emit',
-     signature: '\'api-session/removed\'(sessionId: SessionId): void',
--    summary: 'A Session left the live Host registry.',
--    description: 'A Session left the live Host registry.',
--    parameters: [{ name: 'sessionId', description: 'removed Session identity.' }],
-+    summary: 'Announces that a managed Session has been removed from persistence.',
-+    description: 'Announces that a managed Session has been removed from persistence.',
-+    parameters: [{ name: 'sessionId', description: 'Removed Session identity.' }],
-   },
-   {
-     name: 'api-session/status',
-@@ -4977,6 +5010,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
+@@ -6120,6 +6159,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
      name: 'BrandedNumber',
      declaration: 'export type BrandedNumber<B extends string> = number & {\n    readonly [BRAND]: B;\n};',
    },
@@ -1832,7 +2000,7 @@ index 03fdcaa7b4..06ba76321c 100644
    {
      name: 'BrowserUseProviderName',
      declaration: 'export type BrowserUseProviderName = Branded<\'BrowserUseProviderName\'>;',
-@@ -5155,7 +5192,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
+@@ -6350,7 +6393,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
    },
    {
      name: 'ConnectionTrustRequest',
@@ -1841,26 +2009,29 @@ index 03fdcaa7b4..06ba76321c 100644
    },
    {
      name: 'ContentBlockMap',
-diff --git a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-index 06e0cd0225..5497edf0b3 100644
---- a/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-+++ b/packages/preset/agent-preset/skills/cordis-composition-reference/references/packages.md
-@@ -185,6 +185,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
- 
- | Package | Config | Description |
- |---|---|---|
+diff --git a/packages/preset/agent-preset/skills/dsh-doc/references/packages.md b/packages/preset/agent-preset/skills/dsh-doc/references/packages.md
+index 506d34b823a5d066d289aa9122eb138454ccdd21..b8f2120e4f56b13e4c6e655433fa3d5da52bdcf0 100644
+--- a/packages/preset/agent-preset/skills/dsh-doc/references/packages.md
++++ b/packages/preset/agent-preset/skills/dsh-doc/references/packages.md
+@@ -199,6 +199,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+ | `@deepseek-ai/dsh-creation-recommendations` | no | Create persistent removable interface plugins from explicit conversation needs |
+ | `@deepseek-ai/dsh-cua` | no | Shared Computer Use application objects, authorization, and logged tool execution |
+ | `@deepseek-ai/dsh-deepseek-chat-import` | yes | Import DeepSeek chat exports as stored Sessions in a chosen Workspace |
 +| `@deepseek-ai/dsh-experimental-account-balance` | yes | DeepSeek API Key account balance and official billing links |
- | `@deepseek-ai/dsh-experimental-agent-team` | yes | Implicit-root Agent Teams roster, direct peer messaging, and shared task DAG |
  | `@deepseek-ai/dsh-experimental-api-speech-to-text` | yes | Authenticated experimental speech transcription for browser clients |
  | `@deepseek-ai/dsh-experimental-auto-review` | no | Per-tool LLM authorization review for the DeepSeek Harness Auto permission preset |
-@@ -196,10 +197,15 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
- | `@deepseek-ai/dsh-experimental-client-ui-claude-code-mods` | no | Web band above the prompt for Claude Code mods: draws each session's mod tree and sends button presses back to the bridge |
- | `@deepseek-ai/dsh-experimental-client-ui-cot-translation` | yes | Optional machine translation of expanded reasoning, preserving original Session text |
+ | `@deepseek-ai/dsh-experimental-browser-use-chrome-devtools-mcp` | yes | Experimental per-Session Chromium browser tools through chrome-devtools-mcp |
+@@ -210,6 +211,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+ | `@deepseek-ai/dsh-experimental-client-ui-forge` | yes | Sidebar panel for a Session's change requests, with a worktree option for new Sessions and its Host Remote |
+ | `@deepseek-ai/dsh-experimental-client-ui-stats` | no | Per-turn and per-step context, timing, cache, and tool-cost table contributed as an experimental conversation View |
  | `@deepseek-ai/dsh-experimental-client-ui-voice-input` | no | Record speech and insert editable text into the conversation draft |
 +| `@deepseek-ai/dsh-experimental-compact-layout` | no | 紧凑右侧面板与官方侧栏标识：默认 300px，可拖动调整。 |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-mcp` | yes | Experimental computer use through an installed Cua Driver MCP executable |
  | `@deepseek-ai/dsh-experimental-computer-use-cua-driver-native` | no | Experimental computer-use provider embedding the Cua Driver native npm SDK |
  | `@deepseek-ai/dsh-experimental-cua-macos` | yes | macOS native provider for shared Computer Use application and window objects |
+@@ -217,6 +219,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+ | `@deepseek-ai/dsh-experimental-forge-github` | yes | GitHub provider for the experimental forge registry, read through the GitHub CLI on the host |
+ | `@deepseek-ai/dsh-experimental-forge-session` | yes | Binds change requests to the Session that created, pushed, or tracked them |
  | `@deepseek-ai/dsh-experimental-inspector` | yes | Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection |
 +| `@deepseek-ai/dsh-experimental-interactive-results` | yes | 交互说明：表格、图表与表单交付 |
 +| `@deepseek-ai/dsh-experimental-mobile-layout` | no | 移动端布局：手机导航与触控优化 |
@@ -1869,8 +2040,8 @@ index 06e0cd0225..5497edf0b3 100644
  | `@deepseek-ai/dsh-experimental-ptc-runtime-python` | yes | CPython subprocess implementation of the DeepSeek Harness PTC execution seam |
  | `@deepseek-ai/dsh-experimental-session-inspector` | no | Experimental virtualized Session log and live Chat group/node inspectors |
  | `@deepseek-ai/dsh-experimental-speech-to-text` | yes | Experimental speech recognition with independently selectable providers |
-@@ -207,6 +213,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
- | `@deepseek-ai/dsh-experimental-tool-agent-team` | yes | Scoped model-facing Agent Teams tools over ctx.agentTeams |
+@@ -225,6 +231,10 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
+ | `@deepseek-ai/dsh-experimental-tool-subagent-oar` | yes | Delegate standalone tasks to configured external subagent providers |
  | `@deepseek-ai/dsh-experimental-tool-worktree` | no | Model tool that creates and enters a new Git worktree |
  | `@deepseek-ai/dsh-experimental-translator` | yes | Machine translation with reusable Session results |
 +| `@deepseek-ai/dsh-experimental-workspace-download` | yes | 工作区文件下载：文件树与预览标签下载 |
@@ -1881,7 +2052,7 @@ index 06e0cd0225..5497edf0b3 100644
  | `@deepseek-ai/dsh-hooks-claude-code` | yes | Bridge plugin: run a Claude Code hooks.json / settings hook config on the DeepSeek Harness interception seams |
  | `@deepseek-ai/dsh-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the DeepSeek Harness interception seams |
 diff --git a/packages/session/session-persistence-jsonl/README.i18n.yaml b/packages/session/session-persistence-jsonl/README.i18n.yaml
-index e134bef8d2..3a2109f33f 100644
+index d8f2314ebd24dd4b23525be49210ab9012d14ace..8aa4827a75727b2bf9d2f405af08a4dcb7b8398f 100644
 --- a/packages/session/session-persistence-jsonl/README.i18n.yaml
 +++ b/packages/session/session-persistence-jsonl/README.i18n.yaml
 @@ -15,8 +15,8 @@
@@ -1896,7 +2067,7 @@ index e134bef8d2..3a2109f33f 100644
    en: 37c10302bbbde268
    zh: 3d5c027bac868efd
 diff --git a/packages/session/session-persistence-jsonl/README.md b/packages/session/session-persistence-jsonl/README.md
-index 5782c61468..cf3c23cfea 100644
+index 2de63df367a24722812b7cd494a2fb0b6ba5d8cc..a8bf2ac9fb15ec3645eff10f85ddc29051f91185 100644
 --- a/packages/session/session-persistence-jsonl/README.md
 +++ b/packages/session/session-persistence-jsonl/README.md
 @@ -25,6 +25,8 @@ English | [中文](README.zh.md)
@@ -1909,7 +2080,7 @@ index 5782c61468..cf3c23cfea 100644
  
  ### When to choose it
 diff --git a/packages/session/session-persistence-jsonl/README.zh.md b/packages/session/session-persistence-jsonl/README.zh.md
-index dbd602afa3..5597d45867 100644
+index e5494de7d6d189d0965d977cb4482e9e82259e95..f4516b41c02df50617d772f8dfcb4ddf37de138c 100644
 --- a/packages/session/session-persistence-jsonl/README.zh.md
 +++ b/packages/session/session-persistence-jsonl/README.zh.md
 @@ -25,6 +25,8 @@ kind: "package-reference"
@@ -1922,7 +2093,7 @@ index dbd602afa3..5597d45867 100644
  
  ### 何时选择
 diff --git a/packages/session/session-persistence-jsonl/src/index.ts b/packages/session/session-persistence-jsonl/src/index.ts
-index 3c3c13589f..e13e859ba7 100644
+index f8351fa9ee75db9790859de9672d1602c0c05664..6ec4ec198c386a3d3d315318de03886c89158ac5 100644
 --- a/packages/session/session-persistence-jsonl/src/index.ts
 +++ b/packages/session/session-persistence-jsonl/src/index.ts
 @@ -15,7 +15,7 @@ import {
@@ -1968,7 +2139,7 @@ index 3c3c13589f..e13e859ba7 100644
     * Refusal-diagnostics hook: the absolute target path, without touching the filesystem.
     * @param meta - the stored header naming the session and its cwd.
 diff --git a/packages/session/session-persistence/README.i18n.yaml b/packages/session/session-persistence/README.i18n.yaml
-index 8dd313345e..c0ef536315 100644
+index bd02807cf71cf35a5ffb02869cc664c10fea400c..dd95b17f2a28b0e3bf98bfa1feca1c56d1868d7d 100644
 --- a/packages/session/session-persistence/README.i18n.yaml
 +++ b/packages/session/session-persistence/README.i18n.yaml
 @@ -15,8 +15,8 @@
@@ -1983,7 +2154,7 @@ index 8dd313345e..c0ef536315 100644
    en: 170892270261aae0
    zh: 7daf1edd4f764409
 diff --git a/packages/session/session-persistence/README.md b/packages/session/session-persistence/README.md
-index 80f3ec7126..ee464d6080 100644
+index 9e9446b81ba3b0373513a9a606c7c595dd0fee48..67fcc3caca7512d80a6cad41ea90cf1b40f8308b 100644
 --- a/packages/session/session-persistence/README.md
 +++ b/packages/session/session-persistence/README.md
 @@ -25,6 +25,8 @@ This package lets applications persist and resume session event logs through a b
@@ -1996,7 +2167,7 @@ index 80f3ec7126..ee464d6080 100644
  
  ### Choosing a backend
 diff --git a/packages/session/session-persistence/README.zh.md b/packages/session/session-persistence/README.zh.md
-index ae8547aa4e..ee48fe1f41 100644
+index cc1f2edb82505daf5d04cf9e0adbf3d54197080c..1843e54d9e80e5c0682ec865c4ae266af86ea9f2 100644
 --- a/packages/session/session-persistence/README.zh.md
 +++ b/packages/session/session-persistence/README.zh.md
 @@ -25,6 +25,8 @@ kind: "package-reference"
@@ -2009,10 +2180,10 @@ index ae8547aa4e..ee48fe1f41 100644
  
  ### 选择后端
 diff --git a/packages/session/session-persistence/src/index.ts b/packages/session/session-persistence/src/index.ts
-index f257ca0e1e..8628820e2f 100644
+index 951c60b31f2254d7950a3c3a450e4c0ffbc5efcc..96121fca111a25c685785a770819b2fe69155e1e 100644
 --- a/packages/session/session-persistence/src/index.ts
 +++ b/packages/session/session-persistence/src/index.ts
-@@ -201,6 +201,17 @@ export abstract class SessionPersistence extends Service {
+@@ -208,6 +208,17 @@ export abstract class SessionPersistence extends Service {
     * @returns one snapshot per stored session.
     */
    abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>
@@ -2031,12 +2202,12 @@ index f257ca0e1e..8628820e2f 100644
  
  export default SessionPersistence
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index d6df9aae42..d7836fec0c 100644
+index 9a84d64b213cb37f074294d8f62c69eb789a8c9a..e8d36eb12f6f1f42456989582063c3dfaede4fac 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -7629,6 +7629,52 @@ importers:
+@@ -8496,6 +8496,52 @@ importers:
          specifier: workspace:*
-         version: link:../../core/session
+         version: link:../../session/working-directory
  
 +  packages/experimental/account-balance:
 +    dependencies:
@@ -2051,7 +2222,7 @@ index d6df9aae42..d7836fec0c 100644
 +        version: link:../../../vendor/schemastery
 +      zod:
 +        specifier: ^4.1.0
-+        version: 4.4.3
++        version: 4.6.6
 +    devDependencies:
 +      '@deepseek-ai/cordis':
 +        specifier: workspace:^
@@ -2084,10 +2255,10 @@ index d6df9aae42..d7836fec0c 100644
 +        specifier: ^18.2.0
 +        version: 18.3.1
 +
-   packages/experimental/agent-team:
+   packages/experimental/action-cards:
      dependencies:
-       '@deepseek-ai/dsh-brand':
-@@ -8402,6 +8448,43 @@ importers:
+       zod:
+@@ -9608,6 +9654,43 @@ importers:
          specifier: ^18.2.0
          version: 18.3.1(react@18.3.1)
  
@@ -2131,7 +2302,7 @@ index d6df9aae42..d7836fec0c 100644
    packages/experimental/computer-use-cua-driver-mcp:
      dependencies:
        '@deepseek-ai/dsh-mcp-client':
-@@ -8963,6 +9046,171 @@ importers:
+@@ -10651,6 +10734,61 @@ importers:
          specifier: ^4.3.2
          version: 4.3.2
  
@@ -2154,7 +2325,7 @@ index d6df9aae42..d7836fec0c 100644
 +        version: link:../../../vendor/schemastery
 +      zod:
 +        specifier: ^4.4.3
-+        version: 4.4.3
++        version: 4.6.6
 +    devDependencies:
 +      '@deepseek-ai/cordis':
 +        specifier: workspace:^
@@ -2190,6 +2361,13 @@ index d6df9aae42..d7836fec0c 100644
 +        specifier: ^18.2.0
 +        version: 18.3.1
 +
+   packages/experimental/liveshare:
+     dependencies:
+       '@deepseek-ai/dsh-atomic-write':
+@@ -10911,6 +11049,116 @@ importers:
+         specifier: workspace:~
+         version: link:../../../vendor/cordis
+ 
 +  packages/experimental/mobile-layout:
 +    devDependencies:
 +      '@deepseek-ai/cordis':
@@ -2300,10 +2478,10 @@ index d6df9aae42..d7836fec0c 100644
 +        specifier: ^18.2.0
 +        version: 18.3.1
 +
-   packages/experimental/plugin-market-bundle:
+   packages/experimental/personalized-recommendations:
      dependencies:
-       '@deepseek-ai/dsh-client-ui-plugin-market':
-@@ -9796,6 +10044,247 @@ importers:
+       '@deepseek-ai/dsh-action-cards':
+@@ -12015,6 +12263,247 @@ importers:
          specifier: 5.0.0
          version: 5.0.0
  
@@ -2393,7 +2571,7 @@ index d6df9aae42..d7836fec0c 100644
 +        version: link:../../../vendor/schemastery
 +      zod:
 +        specifier: ^4.4.3
-+        version: 4.4.3
++        version: 4.6.6
 +    devDependencies:
 +      '@deepseek-ai/cordis':
 +        specifier: workspace:^
@@ -2451,7 +2629,7 @@ index d6df9aae42..d7836fec0c 100644
 +        version: link:../../../vendor/schemastery
 +      zod:
 +        specifier: ^4.4.3
-+        version: 4.4.3
++        version: 4.6.6
 +    devDependencies:
 +      '@deepseek-ai/cordis':
 +        specifier: workspace:^
@@ -2551,7 +2729,7 @@ index d6df9aae42..d7836fec0c 100644
    packages/experimental/worktree:
      dependencies:
        '@deepseek-ai/dsh-timeout':
-@@ -17843,10 +18332,12 @@ packages:
+@@ -20848,10 +21337,12 @@ packages:
  
    '@modelcontextprotocol/server-everything@2026.8.31':
      resolution: {integrity: sha512-5U3OZh8Xq0Li4nA26l6uNvV9/1suMDuWSn+NjLZIhzinhMY6N3A4DCrxVecBGPf2PsNFKTEv5krxGPRwzxc7jQ==}
@@ -2564,11 +2742,21 @@ index d6df9aae42..d7836fec0c 100644
      hasBin: true
  
    '@modelcontextprotocol/server@2.2.0':
+@@ -21822,6 +22313,9 @@ packages:
+   '@smithy/core@3.35.0':
+     resolution: {integrity: sha512-zRMhfkByhT2snNdr1si24vJitU6Cr9ix2MikUfWmkAgp4jrNP0GcKSP5YvwQ+TlI8AZXER5QOGJn3JsVtSD9/A==}
+     engines: {node: '>=18.0.0'}
++    deprecated: |-
++      Deprecated due to a bug in custom logger data redaction. Upgrade to the latest version. If you used a custom logger with this
++        version, review your logs and rotate any credentials or other secrets. See https://github.com/aws/aws-sdk-js-v3/issues/8393.
+ 
+   '@smithy/credential-provider-imds@4.5.2':
+     resolution: {integrity: sha512-A9uSdn72ozbRUSit0eib0TW7nXuNPlaeM0zcGkJ+nE6tFcSDbnmtwoxbTCFBukVQcszDAyvsd7+rTduPTXpygg==}
 diff --git a/scripts/gen-cordis-catalog.ts b/scripts/gen-cordis-catalog.ts
-index ebd7527142..0b60b59825 100644
+index 92ae05967ed355dad01a9e35e1e4fb836011b475..5f7ed14f39f794c5d92aa0fe597a47ce946963bb 100644
 --- a/scripts/gen-cordis-catalog.ts
 +++ b/scripts/gen-cordis-catalog.ts
-@@ -874,6 +874,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
+@@ -1036,6 +1036,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
    ConnectionFetchHandler: 'shared Fetch dispatch is owned by packages/client/connection/src/rpc.ts',
    ConnectionRequestRejection: 'transport rejection status is owned by packages/client/connection/src/rpc.ts',
    ConnectionTrustRequest: 'transport authentication input is owned by packages/client/connection/src/rpc.ts',
@@ -2577,13 +2765,13 @@ index ebd7527142..0b60b59825 100644
    ConnectionAdmission: 'physical socket admission and release are owned by packages/client/connection/src/rpc.ts',
    PeerScope: 'Peer scope contract is owned by packages/typert/protocol/src/types.ts',
 diff --git a/tsconfig.base.json b/tsconfig.base.json
-index f083f9b35e..5f3c5b9596 100644
+index e657bf3f26281c48274a86312a080e220e26bf3a..5ed4da474a06d0346b91d0f31e866e15ddc19a72 100644
 --- a/tsconfig.base.json
 +++ b/tsconfig.base.json
-@@ -28,6 +28,26 @@
-     // not declaration path aliases, keep each package/vendor source compiled
-     // under its own tsconfig boundary.
-     "paths": {
+@@ -33,6 +33,26 @@
+       "@deepseek-ai/dsh-client-ui-file-actions/types": ["./packages/client/ui-file-actions/src/types.ts"],
+       "@deepseek-ai/dsh-client-ui-context-menu": ["./packages/client/ui-context-menu/src/index.ts"],
+       "@deepseek-ai/dsh-client-ui-context-menu/client": ["./packages/client/ui-context-menu/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-personal-instructions": ["./packages/experimental/personal-instructions/src/index.ts"],
 +      "@deepseek-ai/dsh-experimental-personal-instructions/client": ["./packages/experimental/personal-instructions/src/client/index.ts"],
 +      "@deepseek-ai/dsh-experimental-page-login": ["./packages/experimental/page-login/src/index.ts"],
@@ -2608,13 +2796,13 @@ index f083f9b35e..5f3c5b9596 100644
        "@deepseek-ai/dsh-client-ui-entry-customization/client": ["./packages/client/ui-entry-customization/src/client/index.ts"],
        "@deepseek-ai/dsh-client-ui-entry-customization/src/*": ["./packages/client/ui-entry-customization/src/*"],
 diff --git a/tsconfig.client.json b/tsconfig.client.json
-index e8bb0d4408..092cba14fe 100644
+index f515961530cb98d56db1fb691bb07a2965c43c64..974648cb36e5dde9a099e277025e0ac276ec3745 100644
 --- a/tsconfig.client.json
 +++ b/tsconfig.client.json
-@@ -53,6 +53,16 @@
-     "packages/client/*/tests/**/*.host.ts"
-   ],
-   "references": [
+@@ -61,6 +61,16 @@
+     { "path": "./packages/experimental/client-ui-plugin-recommendations" },
+     { "path": "./packages/client/ui-file-drag" },
+     { "path": "./packages/session/message-quotes" },
 +    { "path": "./packages/experimental/personal-instructions/tsconfig.client.json" },
 +    { "path": "./packages/experimental/page-login/tsconfig.client.json" },
 +    { "path": "./packages/experimental/compact-layout/tsconfig.client.json" },
@@ -2629,13 +2817,13 @@ index e8bb0d4408..092cba14fe 100644
      { "path": "./packages/client/product-analytics/tsconfig.client.json" },
      { "path": "./apps/desktop/tsconfig.client.json" },
 diff --git a/tsconfig.host.json b/tsconfig.host.json
-index 5298e67528..436719b71f 100644
+index 31c80a81844168c266a9f464ee790edcca71bbc2..44771423bd608e4da20b2e9435528cfd316febb1 100644
 --- a/tsconfig.host.json
 +++ b/tsconfig.host.json
-@@ -238,6 +238,16 @@
-     "scripts/client-bundle-purity.spec.ts"
-   ],
-   "references": [
+@@ -288,6 +288,16 @@
+     { "path": "./packages/experimental/plugin-recommendations" },
+     { "path": "./packages/experimental/personalized-recommendations" },
+ 
 +    { "path": "./packages/experimental/personal-instructions/tsconfig.host.json" },
 +    { "path": "./packages/experimental/page-login/tsconfig.host.json" },
 +    { "path": "./packages/experimental/compact-layout/tsconfig.host.json" },

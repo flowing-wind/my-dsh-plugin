@@ -12,8 +12,9 @@ const styles = `
 [data-mobile-nav],[data-mobile-backdrop]{display:none}
 @media(max-width:700px){
 html[data-mobile-layout] [data-app-frame]{grid-template-columns:0 minmax(0,1fr) 0!important;height:100dvh;width:100%;}
-html[data-mobile-layout] [data-sidebar-col]{position:absolute;inset:0 auto 0 0;width:100%;box-sizing:border-box;z-index:30;box-shadow:20px 0 60px #0006;}
-html[data-mobile-layout] [data-sidebar-collapsed] [data-sidebar-col]{display:none;}
+html[data-mobile-layout] [data-app-frame]:not([data-sidebar-drawer]) [data-sidebar-col]{position:absolute;inset:0 auto 0 0;width:100%;box-sizing:border-box;z-index:30;box-shadow:20px 0 60px #0006;}
+html[data-mobile-layout] [data-sidebar-collapsed]:not([data-sidebar-drawer]) [data-sidebar-col]{display:none;}
+html[data-mobile-layout] [data-sidebar-drawer] [data-sidebar-col]{width:100%!important;}
 html[data-mobile-layout] [data-center-col]{grid-column:2;min-width:0;}
 html[data-mobile-layout] header:has([data-conversation-header-leading]){padding-left:52px!important;padding-right:12px!important;}
 html[data-mobile-layout] header [class*="titleCluster"]{min-width:0;gap:4px;}
@@ -30,7 +31,10 @@ html[data-mobile-layout] [data-mobile-nav] button{display:grid;place-items:cente
 html[data-mobile-layout] [data-mobile-nav] button:hover{background:#ffffff14!important;}
 html[data-mobile-layout]:has([data-app-frame]:not([data-sidebar-collapsed])) [data-mobile-nav]{display:none;}
 html[data-mobile-layout] [data-mobile-backdrop]{display:none;position:absolute;inset:0;border:0;background:#0005;}
-html[data-mobile-layout]:has([data-app-frame]:not([data-sidebar-collapsed])) [data-mobile-backdrop]{display:block;}
+html[data-mobile-layout]:has([data-app-frame]:not([data-sidebar-collapsed]):not([data-sidebar-drawer])) [data-mobile-backdrop]{display:block;}
+html[data-mobile-layout]:has([data-sidebar-drawer] [data-sidebar-opener]) [data-mobile-nav]{display:none;}
+html[data-mobile-layout] [data-sidebar-drawer] [data-sidebar-opener]{width:44px;height:44px;background:var(--dsw-alias-bg-base);}
+html[data-mobile-layout] [data-sidebar-drawer] [data-shell-leading]{top:8px;left:8px;}
 html[data-mobile-layout] [data-sidebar-col]{background:var(--dsw-alias-bg-base,#202020)!important;}
 html[data-mobile-layout]:has([data-rightbar-fullscreen]) [data-mobile-nav]{display:none;}
 html[data-mobile-layout] textarea,html[data-mobile-layout] input,html[data-mobile-layout] select{font-size:16px;}
@@ -57,8 +61,9 @@ export function apply(ctx: Context): void {
     const style = document.createElement('style'); style.textContent = styles; document.head.append(style)
     document.documentElement.setAttribute('data-mobile-layout', '')
     const media = matchMedia('(max-width:700px)')
+    const openLegacySidebar = '[data-app-frame]:not([data-sidebar-drawer]):not([data-sidebar-collapsed])'
     const closeSidebar = () => {
-      if (media.matches && document.querySelector('[data-app-frame]:not([data-sidebar-collapsed])')) ctx.layout.toggleSidebar()
+      if (media.matches && document.querySelector(openLegacySidebar)) ctx.layout.toggleSidebar()
     }
     const mounted = new MutationObserver(() => {
       if (!document.querySelector('[data-app-frame]')) return
@@ -69,9 +74,9 @@ export function apply(ctx: Context): void {
     closeSidebar()
     media.addEventListener('change', closeSidebar)
     const selected = (event: MouseEvent) => {
-      if (!matchMedia('(max-width:700px)').matches || !(event.target instanceof Element)) return
+      if (!media.matches || !(event.target instanceof Element)) return
       const target = event.target
-      if (!target.closest('[data-sidebar-col]') || !document.querySelector('[data-app-frame]:not([data-sidebar-collapsed])')) return
+      if (!target.closest('[data-sidebar-col]') || !document.querySelector(openLegacySidebar)) return
       if (target.closest('[data-sidebar-panel]') || target.closest('[role="treeitem"][aria-selected]') && !target.closest('button')) ctx.layout.toggleSidebar()
     }
     document.addEventListener('click', selected)

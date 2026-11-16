@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-experimental-workspace-management",
-  "version": "0.2.1-rc.5",
+  "version": "0.2.2-rc.3",
   "description": "对话与工作区删除：菜单删除、归档删除及可选磁盘文件清理",
   "type": "module",
   "license": "MIT",
@@ -70,6 +70,6 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.5"
+    "dsh": "0.2.2-rc.3"
   }
 }

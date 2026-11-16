@@ -680,110 +680,95 @@ function enumerableStringKeys(value) {
 function walkJsonValue(value, detach) {
 	const ancestors = /* @__PURE__ */ new Set();
 	let root;
-	const assign = (destination, item) => {
-		if (destination === void 0) return;
-		if (destination.kind === "root") root = item;
-		else if (destination.kind === "array") destination.target[destination.index] = item;
-		else Object.defineProperty(destination.target, destination.key, {
+	let parent;
+	const assign = (item) => {
+		if (parent === void 0) {
+			if (detach) root = item;
+		} else if (parent.kind === "array") {
+			if (parent.target !== void 0) parent.target[parent.key] = item;
+		} else if (parent.target !== void 0) Object.defineProperty(parent.target, parent.key, {
 			value: item,
 			enumerable: true,
 			configurable: true,
 			writable: true
 		});
 	};
-	const tasks = [{
-		kind: "visit",
-		value,
-		...detach ? { destination: { kind: "root" } } : {}
-	}];
-	for (let task = tasks.pop(); task !== void 0; task = tasks.pop()) {
-		if (task.kind === "leave") {
-			ancestors.delete(task.source);
-			continue;
-		}
-		if (task.kind === "array-item") {
-			if (!Object.prototype.hasOwnProperty.call(task.source, task.index)) return void 0;
-			tasks.push({
-				kind: "visit",
-				value: task.source[task.index],
-				...task.target === void 0 ? {} : { destination: {
-					kind: "array",
-					target: task.target,
-					index: task.index
-				} }
-			});
-			continue;
-		}
-		if (task.kind === "object-property") {
-			tasks.push({
-				kind: "visit",
-				value: task.source[task.key],
-				...task.target === void 0 ? {} : { destination: {
-					kind: "object",
-					target: task.target,
-					key: task.key
-				} }
-			});
-			continue;
-		}
-		const current = task.value;
-		if (current === null) {
-			assign(task.destination, null);
-			continue;
-		}
-		if (typeof current === "boolean" || typeof current === "string") {
-			assign(task.destination, current);
-			continue;
-		}
-		if (typeof current === "number") {
+	const frames = [];
+	let current = value;
+	for (;;) {
+		if (current === null) assign(null);
+		else if (typeof current === "boolean" || typeof current === "string") assign(current);
+		else if (typeof current === "number") {
 			if (!Number.isFinite(current) || Object.is(current, -0)) return void 0;
-			assign(task.destination, current);
-			continue;
-		}
-		if (typeof current !== "object") return void 0;
-		if (ancestors.has(current)) return void 0;
-		if (Array.isArray(current)) {
-			if (!hasPlainArrayPrototype(current)) return void 0;
-			const length = current.length;
-			if (Reflect.ownKeys(current).length !== length + 1) return void 0;
-			const target = detach ? [] : void 0;
-			if (target !== void 0) assign(task.destination, target);
+			assign(current);
+		} else {
+			if (typeof current !== "object") return void 0;
+			if (ancestors.has(current)) return void 0;
+			if (Array.isArray(current)) {
+				if (!hasPlainArrayPrototype(current)) return void 0;
+				const length = current.length;
+				if (Reflect.ownKeys(current).length !== length + 1) return void 0;
+				const target = detach ? [] : void 0;
+				if (target !== void 0) assign(target);
+				let indices;
+				if (!Number.isInteger(length)) {
+					indices = [];
+					for (let index = length - 1; index >= 0; index--) indices.push(index);
+				}
+				frames.push({
+					kind: "array",
+					source: current,
+					length: indices?.length ?? length,
+					index: 0,
+					key: 0,
+					indices,
+					target
+				});
+			} else {
+				if (!hasPlainObjectPrototype(current)) return void 0;
+				const keys = enumerableStringKeys(current);
+				if (keys === void 0) return void 0;
+				const target = detach ? {} : void 0;
+				if (target !== void 0) assign(target);
+				frames.push({
+					kind: "object",
+					source: current,
+					keys,
+					index: 0,
+					key: "",
+					target
+				});
+			}
 			ancestors.add(current);
-			tasks.push({
-				kind: "leave",
-				source: current
-			});
-			for (let index = length - 1; index >= 0; index--) tasks.push({
-				kind: "array-item",
-				source: current,
-				index,
-				...target === void 0 ? {} : { target }
-			});
-			continue;
 		}
-		if (!hasPlainObjectPrototype(current)) return void 0;
-		const keys = enumerableStringKeys(current);
-		if (keys === void 0) return void 0;
-		const target = detach ? {} : void 0;
-		if (target !== void 0) assign(task.destination, target);
-		ancestors.add(current);
-		tasks.push({
-			kind: "leave",
-			source: current
-		});
-		for (let index = keys.length - 1; index >= 0; index--) {
-			const key = keys[index];
-			/* v8 ignore next -- the loop is bounded by the captured key count. */
-			if (key === void 0) return void 0;
-			tasks.push({
-				kind: "object-property",
-				source: current,
-				key,
-				...target === void 0 ? {} : { target }
-			});
+		for (;;) {
+			const frame = frames.at(-1);
+			if (frame === void 0) return detach ? root : true;
+			const length = frame.kind === "array" ? frame.length : frame.keys.length;
+			if (frame.index >= length) {
+				ancestors.delete(frame.source);
+				frames.pop();
+				continue;
+			}
+			const index = frame.index++;
+			parent = frame;
+			if (frame.kind === "array") {
+				const key = frame.indices === void 0 ? index : frame.indices[frame.indices.length - index - 1];
+				/* v8 ignore next -- the loop is bounded by the captured index count. */
+				if (key === void 0) return void 0;
+				if (!Object.prototype.hasOwnProperty.call(frame.source, key)) return void 0;
+				frame.key = key;
+				current = frame.source[key];
+			} else {
+				const key = frame.keys[index];
+				/* v8 ignore next -- the loop is bounded by the captured key count. */
+				if (key === void 0) return void 0;
+				frame.key = key;
+				current = frame.source[key];
+			}
+			break;
 		}
 	}
-	return detach ? root : true;
 }
 /**
 * Validate and detach lossless JSON in one read per property.
@@ -1275,6 +1260,7 @@ var DisposableList = class {
 /** Shared symbols used to avoid public property-name collisions. */
 const symbols = {
 	shadow: Symbol.for("cordis.shadow"),
+	caller: Symbol.for("cordis.caller"),
 	receiver: Symbol.for("cordis.receiver"),
 	original: Symbol.for("cordis.original"),
 	metadata: Symbol.for("cordis.metadata"),
@@ -1349,11 +1335,12 @@ function withProp(target, prop, value) {
 		writable: false
 	}));
 }
-function createShadow(ctx, target, property, receiver) {
+function createShadow(useSite, target, property, receiver) {
 	if (!property) return receiver;
-	const origin = Reflect.getOwnPropertyDescriptor(target, property)?.value;
-	if (!origin) return receiver;
-	return withProp(receiver, property, ctx.extend({ [symbols.shadow]: origin }));
+	const value = getPropertyDescriptor(target, property)?.value;
+	if (!value) return receiver;
+	const defSite = value[symbols.shadow] ?? value;
+	return withProp(receiver, property, useSite.extend({ [symbols.shadow]: defSite }));
 }
 function createShadowMethod(ctx, value, outer, shadow) {
 	return new Proxy(value, { apply: (target, thisArg, args) => {
@@ -1362,37 +1349,40 @@ function createShadowMethod(ctx, value, outer, shadow) {
 	} });
 }
 function createTraceable(ctx, value, tracker) {
-	if (ctx[symbols.shadow] && !tracker.noShadow) ctx = Object.getPrototypeOf(ctx);
+	const defSite = ctx[symbols.shadow] ?? ctx;
+	const useSite = ctx[symbols.shadow] ? Object.getPrototypeOf(ctx) : ctx;
 	const proxy = new Proxy(value, {
 		get: (target, prop, receiver) => {
 			if (prop === symbols.original) return target;
-			if (prop === tracker.property) return ctx;
+			if (prop === symbols.caller) return defSite;
+			if (prop === tracker.property) return useSite;
 			if (typeof prop === "symbol") return Reflect.get(target, prop, receiver);
-			if (tracker.associate && ctx.reflect.props[`${tracker.associate}.${prop}`]) return Reflect.get(ctx, `${tracker.associate}.${prop}`, withProp(ctx, symbols.receiver, receiver));
+			if (tracker.associate && useSite.reflect.props[`${tracker.associate}.${prop}`]) return Reflect.get(ctx, `${tracker.associate}.${prop}`, withProp(ctx, symbols.receiver, receiver));
 			let shadow, innerValue;
 			const desc = getPropertyDescriptor(target, prop);
 			if (desc && "value" in desc) innerValue = desc.value;
 			else {
-				shadow = createShadow(ctx, target, tracker.property, receiver);
+				shadow = createShadow(useSite, target, tracker.property, receiver);
 				innerValue = Reflect.get(target, prop, shadow);
 			}
 			const innerTracker = innerValue?.[symbols.tracker];
-			if (innerTracker) return createTraceable(ctx, innerValue, innerTracker);
+			if (innerTracker) return createTraceable(useSite, innerValue, innerTracker);
 			else if (!tracker.noShadow && typeof innerValue === "function") {
-				shadow ??= createShadow(ctx, target, tracker.property, receiver);
-				return createShadowMethod(ctx, innerValue, receiver, shadow);
+				shadow ??= createShadow(useSite, target, tracker.property, receiver);
+				return createShadowMethod(useSite, innerValue, receiver, shadow);
 			} else return innerValue;
 		},
 		set: (target, prop, value, receiver) => {
 			if (prop === symbols.original) return false;
+			if (prop === symbols.caller) return false;
 			if (prop === tracker.property) return false;
 			if (typeof prop === "symbol") return Reflect.set(target, prop, value, receiver);
-			if (tracker.associate && ctx.reflect.props[`${tracker.associate}.${prop}`]) return Reflect.set(ctx, `${tracker.associate}.${prop}`, value, withProp(ctx, symbols.receiver, receiver));
-			const shadow = createShadow(ctx, target, tracker.property, receiver);
+			if (tracker.associate && useSite.reflect.props[`${tracker.associate}.${prop}`]) return Reflect.set(ctx, `${tracker.associate}.${prop}`, value, withProp(ctx, symbols.receiver, receiver));
+			const shadow = createShadow(useSite, target, tracker.property, receiver);
 			return Reflect.set(target, prop, value, shadow);
 		},
 		apply: (target, thisArg, args) => {
-			return applyTraceable(proxy, target, thisArg, args);
+			return applyTraceable(tracker.noShadow ? proxy : createShadow(useSite, target, tracker.property, proxy), target, thisArg, args);
 		}
 	});
 	return proxy;
@@ -1404,7 +1394,8 @@ function applyTraceable(proxy, value, thisArg, args) {
 /** Create a callable service object that dispatches through `symbols.invoke`. */
 function createCallable(name, proto, tracker) {
 	const self = function(...args) {
-		return applyTraceable(createTraceable(self["ctx"], self, tracker), self, this, args);
+		const proxy = createTraceable(self["ctx"], self, tracker);
+		return Reflect.apply(proxy, this, args);
 	};
 	defineProperty(self, "name", name);
 	return Object.setPrototypeOf(self, proto);
@@ -1449,446 +1440,6 @@ function buildOuterStack(offset = 0) {
 	const outerError = /* @__PURE__ */ new Error();
 	return () => outerError.stack.split("\n").slice(3 + offset);
 }
-//#endregion
-//#region ../../../vendor/cordis/src/events.ts
-/**
-* Return whether an event result should stop a bail-style dispatch.
-*
-* @param value — a listener's return value.
-* @returns `true` unless `value` is `null`, `false`, or `undefined`.
-*/
-function isBailed(value) {
-	return value !== null && value !== false && value !== void 0;
-}
-/**
-* Event bus installed as `ctx.events` and mixed into every context.
-*
-* The service supports concurrent, synchronous, serial, bail, and waterfall
-* dispatch and automatically disposes listeners with their owning fiber.
-*/
-var EventsService = class {
-	ctx;
-	_hooks = {};
-	constructor(ctx) {
-		this.ctx = ctx;
-		defineProperty(this, symbols.tracker, {
-			property: "ctx",
-			noShadow: true
-		});
-		this.on("internal/listener", function(name, listener, options) {
-			if (name === "internal/update" && !options.global) return (this.fiber._hooks["internal/update"] ??= new DisposableList())[options.prepend ? "unshift" : "push"](listener);
-		});
-		this.on("internal/update", function(config, noSave, next) {
-			const cbs = [...this._hooks["internal/update"] || []];
-			const _next = () => {
-				return (cbs.shift() ?? next).call(this, config, noSave, _next);
-			};
-			return _next();
-		}, {
-			global: true,
-			prepend: true
-		});
-	}
-	/**
-	* Resolve listeners for one dispatch and apply context filtering.
-	*
-	* @param type — the dispatch mode, reported on `internal/dispatch`.
-	* @param args — the raw dispatch arguments; consumed up to the event name.
-	* @returns the matching listener callbacks, bound to the dispatch `this`.
-	*/
-	dispatch(type, args) {
-		const thisArg = typeof args[0] === "object" || typeof args[0] === "function" ? args.shift() : null;
-		const name = args.shift();
-		if (!name.startsWith("internal/")) this.emit("internal/dispatch", type, name, args, thisArg);
-		const filter = thisArg?.[Context.filter];
-		return (this._hooks[name] || []).filter((hook) => hook.global || !filter || filter.call(thisArg, hook.ctx)).map((hook) => hook.callback.bind(thisArg));
-	}
-	/**
-	* Run listeners concurrently and wait for all of them.
-	*
-	* @param args — optional `this`, the event name, then listener arguments.
-	* @returns a promise resolving once every listener has settled.
-	*/
-	async parallel(...args) {
-		const errors = (await Promise.allSettled(this.dispatch("emit", args).map(async (cb) => cb(...args)))).filter((result) => result.status === "rejected");
-		if (errors.length) throw new AggregateError(errors.map((error) => error.reason));
-	}
-	/**
-	* Run listeners synchronously without waiting for returned promises.
-	*
-	* @param args — optional `this`, the event name, then listener arguments.
-	*/
-	emit(...args) {
-		this.dispatch("emit", args).map((cb) => cb(...args));
-	}
-	/**
-	* Run listeners in order, awaiting each, until one returns a bail value.
-	*
-	* @param args — optional `this`, the event name, then listener arguments.
-	* @returns the first bail value (see {@link isBailed}), if any.
-	*/
-	async serial(...args) {
-		for (const cb of this.dispatch("serial", args)) {
-			const result = await cb(...args);
-			if (isBailed(result)) return result;
-		}
-	}
-	/**
-	* Run listeners synchronously until one returns a bail value.
-	*
-	* @param args — optional `this`, the event name, then listener arguments.
-	* @returns the first bail value (see {@link isBailed}), if any.
-	*/
-	bail(...args) {
-		for (const cb of this.dispatch("bail", args)) {
-			const result = cb(...args);
-			if (isBailed(result)) return result;
-		}
-	}
-	/**
-	* Compose listeners around the final `next` callback.
-	*
-	* The last dispatch argument is treated as the innermost `next`. Listeners
-	* run outermost-first; a listener that does not call `next()` vetoes the
-	* rest of the chain, including the built-in behavior.
-	*
-	* @param args — optional `this`, the event name, listener arguments, then `next`.
-	* @returns the outermost listener's return value.
-	*/
-	waterfall(...args) {
-		const cbs = this.dispatch("waterfall", args);
-		const inner = args.pop();
-		const next = () => {
-			return (cbs.shift() ?? inner)(...args);
-		};
-		args.push(next);
-		return next();
-	}
-	/**
-	* Store a listener record as an effect on the current fiber.
-	*
-	* @param label — effect label shown in fiber diagnostics.
-	* @param hooks — the listener list for one event.
-	* @param callback — the listener to store.
-	* @param options — placement and filtering options.
-	* @returns a disposer that unregisters the listener.
-	*/
-	register(label, hooks, callback, options) {
-		const method = options.prepend ? "unshift" : "push";
-		return this.ctx.fiber.effect(() => {
-			hooks[method]({
-				ctx: this.ctx,
-				callback,
-				...options
-			});
-			return () => this.unregister(hooks, callback);
-		}, label);
-	}
-	/**
-	* Remove a stored listener record.
-	*
-	* @param hooks — the listener list for one event.
-	* @param callback — the listener to remove.
-	* @returns `true` if the listener was found and removed.
-	*/
-	unregister(hooks, callback) {
-		const index = hooks.findIndex((hook) => hook.callback === callback);
-		if (index >= 0) {
-			hooks.splice(index, 1);
-			return true;
-		}
-	}
-	/**
-	* Register an event listener owned by the current fiber.
-	*
-	* The listener is removed automatically when the fiber unloads. Throws
-	* `CordisError('INACTIVE_EFFECT')` if the fiber is already disposed.
-	*
-	* @param name — the event name to listen for.
-	* @param listener — called with the dispatch arguments.
-	* @param options — listener options; a boolean is shorthand for `prepend`.
-	* @returns a disposer removing the listener; `true` if it was still registered.
-	*/
-	on(name, listener, options) {
-		if (typeof options !== "object") options = { prepend: options };
-		this.ctx.fiber.assertActive();
-		listener = this.ctx.reflect.bind(listener);
-		const result = this.bail(this.ctx, "internal/listener", name, listener, options);
-		if (result) return result;
-		const hooks = this._hooks[name] ||= [];
-		const label = `ctx.on(${typeof name === "string" ? JSON.stringify(name) : name.toString()})`;
-		return this.register(label, hooks, listener, options);
-	}
-	/**
-	* Register an event listener that disposes itself after the first call.
-	*
-	* @param name — the event name to listen for.
-	* @param listener — called at most once with the dispatch arguments.
-	* @param options — listener options; a boolean is shorthand for `prepend`.
-	* @returns a disposer removing the listener; `true` if it was still registered.
-	*/
-	once(name, listener, options) {
-		const dispose = this.on(name, function(...args) {
-			dispose();
-			return listener.apply(this, args);
-		}, options);
-		return dispose;
-	}
-};
-//#endregion
-//#region ../../../vendor/cordis/src/logger.ts
-/** Built-in placeholder formatters used by `Logger.format()`. */
-const defaultFormatters = {
-	s: (value) => String(value),
-	d: (value) => Math.trunc(Number(value)),
-	i: (value) => Math.trunc(Number(value)),
-	f: (value) => Number(value),
-	o: (value) => JSON.stringify(value),
-	O: (value) => JSON.stringify(value),
-	c: () => "",
-	C: (value, exporter, message) => {
-		return Logger.color(exporter, Logger.code(message.name, exporter.colors), value);
-	}
-};
-function isAggregateError(error) {
-	return error instanceof Error && Array.isArray(error["errors"]);
-}
-/** Logger facade for one named subsystem. */
-var Logger = class {
-	service;
-	static color(exporter, code, value, decoration = "") {
-		if (!exporter.colors) return "" + value;
-		return `\u001b[3${code < 8 ? code : "8;5;" + code}${exporter.colors >= 2 ? decoration : ""}m${value}\u001b[0m`;
-	}
-	static code(name, level) {
-		let hash = 0;
-		for (let i = 0; i < name.length; i++) {
-			hash = (hash << 3) - hash + name.charCodeAt(i) + 13;
-			hash |= 0;
-		}
-		const colors = !level ? [] : level >= 2 ? c256 : c16;
-		return colors[Math.abs(hash) % colors.length];
-	}
-	static format(exporter, message) {
-		const args = message.args.slice();
-		if (args[0] instanceof Error) {
-			args[0] = args[0].stack || args[0].message;
-			args.unshift("%s");
-		} else if (typeof args[0] !== "string") args.unshift("%o");
-		let format = args.shift();
-		format = format.replace(/%([a-zA-Z%])/g, (match, char) => {
-			if (match === "%%") return "%";
-			const formatter = exporter.formatters?.[char] ?? defaultFormatters[char];
-			if (typeof formatter === "function") return formatter(args.shift(), exporter, message);
-			return match;
-		});
-		const oFormatter = exporter.formatters?.o ?? defaultFormatters.o;
-		for (let arg of args) {
-			if (typeof arg === "object" && arg) arg = oFormatter(arg, exporter, message);
-			format += " " + arg;
-		}
-		const { maxLength = 10240 } = exporter;
-		return format.split(/\r?\n/g).map((line) => {
-			return line.slice(0, maxLength) + (line.length > maxLength ? "..." : "");
-		}).join("\n");
-	}
-	constructor(options, service) {
-		this.service = service;
-		Object.assign(this, options);
-		this.error = this._method("error", 0);
-		this.info = this._method("info", 1);
-		this.warn = this._method("warn", 2);
-		this.debug = this._method("debug", 3);
-	}
-	_method(type, level) {
-		return (...args) => {
-			if (args.length === 1 && args[0] instanceof Error) {
-				if (args[0].cause) this[type](args[0].cause);
-				else if (isAggregateError(args[0])) {
-					args[0].errors.forEach((error) => this[type](error));
-					return;
-				}
-			}
-			const sn = ++this.service._snMessage;
-			const ts = Date.now();
-			for (const exporter of this.service.exporters.values()) {
-				if ((exporter.levels?.[this.name] ?? exporter.levels?.default ?? this.level ?? 1) < level) continue;
-				const message = {
-					sn,
-					ts,
-					type,
-					level,
-					name: this.name,
-					...this.meta,
-					args
-				};
-				exporter.export(message);
-			}
-		};
-	}
-};
-/** ANSI 16-color palette indexes used for logger name coloring. */
-const c16 = [
-	6,
-	2,
-	3,
-	4,
-	5,
-	1
-];
-/** ANSI 256-color palette indexes used for logger name coloring. */
-const c256 = [
-	20,
-	21,
-	26,
-	27,
-	32,
-	33,
-	38,
-	39,
-	40,
-	41,
-	42,
-	43,
-	44,
-	45,
-	56,
-	57,
-	62,
-	63,
-	68,
-	69,
-	74,
-	75,
-	76,
-	77,
-	78,
-	79,
-	80,
-	81,
-	92,
-	93,
-	98,
-	99,
-	112,
-	113,
-	129,
-	134,
-	135,
-	148,
-	149,
-	160,
-	161,
-	162,
-	163,
-	164,
-	165,
-	166,
-	167,
-	168,
-	169,
-	170,
-	171,
-	172,
-	173,
-	178,
-	179,
-	184,
-	185,
-	196,
-	197,
-	198,
-	199,
-	200,
-	201,
-	202,
-	203,
-	204,
-	205,
-	206,
-	207,
-	208,
-	209,
-	214,
-	215,
-	220,
-	221
-];
-/**
-* Built-in logging service.
-*
-* Call `ctx.logger()` to create a named logger, or call `ctx.logger.info()`
-* directly to log with the current fiber-derived name.
-*/
-var LoggerService = class LoggerService {
-	bufferSize = 1e3;
-	buffer = [];
-	ctx;
-	_snMessage = 0;
-	_snExporter = 0;
-	exporters = /* @__PURE__ */ new Map();
-	constructor(ctx) {
-		const tracker = {
-			property: "ctx",
-			noShadow: true
-		};
-		const self = createCallable("logger", joinPrototype(Object.getPrototypeOf(this), Function.prototype), tracker);
-		Object.assign(self, this);
-		self.ctx = ctx;
-		defineProperty(self, symbols.tracker, tracker);
-		self.exporter({
-			colors: 3,
-			export: (message) => {
-				self.buffer.push(message);
-				if (self.buffer.length > self.bufferSize) self.buffer = self.buffer.slice(-self.bufferSize);
-			}
-		});
-		return self;
-	}
-	/**
-	* Register an exporter and dispose it with the current fiber.
-	*
-	* @param exporter — the sink that receives structured log messages.
-	* @returns a disposer that removes the exporter.
-	*/
-	exporter(exporter) {
-		return this.ctx.effect(() => {
-			const id = ++this._snExporter;
-			this.exporters.set(id, exporter);
-			return () => this.exporters.delete(id);
-		}, "ctx.logger.exporter()");
-	}
-	_resolveConfig() {
-		let intercept = this.ctx[symbols.intercept];
-		const configs = [];
-		while ("logger" in intercept) {
-			if (Object.hasOwn(intercept, "logger")) configs.unshift(intercept["logger"]);
-			intercept = Object.getPrototypeOf(intercept);
-		}
-		return Object.assign({}, ...configs);
-	}
-	[symbols.invoke](name) {
-		const config = this._resolveConfig();
-		const fiber = (this.ctx[symbols.shadow] ?? this.ctx).fiber;
-		name ??= config.name;
-		name ??= hyphenate(fiber.name);
-		return new Logger({
-			name,
-			level: config.level,
-			meta: { fiber: new WeakRef(fiber) }
-		}, this);
-	}
-	static {
-		for (const type of [
-			"error",
-			"info",
-			"warn",
-			"debug"
-		]) LoggerService.prototype[type] = function(...args) {
-			return this()[type](...args);
-		};
-	}
-};
 //#endregion
 //#region ../../../vendor/cordis/src/fiber.ts
 const kValidationError$1 = Symbol.for("ValidationError");
@@ -1964,7 +1515,7 @@ const INACTIVE = "__INACTIVE__";
 /**
 * Runtime instance of one plugin application.
 *
-* A fiber tracks dependency state, validated config, lifecycle effects, and
+* A fiber tracks dependency state, raw and effective config, lifecycle effects, and
 * cleanup for the plugin context returned by `ctx.plugin()`.
 */
 var Fiber = class {
@@ -1975,24 +1526,28 @@ var Fiber = class {
 	uid;
 	/** The context this fiber's plugin runs in (extends the parent context). */
 	ctx;
-	/** The validated plugin config (updated by `update()`). */
+	/** Raw plugin input retained for the next activation. */
 	config;
-	/** The raw plugin config, re-resolved before each activation. */
-	_config;
 	/** Current lifecycle state; transitions emit `internal/status`. */
 	state = 0;
 	/** Dispose this fiber: unload the plugin, then settle once cleanup finished. */
 	dispose;
-	/** Snapshot of required service implementations while loaded; `undefined` otherwise. */
-	store;
+	/** Required implementations retained through dependent teardown. */
+	committed;
+	/** Service implementations owned by this fiber, including isolated provisions. */
+	provisions = /* @__PURE__ */ new Set();
 	/** The in-flight load/unload transition, if one is currently running. */
 	inertia;
 	_hooks = Object.create(null);
 	_disposables = new DisposableList();
 	context;
 	_error;
+	_revision = 0;
+	_configRevision = 0;
+	_effectiveConfig;
 	_runner;
 	_store = Object.create(null);
+	_release;
 	/**
 	* Create a fiber. Plugin authors normally obtain fibers from `ctx.plugin()`
 	* rather than constructing them directly.
@@ -2007,7 +1562,7 @@ var Fiber = class {
 		this.parent = parent;
 		this.inject = inject;
 		this.runtime = runtime;
-		this._config = config;
+		this.config = config;
 		const collect = (dispose) => {
 			this._disposables.push(dispose);
 		};
@@ -2026,11 +1581,13 @@ var Fiber = class {
 				epoch: INACTIVE,
 				getOuterStack,
 				execute: function() {
+					const config = this.resolveConfig(this.config);
+					this._effectiveConfig = config;
 					if (isConstructor(runtime.callback)) {
-						const instance = new runtime.callback(this.ctx, this.config);
+						const instance = new runtime.callback(this.ctx, config);
 						for (const hook of instance?.[symbols.initHooks] ?? []) hook();
 						return instance?.[symbols.init]?.();
-					} else return runtime.callback(this.ctx, this.config);
+					} else return runtime.callback(this.ctx, config);
 				},
 				collect
 			};
@@ -2065,9 +1622,9 @@ var Fiber = class {
 			this.uid = 0;
 			this.ctx = this.context = parent;
 			this.state = 2;
-			this.store = Object.create(null);
+			this.committed = Object.create(null);
 			this._runner = {
-				epoch: "",
+				epoch: "0",
 				getOuterStack,
 				execute: () => {},
 				collect
@@ -2261,8 +1818,8 @@ var Fiber = class {
 		if (oldState !== 2 && this.state !== 2) return;
 		for (const key of Reflect.ownKeys(this.ctx.reflect.store)) {
 			const impl = this.ctx.reflect.store[key];
-			if (impl.fiber !== this) continue;
-			this.ctx.reflect.notify([impl.name]);
+			if (impl.ctx.fiber !== this) continue;
+			this.ctx.isolate(impl.name, impl.isolate).reflect.notify([impl.name]);
 		}
 	}
 	_checkImpl(name) {
@@ -2271,27 +1828,27 @@ var Fiber = class {
 		try {
 			if (impl.check && !impl.check.call(getTraceable(this.ctx, impl.value))) return delete this._store[name];
 		} catch (error) {
-			impl.fiber.ctx.logger.error(error);
+			impl.ctx.logger.error(error);
 			return delete this._store[name];
 		}
 		this._store[name] = impl;
 	}
 	_refresh() {
-		let epoch = false;
-		epoch = "";
+		let epoch = `${this._revision}`;
 		for (const name of Object.keys(this.inject)) {
 			const impl = this._store[name];
 			if (!impl) {
 				epoch = INACTIVE;
 				break;
 			}
-			epoch += ":" + impl.fiber.uid;
+			epoch += ":" + impl.uid;
 		}
 		this._setEpoch(epoch);
 	}
 	_setEpoch(epoch) {
 		const oldEpoch = this._runner.epoch;
 		if (epoch === oldEpoch) return;
+		if (this._error) return;
 		this._runner.epoch = epoch;
 		if (this.inertia) return;
 		this._updateState(() => {
@@ -2304,24 +1861,51 @@ var Fiber = class {
 			}
 		});
 	}
-	_resolveConfig(config) {
-		config = this.context.waterfall(this, "internal/config", config, () => config);
-		return this.runtime ? resolveConfig(this.runtime, config) : config;
+	/** Raw input retained for the next activation, without evaluating expressions or validating it. */
+	get rawConfig() {
+		return this.ctx.fiber.config;
+	}
+	/** Retain raw input without changing the running config or triggering an update. */
+	set rawConfig(config) {
+		this.ctx.fiber.config = config;
+		this.ctx.fiber._configRevision++;
+	}
+	/**
+	* The object passed to plugin activation or the latest successful update that retained the instance.
+	* Candidate resolution does not publish it; volatile updates retain its references.
+	* Undefined before activation and readable after unload; callers requiring a live instance check `state`.
+	*/
+	get effectiveConfig() {
+		return this.ctx.fiber._effectiveConfig;
+	}
+	/**
+	* Evaluate and validate a candidate using this fiber's `internal/config` hooks and runtime schema.
+	* Does not publish the result, replace raw input, or commit running volatile references.
+	* Required injections must be available when a hook uses them.
+	* @param config Raw candidate input.
+	* @returns The candidate's resolved config, retaining the schema's result identity.
+	* @throws {ValidationError} when the runtime schema rejects the candidate; hook errors propagate.
+	*/
+	resolveConfig(config) {
+		const fiber = this.ctx.fiber;
+		return fiber.context.waterfall("internal/config", fiber, () => config);
 	}
 	async _reload() {
-		this.store = { ...this._store };
+		this.committed = { ...this._store };
+		for (const impl of Object.values(this.committed)) {
+			if (impl.ctx.fiber === this) continue;
+			impl.dependents.add(this);
+		}
 		const oldEpoch = this._runner.epoch;
 		try {
 			await Promise.resolve();
-			if (this._runner.epoch === oldEpoch) {
-				this.config = this._resolveConfig(this._config);
-				await this._execute(this._runner);
-				this._error = void 0;
-			}
+			if (this._runner.epoch === oldEpoch) await this._execute(this._runner);
 		} catch (reason) {
 			this.ctx.logger.error(reason);
-			this._error = reason;
-			this._runner.epoch = INACTIVE;
+			if (this._runner.epoch === oldEpoch) {
+				this._error = reason;
+				this._runner.epoch = INACTIVE;
+			}
 		}
 		this._updateState(() => {
 			if (this._runner.epoch === oldEpoch) this.inertia = void 0;
@@ -2332,6 +1916,8 @@ var Fiber = class {
 		});
 	}
 	async _unload() {
+		while ([...this.provisions].some((impl) => impl.dependents.size)) await new Promise((resolve) => this._release = resolve);
+		this._release = void 0;
 		await Promise.all(this._disposables.clear().map(async (dispose) => {
 			try {
 				await composeError(async (info) => {
@@ -2343,7 +1929,12 @@ var Fiber = class {
 				this.ctx.logger.error(reason);
 			}
 		}));
-		this.store = void 0;
+		for (const impl of Object.values(this.committed ?? {})) {
+			if (!impl.dependents.delete(this) || impl.dependents.size) continue;
+			impl.release?.();
+			impl.ctx.fiber._release?.();
+		}
+		this.committed = void 0;
 		this._updateState(() => {
 			if (this._runner.epoch === INACTIVE) this.inertia = void 0;
 			else {
@@ -2370,37 +1961,497 @@ var Fiber = class {
 	* @throws {CordisError} `INACTIVE_EFFECT` when the fiber is already disposed.
 	*/
 	async restart() {
-		this.assertActive();
-		this._setEpoch(INACTIVE);
-		this._refresh();
-		await this.await();
+		const fiber = this.ctx.fiber;
+		fiber.assertActive();
+		fiber._revision++;
+		fiber._refresh();
+		await fiber.await();
 	}
 	/**
-	* Validate and apply new config, then restart the plugin.
-	*
-	* Runs the `internal/update` waterfall first, so update hooks (and HMR)
-	* can veto or replace the restart.
-	*
-	* @param config — the new raw config; validated before anything restarts.
-	* @param noSave — hint for persistence hooks not to write the change back.
-	* @returns nothing; the restart runs behind the `internal/update` waterfall.
-	* @throws {ValidationError} when the new config fails validation.
+	* Resolve a candidate, retain its raw config and apply it through the update waterfall.
+	* @param config Raw config; pending fibers defer resolution until activation.
+	* @param noSave Suppress the persistence notification when true.
+	* @returns The awaited update/restart result, or undefined when a synchronous listener handles it.
+	* @throws {ValidationError} when an active fiber's candidate is invalid.
 	*/
 	update(config, noSave = false) {
-		this.assertActive();
-		this._config = config;
-		if (this.state !== 2) {
-			this._error = void 0;
-			this._setEpoch(INACTIVE);
-			this._refresh();
+		const fiber = this.ctx.fiber;
+		fiber.assertActive();
+		const loaded = fiber._runner.epoch !== INACTIVE;
+		const resolved = loaded ? fiber.resolveConfig(config) : void 0;
+		if (!noSave) fiber.context.emit("internal/commit", fiber, config);
+		fiber.config = config;
+		fiber._error = void 0;
+		const configRevision = ++fiber._configRevision;
+		const epoch = fiber._runner.epoch;
+		const committed = fiber.committed;
+		let restarted = false;
+		const restart = () => {
+			restarted = true;
+			return fiber.restart();
+		};
+		const publish = () => {
+			if (!restarted && fiber.uid !== null && fiber._configRevision === configRevision && fiber._runner.epoch === epoch && fiber.committed === committed) fiber._effectiveConfig = resolved;
+		};
+		const result = loaded ? fiber.context.waterfall(fiber, "internal/update", resolved, restart) : restart();
+		if (result === void 0) {
+			publish();
 			return;
 		}
-		config = this._resolveConfig(config);
-		this.context.waterfall(this, "internal/update", config, noSave, () => {
-			this.config = config;
-			this._error = void 0;
-			return this.restart();
+		const task = Promise.resolve(result).then(publish);
+		task.catch(() => {});
+		return task;
+	}
+};
+//#endregion
+//#region ../../../vendor/cordis/src/events.ts
+/**
+* Return whether an event result should stop a bail-style dispatch.
+*
+* @param value — a listener's return value.
+* @returns `true` unless `value` is `null`, `false`, or `undefined`.
+*/
+function isBailed(value) {
+	return value !== null && value !== false && value !== void 0;
+}
+/**
+* Event bus installed as `ctx.events` and mixed into every context.
+*
+* The service supports concurrent, synchronous, serial, bail, and waterfall
+* dispatch and automatically disposes listeners with their owning fiber.
+*/
+var EventsService = class {
+	ctx;
+	_hooks = Object.create(null);
+	constructor(ctx) {
+		this.ctx = ctx;
+		defineProperty(this, symbols.tracker, {
+			property: "ctx",
+			noShadow: true
 		});
+		this.on("internal/listener", function(name, listener, options) {
+			if (name === "internal/update" && !options.global) {
+				const hooks = this.fiber._hooks["internal/update"] ??= new DisposableList();
+				const method = options.prepend ? "unshift" : "push";
+				return this.fiber.effect(() => hooks[method](listener), "ctx.on(\"internal/update\")");
+			}
+		});
+		this.on("internal/update", function(config, next) {
+			const cbs = [...this._hooks["internal/update"] || []];
+			const _next = () => {
+				return (cbs.shift() ?? next).call(this, config, _next);
+			};
+			return _next();
+		}, {
+			global: true,
+			prepend: true
+		});
+		this.on("internal/config", (fiber, next) => {
+			const config = next();
+			return fiber.runtime ? resolveConfig(fiber.runtime, config) : config;
+		});
+	}
+	_resolve(type, args) {
+		const thisArg = typeof args[0] === "object" || typeof args[0] === "function" ? args.shift() : null;
+		const name = args.shift();
+		if ((typeof name !== "string" || !name.startsWith("internal/")) && this._hooks["internal/dispatch"]?.length) this.emit("internal/dispatch", type, name, args, thisArg);
+		const filter = thisArg?.[Context.filter];
+		return [thisArg, (this._hooks[name] || []).filter((hook) => hook.global || !filter || filter.call(thisArg, hook.ctx)).map((hook) => hook.callback)];
+	}
+	/**
+	* Resolve bound callbacks using the event's context filter.
+	* @param type Dispatch mode reported to observers.
+	* @param args Dispatch arguments, consumed through the event name.
+	* @returns Matching callbacks bound to the dispatch receiver.
+	* DSH retains callback enumeration for per-listener error containment.
+	*/
+	dispatch(type, args) {
+		const [thisArg, callbacks] = this._resolve(type, args);
+		return callbacks.map((callback) => callback.bind(thisArg));
+	}
+	/**
+	* Run listeners concurrently and wait for all of them.
+	*
+	* @param args — optional `this`, the event name, then listener arguments.
+	* @returns a promise resolving once every listener has settled.
+	*/
+	async parallel(...args) {
+		const [thisArg, callbacks] = this._resolve("parallel", args);
+		const errors = (await Promise.allSettled(callbacks.map(async (callback) => Reflect.apply(callback, thisArg, args)))).filter((result) => result.status === "rejected");
+		if (errors.length) throw new AggregateError(errors.map((error) => error.reason));
+	}
+	/**
+	* Run listeners synchronously without waiting for returned promises.
+	*
+	* @param args — optional `this`, the event name, then listener arguments.
+	*/
+	emit(...args) {
+		const [thisArg, callbacks] = this._resolve("emit", args);
+		for (const callback of callbacks) Reflect.apply(callback, thisArg, args);
+	}
+	/**
+	* Run listeners in order, awaiting each, until one returns a bail value.
+	*
+	* @param args — optional `this`, the event name, then listener arguments.
+	* @returns the first bail value (see {@link isBailed}), if any.
+	*/
+	async serial(...args) {
+		const [thisArg, callbacks] = this._resolve("serial", args);
+		for (const callback of callbacks) {
+			const result = await Reflect.apply(callback, thisArg, args);
+			if (isBailed(result)) return result;
+		}
+	}
+	/**
+	* Run listeners synchronously until one returns a bail value.
+	*
+	* @param args — optional `this`, the event name, then listener arguments.
+	* @returns the first bail value (see {@link isBailed}), if any.
+	*/
+	bail(...args) {
+		const [thisArg, callbacks] = this._resolve("bail", args);
+		for (const callback of callbacks) {
+			const result = Reflect.apply(callback, thisArg, args);
+			if (isBailed(result)) return result;
+		}
+	}
+	/**
+	* Compose listeners around the final `next` callback.
+	*
+	* The last dispatch argument is treated as the innermost `next`. Listeners
+	* run outermost-first; a listener that does not call `next()` vetoes the
+	* rest of the chain, including the built-in behavior.
+	*
+	* @param args — optional `this`, the event name, listener arguments, then `next`.
+	* @returns the outermost listener's return value.
+	*/
+	waterfall(...args) {
+		const [thisArg, callbacks] = this._resolve("waterfall", args);
+		const inner = args.pop();
+		const dispatch = () => {
+			const callback = callbacks.shift();
+			if (!callback) return inner();
+			let called = false;
+			const next = () => {
+				if (called) throw new Error("next() called multiple times");
+				called = true;
+				return dispatch();
+			};
+			return Reflect.apply(callback, thisArg, [...args, next]);
+		};
+		return dispatch();
+	}
+	register(label, name, callback, options) {
+		const method = options.prepend ? "unshift" : "push";
+		return this.ctx.fiber.effect(() => {
+			(this._hooks[name] ??= [])[method]({
+				ctx: this.ctx,
+				callback,
+				...options
+			});
+			return () => this.unregister(name, callback);
+		}, label);
+	}
+	unregister(name, callback) {
+		const hooks = this._hooks[name];
+		if (!hooks) return;
+		const index = hooks.findIndex((hook) => hook.callback === callback);
+		if (index >= 0) {
+			hooks.splice(index, 1);
+			if (!hooks.length) delete this._hooks[name];
+			return true;
+		}
+	}
+	/**
+	* Register an event listener owned by the current fiber.
+	*
+	* The listener is removed automatically when the fiber unloads. Throws
+	* `CordisError('INACTIVE_EFFECT')` if the fiber is already disposed.
+	*
+	* @param name — the event name to listen for.
+	* @param listener — called with the dispatch arguments.
+	* @param options — listener options; a boolean is shorthand for `prepend`.
+	* @returns a disposer removing the listener; `true` if it was still registered.
+	*/
+	on(name, listener, options) {
+		if (typeof options !== "object") options = { prepend: options };
+		this.ctx.fiber.assertActive();
+		listener = this.ctx.reflect.bind(listener);
+		const result = this.bail(this.ctx, "internal/listener", name, listener, options);
+		if (result) return result;
+		const label = `ctx.on(${typeof name === "string" ? JSON.stringify(name) : name.toString()})`;
+		return this.register(label, name, listener, options);
+	}
+	/**
+	* Register an event listener that disposes itself after the first call.
+	*
+	* @param name — the event name to listen for.
+	* @param listener — called at most once with the dispatch arguments.
+	* @param options — listener options; a boolean is shorthand for `prepend`.
+	* @returns a disposer removing the listener; `true` if it was still registered.
+	*/
+	once(name, listener, options) {
+		const dispose = this.on(name, function(...args) {
+			dispose();
+			return listener.apply(this, args);
+		}, options);
+		return dispose;
+	}
+};
+//#endregion
+//#region ../../../vendor/cordis/src/logger.ts
+/** Built-in placeholder formatters used by `Logger.format()`. */
+const defaultFormatters = {
+	s: (value) => String(value),
+	d: (value) => Math.trunc(Number(value)),
+	i: (value) => Math.trunc(Number(value)),
+	f: (value) => Number(value),
+	o: (value) => JSON.stringify(value),
+	O: (value) => JSON.stringify(value),
+	c: () => "",
+	C: (value, exporter, message) => {
+		return Logger.color(exporter, Logger.code(message.name, exporter.colors), value);
+	}
+};
+function isAggregateError(error) {
+	return error instanceof Error && Array.isArray(error["errors"]);
+}
+/** Logger facade for one named subsystem. */
+var Logger = class {
+	service;
+	static color(exporter, code, value, decoration = "") {
+		if (!exporter.colors) return "" + value;
+		return `\u001b[3${code < 8 ? code : "8;5;" + code}${exporter.colors >= 2 ? decoration : ""}m${value}\u001b[0m`;
+	}
+	static code(name, level) {
+		let hash = 0;
+		for (let i = 0; i < name.length; i++) {
+			hash = (hash << 3) - hash + name.charCodeAt(i) + 13;
+			hash |= 0;
+		}
+		const colors = !level ? [] : level >= 2 ? c256 : c16;
+		return colors[Math.abs(hash) % colors.length];
+	}
+	static format(exporter, message) {
+		const args = message.args.slice();
+		if (args[0] instanceof Error) {
+			args[0] = args[0].stack || args[0].message;
+			args.unshift("%s");
+		} else if (typeof args[0] !== "string") args.unshift("%o");
+		let format = args.shift();
+		format = format.replace(/%([a-zA-Z%])/g, (match, char) => {
+			if (match === "%%") return "%";
+			const formatter = exporter.formatters?.[char] ?? defaultFormatters[char];
+			if (typeof formatter === "function") return formatter(args.shift(), exporter, message);
+			return match;
+		});
+		const oFormatter = exporter.formatters?.o ?? defaultFormatters.o;
+		for (let arg of args) {
+			if (typeof arg === "object" && arg) arg = oFormatter(arg, exporter, message);
+			format += " " + arg;
+		}
+		const { maxLength = 10240 } = exporter;
+		return format.split(/\r?\n/g).map((line) => {
+			return line.slice(0, maxLength) + (line.length > maxLength ? "..." : "");
+		}).join("\n");
+	}
+	constructor(options, service) {
+		this.service = service;
+		Object.assign(this, options);
+		this.error = this._method("error", 0);
+		this.info = this._method("info", 2);
+		this.warn = this._method("warn", 1);
+		this.debug = this._method("debug", 3);
+	}
+	_method(type, level) {
+		return (...args) => {
+			if (args.length === 1 && args[0] instanceof Error) {
+				if (args[0].cause) this[type](args[0].cause);
+				else if (isAggregateError(args[0])) {
+					args[0].errors.forEach((error) => this[type](error));
+					return;
+				}
+			}
+			const sn = ++this.service._snMessage;
+			const ts = Date.now();
+			for (const exporter of this.service.exporters.values()) {
+				if ((exporter.levels?.[this.name] ?? exporter.levels?.default ?? this.level ?? 2) < level) continue;
+				const message = {
+					sn,
+					ts,
+					type,
+					level,
+					name: this.name,
+					...this.meta,
+					args
+				};
+				exporter.export(message);
+			}
+		};
+	}
+};
+/** ANSI 16-color palette indexes used for logger name coloring. */
+const c16 = [
+	6,
+	2,
+	3,
+	4,
+	5,
+	1
+];
+/** ANSI 256-color palette indexes used for logger name coloring. */
+const c256 = [
+	20,
+	21,
+	26,
+	27,
+	32,
+	33,
+	38,
+	39,
+	40,
+	41,
+	42,
+	43,
+	44,
+	45,
+	56,
+	57,
+	62,
+	63,
+	68,
+	69,
+	74,
+	75,
+	76,
+	77,
+	78,
+	79,
+	80,
+	81,
+	92,
+	93,
+	98,
+	99,
+	112,
+	113,
+	129,
+	134,
+	135,
+	148,
+	149,
+	160,
+	161,
+	162,
+	163,
+	164,
+	165,
+	166,
+	167,
+	168,
+	169,
+	170,
+	171,
+	172,
+	173,
+	178,
+	179,
+	184,
+	185,
+	196,
+	197,
+	198,
+	199,
+	200,
+	201,
+	202,
+	203,
+	204,
+	205,
+	206,
+	207,
+	208,
+	209,
+	214,
+	215,
+	220,
+	221
+];
+/**
+* Built-in logging service.
+*
+* Call `ctx.logger()` to create a named logger, or call `ctx.logger.info()`
+* directly to log with the current fiber-derived name.
+*/
+var LoggerService = class LoggerService {
+	bufferSize = 1e3;
+	buffer = [];
+	ctx;
+	_snMessage = 0;
+	_snExporter = 0;
+	exporters = /* @__PURE__ */ new Map();
+	constructor(ctx) {
+		const tracker = {
+			property: "ctx",
+			noShadow: true
+		};
+		const self = createCallable("logger", joinPrototype(Object.getPrototypeOf(this), Function.prototype), tracker);
+		Object.assign(self, this);
+		self.ctx = ctx;
+		defineProperty(self, symbols.tracker, tracker);
+		self.exporter({
+			colors: 3,
+			export: (message) => {
+				self.buffer.push(message);
+				const overflow = self.buffer.length - self.bufferSize;
+				if (overflow === 1) self.buffer.shift();
+				else if (overflow > 1) self.buffer.splice(0, overflow);
+			}
+		});
+		return self;
+	}
+	/**
+	* Register an exporter and dispose it with the current fiber.
+	*
+	* @param exporter — the sink that receives structured log messages.
+	* @returns a disposer that removes the exporter.
+	*/
+	exporter(exporter) {
+		return this.ctx.effect(() => {
+			const id = ++this._snExporter;
+			this.exporters.set(id, exporter);
+			return () => this.exporters.delete(id);
+		}, "ctx.logger.exporter()");
+	}
+	_resolveConfig() {
+		let intercept = this.ctx[symbols.intercept];
+		const configs = [];
+		while ("logger" in intercept) {
+			if (Object.hasOwn(intercept, "logger")) configs.unshift(intercept["logger"]);
+			intercept = Object.getPrototypeOf(intercept);
+		}
+		return Object.assign({}, ...configs);
+	}
+	[symbols.invoke](name) {
+		const config = this._resolveConfig();
+		const fiber = (this[symbols.caller] ?? this.ctx).fiber;
+		name ??= config.name;
+		name ??= hyphenate(fiber.name);
+		return new Logger({
+			name,
+			level: config.level,
+			meta: { fiber: new WeakRef(fiber) }
+		}, this);
+	}
+	static {
+		for (const type of [
+			"error",
+			"info",
+			"warn",
+			"debug"
+		]) LoggerService.prototype[type] = function(...args) {
+			return this()[type](...args);
+		};
 	}
 };
 //#endregion
@@ -2432,12 +2483,14 @@ var ReflectService = class {
 			try {
 				const def = target.reflect.props[prop];
 				if (def?.type === "accessor") return def.get.call(ctx, ctx[symbols.receiver], error);
-				if (!ctx.fiber.runtime) return ctx.reflect.get(prop, false);
+				const defSite = ctx[symbols.shadow] ?? ctx;
+				if (!defSite.fiber.runtime) return ctx.reflect.get(prop, false);
 				return ctx.events.waterfall("internal/get", ctx, prop, error, () => {
-					const key = target[symbols.isolate][prop];
-					let fiber = (ctx[symbols.shadow] ?? ctx).fiber;
+					const key = defSite[symbols.isolate][prop];
+					let fiber = defSite.fiber;
 					while (true) {
-						const impl = fiber.store?.[prop];
+						let impl = fiber.committed?.[prop];
+						for (const provision of fiber.provisions) if (provision.name === prop && provision.ctx[symbols.isolate][prop] === key) impl = provision;
 						if (impl) return getTraceable(ctx, impl.value);
 						if (prop in fiber.inject) {
 							error.message = `cannot get required service "${prop}" in inactive context`;
@@ -2482,6 +2535,7 @@ var ReflectService = class {
 	store = Object.create(null);
 	/** Declared context properties (services and accessors), by name. */
 	props = Object.create(null);
+	_implCounter = 0;
 	constructor(ctx) {
 		this.ctx = ctx;
 		defineProperty(this, symbols.tracker, {
@@ -2522,7 +2576,7 @@ var ReflectService = class {
 		const key = this.ctx[symbols.isolate][name];
 		const impl = key && this.store[key];
 		if (!impl) return;
-		if (strict && impl.fiber.state !== 2) return;
+		if (strict && impl.ctx.fiber.state !== 2) return;
 		return impl;
 	}
 	/**
@@ -2538,7 +2592,7 @@ var ReflectService = class {
 		const key = this.ctx[symbols.isolate][name];
 		const impl = this.store[key];
 		if (!impl) throw new Error(`cannot set property "${name}" without provide`);
-		if (impl.fiber !== this.ctx.fiber) throw new Error(`cannot set property "${name}" in multiple fibers`);
+		if (impl.ctx.fiber !== this.ctx.fiber) throw new Error(`cannot set property "${name}" in multiple fibers`);
 		impl.value = value;
 		return true;
 	}
@@ -2560,20 +2614,27 @@ var ReflectService = class {
 			this.ctx.root[symbols.isolate][name] ??= Symbol(name);
 			const key = this.ctx[symbols.isolate][name];
 			const impl = {
+				uid: ++this._implCounter,
 				name,
 				value,
-				fiber: this.ctx.fiber,
-				check
+				ctx: this.ctx,
+				check,
+				isolate: key,
+				dependents: /* @__PURE__ */ new Set()
 			};
-			if (this.store[key]) throw new Error(`service "${name}" has been registered at <${this.store[key].fiber.name}>`);
+			if (this.store[key]) throw new Error(`service "${name}" has been registered at <${this.store[key].ctx.fiber.name}>`);
 			this.store[key] = impl;
-			this.ctx.fiber.store[name] = impl;
+			this.ctx.fiber.provisions.add(impl);
 			if (this.ctx.fiber.state === 2) this.notify([name]);
 			return async () => {
-				delete this.store[key];
-				const fibers = this.notify([name]);
-				await Promise.allSettled(fibers.map((fiber) => fiber.await()));
-				delete this.ctx.fiber.store[name];
+				if (this.store[impl.isolate] === impl) delete this.store[impl.isolate];
+				this.ctx.isolate(name, impl.isolate).reflect.notify([name]);
+				await new Promise((resolve) => {
+					impl.release = resolve;
+					if (!impl.dependents.size) resolve();
+				});
+				impl.release = void 0;
+				this.ctx.fiber.provisions.delete(impl);
 			};
 		}, `ctx.provide(${JSON.stringify(name)})`);
 	}
@@ -2582,10 +2643,8 @@ var ReflectService = class {
 	*
 	* @param names — the service names that changed.
 	* @param filter — restricts notification to matching isolation scopes.
-	* @returns the fibers whose dependency state was refreshed.
 	*/
 	notify(names, filter = (ctx, name) => ctx[symbols.isolate][name] === this.ctx[symbols.isolate][name]) {
-		const fibers = [];
 		for (const runtime of this.ctx.registry.values()) for (const fiber of runtime.fibers) {
 			let hasUpdate = false;
 			for (const name of names) {
@@ -2596,14 +2655,12 @@ var ReflectService = class {
 			}
 			if (!hasUpdate) continue;
 			fiber._refresh();
-			fibers.push(fiber);
 		}
 		for (const name of names) {
 			const self = Object.create(this.ctx);
 			self[symbols.filter] = (target) => filter(target, name);
 			this.ctx.events.emit(self, "internal/service", name, this._getImpl(name, false)?.value);
 		}
-		return fibers;
 	}
 	/**
 	* Define a computed context property backed by get/set hooks.
@@ -3172,6 +3229,7 @@ const KNOWN_SESSION_EVENT_TYPES = new Set([
 	"team/member",
 	"team/message/delivered",
 	"team/message/queued",
+	"team/mode",
 	"team/task",
 	"todo/write",
 	"tool-workflow/agent-end",
@@ -3338,12 +3396,12 @@ function assertSourceEventReferences(event, shadowedSeqs) {
 	if (missing.length > 0) throw new Error(`surface replace: sourceEventSeqs must include every shadowed surface node; missing ${missing.join(", ")}`);
 }
 /** Resolve tool additions against their immutable historical request header. */
-function assertDeveloperHeader(event, events, baseSeq) {
+function assertDeveloperHeader(event, read) {
 	if (event.type !== "developer/message") return;
 	validateSessionEventData(event, `developer/message at seq ${event.seq}`);
 	if (event.data.headerSeq === void 0) return;
 	const headerSeq = event.data.headerSeq;
-	const headerEvent = events[headerSeq - baseSeq];
+	const headerEvent = read(headerSeq);
 	if (headerSeq >= event.seq || headerEvent?.type !== "request/header") throw new Error("developer/message headerSeq must reference an earlier request/header");
 	for (const block of event.data.message.content) {
 		if (block.type !== "tool-addition") continue;
@@ -3398,11 +3456,11 @@ function isDeepEqualJson(a, b) {
 	return aKeys.every((key) => Object.hasOwn(b, key) && isDeepEqualJson(a[key], bRecord[key]));
 }
 /** Restrict a tool-result replacement to one current result's content. */
-function assertToolResultRewrite(event, shadowedSeqs, events, baseSeq) {
+function assertToolResultRewrite(event, shadowedSeqs, read) {
 	if (event.type !== "tool/result") return;
 	if (shadowedSeqs.length !== 1) throw new Error("tool/result surface replacement must rewrite exactly one current node");
 	for (const originalSeq of shadowedSeqs) {
-		const original = events[originalSeq - baseSeq];
+		const original = read(originalSeq);
 		if (original?.type !== "tool/result") throw new Error("tool/result surface replacement must target a current tool/result");
 		const originalRest = { ...original.data };
 		const replacementRest = { ...event.data };
@@ -3423,27 +3481,36 @@ function assertToolResultRewrite(event, shadowedSeqs, events, baseSeq) {
 * exactly that node; later system nodes carry no protection and a compaction
 * range may shadow them.
 */
-function assertSystemHeadRewrite(event, state, startIdx, shadowedSeqs, events, baseSeq) {
+function assertSystemHeadRewrite(event, state, startIdx, shadowedSeqs, read) {
 	if (startIdx !== 0) return;
-	if (events[state.nodes[0] - baseSeq]?.type !== "system/message") return;
+	if (read(state.nodes[0])?.type !== "system/message") return;
 	if (event.type !== "system/message" || shadowedSeqs.length !== 1) throw new Error("surface replace: node 0 holds the system prompt and may be rewritten only by a system/message over exactly that node");
 }
 /** Validate one event at its replay boundary and prepare its atomic fold transition. */
-function planSurfaceEvent(state, event, expectedSeq, events, baseSeq, projections) {
+function planSurfaceEvent(state, event, expectedSeq, events, baseSeq, projections, candidates) {
 	if (event.seq !== expectedSeq) throw new Error(`session event seq ${event.seq} is not contiguous; expected ${expectedSeq}`);
 	const surfaceOp = validateSurfaceMetadata(event);
-	assertDeveloperHeader(event, events, baseSeq);
-	const projection = projections.find((item) => item.type === event.type);
-	if (projection !== void 0) return {
-		kind: "project",
-		projection,
-		messages: projection.project(event, {
-			nodes: state.nodes,
-			events,
-			baseSeq,
-			messages: state.projectedMessages
-		})
+	const read = (seq) => {
+		const index = seq - baseSeq;
+		return index < events.length ? events[index] : candidates?.[index - events.length];
 	};
+	assertDeveloperHeader(event, read);
+	const projection = projections.find((item) => item.type === event.type);
+	if (projection !== void 0) {
+		let projectionEvents;
+		return {
+			kind: "project",
+			projection,
+			messages: projection.project(event, {
+				nodes: state.nodes,
+				get events() {
+					return candidates === void 0 ? events : projectionEvents ??= [...events, ...candidates];
+				},
+				baseSeq,
+				messages: state.projectedMessages
+			})
+		};
+	}
 	if (MESSAGE_PROJECTION_EVENT_TYPES.has(event.type)) throw new Error(`session event "${event.type}" requires a message projection; load its owning plugin or supply its projection definition`);
 	if (surfaceOp === void 0) return;
 	if (surfaceOp === "append") return {
@@ -3452,8 +3519,8 @@ function planSurfaceEvent(state, event, expectedSeq, events, baseSeq, projection
 	};
 	const range = replacementRange(state, surfaceOp);
 	assertSourceEventReferences(event, range.shadowedSeqs);
-	assertToolResultRewrite(event, range.shadowedSeqs, events, baseSeq);
-	assertSystemHeadRewrite(event, state, range.startIdx, range.shadowedSeqs, events, baseSeq);
+	assertToolResultRewrite(event, range.shadowedSeqs, read);
+	assertSystemHeadRewrite(event, state, range.startIdx, range.shadowedSeqs, read);
 	return {
 		kind: "replace",
 		seq: event.seq,
@@ -3520,6 +3587,40 @@ var SurfaceManager = class {
 			event,
 			expectedSeq,
 			plan: planSurfaceEvent(this._state, event, expectedSeq, this.log, this.baseSeq, this.projections)
+		};
+	}
+	/**
+	* Validate consecutive candidates against an isolated surface fold.
+	* @param events - candidates immediately following the committed log.
+	* @returns a callback adopting the validated fold after all candidates enter the log.
+	*/
+	prepareBatch(events) {
+		this._assertProjections();
+		if (this._lastProcessedSeq < this.baseSeq + this.log.length - 1) this._processDelta();
+		const lastProcessedSeq = SessionSeq(this.baseSeq + this.log.length + events.length - 1);
+		if (events.every((event) => (event.surfaceOp === void 0 || event.surfaceOp === "append") && !this.projections.some((projection) => projection.type === event.type))) {
+			const plans = events.map((event, index) => planSurfaceEvent(this._state, event, SessionSeq(this.baseSeq + this.log.length + index), this.log, this.baseSeq, this.projections, events));
+			return () => {
+				for (const plan of plans) applySurfacePlan(this._state, plan);
+				this._lastProcessedSeq = lastProcessedSeq;
+				this._pendingPlan = void 0;
+			};
+		}
+		const state = {
+			...this._state,
+			nodes: [...this._state.nodes],
+			projectedMessages: new Map(this._state.projectedMessages),
+			projections: new Set(this._state.projections)
+		};
+		const plans = events.map((event, index) => {
+			const plan = planSurfaceEvent(state, event, SessionSeq(this.baseSeq + this.log.length + index), this.log, this.baseSeq, this.projections, events);
+			applySurfacePlan(state, plan);
+			return plan;
+		});
+		return () => {
+			for (const plan of plans) applySurfacePlan(this._state, plan);
+			this._lastProcessedSeq = lastProcessedSeq;
+			this._pendingPlan = void 0;
 		};
 	}
 	/** Monotonic count of folded positional replacements. */
@@ -4442,11 +4543,11 @@ defineMethod("transform", [
 /** Largest delay Node schedules without clamping it to one millisecond. */
 const MAX_TIMER_DELAY_MS = 2147483647;
 //#endregion
-//#region ../../llm/llm/src/error.ts
+//#region ../../util/error/src/index.ts
 /**
 * Harness error base with a stable machine-routable code and chained cause.
 * Package errors extend it so tool results and replay can retain failure class.
-* @module @deepseek-ai/dsh-llm/error
+* @module @deepseek-ai/dsh-error
 */
 /**
 * Base class for all harness errors. Carries a `code` (stable, programmatic —
@@ -4463,6 +4564,75 @@ var HarnessError = class extends Error {
 		this.name = new.target.name;
 	}
 };
+//#endregion
+//#region ../../llm/llm/src/error.ts
+/**
+* LLM failure codes and helpers over the shared Harness error base. The base
+* class lives in `@deepseek-ai/dsh-error` and is re-exported here, so both
+* import paths name the same class.
+* @module @deepseek-ai/dsh-llm/error
+*/
+/**
+* Every failure code the built-in providers and the LLM runtime raise. An entry
+* marked `retryChoice` is offered as a choice for a provider retry policy's
+* `retryableCodes`; being a choice does not make a code retried by default.
+*/
+const LLM_FAILURE_CODES = {
+	ABORTED: {},
+	ACCOUNT_QUOTA: {},
+	ACCOUNT_SIGN_IN_REQUIRED: {},
+	ACCOUNT_TOKEN_INVALID: {},
+	AUTH: {},
+	CLIENT_UPGRADE_REQUIRED: {},
+	CONTEXT_WINDOW_EXCEEDED: {},
+	DISCOVERY_FAILED: {},
+	DISCOVERY_UNSUPPORTED: {},
+	DUPLICATE_ADAPTER: {},
+	DUPLICATE_DIRECTORY: {},
+	DUPLICATE_DISCOVERY: {},
+	EMPTY_RESPONSE: { retryChoice: true },
+	FILES_API: {},
+	IMAGE_OFFLOAD_REQUIRED: {},
+	INVALID_ADAPTER: {},
+	INVALID_CATALOG: {},
+	INVALID_CONFIG: {},
+	INVALID_CREDENTIAL: {},
+	INVALID_DIRECTORY: {},
+	INVALID_DISCOVERY: {},
+	INVALID_MODEL_CONTEXT: {},
+	INVALID_MODEL_INFO: {},
+	INVALID_MODEL_MAX_TOKENS: {},
+	INVALID_MODEL_REASONING: {},
+	INVALID_PREPARED_CALL: {},
+	INVALID_REPLAY_STATE: {},
+	INVALID_REQUEST: {},
+	INVALID_RESPONSE: {},
+	MALFORMED_RESPONSE: { retryChoice: true },
+	MISSING_CREDENTIAL: {},
+	MODEL_SWITCH_COMPACTION_FAILED: {},
+	MODEL_UNSUPPORTED: {},
+	NO_ADAPTER: {},
+	NO_CREDENTIAL_STORE: {},
+	NO_DISCOVERY: {},
+	PI_AI_ERROR: {},
+	QUOTA: { retryChoice: true },
+	RATE_LIMIT: { retryChoice: true },
+	REGISTRATION_DISPOSED: {},
+	REQUEST_EXTENSION: {},
+	REQUEST_HEADERS: {},
+	SERVER: { retryChoice: true },
+	STREAM_CLOSED: { retryChoice: true },
+	TIMEOUT: { retryChoice: true },
+	TRANSPORT: { retryChoice: true },
+	UNKNOWN: {},
+	UNKNOWN_MODEL: {},
+	UNSTORABLE_PROVIDER_ID: {},
+	UNSUPPORTED_CONTENT: {},
+	UNSUPPORTED_OPTION: {},
+	UNSUPPORTED_REASONING_EFFORT: {}
+};
+/** The {@link LLM_FAILURE_CODES} entries marked as retry-policy choices, in definition order. */
+const RETRY_CODE_CHOICES = Object.freeze(Object.keys(LLM_FAILURE_CODES).filter((code) => "retryChoice" in LLM_FAILURE_CODES[code]));
 /**
 * Canonical provider-neutral code for a response that completed normally but
 * carried no content blocks at all. Providers occasionally emit a degenerate
@@ -4498,14 +4668,14 @@ const DEFAULT_RETRYABLE_CODES = Object.freeze([
 	"TRANSPORT"
 ]);
 const backoffSchema = Schema.object({
-	initialDelayMs: Schema.number().max(MAX_TIMER_DELAY_MS).default(DEFAULT_INITIAL_DELAY_MS),
-	maxDelayMs: Schema.number().max(MAX_TIMER_DELAY_MS).default(DEFAULT_MAX_DELAY_MS),
+	initialDelayMs: Schema.number().min(Number.MIN_VALUE).max(MAX_TIMER_DELAY_MS).default(DEFAULT_INITIAL_DELAY_MS),
+	maxDelayMs: Schema.number().min(Number.MIN_VALUE).max(MAX_TIMER_DELAY_MS).default(DEFAULT_MAX_DELAY_MS),
 	jitterRatio: Schema.number().min(0).max(1).default(DEFAULT_JITTER_RATIO)
 });
 const normalPolicySchema = Schema.object({
 	mode: Schema.const("normal").required(),
 	maxRetries: Schema.number().step(1).min(0).max(Number.MAX_SAFE_INTEGER).default(DEFAULT_MAX_RETRIES),
-	retryableCodes: Schema.array(Schema.string()).default([...DEFAULT_RETRYABLE_CODES]),
+	retryableCodes: Schema.array(Schema.union([...RETRY_CODE_CHOICES.map((code) => Schema.const(code)), Schema.string().min(1)])).min(1).default([...DEFAULT_RETRYABLE_CODES]),
 	backoff: backoffSchema
 });
 const alwaysPolicySchema = Schema.object({
@@ -4789,27 +4959,47 @@ function withoutDeveloperMessages(messages) {
 	const retained = messages.filter((message) => message.role !== "developer");
 	return retained.length === messages.length ? messages : retained;
 }
-function toolDeclarations(tools, mode, history) {
+function toolDeclarations(history) {
 	const declarations = new Map(history.tools.map((tool) => [tool.name, tool]));
 	for (const update of history.updates) for (const tool of update.additions) if (!declarations.has(tool.name)) declarations.set(tool.name, {
 		...tool,
 		deferLoading: true
 	});
-	switch (mode) {
-		case "in-history": return declarations;
-		case "addition-only": {
-			const activeNames = new Set(tools?.map((tool) => tool.name));
-			for (const name of declarations.keys()) if (!activeNames.has(name)) declarations.delete(name);
-			return declarations;
+	return declarations;
+}
+/** Rebuild declarations on removals or additions to an empty set, where the request prefix changes. */
+function rebaseAdditionOnlyHistory(history, messages) {
+	const available = new Map(history.tools.map((tool) => [tool.name, tool]));
+	let baseline = history.tools;
+	let retainedFrom = 0;
+	for (const [index, update] of history.updates.entries()) {
+		const additions = new Map(update.additions.map((tool) => [tool.name, tool]));
+		let reset = available.size === 0 && additions.size > 0;
+		for (const block of messages.get(update.messageId)) if (block.type === "tool-addition") {
+			const { deferLoading: _loading, ...tool } = additions.get(block.toolName);
+			available.set(tool.name, tool);
+		} else if (block.type === "tool-removal") {
+			reset = true;
+			available.delete(block.toolName);
 		}
-		/* v8 ignore next 2 -- closed-union exhaustiveness guard */
-		default: return assertNever(mode);
+		if (reset) {
+			baseline = [...available.values()];
+			retainedFrom = index + 1;
+		}
 	}
+	return retainedFrom === 0 ? history : {
+		tools: baseline,
+		updates: history.updates.slice(retainedFrom)
+	};
 }
 /**
 * Construct provider declarations from session-folded history without changing logged active tools.
 * Unsupported routes and incomplete history use current declarations without developer updates.
-* Explicitly deferred baseline tools become available only after their first retained addition.
+* Explicitly deferred declarations require an addition to activate them.
+* A rebuild makes previously activated declarations immediate; unactivated declarations stay deferred.
+* Addition-only routes rebuild when a tool is removed or tools are added to an empty set;
+* deferred declarations count as existing tools.
+* Later additions remain deferred and superseded tool blocks are omitted without dropping other content.
 * @param messages - complete request inputs, or the prefix selected for an auxiliary call.
 * @param tools - currently active tool schemas.
 * @param toolUpdate - the resolved route's update mode.
@@ -4829,14 +5019,16 @@ function projectToolUpdates(messages, tools, toolUpdate, history) {
 		messages: withoutDeveloperMessages(messages),
 		tools
 	};
-	const messageIds = new Set(messages.flatMap((message) => message.role === "developer" ? [message.id] : []));
-	if (history.updates.some((update) => !messageIds.has(update.messageId))) return {
+	const updates = new Map(messages.flatMap((message) => message.role === "developer" ? [[message.id, message.content]] : []));
+	if (history.updates.some((update) => !updates.has(update.messageId))) return {
 		messages: withoutDeveloperMessages(messages),
 		tools
 	};
-	const declarations = toolDeclarations(tools, toolUpdate, history);
+	const projectedHistory = toolUpdate === "addition-only" ? rebaseAdditionOnlyHistory(history, updates) : history;
+	const declarations = toolDeclarations(projectedHistory);
 	const updateIds = new Set(history.updates.map((update) => update.messageId));
-	const offered = new Set(history.tools.filter((tool) => !tool.deferLoading).map((tool) => tool.name));
+	const retainedUpdateIds = new Set(projectedHistory.updates.map((update) => update.messageId));
+	const offered = new Set(projectedHistory.tools.filter((tool) => !tool.deferLoading).map((tool) => tool.name));
 	const projectedMessages = [];
 	for (const message of messages) {
 		if (message.role !== "developer") {
@@ -4847,6 +5039,7 @@ function projectToolUpdates(messages, tools, toolUpdate, history) {
 		const content = message.content.filter((block) => {
 			switch (block.type) {
 				case "tool-addition":
+					if (!retainedUpdateIds.has(message.id)) return false;
 					if (!declarations.has(block.toolName) || offered.has(block.toolName)) return false;
 					offered.add(block.toolName);
 					return true;
@@ -5377,13 +5570,16 @@ var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializ
 /**
 * Typed error for LLM-related failures. Extends {@link HarnessError}, so the
 * `code` string (e.g. `AUTH`, `RATE_LIMIT`, `NO_ADAPTER`) is shared taxonomy.
+* The constructor takes only a {@link BuiltinLlmFailureCode}; a failure from
+* another provider, whose code may be any string, is re-raised through
+* {@link LlmError.fromFailure}.
 */
-var LlmError = class extends HarnessError {
+var LlmError = class LlmError extends HarnessError {
 	/** Serializable facts retained beside this live Error. */
 	failure;
 	/**
 	* @param message - non-empty human-readable failure summary.
-	* @param code - non-empty stable provider-neutral machine code.
+	* @param code - built-in stable provider-neutral machine code.
 	* @param options - optional cause and validated serializable provider facts.
 	*/
 	constructor(message, code, options) {
@@ -5401,6 +5597,18 @@ var LlmError = class extends HarnessError {
 			...options?.providerRetryAfterMs === void 0 ? {} : { providerRetryAfterMs: options.providerRetryAfterMs },
 			...options?.requestId === void 0 ? {} : { requestId: options.requestId },
 			...options?.offloadImages === void 0 ? {} : { offloadImages: options.offloadImages }
+		});
+	}
+	/**
+	* Raise an observed failure again with its own code, which any provider may have chosen.
+	* @param failure - the serializable failure, typically from a stream's terminal chunk.
+	* @param options - optional cause.
+	* @returns an error carrying the failure's message, code, and provider facts.
+	*/
+	static fromFailure(failure, options) {
+		return new LlmError(failure.message, failure.code, {
+			...failure,
+			...options
 		});
 	}
 };
@@ -5737,12 +5945,17 @@ var LlmError = class extends HarnessError {
 				if (typeof model.provider !== "string" || model.provider !== provider || typeof model.id !== "string" || model.id.length === 0 || typeof model.name !== "string" || model.name.length === 0 || model.description !== void 0 && typeof model.description !== "string" || seen.has(model.id)) throw new LlmError(`adapter returned invalid or duplicate model metadata for provider "${provider}"`, "INVALID_CATALOG");
 				seen.add(model.id);
 				const inputModalities = this.detachedModalities(model.inputModalities);
+				const badge = model.badge;
 				return {
 					provider: model.provider,
 					id: model.id,
 					name: model.name,
 					...model.description === void 0 ? {} : { description: model.description },
-					...inputModalities === void 0 ? {} : { inputModalities }
+					...inputModalities === void 0 ? {} : { inputModalities },
+					...badge === void 0 ? {} : { badge: {
+						text: typeof badge.text === "string" ? badge.text : { ...badge.text },
+						tone: badge.tone
+					} }
 				};
 			});
 		}
@@ -6373,7 +6586,7 @@ function invokeContainedSessionObservers(ctx, name, id, args, callbacks) {
 		ctx.logger.warn(`session "${id}": ${name} listener threw: ${String(error)}`);
 	}
 }
-/** Store attachment for the append path; module-private to keep Session store-agnostic publicly. */
+/** Store-owned Sessions retain a null entry while unentered; absent keys are independent. */
 const attachments = /* @__PURE__ */ new WeakMap();
 /**
 * Grammar of a {@link PluginRecordType}: `plugin:` followed by
@@ -6401,6 +6614,36 @@ function assertPluginRecordEvent(value) {
 	const { type } = value;
 	if (!isPluginRecordType(type)) throw new Error(`plugin record type "${type}" must be "plugin:" followed by lowercase slash-separated segments`);
 }
+/** Copy live append inputs before sequence assignment. */
+function snapshotAppend(type, data, opts, subject) {
+	const surfaceOp = opts?.surfaceOp;
+	const sourceEventSeqs = opts?.sourceEventSeqs;
+	const dataSnapshot = snapshotJsonValue(data);
+	if (dataSnapshot === void 0) throw new Error(`${subject} carries non-JSON-serializable data`);
+	const surface = snapshotJsonValue({
+		...sourceEventSeqs === void 0 ? {} : { sourceEventSeqs },
+		...surfaceOp === void 0 ? {} : { surfaceOp }
+	});
+	if (surface === void 0) throw new Error(`${subject} carries non-JSON-serializable surface metadata`);
+	return {
+		type,
+		data: dataSnapshot,
+		surface
+	};
+}
+/** Construct and validate one live event from detached inputs. */
+function createAppendEvent(snapshot, seq) {
+	const { type, data, surface } = snapshot;
+	const event = deepFreeze({
+		type,
+		seq,
+		time: Date.now(),
+		data,
+		...surface
+	});
+	validateSessionEventData(event, `session event "${type}" at seq ${seq}`);
+	return event;
+}
 /**
 * An event-sourced session: an append-only log of {@link SessionEvent}s.
 *
@@ -6411,6 +6654,7 @@ function assertPluginRecordEvent(value) {
 */
 var Session = class Session {
 	log = [];
+	batchPublication;
 	/** Single incremental owner of surface acceptance and projection state. */
 	surfaceManager;
 	/** The ordered surface over this session's event log. */
@@ -6565,64 +6809,67 @@ var Session = class Session {
 	get seq() {
 		return SessionLogOffset(this.log.length);
 	}
-	/**
-	* Append one typed event to the log and synchronously notify observers via
-	* the store-owned, module-private publication hooks. The hot path never blocks
-	* on I/O — persistence plugins buffer asynchronously. Once the event enters
-	* the log, the append is committed: observer failures are logged and
-	* contained per listener, so they do not change the return value or prevent
-	* later listeners from observing the same accepted event.
-	*
-	* @param type - The event type (key of {@link SessionEventMap}).
-	* @param data - The event payload; must be JSON-serializable.
-	* @param opts - Surface metadata: `surfaceOp` controls how the event enters
-	*   the ordered surface; `sourceEventSeqs` lists the seq numbers of earlier
-	*   events this one derives from. REQUIRED for
-	*   {@link SurfaceEventType} events (every message-producing event must
-	*   declare how it joins the surface, the sole source of derived model
-	*   history) and
-	*   rejected by the compiler for non-surface types like `turn/start` or
-	*   `assistant/attempt`. Assistant messages embed their exact provider
-	*   stream and cannot cite top-level source events.
-	* @returns the logged event — its assigned `seq`/`time` plus the SNAPSHOT of
-	*   `data` that entered the log, so reading `event.data` back sees the logged
-	*   value, never the caller's still-mutable input.
-	* @throws if `data` or surface metadata is not losslessly JSON-serializable
-	*   (BigInt, function, symbol, undefined, negative zero, non-finite number,
-	*   circular reference, sparse array, or an exotic object such as
-	*   Map/Set/Date/class instance), or when the candidate violates the
-	*   request-header empty-field or tool-error consistency rules, or the
-	*   canonical surface contract (marker shape and eligibility, unique
-	*   earlier source-event references, positional replacement validity, and complete
-	*   shadowed-node coverage). One iterative pass reads, validates, and
-	*   copies each nested value once, so a stateful getter cannot supply one value
-	*   to validation and another to storage. The event log is the durable source
-	*   of truth, so a bad event fails at the append site rather than later during
-	*   a backend flush. A synchronous internal dispatch validation failure or an
-	*   append reentered while this acceptance/publication boundary is open also
-	*   rejects before the log changes.
-	*/
+	/** Current event while synchronously notifying a batch's observers. */
+	get currentBatchPublication() {
+		return this.batchPublication;
+	}
 	append(type, data, ...opts) {
-		const surfaceOpts = opts[0];
-		const surfaceMetadata = {
-			...surfaceOpts?.sourceEventSeqs === void 0 ? {} : { sourceEventSeqs: surfaceOpts.sourceEventSeqs },
-			...surfaceOpts?.surfaceOp === void 0 ? {} : { surfaceOp: surfaceOpts.surfaceOp }
-		};
-		const dataSnapshot = snapshotJsonValue(data);
-		if (dataSnapshot === void 0) throw new Error(`session event "${type}" carries non-JSON-serializable data`);
-		const surfaceMetadataSnapshot = snapshotJsonValue(surfaceMetadata);
-		if (surfaceMetadataSnapshot === void 0) throw new Error(`session event "${type}" carries non-JSON-serializable surface metadata`);
+		if (typeof type !== "string") return this.#appendEvents(type);
+		this.publicationEntry();
+		const snapshot = snapshotAppend(type, data, opts[0], `session event "${type}"`);
 		const entry = this.publicationEntry();
-		const event = deepFreeze({
-			type,
-			seq: SessionSeq(this.log.length),
-			time: Date.now(),
-			data: dataSnapshot,
-			...surfaceMetadataSnapshot
-		});
-		validateSessionEventData(event, `session event "${type}" at seq ${event.seq}`);
+		const event = createAppendEvent(snapshot, SessionSeq(this.log.length));
 		this.commit(event, entry);
 		return event;
+	}
+	/**
+	* Validate and publish consecutive events together. Observers see the complete log.
+	* @param inputs - event payloads and surface intents in commit order.
+	* @returns immutable committed events in the same order.
+	* @throws before changing the log if any candidate or synchronous dispatch validation fails.
+	*/
+	#appendEvents(inputs) {
+		this.publicationEntry();
+		if (inputs.length === 0) return [];
+		const snapshots = Array.from({ length: inputs.length }, (_, index) => {
+			const input = inputs.at(index);
+			if (input === void 0) throw new Error(`session batch has an empty member at index ${index}`);
+			const [type, data, surfaceOpts] = input;
+			return snapshotAppend(type, data, surfaceOpts, `session batch member ${index} ("${type}")`);
+		});
+		const entry = this.publicationEntry();
+		const startSeq = this.log.length;
+		const events = snapshots.map((snapshot, index) => createAppendEvent(snapshot, SessionSeq(startSeq + index)));
+		const acceptSurface = this.surfaceManager.prepareBatch(events);
+		if (entry !== void 0) entry.appending = true;
+		try {
+			const publications = entry === void 0 ? [] : events.map((event) => {
+				const args = [this, event];
+				return {
+					event,
+					args,
+					callbacks: collectSessionCallbacks(entry.emitCtx, [
+						entry.carrier,
+						"session/event",
+						...args
+					])
+				};
+			});
+			for (const event of events) this.log.push(event);
+			this.eventsSnapshot = void 0;
+			acceptSurface();
+			if (entry !== void 0) for (const { event, args, callbacks } of publications) {
+				this.batchPublication = event;
+				invokeContainedSessionObservers(entry.emitCtx, "session/event", entry.id, args, callbacks);
+			}
+		} finally {
+			this.batchPublication = void 0;
+			if (entry !== void 0) {
+				entry.appending = false;
+				if (entry.detachRequested) entry.detach();
+			}
+		}
+		return events;
 	}
 	static {}
 	/**
@@ -6632,6 +6879,7 @@ var Session = class Session {
 	* @returns the record's sequence number.
 	*/
 	#appendRecord(type, data) {
+		this.publicationEntry();
 		const dataSnapshot = snapshotJsonValue(data);
 		if (dataSnapshot === void 0) throw new Error(`plugin record "${type}" carries non-JSON-serializable data`);
 		const entry = this.publicationEntry();
@@ -6647,12 +6895,13 @@ var Session = class Session {
 		return record.seq;
 	}
 	/**
-	* Read the store attachment for one append, refusing an append that
-	* reenters while another append is being published.
-	* @returns the attachment, or undefined for a detached Session.
+	* Require announced membership for store-owned Sessions and refuse reentrant publication.
+	* @returns the current store attachment, or undefined for an independent Session.
 	*/
 	publicationEntry() {
 		const entry = attachments.get(this);
+		if (entry === null) throw new Error(`session "${this.id}" cannot append outside a SessionStore`);
+		if (entry !== void 0 && entry.announcement !== "complete") throw new Error(`session "${this.id}" cannot append before session/created completes`);
 		if (entry?.appending) throw new Error("session append cannot reenter while another append is being published");
 		return entry;
 	}
@@ -6666,20 +6915,19 @@ var Session = class Session {
 		this.surfaceManager.validateNext(event);
 		if (entry !== void 0) entry.appending = true;
 		try {
-			let callbacks;
 			const callbackArgs = [this, event];
-			if (entry !== void 0) callbacks = collectSessionCallbacks(entry.emitCtx, [
+			const callbacks = entry === void 0 ? void 0 : collectSessionCallbacks(entry.emitCtx, [
 				entry.carrier,
 				"session/event",
 				...callbackArgs
 			]);
 			this.log.push(event);
 			this.eventsSnapshot = void 0;
-			if (callbacks !== void 0 && entry !== void 0) invokeContainedSessionObservers(entry.emitCtx, "session/event", entry.id, callbackArgs, callbacks);
+			if (entry !== void 0 && callbacks !== void 0) invokeContainedSessionObservers(entry.emitCtx, "session/event", entry.id, callbackArgs, callbacks);
 		} finally {
 			if (entry !== void 0) {
 				entry.appending = false;
-				if (entry.detachRequested && !entry.announcing) entry.detach();
+				if (entry.detachRequested && entry.announcement !== "dispatching") entry.detach();
 			}
 		}
 	}
@@ -7514,11 +7762,8 @@ const RELEASED_V0_EVENT_DISPOSITIONS = Object.freeze({
 	]),
 	"step/end": disposition(["turn", "step"]),
 	"step/start": disposition(["turn", "step"]),
-	"subagent/descriptor": disposition([
+	"subagent/descriptor": disposition(["version", "provider"], [
 		"mode",
-		"version",
-		"provider"
-	], [
 		"label",
 		"agentProvider",
 		"agentModel",
@@ -7605,6 +7850,43 @@ const RELEASED_V0_EVENT_DISPOSITIONS = Object.freeze({
 	])
 });
 Object.freeze(Object.keys(RELEASED_V0_EVENT_DISPOSITIONS).sort((left, right) => left.localeCompare(right, "en")));
+//#endregion
+//#region ../../util/time/src/instant.ts
+/** Inclusive lower epoch-millisecond bound of a four-digit-year RFC 3339 UTC instant. */
+const MIN_FOUR_DIGIT_YEAR_MS = Date.parse("0001-01-01T00:00:00.000Z");
+/** Inclusive upper epoch-millisecond bound of a four-digit-year RFC 3339 UTC instant. */
+const MAX_FOUR_DIGIT_YEAR_MS = Date.parse("9999-12-31T23:59:59.999Z");
+/** Canonical four-digit-year RFC 3339 UTC instant with mandatory milliseconds. */
+const UTC_INSTANT = /^(?!0000)\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d\.\d{3}Z$/;
+new RegExp(String.raw`^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})` + String.raw`T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2})` + String.raw`(?:\.(?<fraction>\d{1,3}))?(?<zone>Z|(?<sign>[+-])` + String.raw`(?<offsetHour>\d{2}):(?<offsetMinute>\d{2}))$`);
+/** Reject with one stable reason. */
+function rejected(reason) {
+	return Object.freeze({
+		kind: "rejected",
+		reason
+	});
+}
+/** Whether an integral epoch is inside the four-digit-year range. */
+function inFourDigitYearRange(epoch) {
+	return Number.isSafeInteger(epoch) && epoch >= MIN_FOUR_DIGIT_YEAR_MS && epoch <= MAX_FOUR_DIGIT_YEAR_MS;
+}
+/**
+* Validate one canonical four-digit-year RFC 3339 UTC instant.
+*
+* The accepted profile carries exactly three fractional digits and a `Z`, and
+* every year from 0001 through 9999 whose calendar date exists is representable.
+* @param value - Untrusted candidate instant.
+* @returns The epoch milliseconds, or the reason the text is not the canonical profile.
+*/
+function fourDigitYearEpoch(value) {
+	if (!UTC_INSTANT.test(value)) return rejected("not_rfc3339");
+	const epoch = Date.parse(value);
+	if (!Number.isFinite(epoch) || !inFourDigitYearRange(epoch) || new Date(epoch).toISOString() !== value) return rejected("not_a_calendar_date");
+	return Object.freeze({
+		kind: "accepted",
+		epoch
+	});
+}
 //#endregion
 //#region ../session-format-v0-to-v1/src/validation-helpers.ts
 /**
@@ -8638,7 +8920,7 @@ function scheduleIdValue(value, label) {
 	if (value.trim() !== value) throw new SessionFormatError(`${label} must not have surrounding whitespace`);
 }
 function instantValue(value, label) {
-	if (typeof value !== "string" || !/^(?!0000)\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d\.\d{3}Z$/u.test(value) || !Number.isFinite(Date.parse(value)) || new Date(Date.parse(value)).toISOString() !== value) throw new SessionFormatError(`${label} must be a canonical UTC instant`);
+	if (typeof value !== "string" || fourDigitYearEpoch(value).kind !== "accepted") throw new SessionFormatError(`${label} must be a canonical UTC instant`);
 }
 function titleSourceValue(value, label) {
 	const source = releasedV0Record(value, label);
@@ -8656,10 +8938,27 @@ function modelRouteValue(value, label) {
 	nonEmptyString(route["provider"], `${label} provider`);
 	nonEmptyString(route["model"], `${label} model`);
 }
+/** `subagent/descriptor` versions that format v0 logs contain. */
+const SUBAGENT_DESCRIPTOR_VERSIONS = [
+	1,
+	2,
+	3
+];
 function subagentDescriptorValue(data, label) {
-	literalValue(data["version"], [3], `${label} version`);
+	literalValue(data["version"], SUBAGENT_DESCRIPTOR_VERSIONS, `${label} version`);
 	nonEmptyString(data["provider"], `${label} provider`);
-	if (data["mode"] === "one-shot") {
+	const composition = [
+		"agentProvider",
+		"agentModel",
+		"persona",
+		"toolFilter"
+	];
+	if (data["version"] === 1) assertReleasedV0Keys(data, [
+		"version",
+		"provider",
+		"label"
+	], composition, `${label} data`);
+	else if (data["mode"] === "one-shot") {
 		assertReleasedV0Keys(data, [
 			"mode",
 			"version",
@@ -8667,21 +8966,30 @@ function subagentDescriptorValue(data, label) {
 		], ["label"], `${label} data`);
 		if (data["label"] !== void 0) stringValue(data["label"], `${label} label`);
 		return;
+	} else {
+		literalValue(data["mode"], ["continuable"], `${label} mode`);
+		assertReleasedV0Keys(data, [
+			"mode",
+			"version",
+			"provider",
+			"label"
+		], data["version"] === 3 ? [...composition, "agentReasoningEffort"] : composition, `${label} data`);
 	}
-	literalValue(data["mode"], ["continuable"], `${label} mode`);
-	nonEmptyString(data["label"], `${label} label`);
+	const strict = data["version"] === 3;
+	const stringField = strict ? nonEmptyString : stringValue;
+	stringField(data["label"], `${label} label`);
 	for (const key of [
 		"agentProvider",
 		"agentModel",
 		"agentReasoningEffort",
 		"persona"
-	]) if (data[key] !== void 0) nonEmptyString(data[key], `${label} ${key}`);
-	if (data["agentProvider"] === void 0 !== (data["agentModel"] === void 0)) throw new SessionFormatError(`${label} agentProvider and agentModel must be paired`);
+	]) if (data[key] !== void 0) stringField(data[key], `${label} ${key}`);
+	if (strict && data["agentProvider"] === void 0 !== (data["agentModel"] === void 0)) throw new SessionFormatError(`${label} agentProvider and agentModel must be paired`);
 	if (data["toolFilter"] !== void 0) {
 		const filter = exactRecord(data["toolFilter"], `${label} toolFilter`, [], ["allow", "deny"]);
 		if (filter["allow"] === void 0 && filter["deny"] === void 0) throw new SessionFormatError(`${label} toolFilter requires allow or deny`);
-		if (filter["allow"] !== void 0) arrayValue(filter["allow"], `${label} allow`, nonEmptyString);
-		if (filter["deny"] !== void 0) arrayValue(filter["deny"], `${label} deny`, nonEmptyString);
+		if (filter["allow"] !== void 0) arrayValue(filter["allow"], `${label} allow`, stringField);
+		if (filter["deny"] !== void 0) arrayValue(filter["deny"], `${label} deny`, stringField);
 	}
 }
 function allowedModelsValue(value, label) {
@@ -8881,7 +9189,7 @@ function assertReleasedEventPayload(event, version) {
 	/* v8 ignore next -- artifact coordinate validation admits only the frozen inventory before payload validation. */
 	if (disposition === void 0) throw new SessionFormatUnsupportedMigrationError(`format v0 contains unknown historical event type ${JSON.stringify(event.type)} at seq ${event.seq}; migration refuses unknown historical events even when ignorable`);
 	const data = releasedV0Record(event.data, `${event.type} ${event.seq} data`);
-	if (event.type === "subagent/descriptor" && data["version"] !== 3) {
+	if (event.type === "subagent/descriptor" && !SUBAGENT_DESCRIPTOR_VERSIONS.some((known) => known === data["version"])) {
 		const descriptorVersion = sessionFormatCount(data["version"], `${event.type} ${event.seq} version`);
 		if (version === 0) throw new SessionFormatUnsupportedMigrationError(`${event.type} ${event.seq} uses unsupported descriptor version ${descriptorVersion}`);
 		return;
@@ -12416,19 +12724,37 @@ function validateDeliveryAccepted(event, currentVersion) {
 */
 function assertReleasedV4Relationships(artifact, knownEventTypes) {
 	const ids = /* @__PURE__ */ new Set();
+	const names = /* @__PURE__ */ new Set();
 	for (const event of artifact.events) {
 		if (!knownEventTypes.has(event.type)) continue;
 		assertV4DeveloperData(event);
 		assertV4MessageSources(event);
 		const deliveryId = validateDeliveryAccepted(event, 4);
-		if (deliveryId !== void 0 && !(artifact.header.parentSession !== void 0 && event.seq < artifact.inheritedEventCount) && deliveryId !== artifact.header.id) throw new SessionFormatError("current-generation delivery marker names the wrong Session");
+		if (deliveryId !== void 0 && event.seq >= artifact.inheritedEventCount && deliveryId !== artifact.header.id) throw new SessionFormatError("current-generation delivery marker names the wrong Session");
 		if (event.type === "subagent/catalog" && event.seq >= artifact.inheritedEventCount) {
-			const id = catalogFact(event.data)["childId"];
+			const fact = nativeCatalogFact(event.data);
+			const id = fact["childId"];
 			if (ids.has(id)) throw new SessionFormatError(`duplicate catalog child ${id}`);
 			ids.add(id);
+			if (fact["name"] === void 0) continue;
+			const name = fact["name"];
+			if (names.has(name)) throw new SessionFormatError(`duplicate catalog child name ${name}`);
+			names.add(name);
 		}
 	}
 	assertV4LifecycleRelationships(artifact, knownEventTypes);
+}
+/**
+* Validate an own native V4 catalog payload: a historical version or version 3,
+* which adds the child's name and is written only by native V4 creation.
+* @param value - native `subagent/catalog` payload.
+* @returns validated catalog payload.
+*/
+function nativeCatalogFact(value) {
+	if (!isSessionFormatJsonObject(value) || value["version"] !== 3) return catalogFact(value);
+	if (typeof value["childId"] !== "string" || value["mode"] !== "continuable" && value["mode"] !== "external" || typeof value["name"] !== "string" || !/^[a-z][a-z0-9-]{0,31}$/u.test(value["name"]) || value["name"] === "lead" || value["mode"] === "continuable" && typeof value["label"] !== "string" || value["label"] !== void 0 && typeof value["label"] !== "string") throw new SessionFormatError("subagent/catalog requires a supported versioned catalog fact");
+	sessionFormatCount(value["childCreatedAt"], "catalog child creation time");
+	return value;
 }
 //#endregion
 //#region ../session-format-v3-to-v4/src/codec.ts
@@ -12982,7 +13308,7 @@ function privateZstdStream(stream) {
 	const candidate = stream;
 	const handle = candidate._handle;
 	const errorKey = Reflect.ownKeys(stream).find((key) => typeof key === "symbol" && key.description === "kError");
-	/* v8 ignore next -- one test runtime exposes one Node-private shape; the Node 22/24/26 matrix checks compatibility. */
+	/* v8 ignore next -- one test runtime exposes one Node-private shape; the Node 24/26 matrix checks compatibility. */
 	if (typeof handle !== "object" || handle === null || typeof handle.writeSync !== "function" || !(candidate._writeState instanceof Uint32Array) || candidate._writeState.length < 2 || typeof candidate._defaultFlushFlag !== "number" || errorKey === void 0 || candidate[errorKey] !== null) return void 0;
 	return {
 		stream,
@@ -13211,7 +13537,7 @@ async function compressZstdFrame(input) {
 	return zstdCompressAsync(input, CHECKSUM_OPTIONS);
 }
 /**
-* Select the shared private decoder when the running Node 22/24/26 shape is
+* Select the shared private decoder when the running Node 24/26 shape is
 * compatible, otherwise preserve correctness with the public one-shot API.
 * @returns a synchronous decoder with an implementation-independent lifecycle.
 */

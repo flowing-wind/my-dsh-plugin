@@ -24,17 +24,17 @@ function BrandName() { return <BrandWordmark includeMark={false} /> }
 /** Required official UI services. */
 export const inject = ['slots', 'configForms']
 
-/** Share the root's registered store through the slot renderer.
+/** Share the root's layout store and provide a fallback sidebar wordmark.
  * @param ctx - Client plugin lifecycle.
  */
 export function apply(ctx: Context): void {
   ctx.slots.inject('shell.overlay', () => {
-    // shortcut: 0.2.1-rc.5 shares this root store; use a public width service when one is released.
+    // shortcut: 0.2.2-rc.3 shares this root store; use a public width service when one is released.
     // oxlint-disable-next-line typescript/no-non-null-assertion -- The registered root declares shell.overlay.
     const store = ctx.slots.entriesOfSlot('root')[0]!.store as LayoutStore
     return ctx.slots.register({ name: 'shell.overlay', id: 'compact-layout', store,
       inject: () => ({ form: ctx.configForms.get<WidthSettings>('compact-layout') }),
     }, WidthPreference)
   })
-  ctx.slots.inject('sidebar.brand.name', () => ctx.slots.register({ name: 'sidebar.brand.name' }, BrandName))
+  ctx.slots.inject('sidebar.brand.name', () => ctx.slots.register({ name: 'sidebar.brand.name', priority: 1 }, BrandName))
 }

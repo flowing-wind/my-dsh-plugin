@@ -1,12 +1,39 @@
 // @vitest-environment jsdom
+import { Context } from '@deepseek-ai/cordis'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
 import { createElement, type ComponentType } from 'react'
 import { render, act, cleanup } from '@testing-library/react'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, expect, it, onTestFinished } from 'vitest'
 import { stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
 import { createLayoutStore } from '../../../client/ui-layout/src/client/stores.ts'
-import { apply } from '../src/client/index.ts'
+import { apply, inject } from '../src/client/index.ts'
 
 afterEach(cleanup)
+
+it('uses the compact wordmark when the shipped brand slot is vacant', async () => {
+  const ctx = new Context()
+  const registry = ctx.plugin(SlotRegistry)
+  await registry.await()
+  onTestFinished(() => registry.dispose())
+  ctx.provide('configForms', { get: () => stubConfigForm().scope } as never)
+  ctx.slots.register({
+    name: 'root',
+    children: {
+      'sidebar.brand.name': { kind: 'single', scope: 'root' },
+      'shell.overlay': { kind: 'list', scope: 'root' },
+    },
+    store: createLayoutStore(),
+  } as never, () => null)
+  const ShippedBrand = () => null
+  const removeShippedBrand = ctx.slots.register({ name: 'sidebar.brand.name' }, ShippedBrand)
+  const compact = ctx.plugin({ inject, apply })
+  await compact.await()
+  expect(ctx.slots.entriesOfSlot('sidebar.brand.name')[0]?.component).toBe(ShippedBrand)
+  removeShippedBrand()
+  expect(ctx.slots.entriesOfSlot('sidebar.brand.name')).toHaveLength(1)
+  await compact.dispose()
+  expect(ctx.slots.entriesOfSlot('sidebar.brand.name')).toHaveLength(0)
+})
 
 it('shares the root store, applies Host width, and preserves native dragging on reopen', () => {
   const handle = createLayoutStore()

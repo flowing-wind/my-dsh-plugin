@@ -1,6 +1,6 @@
 {
   "name": "@flowing-wind/dsh-workspace-download",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "工作区文件下载：文件树与预览标签下载",
   "type": "module",
   "license": "MIT",
@@ -26,15 +26,15 @@
     "cordis.patch.yml"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "4.0.5",
-    "@deepseek-ai/dsh-api-workspace-files": "0.2.1-rc.5",
-    "@deepseek-ai/dsh-session-persistence": "0.2.1-rc.5",
-    "@deepseek-ai/dsh-client-connection": "0.2.1-rc.5",
-    "@deepseek-ai/dsh-session": "0.2.1-rc.5"
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-api-workspace-files": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-session-persistence": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-client-connection": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-session": "0.2.2-rc.3"
   },
   "dependencies": {
     "fflate": "^0.8.2",
-    "@deepseek-ai/schemastery": "3.18.5"
+    "@deepseek-ai/schemastery": "3.19.0"
   },
   "dsh": {
     "client": {
@@ -49,7 +49,7 @@
     }
   },
   "engines": {
-    "dsh": "0.2.1-rc.5"
+    "dsh": "0.2.2-rc.3"
   },
   "repository": {
     "type": "git",
